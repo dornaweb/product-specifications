@@ -2,6 +2,7 @@
 
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
+Plugin is available at [Wordpress Repository](https://wordpress.org/plugins/product-specifications/)
 
 Available languages :
 English
@@ -31,13 +32,15 @@ You can use `[specs-table]` shortcode to display specs table.
 = How to fully customize the HTML markup of the table =
 Copy the file `/inc/views/shortcode-table-view.php` file somewhere in your theme and add the below code to your functions.php file
 
-`add_filter('dw_specs_table_shortcode_output', 'my_custom_spec_table_markup', 10, 2 );
+```
+add_filter('dw_specs_table_shortcode_output', 'my_custom_spec_table_markup', 10, 2 );
 function my_custom_spec_table_markup( $output, $args ){
 	ob_start();
 	extract( $args );
 	include( 'PATH_TO_COPIED_FILE');
 	return ob_get_clean();
-}`
+}
+```
 
 == Changelog ==
 
