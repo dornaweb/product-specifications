@@ -25,6 +25,7 @@ $groups = get_post_meta( $table_id, '_groups', true ); ?>
 
 <div class="tab-contents">
 	<?php
+	$already_has_table = dw_product_has_specs_table( $post->ID );
 	for( $a = 0; $a < sizeof( $groups ); $a++ ) :
 		$group = get_term_by( 'id', $groups[$a], 'spec-group' );
 		$attributes = get_term_meta( $group->term_id, 'attributes', true );
@@ -35,10 +36,12 @@ $groups = get_post_meta( $table_id, '_groups', true ); ?>
 					$attributes = array_values( $attributes );
 					for( $b = 0; $b < sizeof( $attributes ); $b++ ) :
 						$att_id = $attributes[$b];
-						$attribute = get_term_by('id', $att_id, 'spec-attr');
-						$type 	   = get_term_meta( $att_id, 'attr_type', true );
-						$default   = get_term_meta( $att_id, 'attr_default', true ) ?: '';
-						$fill      = dw_attr_value_by( $post->ID, 'id', $att_id );
+						$attribute   = get_term_by('id', $att_id, 'spec-attr');
+						$type 	     = get_term_meta( $att_id, 'attr_type', true );
+						$default     = get_term_meta( $att_id, 'attr_default', true ) ?: '';
+						$fill        = dw_attr_value_by( $post->ID, 'id', $att_id );
+
+						$field_removed	 = ! $fill && $already_has_table;
 
 						if( $fill ){
 							$default = $fill['value'];
@@ -77,6 +80,11 @@ $groups = get_post_meta( $table_id, '_groups', true ); ?>
 								case "true_false" : ?>
 									<input class="screen-reader-text" type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="no" checked>
 									<input type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="yes" <?php echo checked( 'yes', $default ); ?>>
+
+									<label class="remove-checkbox-attr">
+										<?php _e('Remove this field', 'dwspecs'); ?>
+										<input type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="dwspecs_chk_none" <?php echo checked( true, $field_removed ); ?>>
+									</label>
 							<?php
 									break;
 							endswitch; ?>

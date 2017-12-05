@@ -69,7 +69,6 @@ class DW_specs_tables_stuff{
 
 		$table_id = absint( $_POST['specs_table'] );
 
-
 		$table_array = array_filter( $_POST['dw-attr'] );
 		$table_result = array();
 
@@ -84,7 +83,7 @@ class DW_specs_tables_stuff{
 			);
 
 			foreach( $group_attributes as $attr_id => $value ){
-				if( empty( $value ) ) continue;
+				if( empty( $value ) || 'dwspecs_chk_none' == $value ) continue;
 
 				$attr = get_term_by('id', $attr_id, 'spec-attr' );
 				$append['attributes'][] = array(

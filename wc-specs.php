@@ -3,7 +3,7 @@
  * Plugin Name:       Product Specifications for WooCommerce
  * Plugin URI: 		  http://wwww.dornaweb.com/
  * Description:       This plugin adds a product specifications table to your woocommerce products.
- * Version:           0.2
+ * Version:           0.3.2
  * Author:            Am!n A.Rezapour
  * Author URI: 		  http://www.dornaweb.com
  * License:           GPL-2.0+
@@ -12,7 +12,7 @@
  *
  * @link http://www.dornaweb.com
 */
-define( 'DWSPECS_VERSION', '0.2' );
+define( 'DWSPECS_VERSION', '0.3.2' );
 define( 'DWSPECS_BASENAME', plugin_basename( __FILE__ ) );
 define( 'DWSPECS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'DWSPECS_URL', plugins_url( '', __FILE__ ) . '/' );
@@ -29,11 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class DW_specs
 {
-	/**
-	 * @var $version
-	*/
-	public $version = '0.1';
-
 	/**
 	 * Class instance
 	 *
@@ -94,15 +89,15 @@ class DW_specs
 	 * @since 0.1
 	 */
 	protected function make_dummy_texts() {
-		__('Woocommerce Product Specifications', 'dwspecs');
-		__('This plugin will add product specifications table to your products.', 'dwspecs');
+		__('Product Specifications for WooCommerce', 'dwspecs');
+		__('This plugin adds a product specifications table to your woocommerce products.', 'dwspecs');
 	}
 
 	/**
 	 * Handle including required files
 	*/
 	public function includes(){
-		require_once( DWSPECS_PATH . 'inc/dw-functions.php' );
+		require_once( DWSPECS_PATH . 'inc/functions-all.php' );
 		require_once( DWSPECS_PATH . 'inc/admin/class-dwspecs-admin.php' );
 		require_once( DWSPECS_PATH . 'inc/class-dwspecs-post-types.php' );
 		require_once( DWSPECS_PATH . 'inc/front.php' );
@@ -139,13 +134,23 @@ class DW_specs
 
 	/**
 	 * Add tables to woocommerce tabs
+	 * Remove or keep old woocommerce tables ( based on plugin's settings )
 	*/
 	public function woocommerce_tabs( $tabs ){
-		$tabs['dw_product_specifications'] = array(
-			'title' 	=> __( 'Product specifications', 'dwspecs' ),
-			'priority' 	=> 10,
-			'callback' 	=> array( $this, 'woo_display_tab' )
-		);
+		global $product;
+
+		if( dw_product_has_specs_table( $product->id ) ){
+			$tabs['dw_product_specifications'] = array(
+				'title' 	=> __( 'Product specifications', 'dwspecs' ),
+				'priority' 	=> 10,
+				'callback' 	=> array( $this, 'woo_display_tab' )
+			);
+		}
+
+		if( get_option('dwps_wc_default_specs') == 'remove' || ( dw_product_has_specs_table( $product->id ) && get_option('dwps_wc_default_specs') == 'remove_if_specs_not_empty' ) ) {
+
+			unset( $tabs['additional_information'] );
+		}
 
 		return $tabs;
 	}

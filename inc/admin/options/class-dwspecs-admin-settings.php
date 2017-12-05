@@ -25,7 +25,8 @@ class DW_specs_admin_settings{
 
 	public static function load_default_settings(){
 		$defaults = array(
-			'dwps_view_per_page' => 15
+			'dwps_view_per_page' => 15,
+			'dwps_wc_default_specs'	=>	'remove_if_specs_not_empty'
 		);
 
 		foreach( $defaults as $option => $value ) {
@@ -40,15 +41,27 @@ class DW_specs_admin_settings{
 	*/
 	public function settings_page_init(){
 		register_setting(
-            'dwps_options', // Option group
-            'dwps_options', // Option name
-            array( $this, 'sanitize' ) // Sanitize
+            'dwps_options',
+            'dwps_options',
+            array( $this, 'sanitize' )
         );
 
 		register_setting(
-            'dwps_options', // Option group
-            'dwps_view_per_page', // Option name
-            array( $this, 'sanitize' ) // Sanitize
+            'dwps_options',
+            'dwps_view_per_page',
+            array( $this, 'sanitize' )
+        );
+
+		register_setting(
+            'dwps_options',
+            'dwps_wc_default_specs',
+            array( $this, 'sanitize' )
+        );
+
+		register_setting(
+            'dwps_options',
+            'dwps_disable_default_styles',
+            array( $this, 'sanitize' )
         );
 	}
 

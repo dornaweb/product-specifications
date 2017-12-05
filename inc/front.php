@@ -12,6 +12,16 @@
 class DW_specs_front extends dw_specs{
 	function __construct(){
 		$this->includes();
+		add_action( 'wp_enqueue_scripts', array($this, 'assets') );
+	}
+
+	/**
+	 * Front-end assets
+	 */
+	function assets(){
+		if( ! get_option('dwps_disable_default_styles') ){
+			wp_enqueue_style( 'dwspecs-front-css', DWSPECS_URL . 'assets/css/front-styles.css', array(), DWSPECS_VERSION );
+		}
 	}
 
 	/**

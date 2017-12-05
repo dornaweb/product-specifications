@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woocommerce Product Specifications\n"
-"POT-Creation-Date: 2017-01-16 18:08+0330\n"
-"PO-Revision-Date: 2017-01-16 18:08+0330\n"
+"POT-Creation-Date: 2017-12-05 06:10+0330\n"
+"PO-Revision-Date: 2017-12-05 06:11+0330\n"
 "Last-Translator: Amin <amin.pe94@gmail.vom>\n"
 "Language-Team: Dornaweb <info@dornaweb.com>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-KeywordsList: _e;__;_n;_x\n"
@@ -78,14 +78,14 @@ msgstr "خطای غیر منتظره"
 
 #: inc/admin/ajax.php:347
 msgid "Attributes arrangement successfully updated."
-msgstr "چیدمان مشخصه ها به روز رسانی شد"
+msgstr "چیدمان مشخصه ها به روز رسانی شد."
 
-#: inc/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:120
+#: inc/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:119
 msgid "Product specifications table"
 msgstr "جدول مشخصات محصول"
 
 #: inc/admin/class-dwspecs-admin-menus.php:34
-#: inc/admin/class-dwspecs-tables.php:33 wc-specs.php:119
+#: inc/admin/class-dwspecs-tables.php:33 wc-specs.php:118
 msgid "Specification table"
 msgstr "جدول مشخصات"
 
@@ -129,23 +129,42 @@ msgstr "گزینه های جدول"
 msgid "Product specifications general settings"
 msgstr "تنظیمات عمومی جدول مشخصه های محصول"
 
-#: inc/admin/options/views/settings.php:19
-msgid "Post types"
-msgstr "نوع نوشته ها"
-
 #: inc/admin/options/views/settings.php:20
-msgid "Select post types that need to contain specifications tables"
-msgstr ""
-"نوع نوشته هایی که میخواهید جدول مشخصات محصول در آنها نشان داده شوند انتخاب "
-"کنید"
+msgid "settings"
+msgstr "تنظیمات"
 
-#: inc/admin/options/views/settings.php:38
+#: inc/admin/options/views/settings.php:25
 msgid "Views per page"
 msgstr "تعداد نمایش در هر صفحه"
 
-#: inc/admin/options/views/settings.php:39
+#: inc/admin/options/views/settings.php:26
 msgid "How many records should be seen in a page?"
 msgstr "در هر صفحه چند آیتم نمایش داده شود؟"
+
+#: inc/admin/options/views/settings.php:31
+msgid "Woocommerce default specs. behaviour"
+msgstr "جدول مشخصات پیشفرض ووکامرس"
+
+#: inc/admin/options/views/settings.php:32
+msgid "Choose what to do with woocommerce default specifications table"
+msgstr "انتخاب کنید که با جدول مشخصات پیشفرض ووکامرس چکار کنیم"
+
+#: inc/admin/options/views/settings.php:35
+msgid "Always Remove"
+msgstr "همیشه حذف شود"
+
+#: inc/admin/options/views/settings.php:36
+msgid "Remove if product has a specs. table"
+msgstr "فقط زمانی که محصول جدول مشخصات دارد حذف شود"
+
+#: inc/admin/options/views/settings.php:37
+msgid "Always keep"
+msgstr "همیشه بماند"
+
+#: inc/admin/options/views/settings.php:42
+#: inc/admin/options/views/settings.php:45
+msgid "Disable plugin's CSS styles"
+msgstr "غیر فعال کردن CSS های افزونه"
 
 #: inc/admin/views/attributes.php:96 inc/admin/views/groups.php:58
 msgid "Search..."
@@ -370,31 +389,35 @@ msgstr "افزودن گروه جدید"
 
 #: inc/admin/views/groups.php:176
 msgid "Re arrange attributes"
-msgstr " چیدمان مجدد مشخصه ها"
+msgstr "چیدمان مجدد مشخصه ها"
 
 #: inc/admin/views/groups.php:200
 msgid "Add Group"
 msgstr "افزودن گروه"
 
-#: inc/admin/views/product-load-table.php:62
+#: inc/admin/views/product-load-table.php:69
 msgid "Select an option"
 msgstr "یک گزینه انتخاب کنید"
 
-#: inc/admin/views/product-load-table.php:69
+#: inc/admin/views/product-load-table.php:76
 msgid "Or"
 msgstr "یا"
 
-#: inc/admin/views/product-load-table.php:70
+#: inc/admin/views/product-load-table.php:77
 msgid "Custom value"
 msgstr "مقدار دستی"
 
-#: inc/admin/views/product-load-table.php:88
+#: inc/admin/views/product-load-table.php:85
+msgid "Remove this field"
+msgstr "حذف این فیلد"
+
+#: inc/admin/views/product-load-table.php:101
 msgid "No attributes defined yet"
-msgstr "هنوز مشخصه ای تعریف نشده است."
+msgstr "هنوز مشخصه ای تعریف نشده است"
 
 #: inc/admin/views/products-specs-table.php:16
 msgid "Select a table : "
-msgstr "یک جدول انتخاب کنید"
+msgstr "یک جدول انتخاب کنید: "
 
 #: inc/admin/views/products-specs-table.php:21
 msgid "none"
@@ -406,9 +429,9 @@ msgstr "گروه مشخصه ها : "
 
 #: inc/admin/views/table-metabox.php:15
 msgid "Select attribute groups you want to load in this table : "
-msgstr "گروه مشخصه هایی که میخواهید در جدول بارگذاری شوند را انتخاب کنید"
+msgstr "گروه مشخصه هایی که میخواهید در جدول بارگذاری شوند را انتخاب کنید: "
 
-#: inc/admin/views/table-metabox.php:32
+#: inc/admin/views/table-metabox.php:33
 msgid "No Group found, Please define some groups first"
 msgstr "گروهی پیدا نشد ، لطفا ابتدا چند گروه تعریف کنید"
 
@@ -468,15 +491,15 @@ msgstr "جستجوی جداول مشخصات"
 
 #: inc/class-dwspecs-post-types.php:39
 msgid "Parent Spec. tables:"
-msgstr "جدول مشخصات مادر"
+msgstr "جدول مشخصات مادر:"
 
 #: inc/class-dwspecs-post-types.php:40
 msgid "No Spec. tables found."
-msgstr "چیزی یافت نشد"
+msgstr "چیزی یافت نشد."
 
 #: inc/class-dwspecs-post-types.php:41
 msgid "No Spec. tables found in Trash."
-msgstr "چیزی در زباله دانی نیست"
+msgstr "چیزی در زباله دانی نیست."
 
 #: inc/class-dwspecs-post-types.php:42
 msgid "Spec. table Cover Image"
@@ -570,22 +593,37 @@ msgstr "مشخصه مادر : "
 msgid "New attribute"
 msgstr "مشخصه جدید"
 
-#: wc-specs.php:98
-msgid "Woocommerce Product Specifications"
-msgstr "جدول مشخصات کالا"
+#: wc-specs.php:97
+msgid "Product Specifications for WooCommerce"
+msgstr "جدول مشخصات محصول برای ووکامرس"
 
-#: wc-specs.php:99
-msgid "This plugin will add product specifications table to your products."
+#: wc-specs.php:98
+msgid ""
+"This plugin adds a product specifications table to your woocommerce products."
 msgstr ""
 "با این افزونه میتوانید جدول مشخصات محصول را به صفحه محصولات خود اضافه کنید."
 
-#: wc-specs.php:122
+#: wc-specs.php:121
 msgid "Product specifications table for E-Commerce websites"
 msgstr "جدول مشخصات برای سایت های فروشگاهی"
 
-#: wc-specs.php:146
+#: wc-specs.php:149
 msgid "Product specifications"
 msgstr "مشخصات محصول"
+
+#~ msgid "Woocommerce Product Specifications"
+#~ msgstr "جدول مشخصات کالا"
+
+#~ msgid "Keep if product has no specs. table"
+#~ msgstr "زمانی که جدول مشخصات محصول خالی است بماند"
+
+#~ msgid "Post types"
+#~ msgstr "نوع نوشته ها"
+
+#~ msgid "Select post types that need to contain specifications tables"
+#~ msgstr ""
+#~ "نوع نوشته هایی که میخواهید جدول مشخصات محصول در آنها نشان داده شوند "
+#~ "انتخاب کنید"
 
 #~ msgid "Product specifications Import/Export"
 #~ msgstr "درون ریزی / برون بری اطلاعات افزونه جدول مشخصات محصول"
@@ -628,9 +666,6 @@ msgstr "مشخصات محصول"
 
 #~ msgid "Are you sure you want to delete this group?"
 #~ msgstr "آیا مطمئنید که میخواهید این گروه را حذف کنید؟"
-
-#~ msgid "List of product specifications tables"
-#~ msgstr "لیست جدول های مشخصات محصول"
 
 #~ msgid "Tables"
 #~ msgstr "جدول ها"

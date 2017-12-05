@@ -1,29 +1,34 @@
 === Product Specifications for Woocommerce ===
+
 Contributors: dornaweb
-Tags: product specifications,product specs,product specifications table,product attributes table,product attributes
+Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
 Requires at least: 4
 Tested up to: 4.7
-Stable tag: 0.2
+Stable tag: 0.3.2
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
 This plugin adds a product specifications table to your woocommerce single-product page.
 
 == Description ==
+
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
 
 Available languages :
 English
 Persian
+Russian ( Thanks to Илья Китаев )
 
 To contribute in translating this plugin contact me : info@dornaweb.com
 
 == Installation ==
+
 1. Upload plugin to  "wp-content/plugins/" directory
 2. Activate it in plugins section.
 
 == Frequently Asked Questions ==
+
 = How do i use the plugin? =
 * Install and activate the plugin
 * Go to specification tables -> groups and define some Groups
@@ -33,7 +38,8 @@ To contribute in translating this plugin contact me : info@dornaweb.com
 * Select the table and fill product data in it. That's it.
 
 = How can i Customize styles of tables =
-The table is under a div with `.dwspecs-product-table` CSS class and you can customize it in your CSS files.
+By default, The plugin adds its own styles to the tables, you can however disable plugin's stylesheets in the settings section and style the tables on your own.
+The specification table is under a div with `.dwspecs-product-table` CSS class and you can customize it in your CSS files.
 
 = Is there a shortcode i can use to display the table =
 Yes, You can use `[specs-table]` shortcode.
@@ -44,14 +50,36 @@ Copy the file `/inc/views/shortcode-table-view.php` file somewhere in your theme
 
 `add_filter('dw_specs_table_shortcode_output', 'my_custom_spec_table_markup', 10, 2 );
 function my_custom_spec_table_markup( $output, $args ){
-     ob_start();
-     extract( $args );
-     include( 'PATH_TO_COPIED_FILE');
-     return ob_get_clean();
+	ob_start();
+	extract( $args );
+	include( 'PATH_TO_COPIED_FILE');
+	return ob_get_clean();
 }`
+
+== Screenshots ==
+
+1. Product specs table on product single page
+2. Add new product page, where you fill information about the product
+3. Add new product page, where you fill information about the product
+4. Table attribute groups page
+5. Product specs with tabs on the left
+6. Right-to-left languages support
 
 
 == Changelog ==
 
+= 0.3.2 =
+* Fixed Some CSS problems in admin area
+
+= 0.3.1 =
+* Added ability to disable Woocommerce's default information table
+* Added default CSS stylesheet and ability to disable it
+* Added ability to remove `true/false` fields from specific products
+* Bug fix in group re-ordering
+* Bug fix when product spec. table is empty and it's still shown on product page
+* Some minor bug fixes
+* Updated Persian translation
+* Added Russian language ( Thanks to Илья Китаев )
+
 = 0.2 =
-Some bugs fixed
+* Some bugs fixed

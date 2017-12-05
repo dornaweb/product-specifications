@@ -23,7 +23,7 @@ class DW_specs_admin_assets{
 	public function backend_assets( $hook ){
 		/** Styles **/
 		wp_enqueue_style( 'dwspecs-additional-admin-styles', DWSPECS_URL . 'assets/css/admin-additionals.min.css', array(), DWSPECS_VERSION );
-		wp_enqueue_style( 'dwspecs-main-admin-styles', DWSPECS_URL . 'assets/css/admin-styles.min.css', array(), DWSPECS_VERSION );
+		wp_enqueue_style( 'dwspecs-main-admin-styles', DWSPECS_URL . 'assets/css/admin-styles.css', array(), DWSPECS_VERSION );
 
 		/** Javascripts **/
 		wp_enqueue_script( 'dwspecs-mustachejs', DWSPECS_URL . 'assets/javascript/mustache.min.js', array(), DWSPECS_VERSION, false );

@@ -326,6 +326,10 @@
 }
 
 .dwps-pagination{
+  float: right;
+}
+
+.rtl .dwps-pagination{
   float: left;
 }
 
@@ -351,8 +355,13 @@
   background: #fafafa;
   color: #666;
   border: 1px solid #ddd;
-  float: right;
+  float: left;
   margin-right: -1px;
+}
+
+.rtl .dwps-pagination span,
+.rtl .dwps-pagination a{
+  float: right;
 }
 
 .dwps-pagination a:hover,
@@ -463,6 +472,7 @@ input[type=checkbox][readonly]{
   background-color: #fbf9f9;
   padding: 10px;
   border-radius: 3px;
+  line-height: 2.4;
 }
 
 .dwps-spec-table-wrap .attributes-list li label{
@@ -473,6 +483,22 @@ input[type=checkbox][readonly]{
   vertical-align: top;
   line-height: 2.4;
   display: inline-block;
+  min-width: 100px;
+}
+
+.dwps-spec-table-wrap .attributes-list li label.or{
+  min-width: 0;
+}
+
+.dwps-spec-table-wrap .attributes-list li label.remove-checkbox-attr{
+  float: right;
+  margin: 0;
+}
+
+
+.rtl .dwps-spec-table-wrap .attributes-list li label.remove-checkbox-attr{
+  float: left;
+  margin: 0;
 }
 
 .dwps-spec-table-wrap .attributes-list li label[for]{
