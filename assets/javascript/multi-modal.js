@@ -3,7 +3,6 @@
  * Modified a little
  * @link https://github.com/JasonMHasperhoven/MultiModal
 */
-if( typeof( $ ) == 'undefined' ) var $ = jQuery;
 
 var Modal = (function () {
     function Modal(props) {
@@ -20,7 +19,7 @@ var Modal = (function () {
         if (this.props.fullScreen) {
             this.HTMLModal = this.renderFullScreenModal();
         }
-        return $($.parseHTML(this.HTMLModal));
+        return jQuery(jQuery.parseHTML(this.HTMLModal));
     };
     Modal.prototype.renderFullScreenModal = function () {
         return "<div class=\"modal__fullscreen\">\n      " + this.HTMLModal + "\n    </div>";
@@ -122,13 +121,13 @@ var MultiModal = (function () {
         if (this.isAnimating)
             return;
         this.isAnimating = true;
-        var mergedProps = $.extend(true, {}, this.props, props);
+        var mergedProps = jQuery.extend(true, {}, this.props, props);
         if (!this.modals.length) {
-            $(document.documentElement).css('overflow', 'hidden');
-            $(document.body).append(this.renderMultiModal());
-            this.$wrapper = $('.js-modal-wrapper');
-            this.$backdrop = $('.js-modal-backdrop');
-            this.$backdrop.click(function () { return _this.onBackdropClick(); });
+            jQuery(document.documentElement).css('overflow', 'hidden');
+            jQuery(document.body).append(this.renderMultiModal());
+            this.jQuerywrapper = jQuery('.js-modal-wrapper');
+            this.jQuerybackdrop = jQuery('.js-modal-backdrop');
+            this.jQuerybackdrop.click(function () { return _this.onBackdropClick(); });
         }
         if (mergedProps.remote) {
             this.appendRemote(mergedProps);
@@ -145,10 +144,10 @@ var MultiModal = (function () {
             this.remote.url = props.remote.url;
             this.remote.data = props.remote.data;
         }
-        var request = $.get(this.remote.url, this.remote.data);
+        var request = jQuery.get(this.remote.url, this.remote.data);
         request.done(function (HTMLRemote) {
-            var $remote = $($.parseHTML("<div class=\"modal--remote js-modal\">\n        " + HTMLRemote + "\n      </div>", null, true));
-            _this.appendModal($remote, props);
+            var jQueryremote = jQuery(jQuery.parseHTML("<div class=\"modal--remote js-modal\">\n        " + HTMLRemote + "\n      </div>", null, true));
+            _this.appendModal(jQueryremote, props);
         });
         request.fail(function (http) {
             if (http.status === 404) {
@@ -159,15 +158,15 @@ var MultiModal = (function () {
             }
         });
     };
-    MultiModal.prototype.appendModal = function ($element, props) {
+    MultiModal.prototype.appendModal = function (jQueryelement, props) {
         var _this = this;
         this.modals.push({
-            $wrapper: $element,
+            jQuerywrapper: jQueryelement,
             allowBackdropClose: typeof props.allowBackdropClose === 'boolean' ? props.allowBackdropClose : true
         });
         this.currentModal = this.modals.length - 1;
-        this.$wrapper.append(this.modals[this.currentModal].$wrapper);
-        this.modals[this.currentModal].$modal = $('.js-modal').last();
+        this.jQuerywrapper.append(this.modals[this.currentModal].jQuerywrapper);
+        this.modals[this.currentModal].jQuerymodal = jQuery('.js-modal').last();
         if (props.isIEBrowser || props.remote) {
             this.centerModal();
         }
@@ -187,7 +186,7 @@ var MultiModal = (function () {
             return;
         this.isAnimating = true;
         if (this.modals.length == 1) {
-            this.$backdrop.removeClass('is-active');
+            this.jQuerybackdrop.removeClass('is-active');
         }
         var Timeline = new TimelineLite({
             onComplete: function () { return _this.onCloseComplete(); }
@@ -197,7 +196,7 @@ var MultiModal = (function () {
     };
     MultiModal.prototype.closeAll = function () {
         var _this = this;
-        this.$backdrop.removeClass('is-active');
+        this.jQuerybackdrop.removeClass('is-active');
         var Timeline = new TimelineLite({
             onComplete: function () { return _this.onCloseAllComplete(); }
         });
@@ -217,11 +216,11 @@ var MultiModal = (function () {
         return !!msIE;
     };
     MultiModal.prototype.animateInNewModal = function (Timeline) {
-        Timeline.set(this.modals[this.currentModal].$modal, {
+        Timeline.set(this.modals[this.currentModal].jQuerymodal, {
             display: 'block',
             opacity: 0,
             scale: .5
-        }).to(this.modals[this.currentModal].$modal, .5, {
+        }).to(this.modals[this.currentModal].jQuerymodal, .5, {
             opacity: 1,
             scale: 1,
             ease: Power4.easeInOut
@@ -230,7 +229,7 @@ var MultiModal = (function () {
     MultiModal.prototype.animateInOtherModals = function (Timeline) {
         if (this.modals.length > 1) {
             if (this.props.fullScreen) {
-                Timeline.to(this.modals[this.currentModal - 1].$modal, .5, {
+                Timeline.to(this.modals[this.currentModal - 1].jQuerymodal, .5, {
                     scale: '-=.15',
                     opacity: 0,
                     ease: Power4.easeInOut
@@ -239,7 +238,7 @@ var MultiModal = (function () {
             else {
                 for (var i in this.modals) {
                     if (!(parseInt(i) === this.currentModal || parseInt(i) < (this.currentModal - 4))) {
-                        Timeline.to(this.modals[i].$modal, .5, {
+                        Timeline.to(this.modals[i].jQuerymodal, .5, {
                             y: '-=24',
                             scale: '-=.15',
                             opacity: '-=.25',
@@ -251,34 +250,34 @@ var MultiModal = (function () {
         }
     };
     MultiModal.prototype.fadeInBackdrop = function () {
-        this.$backdrop.addClass('is-active');
+        this.jQuerybackdrop.addClass('is-active');
     };
     MultiModal.prototype.fadeInFullscreen = function () {
-        this.modals[this.currentModal].$wrapper.addClass('is-visible');
+        this.modals[this.currentModal].jQuerywrapper.addClass('is-visible');
     };
     MultiModal.prototype.centerModal = function () {
-        this.modals[this.currentModal].$modal.css({
+        this.modals[this.currentModal].jQuerymodal.css({
             position: 'absolute',
             left: '50%',
             top: '50%',
-            marginTop: -(this.modals[this.currentModal].$modal.height() / 2),
-            marginLeft: -(this.modals[this.currentModal].$modal.width() / 2)
+            marginTop: -(this.modals[this.currentModal].jQuerymodal.height() / 2),
+            marginLeft: -(this.modals[this.currentModal].jQuerymodal.width() / 2)
         });
     };
     MultiModal.prototype.animateOutCurrentModal = function (Timeline) {
-        Timeline.to(this.modals[this.currentModal].$modal, .32, {
+        Timeline.to(this.modals[this.currentModal].jQuerymodal, .32, {
             opacity: 0,
             scale: .5,
             ease: Power4.easeInOut
         }, 'out');
         if (this.props.fullScreen) {
-            this.modals[this.currentModal].$wrapper.removeClass('is-visible');
+            this.modals[this.currentModal].jQuerywrapper.removeClass('is-visible');
         }
     };
     MultiModal.prototype.animateOutOtherModals = function (Timeline) {
         if (this.modals.length > 1) {
             if (this.props.fullScreen) {
-                Timeline.to(this.modals[this.currentModal - 1].$modal, .5, {
+                Timeline.to(this.modals[this.currentModal - 1].jQuerymodal, .5, {
                     scale: '+=.15',
                     opacity: 1,
                     ease: Power4.easeInOut
@@ -287,7 +286,7 @@ var MultiModal = (function () {
             else {
                 for (var i in this.modals) {
                     if (!(parseInt(i) === this.currentModal || parseInt(i) < (this.currentModal - 4))) {
-                        Timeline.to(this.modals[i].$modal, .5, {
+                        Timeline.to(this.modals[i].jQuerymodal, .5, {
                             y: '+=24',
                             scale: '+=.15',
                             opacity: '+=.25',
@@ -301,7 +300,7 @@ var MultiModal = (function () {
     MultiModal.prototype.animateOutAllModals = function (Timeline) {
         for (var i in this.modals) {
             if (parseInt(i) > (this.currentModal - 4)) {
-                Timeline.to(this.modals[i].$modal, .5, {
+                Timeline.to(this.modals[i].jQuerymodal, .5, {
                     opacity: 0,
                     scale: '-=.5',
                     ease: Power4.easeInOut
@@ -310,36 +309,36 @@ var MultiModal = (function () {
         }
         if (this.props.fullScreen) {
             for (var i in this.modals) {
-                this.modals[i].$wrapper.removeClass('is-visible');
+                this.modals[i].jQuerywrapper.removeClass('is-visible');
             }
         }
     };
     MultiModal.prototype.onCloseComplete = function () {
         if (this.props.isIEBrowser) {
-            this.modals[this.currentModal].$modal.remove();
+            this.modals[this.currentModal].jQuerymodal.remove();
         }
         else {
-            this.modals[this.currentModal].$wrapper.remove();
+            this.modals[this.currentModal].jQuerywrapper.remove();
         }
         this.modals.splice(this.currentModal, 1);
         this.currentModal = this.currentModal - 1;
         if (!this.modals.length) {
-            $(document.documentElement).css('overflow', '');
-            this.$wrapper.remove();
+            jQuery(document.documentElement).css('overflow', '');
+            this.jQuerywrapper.remove();
         }
         this.isAnimating = false;
     };
     MultiModal.prototype.onCloseAllComplete = function () {
         if (this.props.isIEBrowser) {
-            $('.js-modal').remove();
+            jQuery('.js-modal').remove();
         }
         else {
-            $('.js-modal-wrapper').remove();
+            jQuery('.js-modal-wrapper').remove();
         }
         this.modals = [];
         this.currentModal = -1;
-        $(document.documentElement).css('overflow', '');
-        this.$wrapper.remove();
+        jQuery(document.documentElement).css('overflow', '');
+        this.jQuerywrapper.remove();
         this.isAnimating = false;
     };
     return MultiModal;
