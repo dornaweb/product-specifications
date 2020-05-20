@@ -62,7 +62,7 @@ $tables = new WP_Query( array(
 $tbl_array = $tables->get_posts();
 
 if( isset( $_GET['table_id'] ) && !empty( $_GET['table_id'] ) ){
-	$groups_flt     = dw_get_table_groups( 'array', absint( $_GET['table_id'] ) );
+	$groups_flt     = dwspecs_get_table_groups( 'array', absint( $_GET['table_id'] ) );
 	$groups_flt_arr = array();
 
 	if( sizeof( $groups_flt[0]['groups'] > 0 ) ){
@@ -92,7 +92,7 @@ $attributes = get_terms( $att_args ); ?>
 			<div class="dwps-box-top clearfix">
 				<h4><?php _e('Attributes', 'dwspecs'); ?></h4>
 				<div class="dwps-group-searchform">
-					<form action="<?php echo esc_url( current_page_url() ); ?>" method="get">
+					<form action="<?php echo esc_url( dwspecs_current_page_url() ); ?>" method="get">
 						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'dwspecs'); ?>">
 
 						<?php
@@ -109,14 +109,14 @@ $attributes = get_terms( $att_args ); ?>
 
 					<select class="dw-search-by-tbl" id="search_by_table" onChange="if (this.value) window.location.href=this.value">
 						<?php
-						$default_url = isset( $_GET['table_id'] ) ? esc_url( remove_query_arg( 'table_id', current_page_url() ) ) : ''; ?>
+						$default_url = isset( $_GET['table_id'] ) ? esc_url( remove_query_arg( 'table_id', dwspecs_current_page_url() ) ) : ''; ?>
 						<option value="<?php echo $default_url; ?>"><?php _e( 'Select a table', 'dwspecs' ); ?></option>
 						<?php
 						foreach( $tbl_array as $table ){
 							if( isset( $_GET['table_id'] ) ) {
-								$url = esc_url( add_query_arg( 'table_id', $table->ID, remove_query_arg( 'table_id', current_page_url() ) ) );
+								$url = esc_url( add_query_arg( 'table_id', $table->ID, remove_query_arg( 'table_id', dwspecs_current_page_url() ) ) );
 							} else{
-								$url = esc_url( add_query_arg( 'table_id', $table->ID, esc_url( current_page_url() ) ) );
+								$url = esc_url( add_query_arg( 'table_id', $table->ID, esc_url( dwspecs_current_page_url() ) ) );
 							}
 							$selected = selected( absint( $_GET['table_id'] ), absint( $table->ID ), false );
 							echo "<option value=\"{$url}\" {$selected}>{$table->post_title}</option>";
@@ -154,7 +154,7 @@ $attributes = get_terms( $att_args ); ?>
 									<h4>
 										<?php
 										$group = get_term( get_term_meta( $attr->term_id, 'attr_group', true ), 'spec-group' );
-										echo '<a href="'. add_query_arg( 'group_id', $group->term_id, esc_url( current_page_url() ) ) .'">' . $group->name . '</a>'; ?>
+										if (! is_wp_error($group)) echo '<a href="'. add_query_arg( 'group_id', $group->term_id, remove_query_arg('paged', dwspecs_current_page_url()) ) .'">' . $group->name . '</a>'; ?>
 									</h4>
 								</td>
 
@@ -256,7 +256,7 @@ $attributes = get_terms( $att_args ); ?>
 			<p>
 				<label for="attr_table"><?php _e('Table : ', 'dwspecs'); ?></label>
 
-				<select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dw_get_table_groups('json'); ?>'>
+				<select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json'); ?>'>
 					<option value=""><?php _e('Select a table', 'dwspecs'); ?></option>
 					<?php foreach( $tbl_array as $table ) {
 						echo '<option value="'. $table->ID .'">'. $table->post_title .'</option>';

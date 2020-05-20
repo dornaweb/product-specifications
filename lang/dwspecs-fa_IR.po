@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woocommerce Product Specifications\n"
-"POT-Creation-Date: 2017-12-05 06:10+0330\n"
-"PO-Revision-Date: 2017-12-05 06:11+0330\n"
+"POT-Creation-Date: 2020-05-18 22:37+0430\n"
+"PO-Revision-Date: 2020-05-18 22:37+0430\n"
 "Last-Translator: Amin <amin.pe94@gmail.vom>\n"
 "Language-Team: Dornaweb <info@dornaweb.com>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-KeywordsList: _e;__;_n;_x\n"
@@ -80,12 +80,29 @@ msgstr "خطای غیر منتظره"
 msgid "Attributes arrangement successfully updated."
 msgstr "چیدمان مشخصه ها به روز رسانی شد."
 
-#: inc/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:119
+#: inc/admin/class-dwspecs-admin-assets.php:39
+msgid "Importing data may take a long time, please wait..."
+msgstr "وارد کردن اطلاعات ممکن است به طول بیانجامد لطفا صبر کنید..."
+
+#: inc/admin/class-dwspecs-admin-import-exports.php:30
+msgid "Another Migration is in progress"
+msgstr "یک برون بری دیگر در حال اجراست"
+
+#: inc/admin/class-dwspecs-admin-import-exports.php:36
+#: inc/admin/class-dwspecs-admin-import-exports.php:44
+msgid "Invalid File"
+msgstr "فایل نامعتبر است"
+
+#: inc/admin/class-dwspecs-admin-import-exports.php:56
+msgid "Data Imported successfully"
+msgstr "اطلاعات با موفقیت درون ریزی شد"
+
+#: inc/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:114
 msgid "Product specifications table"
 msgstr "جدول مشخصات محصول"
 
 #: inc/admin/class-dwspecs-admin-menus.php:34
-#: inc/admin/class-dwspecs-tables.php:33 wc-specs.php:118
+#: inc/admin/class-dwspecs-tables.php:33 wc-specs.php:113
 msgid "Specification table"
 msgstr "جدول مشخصات"
 
@@ -120,6 +137,23 @@ msgstr "تنظیمات افزونه جدول مشخصات محصول"
 #: inc/admin/class-dwspecs-admin-menus.php:76
 msgid "Settings"
 msgstr "تنظیمات"
+
+#: inc/admin/class-dwspecs-admin-menus.php:85
+msgid "Product specifications Import/Export"
+msgstr "درون ریزی / برون بری اطلاعات افزونه جدول مشخصات محصول"
+
+#: inc/admin/class-dwspecs-admin-menus.php:86
+msgid "Import/export"
+msgstr "درون ریزی / برون بری"
+
+#: inc/admin/class-dwspecs-notices.php:24
+msgid ""
+"This plugin works properly with woocommerce, please install woocommerce first"
+msgstr "این پلاگین نیاز به ووکامرس دارد، لطفا ابتدا پلاگین ووکامرس را نصب کنید"
+
+#: inc/admin/class-dwspecs-notices.php:44
+msgid "Dismiss"
+msgstr "لغو"
 
 #: inc/admin/class-dwspecs-tables.php:31
 msgid "Table Options"
@@ -435,15 +469,15 @@ msgstr "گروه مشخصه هایی که میخواهید در جدول بار�
 msgid "No Group found, Please define some groups first"
 msgstr "گروهی پیدا نشد ، لطفا ابتدا چند گروه تعریف کنید"
 
-#: inc/admin/views/tools.php:14
+#: inc/admin/views/tools.php:16
 msgid "Import / Export tables and fields"
 msgstr "درون ریزی / برون بری جداول و مشخصه ها"
 
-#: inc/admin/views/tools.php:18
+#: inc/admin/views/tools.php:20
 msgid "Export specification tables"
 msgstr "برون بری جدول های مشخصه"
 
-#: inc/admin/views/tools.php:19
+#: inc/admin/views/tools.php:21
 msgid ""
 "You can choose the tables you want to export and hit the download button , a "
 "<code>JSON</code> file will be downloaded , you can impot that later or on "
@@ -452,6 +486,41 @@ msgstr ""
 "جداولی که میخواهید خروجی بگیرید را انتخاب کنید ،سپس بر روی دانلود کلیک "
 "کنید ، یک فایل <code>JSON</code> دانلود خواهد شد که میتوانید بعدا یا روی یک "
 "وردپرس دیگر فراخوانی کنید."
+
+#: inc/admin/views/tools.php:24
+msgid "Export Product Specifications data"
+msgstr "خروجی گرفتن از مشخصه های محصولات"
+
+#: inc/admin/views/tools.php:25
+msgid "You can choose to export only tables data or also with product data"
+msgstr ""
+"میتوانید انتخاب کنید که فقط میخواهید از جداول خروجی بگیرید یا میخواهید مشخصه "
+"های وارد شده در محصولات نیز خروجی گرفته شود"
+
+#: inc/admin/views/tools.php:27
+msgid "Include Products data (file size may increase)"
+msgstr "قرار دادن اطلاعات محصولات ( حجم فایل ممکن است زیاد شود)"
+
+#: inc/admin/views/tools.php:31
+msgid "Download"
+msgstr "دانلود"
+
+#: inc/admin/views/tools.php:36
+msgid "Import Product Specifications data"
+msgstr "وارد کردن مشخصه های محصولات"
+
+#: inc/admin/views/tools.php:37
+msgid "Import your <code>JSON</code> file here"
+msgstr ""
+"فایل <code>JSON</code> مورد نظر خود را انتخاب کرده و آن را درون ریزی کنید"
+
+#: inc/admin/views/tools.php:39
+msgid "Select JSON file"
+msgstr "انتخاب فایل JSON"
+
+#: inc/admin/views/tools.php:43
+msgid "Import"
+msgstr "درون ریزی"
 
 #: inc/class-dwspecs-post-types.php:28 inc/class-dwspecs-post-types.php:31
 msgid "Specifications tables"
@@ -593,21 +662,21 @@ msgstr "مشخصه مادر : "
 msgid "New attribute"
 msgstr "مشخصه جدید"
 
-#: wc-specs.php:97
+#: wc-specs.php:91
 msgid "Product Specifications for WooCommerce"
 msgstr "جدول مشخصات محصول برای ووکامرس"
 
-#: wc-specs.php:98
+#: wc-specs.php:92
 msgid ""
 "This plugin adds a product specifications table to your woocommerce products."
 msgstr ""
 "با این افزونه میتوانید جدول مشخصات محصول را به صفحه محصولات خود اضافه کنید."
 
-#: wc-specs.php:121
+#: wc-specs.php:116
 msgid "Product specifications table for E-Commerce websites"
 msgstr "جدول مشخصات برای سایت های فروشگاهی"
 
-#: wc-specs.php:149
+#: wc-specs.php:144
 msgid "Product specifications"
 msgstr "مشخصات محصول"
 
@@ -624,12 +693,6 @@ msgstr "مشخصات محصول"
 #~ msgstr ""
 #~ "نوع نوشته هایی که میخواهید جدول مشخصات محصول در آنها نشان داده شوند "
 #~ "انتخاب کنید"
-
-#~ msgid "Product specifications Import/Export"
-#~ msgstr "درون ریزی / برون بری اطلاعات افزونه جدول مشخصات محصول"
-
-#~ msgid "Import/export"
-#~ msgstr "درون ریزی / برون بری"
 
 #~ msgid "Select a table and fill it"
 #~ msgstr "یک مورد از جدول زیر انتخاب کنید"

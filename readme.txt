@@ -2,9 +2,10 @@
 
 Contributors: dornaweb
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
-Requires at least: 4
-Tested up to: 4.7
-Stable tag: 0.3.2
+Requires at least: 5.1
+Tested up to: 5.4.1
+Stable tag: 0.4.0
+Requires PHP: 5.6
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
@@ -21,6 +22,9 @@ Persian
 Russian ( Thanks to Илья Китаев )
 
 To contribute in translating this plugin contact me : info@dornaweb.com
+
+= Development =
+Product specifications is also available at [github](https://github.com/dornaweb/product-specifications/ "Product specifications plugin"), Feel free to fork it.
 
 == Installation ==
 
@@ -67,6 +71,16 @@ function my_custom_spec_table_markup( $output, $args ){
 
 
 == Changelog ==
+
+== 0.4.0 ==
+* Changed Modal Library
+* Faster modal Experience
+* Added Ability to import/export tables data in JSON format
+* Plugin Classes are now loaded with PHP Autoloaders
+* Ability to export and import product specs table data
+* Ability to Override Specs Table template from your active theme
+* Performance Improvement
+* Other bug fixes
 
 = 0.3.2 =
 * Fixed Some CSS problems in admin area

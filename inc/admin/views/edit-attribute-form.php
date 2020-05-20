@@ -34,7 +34,7 @@ $tbl_array = $tables->get_posts(); ?>
 		<p>
 			<label for="attr_table"><?php _e('Table : ', 'dwspecs'); ?></label>
 
-			<select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dw_get_table_groups('json'); ?>'>
+			<select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json'); ?>'>
 				<option value=""><?php _e('Select a table', 'dwspecs'); ?></option>
 				<?php foreach( $tbl_array as $table ) {
 					echo '<option value="'. $table->ID .'">'. $table->post_title .'</option>';

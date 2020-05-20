@@ -1,36 +1,33 @@
 <?php
 /**
- * Table related stuff
+ * Tables Stuff
  *
- * @author Am!n <www.dornaweb.com>
- * @package Wordpress
- * @subpackage Product Specifications for WooCommerce
- * @link http://www.dornaweb.com
- * @license GPL-2.0+
- * @since 0.1
-*/
+ * @author Dornaweb
+ * @contribute Am!n <dornaweb.com>
+ */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace DWSpecificationsTable\Admin;
 
-class DW_specs_tables_stuff{
-	public function __construct(){
+defined('ABSPATH') || exit;
+
+class Specification_Tables
+{
+	public static function init(){
 		// Create meta boxes
-		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
+		add_action( 'add_meta_boxes', array( __CLASS__, 'meta_box' ) );
 
 		// Saving metaboxes
-		add_action( 'save_post', array( $this, 'save_table_metabox' ) );
-		add_action( 'save_post', array( $this, 'save_product_table' ) );
+		add_action( 'save_post', array( __CLASS__, 'save_table_metabox' ) );
+		add_action( 'save_post', array( __CLASS__, 'save_product_table' ) );
 	}
 
 	/**
 	 * Create Metaboxes
 	**/
-	public function meta_box(){
-		add_meta_box( 'dw-specs-table-metas', __( 'Table Options', 'dwspecs' ), array( $this, 'content_spec_table' ), 'specs-table', 'normal', 'high' ); // Table settings in table post type
+	public static function meta_box(){
+		add_meta_box( 'dw-specs-table-metas', __( 'Table Options', 'dwspecs' ), array( __CLASS__, 'content_spec_table' ), 'specs-table', 'normal', 'high' ); // Table settings in table post type
 
-		add_meta_box( 'dwps-specs-table', __( 'Specification table', 'dwspecs' ), array( $this, 'content_product_specs' ), array( 'product' ), 'normal', 'high' ); // Table input meta boxes
+		add_meta_box( 'dwps-specs-table', __( 'Specification table', 'dwspecs' ), array( __CLASS__, 'content_product_specs' ), array( 'product' ), 'normal', 'high' ); // Table input meta boxes
 	}
 
 	/**
@@ -38,7 +35,7 @@ class DW_specs_tables_stuff{
 	 *
 	 * @param int $post_id
 	**/
-	public function save_table_metabox( $post_id ){
+	public static function save_table_metabox( $post_id ){
 		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 		if( !isset( $_POST['dwps_metabox_nonce'] ) || !wp_verify_nonce( $_POST['dwps_metabox_nonce'], 'dw-specs-table-metas' ) ) return;
 		if( !current_user_can( 'edit_post' ) ) return;
@@ -60,7 +57,7 @@ class DW_specs_tables_stuff{
 	 *
 	 * @param int $post_id
 	**/
-	public function save_product_table( $post_id ){
+	public static function save_product_table( $post_id ){
 		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 		if( !isset( $_POST['dwps_metabox_nonce'] ) || !wp_verify_nonce( $_POST['dwps_metabox_nonce'], 'dw-specs-table-metas' ) ) return;
 		if( !current_user_can( 'edit_post' ) ) return;
@@ -122,7 +119,7 @@ class DW_specs_tables_stuff{
 	 *
 	 * @return array
 	*/
-	public function get_spec_groups(){
+	public static function get_spec_groups(){
 		$terms = get_terms( array(
 			'taxonomy'   => 'spec-group',
 			'hide_empty' => false
@@ -137,8 +134,8 @@ class DW_specs_tables_stuff{
 	 * @param string $output Output type
 	 * @return Array | WP_Query
 	*/
-	public function get_spec_tables( $output = 'array' ){
-		$tables = new WP_Query( array(
+	public static function get_spec_tables( $output = 'array' ){
+		$tables = new \WP_Query( array(
 			'post_type' => 'specs-table',
 			'showposts' => -1
 		) );
@@ -154,14 +151,14 @@ class DW_specs_tables_stuff{
 	 *
 	 * @return void
 	*/
-	public function content_product_specs(){
+	public static function content_product_specs(){
 		global $post;
 		$args = array(
-			'tables' => $this->get_spec_tables(),
+			'tables' => self::get_spec_tables(),
 			'post'	 => $post
 		);
 
-		DW_specs_admin::get_template( 'views/products-specs-table', $args );
+		Admin::get_template( 'views/products-specs-table', $args );
 	}
 
 	/**
@@ -169,14 +166,13 @@ class DW_specs_tables_stuff{
 	 *
 	 * @return void
 	*/
-	public function content_spec_table(){
+	public static function content_spec_table(){
 		global $post;
 		$args = array(
-			'groups' => $this->get_spec_groups(),
+			'groups' => self::get_spec_groups(),
 			'post'	 => $post
 		);
 
-		DW_specs_admin::get_template( 'views/table-metabox', $args );
+		Admin::get_template( 'views/table-metabox', $args );
 	}
 }
-new DW_specs_tables_stuff();

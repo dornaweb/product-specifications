@@ -1,3 +1,4 @@
+
 /*!
  * Product specifications plugin
  * Javascript codes loaded in admin area
@@ -24,6 +25,23 @@ jQuery.fn.extend({
     }
 });
 
+function dwDismissAdminNotice(event, id) {
+	event.preventDefault();
+	var $notice = jQuery(event.target).parents('.notice');
+
+	jQuery.ajax({
+		method: 'POST',
+		url: dwspecs_plugin.ajaxurl,
+		data: {
+			action: 'dw_dismiss_admin_notice',
+			id: id
+		},
+		success: function(res) {
+			$notice.remove();
+		}
+	});
+}
+
 /*!
  * jQuery Strip tags
  * Strips html tags from a string
@@ -36,17 +54,39 @@ jQuery.extend({
 	}
 });
 
-/*!
- * Dumpit - shortened console.log()
- * Good for debuging
- *
- * @author Am!n <www.dornaweb.com>
- */
-function dumpit( s ) {
-	console.log(s);
-}
-
 (function( $ ){
+	/**
+	 * modal definations
+	 */
+
+	window.globalmodal = new tingle.modal({
+		footer: false,
+		stickyFooter: false,
+		closeMethods: ['overlay', 'button', 'escape'],
+		closeLabel: "Close",
+		beforeOpen: function beforeOpen() {}
+	});
+
+	$(function () {
+		$('[data-modal][data-autoopen]').trigger('click');
+	});
+
+	$(document).on('click', '[data-modal]', function (e) {
+		e.preventDefault();
+		var $target = $($(this).data('modal'));
+	
+		if ($target.length) {
+			window.globalmodal.setContent($target.html());
+			$(document).trigger('modal_content_loaded');
+			window.globalmodal.open();
+		
+			if ($(this).data('classes')) {
+				$('.tingle-modal').addClass($(this).data('classes'));
+			}
+		}
+	});
+
+	
 	/*!
 	 * Tab Boxes by dornaweb
 	 * @author Am!n - http://www.dornaweb.com
@@ -151,7 +191,7 @@ function dumpit( s ) {
 			if( $(this).val() !== 0 && $(this).val() !== '0' ) {
 				if( ( initial_val == 0 || initial_val == '0' ) || window.confirm('Are you sure you want to switch table? all unsaved settings will be lost.') ){
 					container.html( loading );
-					$.post( ajaxurl, { action: 'dwps_load_table', specs_table: $(this).val(), post_id: post_id }, function( response ){
+					$.post( dwspecs_plugin.ajaxurl, { action: 'dwps_load_table', specs_table: $(this).val(), post_id: post_id }, function( response ){
 						container.html( response );
 
 						setTimeout(function(){
@@ -203,10 +243,6 @@ function dumpit( s ) {
 	 * Handling Group/attribute CU( Create-Update )
 	*/
 	$(function(){
-		var modal = new MultiModal({
-			closeButton:  true
-		});
-
 		$(document).on('click', 'a[data-dwpsmodal]', function(e){
 			e.preventDefault();
 
@@ -224,10 +260,8 @@ function dumpit( s ) {
 
 			// Create add form modal
 			if( is_add ) {
-				modal.new({
-				  title	: modal_title,
-				  content : Mustache.render( template )
-				});
+				window.globalmodal.setContent(Mustache.render( template ));
+				window.globalmodal.open();
 
 				setTimeout(function(){
 					window._group = $('#attr_group').clone();
@@ -243,11 +277,9 @@ function dumpit( s ) {
 				};
 
 				elem.css( 'opacity', '0.4' );
-				$.get( ajaxurl, data, function(e){
-				    modal.new({
-				        title	: modal_title,
-				        content : e
-				    });
+				$.get( dwspecs_plugin.ajaxurl, data, function(e){						
+					window.globalmodal.setContent(e);
+					window.globalmodal.open();
 
 					setTimeout( function(){
 						$('#attr_type').change();
@@ -272,8 +304,7 @@ function dumpit( s ) {
 			var form = $(this);
 			var data = $(this).serializeArray();
 
-			$.post(ajaxurl, data, function(response) {
-				dumpit( response );
+			$.post(dwspecs_plugin.ajaxurl, data, function(response) {
 				var response = $.parseJSON( response );
 
 				// append success/error message to end of the form
@@ -295,7 +326,7 @@ function dumpit( s ) {
 					$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
 
 					setTimeout(function(){
-						modal.close();
+						window.globalmodal.close();
 					}, 1000);
 				}
 			});
@@ -416,7 +447,7 @@ function dumpit( s ) {
 		$(document).on('click', '.js-modal-close', function(e){
 			e.preventDefault();
 
-			modal.close();
+			window.globalmodal.close();
 		});
 
 		/**
@@ -431,31 +462,32 @@ function dumpit( s ) {
 				var id = $('input.dlt-bulk-group:checked').map(function(){return $(this).val();}).get();
 			}
 
-			if( !$(this).is('[disabled]') ) modal.new(template.modal);
+			
+			if( !$(this).is('[disabled]') ){
+				var confirm = window.confirm(template.modal.content);
+				
 
-			$('.btn-confirm').click(function(e){
-				e.preventDefault();
+				if (confirm) {
+					var action = template.data.type == 'attribute' ? 'dwps_modify_attributes' : 'dwps_modify_groups';
 
-				var action = template.data.type == 'attribute' ? 'dwps_modify_attributes' : 'dwps_modify_groups';
-
-				$.post(ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
-					console.log( response );
-					var response = $.parseJSON( response );
-
-					if( response.result == 'success' ) {
-						$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
-
-						setTimeout(function(){
-							modal.close();
-						}, 1000);
-					} else{
-						modal.new({
-							title : 'Failed',
-							content : 'Could not delete the group'
-						});
-					}
-				});
-			});
+					$.post(dwspecs_plugin.ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
+						console.log( response );
+						var response = $.parseJSON( response );
+	
+						if( response.result == 'success' ) {
+							$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
+	
+							setTimeout(function(){
+								window.globalmodal.close();
+							}, 1000);
+						} else{
+							window.globalmodal.setContent('Could not delete the group');
+							window.globalmodal.open();
+				
+						}
+					});
+				}
+			}
 		});
 
 		/**
@@ -465,11 +497,9 @@ function dumpit( s ) {
 			e.preventDefault();
 			var texts = $.parseJSON( Mustache.render( document.getElementById('dwps_texts_template').innerHTML ) );
 
-			$.get( ajaxurl, { action: 'dwps_group_rearange', id: $(this).data('id') }, function( response ){
-				modal.new({
-					title : texts.re_arrange,
-					content : response
-				});
+			$.get( dwspecs_plugin.ajaxurl, { action: 'dwps_group_rearange', id: $(this).data('id') }, function( response ){
+				window.globalmodal.setContent(response);
+				window.globalmodal.open();
 
 				setTimeout( function(){
 					$(document).trigger('dw_dynamic', [true]);
@@ -501,8 +531,37 @@ function dumpit( s ) {
 					}
 				}
 			});
-		});
+		});		
 
 	});
+
+	$('#dwps_import_data_form').submit(function(e) {
+		e.preventDefault();
+
+		var data = new FormData(this);
+
+		$('#dwspecs_import_results').html('<div class="notice"><p>'+ dwspecs_plugin.i18n.importing_message + '</p></div>');	
+
+		$.ajax({
+			type: 'POST',
+			cache: false,
+			contentType: false,
+			processData: false,
+			url: dwspecs_plugin.ajaxurl,
+			data: data,
+			success: function(res) {
+				if (res.success) {
+					$('#dwspecs_import_results').html('<div class="updated success"><p>'+ res.data.message + '</p></div>')
+					
+				} else {
+					$('#dwspecs_import_results').html('<div class="error"><p>'+ res.data.message + '</p></div>')
+
+				}
+			},
+			error: function() {
+				$('#dwspecs_import_results').html('<div class="error"><p>'+ dwspecs_plugin.i18n.unknown_error + '</p></div>')
+			}
+		})
+	})
 
 })(jQuery);

@@ -1,26 +1,22 @@
 <?php
 /**
- * Admin Settings page
+ * Admin Controller
  *
- * @author Am!n <www.dornaweb.com>
- * @package Wordpress
- * @subpackage Product Specifications for WooCommerce
- * @link http://www.dornaweb.com
- * @license GPL-2.0+
- * @since 0.1
-*/
+ * @author Dornaweb
+ * @contribute Am!n <dornaweb.com>
+ */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace DWSpecificationsTable\Admin\Options;
+use DWSpecificationsTable\Admin\Admin;
 
-class DW_specs_admin_settings{
+defined('ABSPATH') || exit;
 
+class Settings {
 	/**
 	 * Construct
 	*/
-	public function __construct(){
-		add_action( 'admin_init', array( $this, 'settings_page_init' ) );
+	public static function init(){
+		add_action( 'admin_init', array( __CLASS__, 'settings_page_init' ) );
 	}
 
 	public static function load_default_settings(){
@@ -39,29 +35,29 @@ class DW_specs_admin_settings{
 	 *
 	 * @return void
 	*/
-	public function settings_page_init(){
+	public static function settings_page_init(){
 		register_setting(
             'dwps_options',
             'dwps_options',
-            array( $this, 'sanitize' )
+            array( __CLASS__, 'sanitize' )
         );
 
 		register_setting(
             'dwps_options',
             'dwps_view_per_page',
-            array( $this, 'sanitize' )
+            array( __CLASS__, 'sanitize' )
         );
 
 		register_setting(
             'dwps_options',
             'dwps_wc_default_specs',
-            array( $this, 'sanitize' )
+            array( __CLASS__, 'sanitize' )
         );
 
 		register_setting(
             'dwps_options',
             'dwps_disable_default_styles',
-            array( $this, 'sanitize' )
+            array( __CLASS__, 'sanitize' )
         );
 	}
 
@@ -71,7 +67,7 @@ class DW_specs_admin_settings{
      * @param array $input Contains all settings fields as array keys
 	 * @return mixed sanitized $input
      */
-    public function sanitize( $input ) {
+    public static function sanitize( $input ) {
         return $input;
     }
 
@@ -79,8 +75,6 @@ class DW_specs_admin_settings{
 	 * Settings menu page HTML output
 	*/
 	public static function Page_HTML(){
-		DW_specs_admin::get_template( 'options/views/settings' );
+		Admin::get_template( 'options/views/settings' );
 	}
 }
-
-new DW_specs_admin_settings();

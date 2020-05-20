@@ -26,17 +26,9 @@
   clear:both;
 }
 
-.dwps-settings-wrap{
-
-}
-
 .dwps-settings-wrap .title-note{
   font-size:11px;
   color:#ccc;
-}
-
-.dwps-field-wrap{
-
 }
 
 .dwps-field-wrap .label{
@@ -95,10 +87,6 @@
   margin-bottom: 15px;
 }
 
-.dwps-table.dwps-sortable tbody tr{
-
-}
-
 .dwps-table tr th{
   font-weight: bold;
   cursor: pointer;
@@ -137,23 +125,23 @@
   margin: 0;
 }
 
-.modal__main label{
+.tingle-modal-box__content label{
   vertical-align: top;
   width: 28%;
   display: inline-block;
 }
 
-.modal__main input[type=text],
-.modal__main input[type=email],
-.modal__main input[type=password],
-.modal__main input[type=url],
-.modal__main input[type=number],
-.modal__main textarea,
-.modal__main select {
+.tingle-modal-box__content input[type=text],
+.tingle-modal-box__content input[type=email],
+.tingle-modal-box__content input[type=password],
+.tingle-modal-box__content input[type=url],
+.tingle-modal-box__content input[type=number],
+.tingle-modal-box__content textarea,
+.tingle-modal-box__content select {
   min-width: 200px;
 }
 
-.modal__main textarea{
+.tingle-modal-box__content textarea{
   width: 70%;
 }
 
@@ -161,12 +149,12 @@
   max-width: 450px !important;
 }
 
-.modal__main .result-msg{
+.tingle-modal-box__content .result-msg{
   display: block;
   margin-top: 15px;
 }
 
-.modal__main .result-msg .msg{
+.tingle-modal-box__content .result-msg .msg{
   text-align: center;
   display: block;
   padding: 7px 15px;
@@ -174,13 +162,13 @@
   border-bottom: 2px solid #333;
 }
 
-.modal__main .result-msg .msg.success{
+.tingle-modal-box__content .result-msg .msg.success{
   background-color: #d7ffe1;
   border-bottom: 2px solid #10A42C;
   color: #09681E;
 }
 
-.modal__main .result-msg .msg.error{
+.tingle-modal-box__content .result-msg .msg.error{
   background-color: #fff4f4;
   border-bottom: 2px solid #A41010;
   color: #680909;
@@ -347,7 +335,7 @@
 
 .dwps-pagination span,
 .dwps-pagination a{
-  display: inline-block;
+  /* display: inline-block; */
   text-decoration: none;
   padding: 5px 10px;
   font-size: 12px;
@@ -501,10 +489,6 @@ input[type=checkbox][readonly]{
   margin: 0;
 }
 
-.dwps-spec-table-wrap .attributes-list li label[for]{
-  /*width: 18%;*/
-}
-
 .dwps-spec-table-wrap input[type="text"],
 .dwps-spec-table-wrap input[type="search"],
 .dwps-spec-table-wrap input[type="tel"],
@@ -561,4 +545,10 @@ input[type=checkbox][readonly]{
 
 .rtl .dw-search-by-tbl{
   float: left;
+}
+
+.dwps-export-import-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
 }

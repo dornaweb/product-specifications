@@ -54,7 +54,7 @@ $groups = get_terms( array(
 			<div class="dwps-box-top clearfix">
 				<h4><?php _e('Attribute Groups', 'dwspecs'); ?></h4>
 				<div class="dwps-group-searchform">
-					<form action="<?php echo esc_url( current_page_url() ); ?>" method="get">
+					<form action="<?php echo esc_url( dwspecs_current_page_url() ); ?>" method="get">
 						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'dwspecs'); ?>">
 
 						<?php
@@ -85,7 +85,7 @@ $groups = get_terms( array(
 						<?php
 						if( sizeof( $groups ) > 0 ) :
 							foreach( $groups as $group ) :
-								$attributes = dw_get_attributes_by_group( $group->term_id ); ?>
+								$attributes = dwspecs_get_attributes_by_group( $group->term_id ); ?>
 							<tr>
 								<td class="check-column"><input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo $group->term_id; ?>"></td>
 								<td><?php echo $group->term_id; ?></td>

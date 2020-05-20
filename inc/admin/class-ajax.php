@@ -1,26 +1,27 @@
 <?php
 /**
- * Ajax interactions
+ * Admin Ajax Controllers
  *
- * @author Am!n <www.dornaweb.com>
- * @package Wordpress
- * @subpackage Product Specifications Table Plugin
- * @link http://www.dornaweb.com
- * @since 0.1
-*/
-class DW_specs_ajax{
+ * @author Dornaweb
+ * @contribute Am!n <dornaweb.com>
+ */
 
+namespace DWSpecificationsTable\Admin;
+
+defined('ABSPATH') || exit;
+
+class Ajax
+{
 	/**
-	 * Begin
+	 * Init
 	*/
-	public function __construct() {
-
+	public static function init() {
 		/* Registering ajax actions with their callbacks */
-		add_action( 'wp_ajax_dwps_modify_groups', array( $this, 'modify_groups' ) );
-		add_action( 'wp_ajax_dwps_modify_attributes', array( $this, 'modify_attributes' ) );
-		add_action( 'wp_ajax_dwps_edit_form', array( $this, 'edit_form' ) );
-		add_action( 'wp_ajax_dwps_group_rearange', array( $this, 'group_re_arange' ) );
-		add_action( 'wp_ajax_dwps_load_table', array( $this, 'load_table' ) );
+		add_action( 'wp_ajax_dwps_modify_groups', array( __CLASS__, 'modify_groups' ) );
+		add_action( 'wp_ajax_dwps_modify_attributes', array( __CLASS__, 'modify_attributes' ) );
+		add_action( 'wp_ajax_dwps_edit_form', array( __CLASS__, 'edit_form' ) );
+		add_action( 'wp_ajax_dwps_group_rearange', array( __CLASS__, 'group_re_arange' ) );
+		add_action( 'wp_ajax_dwps_load_table', array( __CLASS__, 'load_table' ) );
 	}
 
 	/**
@@ -28,7 +29,7 @@ class DW_specs_ajax{
 	 *
 	 * @return string JSON result
 	*/
-	public function modify_groups(){
+	public static function modify_groups(){
 		if( !isset( $_POST['do'] ) || empty( $_POST['do'] ) ) {
 			$do = 'add';
 		} else{
@@ -121,7 +122,7 @@ class DW_specs_ajax{
 	 *
 	 * @return string JSON result
 	*/
-	public function modify_attributes(){
+	public static function modify_attributes(){
 		if( !isset( $_POST['do'] ) || empty( $_POST['do'] ) ) {
 			$do = 'add';
 		} else{
@@ -315,16 +316,16 @@ class DW_specs_ajax{
 	 *
 	 * @return void
 	*/
-	public function edit_form(){
+	public static function edit_form(){
 		$id   = isset( $_REQUEST['id'] ) ? absint( $_REQUEST['id'] ) : false;
 		$type = isset( $_REQUEST['type'] ) ? esc_attr( htmlspecialchars( $_REQUEST['type'] ) ) : false;
 		if( !$id ) die;
 
 		if( $type == 'attribute' ){
-			DW_specs_admin::get_template( 'views/edit-attribute-form', array( 'attribute_id' => $id ) );
+			Admin::get_template( 'views/edit-attribute-form', array( 'attribute_id' => $id ) );
 		}
 		else{
-			DW_specs_admin::get_template( 'views/edit-group-form', array( 'group_id' => $id ) );
+			Admin::get_template( 'views/edit-group-form', array( 'group_id' => $id ) );
 		}
 
 		wp_die();
@@ -335,7 +336,7 @@ class DW_specs_ajax{
 	 *
 	 * @return void
 	*/
-	public function group_re_arange(){
+	public static function group_re_arange(){
 		if( isset( $_POST ) && isset( $_POST['group_id'] ) && !empty( $_POST['group_id'] ) ) {
 			// update Arrangement
 			$group_id   = absint( $_POST['group_id'] );
@@ -348,12 +349,10 @@ class DW_specs_ajax{
 				) ) );
 			}
 
-			//die( dumpit( $_POST ) );
-
 		} else{
 			$id   = isset( $_REQUEST['id'] ) ? absint( $_REQUEST['id'] ) : false;
 			if( !$id ) die;
-			DW_specs_admin::get_template( 'views/group-rearange-form', array( 'group_id' => $id ) );
+			Admin::get_template( 'views/group-rearange-form', array( 'group_id' => $id ) );
 		}
 		wp_die();
 	}
@@ -363,17 +362,15 @@ class DW_specs_ajax{
 	 *
 	 * @return void
 	*/
-	public function load_table(){
+	public static function load_table(){
 		$table_id = isset( $_POST['specs_table'] ) ? absint( $_POST['specs_table'] ) : 0;
 		$post_id  = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 		$post     = get_post( $post_id );
 
 		if( !$table_id ) die('');
 
-		DW_specs_admin::get_template( 'views/product-load-table', array( 'table_id' => $table_id, 'post' => $post ) );
+		Admin::get_template( 'views/product-load-table', array( 'table_id' => $table_id, 'post' => $post ) );
 
 		wp_die();
 	}
 }
-
-new DW_specs_ajax;

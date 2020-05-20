@@ -19,7 +19,7 @@
 		$selected_groups = get_post_meta( $post->ID, '_groups', true ) == '' ? array() : get_post_meta( $post->ID, '_groups', true );
 		if( $groups && sizeof( $groups ) > 0 ) {
 			foreach( $groups as $term ) :
-				$slug = dw_spec_group_has_duplicates( $term->name ) ? " ({$term->slug})" : "";
+				$slug = dwspecs_spec_group_has_duplicates( $term->name ) ? " ({$term->slug})" : "";
 				$checked = in_array( $term->term_id, $selected_groups ) ? ' checked' : ''; ?>
 			<p>
 				<label>
@@ -38,7 +38,7 @@
 			if( is_array( $selected_groups ) && sizeof( $selected_groups ) > 0 ){
 				foreach( $selected_groups as $group ) {
 					$term = get_term_by( 'id', $group, 'spec-group' );
-					$slug = dw_spec_group_has_duplicates( $term->name ) ? " ({$term->slug})" : "";
+					$slug = dwspecs_spec_group_has_duplicates( $term->name ) ? " ({$term->slug})" : "";
 					echo '<li><input checked type="checkbox" name="groups[]" value="'. $term->term_id .'" readonly>'. $term->name . urldecode($slug) .'</li>';
 				}
 			} ?>

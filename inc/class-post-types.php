@@ -1,29 +1,26 @@
 <?php
 /**
- * Define post types and taxonomies
+ * Specifications table Post Types Class
+ * Post types, Taxonomies, meta boxes, post columns are registered here
  *
- * @author Am!n <www.dornaweb.com>
- * @package Wordpress
- * @subpackage Product Specifications for WooCommerce
- * @link http://www.dornaweb.com
- * @license GPL-2.0+
- * @since 0.1
-*/
+ * @package DWSpecificationsTable/Post_Types
+ * @since   0.1
+ */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace DWSpecificationsTable;
 
-class DW_specs_posts_types{
+defined('ABSPATH') || exit;
+ 
+class Post_Types {
 	public static function init(){
-		add_action( 'init', array( __CLASS__, 'taxonomies' ) ); // register taxonomies
-		add_action( 'init', array( __CLASS__, 'post_types' ) ); // register post types
+		add_action( 'init', array( __CLASS__, 'register_taxonomies' ) ); // register taxonomies
+		add_action( 'init', array( __CLASS__, 'register_post_types' ) ); // register post types
 	}
 
 	/**
 	 * Register post types
 	*/
-	public static function post_types(){
+	public static function register_post_types(){
 		$labels = array(
 			'name'                  => __( 'Specifications tables', 'dwspecs' ),
 			'singular_name'         => __( 'Specifications table', 'dwspecs' ),
@@ -73,7 +70,7 @@ class DW_specs_posts_types{
 	/**
 	 * Register taxonomies ( spec. groups and attributes )
 	*/
-	public static function taxonomies(){
+	public static function register_taxonomies(){
 		$labels = array(
 			'name' 				  => _x( 'Groups', 'taxonomy general name', 'dwspecs' ),
 			'singular_name' 	  => _x( 'group', 'taxonomy singular name', 'dwspecs' ),
@@ -121,5 +118,3 @@ class DW_specs_posts_types{
 		) );
 	}
 }
-
-DW_specs_posts_types::init();

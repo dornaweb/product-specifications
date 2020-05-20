@@ -10,7 +10,8 @@
  * @version 0.1
 */
 
-$groups = get_post_meta( $table_id, '_groups', true ); ?>
+$groups = get_post_meta($table_id, '_groups', true);
+?>
 
 <ul class="tabs">
 	<?php
@@ -25,7 +26,7 @@ $groups = get_post_meta( $table_id, '_groups', true ); ?>
 
 <div class="tab-contents">
 	<?php
-	$already_has_table = dw_product_has_specs_table( $post->ID );
+	$already_has_table = dwspecs_product_has_specs_table( $post->ID );
 	for( $a = 0; $a < sizeof( $groups ); $a++ ) :
 		$group = get_term_by( 'id', $groups[$a], 'spec-group' );
 		$attributes = get_term_meta( $group->term_id, 'attributes', true );
@@ -39,7 +40,7 @@ $groups = get_post_meta( $table_id, '_groups', true ); ?>
 						$attribute   = get_term_by('id', $att_id, 'spec-attr');
 						$type 	     = get_term_meta( $att_id, 'attr_type', true );
 						$default     = get_term_meta( $att_id, 'attr_default', true ) ?: '';
-						$fill        = dw_attr_value_by( $post->ID, 'id', $att_id );
+						$fill        = dwspecs_attr_value_by( $post->ID, 'id', $att_id );
 
 						$field_removed	 = ! $fill && $already_has_table;
 
