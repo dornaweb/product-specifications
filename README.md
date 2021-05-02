@@ -49,7 +49,7 @@ function my_custom_spec_table_markup( $output, $args ){
 
 ## Changelog
 
-== 0.4.2 ==
+### 0.4.2
 
 - Bug: when selecting "OR" value would not be saved -> fixed
 
