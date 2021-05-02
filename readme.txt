@@ -72,6 +72,9 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
+== 0.4.2 ==
+* Bug: when selecting "OR" value would not be saved -> fixed
+
 == 0.4.1 ==
 * Bug: Attributes not being loaded in product table fixed
 
