@@ -7,7 +7,6 @@
  * Author:            Am!n A.Rezapour
  * Author URI: 		  https://www.dornaweb.com
  * License:           GPL-2.0+
- * 
  * Text Domain:       dwspecs
  * Domain Path:   	  /lang
  *
