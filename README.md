@@ -47,7 +47,18 @@ function my_custom_spec_table_markup( $output, $args ){
 }
 ```
 
+## Donation
+
+If this plugin has been handy to you, you can keep up the work by donating to below address:
+
+`0x90B0f45e24C6942594Ad0a6cfcf23860F83623bA` (Any Ethereum, BSC, FTM based tokens are welcome)
+`TA6NCxJ97WsCDmUVEEvsVz1PW4kAVza295` (Any TRC20 (Tron network) tokens)
+
 ## Changelog
+
+### 0.4.3
+
+- Appearance issue fixed
 
 ### 0.4.2
 

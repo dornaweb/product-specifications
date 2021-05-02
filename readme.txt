@@ -4,7 +4,7 @@ Contributors: dornaweb
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
 Requires at least: 5.1
 Tested up to: 5.7.1
-Stable tag: 0.4.2
+Stable tag: 0.4.3
 Requires PHP: 5.6
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -24,7 +24,13 @@ Russian ( Thanks to Илья Китаев )
 To contribute in translating this plugin contact me : info@dornaweb.com
 
 = Development =
-Product specifications is also available at [github](https://github.com/dornaweb/product-specifications/ "Product specifications plugin"), Feel free to fork it.
+Product specifications is also available at [github](https://github.com/dornaweb/product-specifications/ "Product specifications plugin"), Feel free to contribute.
+
+== Donate this plugin: ==
+If this plugin has been handy to you, you can keep up the work by donating to below address:
+
+`0x90B0f45e24C6942594Ad0a6cfcf23860F83623bA` (Any Ethereum, BSC, FTM based tokens are welcome)
+`TA6NCxJ97WsCDmUVEEvsVz1PW4kAVza295` (Any TRC20 (Tron network) tokens)
 
 == Installation ==
 
@@ -71,6 +77,9 @@ function my_custom_spec_table_markup( $output, $args ){
 
 
 == Changelog ==
+
+== 0.4.3 ==
+* Bug: Appearance issue fixed
 
 == 0.4.2 ==
 * Bug: when selecting "OR" value would not be saved -> fixed
