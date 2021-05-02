@@ -15,11 +15,9 @@ contributors.html
 docker-compose.yaml
 Dockerfile
 Gruntfile.js
-lerna.json
 none
 package-lock.json
 package.json
-packages/woocommerce-admin/docs
 phpcs.xml
 phpunit.xml
 phpunit.xml.dist
