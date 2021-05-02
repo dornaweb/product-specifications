@@ -1,7 +1,7 @@
 name: 🚀 Release to WordPress.org plugins repo
 on:
   release:
-    types: [published]
+    types: [published, edited]
 jobs:
   tag:
     name: 🎉 New Release
