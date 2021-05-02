@@ -1,0 +1,30 @@
+name: 🚀 Release to WordPress.org plugins repo
+on:
+  release:
+    types: [published]
+jobs:
+  tag:
+    name: 🎉 New Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+      - uses: actions/checkout@v2
+
+      - name: 🚀 WordPress Plugin Deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@master
+        with:
+          generate-zip: true
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{github.workspace}}/${{ github.event.repository.name }}.zip
+          asset_name: ${{ github.event.repository.name }}.zip
+          asset_content_type: application/zip
