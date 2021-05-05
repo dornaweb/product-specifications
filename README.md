@@ -56,6 +56,13 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 
 ## Changelog
 
+### 0.5.0
+
+- Added ability to choose title of specs tab
+- Translation string fixed
+
+- Appearance issue fixed
+
 ### 0.4.3
 
 - Appearance issue fixed
