@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woocommerce Product Specifications\n"
-"POT-Creation-Date: 2021-05-05 14:16+0430\n"
-"PO-Revision-Date: 2021-05-05 14:16+0430\n"
+"POT-Creation-Date: 2021-05-05 14:20+0430\n"
+"PO-Revision-Date: 2021-05-05 14:20+0430\n"
 "Last-Translator: Amin <amin.pe94@gmail.vom>\n"
 "Language-Team: Dornaweb <info@dornaweb.com>\n"
 "Language: fa_IR\n"
@@ -158,35 +158,43 @@ msgid "settings"
 msgstr "تنظیمات"
 
 #: inc/admin/options/views/settings.php:25
+msgid "Specs Tab Title"
+msgstr "عنوان تب مشخصات"
+
+#: inc/admin/options/views/settings.php:26
+msgid "The title of product specs. tab in product single page"
+msgstr "عنوان تب مشخصات کالا در صفحه توضیحات محصول (سینگل)"
+
+#: inc/admin/options/views/settings.php:31
 msgid "Views per page"
 msgstr "تعداد نمایش در هر صفحه"
 
-#: inc/admin/options/views/settings.php:26
+#: inc/admin/options/views/settings.php:32
 msgid "How many records should be seen in a page?"
 msgstr "در هر صفحه چند آیتم نمایش داده شود؟"
 
-#: inc/admin/options/views/settings.php:31
+#: inc/admin/options/views/settings.php:37
 msgid "Woocommerce default specs. behaviour"
 msgstr "جدول مشخصات پیشفرض ووکامرس"
 
-#: inc/admin/options/views/settings.php:32
+#: inc/admin/options/views/settings.php:38
 msgid "Choose what to do with woocommerce default specifications table"
 msgstr "انتخاب کنید که با جدول مشخصات پیشفرض ووکامرس چکار کنیم"
 
-#: inc/admin/options/views/settings.php:35
+#: inc/admin/options/views/settings.php:41
 msgid "Always Remove"
 msgstr "همیشه حذف شود"
 
-#: inc/admin/options/views/settings.php:36
+#: inc/admin/options/views/settings.php:42
 msgid "Remove if product has a specs. table"
 msgstr "فقط زمانی که محصول جدول مشخصات دارد حذف شود"
 
-#: inc/admin/options/views/settings.php:37
+#: inc/admin/options/views/settings.php:43
 msgid "Always keep"
 msgstr "همیشه بماند"
 
-#: inc/admin/options/views/settings.php:42
-#: inc/admin/options/views/settings.php:45
+#: inc/admin/options/views/settings.php:48
+#: inc/admin/options/views/settings.php:51
 msgid "Disable plugin's CSS styles"
 msgstr "غیر فعال کردن CSS های افزونه"
 
