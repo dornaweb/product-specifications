@@ -190,7 +190,7 @@ final class App
 		
 		if( dwspecs_product_has_specs_table( $product->get_id() ) ){
 			$tabs['dwspecs_product_specifications'] = array(
-				'title' 	=> __( 'Product Specifications', 'dwspecs' ),
+				'title' 	=> get_option('dwps_tab_title') ?: __( 'Product Specifications', 'dwspecs' ),
 				'priority' 	=> 10,
 				'callback' 	=> array( $this, 'woo_display_tab' )
 			);
