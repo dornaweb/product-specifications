@@ -44,6 +44,12 @@ class Settings {
 
 		register_setting(
             'dwps_options',
+            'dwps_tab_title',
+            array( __CLASS__, 'sanitize' )
+        );
+
+		register_setting(
+            'dwps_options',
             'dwps_view_per_page',
             array( __CLASS__, 'sanitize' )
         );

@@ -22,6 +22,12 @@
 
 			<form method="post" action="options.php">
 				<p class="dwps-field-wrap">
+					<strong class="label"><?php _e('Specs Tab Title', 'dwspecs'); ?></strong>
+					<em class="note"><?php _e('The title of product specs. tab in product single page', 'dwspecs'); ?></em>
+					<input type="text" name="dwps_tab_title" value="<?php echo get_option('dwps_tab_title'); ?>">
+				</p>
+
+				<p class="dwps-field-wrap">
 					<strong class="label"><?php _e('Views per page', 'dwspecs'); ?></strong>
 					<em class="note"><?php _e('How many records should be seen in a page?', 'dwspecs'); ?></em>
 					<input type="number" name="dwps_view_per_page" value="<?php echo get_option('dwps_view_per_page'); ?>">

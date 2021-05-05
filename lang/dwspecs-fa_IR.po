@@ -1,161 +1,151 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woocommerce Product Specifications\n"
-"POT-Creation-Date: 2020-05-18 22:37+0430\n"
-"PO-Revision-Date: 2020-05-18 22:37+0430\n"
+"POT-Creation-Date: 2021-05-05 14:16+0430\n"
+"PO-Revision-Date: 2021-05-05 14:16+0430\n"
 "Last-Translator: Amin <amin.pe94@gmail.vom>\n"
 "Language-Team: Dornaweb <info@dornaweb.com>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-KeywordsList: _e;__;_n;_x\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/admin/ajax.php:46
-msgid "Please enter a group name"
-msgstr "لطفا یک نام برای گروه مورد نظر وارد کنید"
-
-#: inc/admin/ajax.php:71
-msgid "Group edited successfully"
-msgstr "گروه با موفقیت ویرایش شد"
-
-#: inc/admin/ajax.php:71
-msgid "Group created successfully"
-msgstr "گروه مشخصه با موفقیت ساخته شد"
-
-#: inc/admin/ajax.php:79 inc/admin/ajax.php:235
-msgid "Something went wrong"
-msgstr "خطایی پیش آمده است"
-
-#: inc/admin/ajax.php:100
-msgid "Could not delete group(s)"
-msgstr "حذف گروه(ها) موفقیت آمیز نبود"
-
-#: inc/admin/ajax.php:108
-msgid "Group(s) deleted successfully"
-msgstr "گروه یا گروه های انتخاب شده با موفقیت حذف شدند"
-
-#: inc/admin/ajax.php:158
-msgid "Please enter an attribute name"
-msgstr "لطفا برای مشخصه یک نام وارد کنید"
-
-#: inc/admin/ajax.php:165
-msgid "Please select a group"
-msgstr "لطفا یک گروه برای مشخصه انتخاب کنید"
-
-#: inc/admin/ajax.php:172
-msgid "Please select a field type"
-msgstr "لطفا نوع فیلد را انتخاب کنید"
-
-#: inc/admin/ajax.php:179
-msgid "Please set some values for attribute"
-msgstr "لطفا مقادیر مشخصه را وارد کنید"
-
-#: inc/admin/ajax.php:219
-msgid "Attribute added successfully"
-msgstr "مشخصه با موفقیت ساخته شد"
-
-#: inc/admin/ajax.php:219
-msgid "Attribute updated successfully"
-msgstr "مشخصه با موفقیت به روز رسانی شد"
-
-#: inc/admin/ajax.php:270
-msgid "Could not delete attribute(s)"
-msgstr "عدم توانایی در حذف مشخصه(ها)"
-
-#: inc/admin/ajax.php:287
-msgid "Attribute(s) deleted successfully"
-msgstr "مشخصه(ها) حذف شدند"
-
-#: inc/admin/ajax.php:306
-msgid "Unexpected error"
-msgstr "خطای غیر منتظره"
-
-#: inc/admin/ajax.php:347
-msgid "Attributes arrangement successfully updated."
-msgstr "چیدمان مشخصه ها به روز رسانی شد."
-
-#: inc/admin/class-dwspecs-admin-assets.php:39
+#: inc/admin/class-admin.php:46
 msgid "Importing data may take a long time, please wait..."
 msgstr "وارد کردن اطلاعات ممکن است به طول بیانجامد لطفا صبر کنید..."
 
-#: inc/admin/class-dwspecs-admin-import-exports.php:30
-msgid "Another Migration is in progress"
-msgstr "یک برون بری دیگر در حال اجراست"
+#: inc/admin/class-admin.php:47 inc/admin/class-ajax.php:80
+#: inc/admin/class-ajax.php:237
+msgid "Something went wrong"
+msgstr "خطایی پیش آمده است"
 
-#: inc/admin/class-dwspecs-admin-import-exports.php:36
-#: inc/admin/class-dwspecs-admin-import-exports.php:44
-msgid "Invalid File"
-msgstr "فایل نامعتبر است"
-
-#: inc/admin/class-dwspecs-admin-import-exports.php:56
-msgid "Data Imported successfully"
-msgstr "اطلاعات با موفقیت درون ریزی شد"
-
-#: inc/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:114
+#: inc/admin/class-admin.php:73 inc/class-app.php:163
 msgid "Product specifications table"
 msgstr "جدول مشخصات محصول"
 
-#: inc/admin/class-dwspecs-admin-menus.php:34
-#: inc/admin/class-dwspecs-tables.php:33 wc-specs.php:113
+#: inc/admin/class-admin.php:74 inc/admin/class-specification-tables.php:30
+#: inc/class-app.php:162
 msgid "Specification table"
 msgstr "جدول مشخصات"
 
-#: inc/admin/class-dwspecs-admin-menus.php:45
+#: inc/admin/class-admin.php:85
 msgid "Add a new table"
 msgstr "افزودن جدول جدید"
 
-#: inc/admin/class-dwspecs-admin-menus.php:46
+#: inc/admin/class-admin.php:86
 msgid "New table"
 msgstr "جدول جدید"
 
-#: inc/admin/class-dwspecs-admin-menus.php:55 inc/admin/views/groups.php:50
+#: inc/admin/class-admin.php:95 inc/admin/views/groups.php:50
 #: inc/admin/views/groups.php:55
 msgid "Attribute Groups"
 msgstr "گروه های مشخصه"
 
-#: inc/admin/class-dwspecs-admin-menus.php:56
-#: inc/class-dwspecs-post-types.php:78
+#: inc/admin/class-admin.php:96 inc/class-post-types.php:75
 msgid "Groups"
 msgstr "گروه ها"
 
-#: inc/admin/class-dwspecs-admin-menus.php:65
-#: inc/admin/class-dwspecs-admin-menus.php:66 inc/admin/views/attributes.php:88
-#: inc/admin/views/attributes.php:93 inc/class-dwspecs-post-types.php:101
+#: inc/admin/class-admin.php:105 inc/admin/class-admin.php:106
+#: inc/admin/views/attributes.php:88 inc/admin/views/attributes.php:93
+#: inc/class-post-types.php:98
 msgid "Attributes"
 msgstr "مشخصه ها"
 
-#: inc/admin/class-dwspecs-admin-menus.php:75
+#: inc/admin/class-admin.php:115
 msgid "Product specifications settings"
 msgstr "تنظیمات افزونه جدول مشخصات محصول"
 
-#: inc/admin/class-dwspecs-admin-menus.php:76
+#: inc/admin/class-admin.php:116
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: inc/admin/class-dwspecs-admin-menus.php:85
+#: inc/admin/class-admin.php:125
 msgid "Product specifications Import/Export"
 msgstr "درون ریزی / برون بری اطلاعات افزونه جدول مشخصات محصول"
 
-#: inc/admin/class-dwspecs-admin-menus.php:86
+#: inc/admin/class-admin.php:126
 msgid "Import/export"
 msgstr "درون ریزی / برون بری"
 
-#: inc/admin/class-dwspecs-notices.php:24
-msgid ""
-"This plugin works properly with woocommerce, please install woocommerce first"
-msgstr "این پلاگین نیاز به ووکامرس دارد، لطفا ابتدا پلاگین ووکامرس را نصب کنید"
+#: inc/admin/class-ajax.php:47
+msgid "Please enter a group name"
+msgstr "لطفا یک نام برای گروه مورد نظر وارد کنید"
 
-#: inc/admin/class-dwspecs-notices.php:44
-msgid "Dismiss"
-msgstr "لغو"
+#: inc/admin/class-ajax.php:72
+msgid "Group edited successfully"
+msgstr "گروه با موفقیت ویرایش شد"
 
-#: inc/admin/class-dwspecs-tables.php:31
+#: inc/admin/class-ajax.php:72
+msgid "Group created successfully"
+msgstr "گروه مشخصه با موفقیت ساخته شد"
+
+#: inc/admin/class-ajax.php:101
+msgid "Could not delete group(s)"
+msgstr "حذف گروه(ها) موفقیت آمیز نبود"
+
+#: inc/admin/class-ajax.php:109
+msgid "Group(s) deleted successfully"
+msgstr "گروه یا گروه های انتخاب شده با موفقیت حذف شدند"
+
+#: inc/admin/class-ajax.php:159
+msgid "Please enter an attribute name"
+msgstr "لطفا برای مشخصه یک نام وارد کنید"
+
+#: inc/admin/class-ajax.php:166
+msgid "Please select a group"
+msgstr "لطفا یک گروه برای مشخصه انتخاب کنید"
+
+#: inc/admin/class-ajax.php:173
+msgid "Please select a field type"
+msgstr "لطفا نوع فیلد را انتخاب کنید"
+
+#: inc/admin/class-ajax.php:180
+msgid "Please set some values for attribute"
+msgstr "لطفا مقادیر مشخصه را وارد کنید"
+
+#: inc/admin/class-ajax.php:220
+msgid "Attribute added successfully"
+msgstr "مشخصه با موفقیت ساخته شد"
+
+#: inc/admin/class-ajax.php:220
+msgid "Attribute updated successfully"
+msgstr "مشخصه با موفقیت به روز رسانی شد"
+
+#: inc/admin/class-ajax.php:272
+msgid "Could not delete attribute(s)"
+msgstr "عدم توانایی در حذف مشخصه(ها)"
+
+#: inc/admin/class-ajax.php:290
+msgid "Attribute(s) deleted successfully"
+msgstr "مشخصه(ها) حذف شدند"
+
+#: inc/admin/class-ajax.php:309
+msgid "Unexpected error"
+msgstr "خطای غیر منتظره"
+
+#: inc/admin/class-ajax.php:350
+msgid "Attributes arrangement successfully updated."
+msgstr "چیدمان مشخصه ها به روز رسانی شد."
+
+#: inc/admin/class-import-export.php:27
+msgid "Another Migration is in progress"
+msgstr "یک برون بری دیگر در حال اجراست"
+
+#: inc/admin/class-import-export.php:33 inc/admin/class-import-export.php:41
+msgid "Invalid File"
+msgstr "فایل نامعتبر است"
+
+#: inc/admin/class-import-export.php:53
+msgid "Data Imported successfully"
+msgstr "اطلاعات با موفقیت درون ریزی شد"
+
+#: inc/admin/class-specification-tables.php:28
 msgid "Table Options"
 msgstr "گزینه های جدول"
 
@@ -227,7 +217,7 @@ msgstr "عملیات"
 
 #: inc/admin/views/attributes.php:163 inc/admin/views/groups.php:92
 #: inc/admin/views/groups.php:97 inc/admin/views/groups.php:175
-#: inc/class-dwspecs-post-types.php:84
+#: inc/class-post-types.php:81
 msgid "Edit group"
 msgstr "ویرایش گروه"
 
@@ -243,7 +233,7 @@ msgstr "حذف مشخصه های انتخاب شده"
 msgid "Delete Selected"
 msgstr "حذف انتخاب شده ها"
 
-#: inc/admin/views/attributes.php:180 inc/class-dwspecs-post-types.php:109
+#: inc/admin/views/attributes.php:180 inc/class-post-types.php:106
 msgid "Add a new attribute"
 msgstr "افزودن مشخصه جدید"
 
@@ -287,7 +277,7 @@ msgstr "بروزرسانی"
 msgid "Add new attribute"
 msgstr "افزودن مشخصه جدید"
 
-#: inc/admin/views/attributes.php:237 inc/class-dwspecs-post-types.php:107
+#: inc/admin/views/attributes.php:237 inc/class-post-types.php:104
 msgid "Edit attribute"
 msgstr "ویرایش مشخصه"
 
@@ -380,8 +370,7 @@ msgstr "توضیحات : "
 msgid "Add attribute"
 msgstr "افزودن مشخصه"
 
-#: inc/admin/views/edit-attribute-form.php:100
-#: inc/class-dwspecs-post-types.php:108
+#: inc/admin/views/edit-attribute-form.php:100 inc/class-post-types.php:105
 msgid "Update attribute"
 msgstr "به روز رسانی مشخصه"
 
@@ -413,7 +402,7 @@ msgstr "نامک گروه"
 msgid "# of attributes"
 msgstr "تعداد مشخصه ها"
 
-#: inc/admin/views/groups.php:118 inc/class-dwspecs-post-types.php:86
+#: inc/admin/views/groups.php:118 inc/class-post-types.php:83
 msgid "Add a new group"
 msgstr "افزودن گروه جدید"
 
@@ -429,23 +418,23 @@ msgstr "چیدمان مجدد مشخصه ها"
 msgid "Add Group"
 msgstr "افزودن گروه"
 
-#: inc/admin/views/product-load-table.php:69
+#: inc/admin/views/product-load-table.php:71
 msgid "Select an option"
 msgstr "یک گزینه انتخاب کنید"
 
-#: inc/admin/views/product-load-table.php:76
+#: inc/admin/views/product-load-table.php:78
 msgid "Or"
 msgstr "یا"
 
-#: inc/admin/views/product-load-table.php:77
+#: inc/admin/views/product-load-table.php:79
 msgid "Custom value"
 msgstr "مقدار دستی"
 
-#: inc/admin/views/product-load-table.php:85
+#: inc/admin/views/product-load-table.php:87
 msgid "Remove this field"
 msgstr "حذف این فیلد"
 
-#: inc/admin/views/product-load-table.php:101
+#: inc/admin/views/product-load-table.php:103
 msgid "No attributes defined yet"
 msgstr "هنوز مشخصه ای تعریف نشده است"
 
@@ -469,15 +458,15 @@ msgstr "گروه مشخصه هایی که میخواهید در جدول بار�
 msgid "No Group found, Please define some groups first"
 msgstr "گروهی پیدا نشد ، لطفا ابتدا چند گروه تعریف کنید"
 
-#: inc/admin/views/tools.php:16
+#: inc/admin/views/tools.php:26
 msgid "Import / Export tables and fields"
 msgstr "درون ریزی / برون بری جداول و مشخصه ها"
 
-#: inc/admin/views/tools.php:20
+#: inc/admin/views/tools.php:30
 msgid "Export specification tables"
 msgstr "برون بری جدول های مشخصه"
 
-#: inc/admin/views/tools.php:21
+#: inc/admin/views/tools.php:31
 msgid ""
 "You can choose the tables you want to export and hit the download button , a "
 "<code>JSON</code> file will be downloaded , you can impot that later or on "
@@ -487,198 +476,210 @@ msgstr ""
 "کنید ، یک فایل <code>JSON</code> دانلود خواهد شد که میتوانید بعدا یا روی یک "
 "وردپرس دیگر فراخوانی کنید."
 
-#: inc/admin/views/tools.php:24
+#: inc/admin/views/tools.php:34
 msgid "Export Product Specifications data"
 msgstr "خروجی گرفتن از مشخصه های محصولات"
 
-#: inc/admin/views/tools.php:25
+#: inc/admin/views/tools.php:35
 msgid "You can choose to export only tables data or also with product data"
 msgstr ""
 "میتوانید انتخاب کنید که فقط میخواهید از جداول خروجی بگیرید یا میخواهید مشخصه "
 "های وارد شده در محصولات نیز خروجی گرفته شود"
 
-#: inc/admin/views/tools.php:27
+#: inc/admin/views/tools.php:37
 msgid "Include Products data (file size may increase)"
 msgstr "قرار دادن اطلاعات محصولات ( حجم فایل ممکن است زیاد شود)"
 
-#: inc/admin/views/tools.php:31
+#: inc/admin/views/tools.php:41
 msgid "Download"
 msgstr "دانلود"
 
-#: inc/admin/views/tools.php:36
+#: inc/admin/views/tools.php:46
 msgid "Import Product Specifications data"
 msgstr "وارد کردن مشخصه های محصولات"
 
-#: inc/admin/views/tools.php:37
+#: inc/admin/views/tools.php:47
 msgid "Import your <code>JSON</code> file here"
 msgstr ""
 "فایل <code>JSON</code> مورد نظر خود را انتخاب کرده و آن را درون ریزی کنید"
 
-#: inc/admin/views/tools.php:39
+#: inc/admin/views/tools.php:49
 msgid "Select JSON file"
 msgstr "انتخاب فایل JSON"
 
-#: inc/admin/views/tools.php:43
+#: inc/admin/views/tools.php:53
 msgid "Import"
 msgstr "درون ریزی"
 
-#: inc/class-dwspecs-post-types.php:28 inc/class-dwspecs-post-types.php:31
-msgid "Specifications tables"
-msgstr "جدول های مشخصات"
-
-#: inc/class-dwspecs-post-types.php:29 inc/class-dwspecs-post-types.php:30
-msgid "Specifications table"
-msgstr "جدول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:32
-msgid "Add New"
-msgstr "افزودن"
-
-#: inc/class-dwspecs-post-types.php:33
-msgid "Add New Spec. table"
-msgstr "افزودن جدول مشخصات جدید"
-
-#: inc/class-dwspecs-post-types.php:34
-msgid "New Spec. table"
-msgstr "جدول مشخصات جدید"
-
-#: inc/class-dwspecs-post-types.php:35
-msgid "Edit Spec. table"
-msgstr "ویرایش جدول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:36
-msgid "View Spec. table"
-msgstr "مشاهده جدول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:37
-msgid "Specification tables"
-msgstr "جدول های مشخصات"
-
-#: inc/class-dwspecs-post-types.php:38
-msgid "Search Spec. tables"
-msgstr "جستجوی جداول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:39
-msgid "Parent Spec. tables:"
-msgstr "جدول مشخصات مادر:"
-
-#: inc/class-dwspecs-post-types.php:40
-msgid "No Spec. tables found."
-msgstr "چیزی یافت نشد."
-
-#: inc/class-dwspecs-post-types.php:41
-msgid "No Spec. tables found in Trash."
-msgstr "چیزی در زباله دانی نیست."
-
-#: inc/class-dwspecs-post-types.php:42
-msgid "Spec. table Cover Image"
-msgstr "تصویر کاور"
-
-#: inc/class-dwspecs-post-types.php:43
-msgid "Set cover image"
-msgstr "تنظیم تصویر"
-
-#: inc/class-dwspecs-post-types.php:44
-msgid "Remove cover image"
-msgstr "حذف تصویر"
-
-#: inc/class-dwspecs-post-types.php:45
-msgid "Use as cover image"
-msgstr "استفاده بعنوان تصویر کاور"
-
-#: inc/class-dwspecs-post-types.php:46
-msgid "Spec. tables archives"
-msgstr "آرشیو جدول های مشخصات"
-
-#: inc/class-dwspecs-post-types.php:47
-msgid "Insert into Spec. table"
-msgstr "گذاشتن درون جدول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:48
-msgid "Uploaded to this Spec. table"
-msgstr "آپلود شده در جدول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:49
-msgid "Filter Spec. tables list"
-msgstr "فیلتر کردن جداول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:50
-msgid "Spec. tables list navigation"
-msgstr "ناوبری لیست جداول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:51
-msgid "Spec. tables list"
-msgstr "لیست جداول مشخصات"
-
-#: inc/class-dwspecs-post-types.php:79
-msgid "group"
-msgstr "گروه"
-
-#: inc/class-dwspecs-post-types.php:80
-msgid "Search in groups"
-msgstr "جستجو در گروه ها"
-
-#: inc/class-dwspecs-post-types.php:81
-msgid "all groups"
-msgstr "همه گروه ها"
-
-#: inc/class-dwspecs-post-types.php:82
-msgid "parent group"
-msgstr "گروه مادر"
-
-#: inc/class-dwspecs-post-types.php:83
-msgid "parent group : "
-msgstr "گروه مادر : "
-
-#: inc/class-dwspecs-post-types.php:85
-msgid "Update group"
-msgstr "به روز رسانی گروه"
-
-#: inc/class-dwspecs-post-types.php:87
-msgid "New group"
-msgstr "گروه جدید"
-
-#: inc/class-dwspecs-post-types.php:102
-msgid "attribute"
-msgstr "مشخصه"
-
-#: inc/class-dwspecs-post-types.php:103
-msgid "Search in attributes"
-msgstr "جستجو در مشخصه ها"
-
-#: inc/class-dwspecs-post-types.php:104
-msgid "all attributes"
-msgstr "همه مشخصه ها"
-
-#: inc/class-dwspecs-post-types.php:105
-msgid "parent attribute"
-msgstr "مشخصه مادر"
-
-#: inc/class-dwspecs-post-types.php:106
-msgid "parent attribute : "
-msgstr "مشخصه مادر : "
-
-#: inc/class-dwspecs-post-types.php:110
-msgid "New attribute"
-msgstr "مشخصه جدید"
-
-#: wc-specs.php:91
+#: inc/class-app.php:151
 msgid "Product Specifications for WooCommerce"
 msgstr "جدول مشخصات محصول برای ووکامرس"
 
-#: wc-specs.php:92
+#: inc/class-app.php:152
 msgid ""
 "This plugin adds a product specifications table to your woocommerce products."
 msgstr ""
 "با این افزونه میتوانید جدول مشخصات محصول را به صفحه محصولات خود اضافه کنید."
 
-#: wc-specs.php:116
+#: inc/class-app.php:165
 msgid "Product specifications table for E-Commerce websites"
 msgstr "جدول مشخصات برای سایت های فروشگاهی"
 
-#: wc-specs.php:144
-msgid "Product specifications"
-msgstr "مشخصات محصول"
+#: inc/class-app.php:193
+msgid "Product Specifications"
+msgstr "مشخصات کالا"
+
+#: inc/class-app.php:261
+msgid ""
+"This plugin works properly with woocommerce, please install woocommerce first"
+msgstr "این پلاگین نیاز به ووکامرس دارد، لطفا ابتدا پلاگین ووکامرس را نصب کنید"
+
+#: inc/class-app.php:281
+msgid "Dismiss"
+msgstr "لغو"
+
+#: inc/class-post-types.php:25 inc/class-post-types.php:28
+msgid "Specifications tables"
+msgstr "جدول های مشخصات"
+
+#: inc/class-post-types.php:26 inc/class-post-types.php:27
+msgid "Specifications table"
+msgstr "جدول مشخصات"
+
+#: inc/class-post-types.php:29
+msgid "Add New"
+msgstr "افزودن"
+
+#: inc/class-post-types.php:30
+msgid "Add New Spec. table"
+msgstr "افزودن جدول مشخصات جدید"
+
+#: inc/class-post-types.php:31
+msgid "New Spec. table"
+msgstr "جدول مشخصات جدید"
+
+#: inc/class-post-types.php:32
+msgid "Edit Spec. table"
+msgstr "ویرایش جدول مشخصات"
+
+#: inc/class-post-types.php:33
+msgid "View Spec. table"
+msgstr "مشاهده جدول مشخصات"
+
+#: inc/class-post-types.php:34
+msgid "Specification tables"
+msgstr "جدول های مشخصات"
+
+#: inc/class-post-types.php:35
+msgid "Search Spec. tables"
+msgstr "جستجوی جداول مشخصات"
+
+#: inc/class-post-types.php:36
+msgid "Parent Spec. tables:"
+msgstr "جدول مشخصات مادر:"
+
+#: inc/class-post-types.php:37
+msgid "No Spec. tables found."
+msgstr "چیزی یافت نشد."
+
+#: inc/class-post-types.php:38
+msgid "No Spec. tables found in Trash."
+msgstr "چیزی در زباله دانی نیست."
+
+#: inc/class-post-types.php:39
+msgid "Spec. table Cover Image"
+msgstr "تصویر کاور"
+
+#: inc/class-post-types.php:40
+msgid "Set cover image"
+msgstr "تنظیم تصویر"
+
+#: inc/class-post-types.php:41
+msgid "Remove cover image"
+msgstr "حذف تصویر"
+
+#: inc/class-post-types.php:42
+msgid "Use as cover image"
+msgstr "استفاده بعنوان تصویر کاور"
+
+#: inc/class-post-types.php:43
+msgid "Spec. tables archives"
+msgstr "آرشیو جدول های مشخصات"
+
+#: inc/class-post-types.php:44
+msgid "Insert into Spec. table"
+msgstr "گذاشتن درون جدول مشخصات"
+
+#: inc/class-post-types.php:45
+msgid "Uploaded to this Spec. table"
+msgstr "آپلود شده در جدول مشخصات"
+
+#: inc/class-post-types.php:46
+msgid "Filter Spec. tables list"
+msgstr "فیلتر کردن جداول مشخصات"
+
+#: inc/class-post-types.php:47
+msgid "Spec. tables list navigation"
+msgstr "ناوبری لیست جداول مشخصات"
+
+#: inc/class-post-types.php:48
+msgid "Spec. tables list"
+msgstr "لیست جداول مشخصات"
+
+#: inc/class-post-types.php:76
+msgid "group"
+msgstr "گروه"
+
+#: inc/class-post-types.php:77
+msgid "Search in groups"
+msgstr "جستجو در گروه ها"
+
+#: inc/class-post-types.php:78
+msgid "all groups"
+msgstr "همه گروه ها"
+
+#: inc/class-post-types.php:79
+msgid "parent group"
+msgstr "گروه مادر"
+
+#: inc/class-post-types.php:80
+msgid "parent group : "
+msgstr "گروه مادر : "
+
+#: inc/class-post-types.php:82
+msgid "Update group"
+msgstr "به روز رسانی گروه"
+
+#: inc/class-post-types.php:84
+msgid "New group"
+msgstr "گروه جدید"
+
+#: inc/class-post-types.php:99
+msgid "attribute"
+msgstr "مشخصه"
+
+#: inc/class-post-types.php:100
+msgid "Search in attributes"
+msgstr "جستجو در مشخصه ها"
+
+#: inc/class-post-types.php:101
+msgid "all attributes"
+msgstr "همه مشخصه ها"
+
+#: inc/class-post-types.php:102
+msgid "parent attribute"
+msgstr "مشخصه مادر"
+
+#: inc/class-post-types.php:103
+msgid "parent attribute : "
+msgstr "مشخصه مادر : "
+
+#: inc/class-post-types.php:107
+msgid "New attribute"
+msgstr "مشخصه جدید"
+
+#~ msgid "Product specifications"
+#~ msgstr "مشخصات محصول"
 
 #~ msgid "Woocommerce Product Specifications"
 #~ msgstr "جدول مشخصات کالا"
