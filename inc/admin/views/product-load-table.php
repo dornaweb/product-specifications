@@ -67,7 +67,11 @@ $groups = get_post_meta($table_id, '_groups', true);
 								case "radio" :
 									$options  = get_term_meta( $att_id, 'attr_values', true ); ?>
 
-									<select name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" id="<?php echo $attribute->slug; ?>">
+									<select
+										name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]"
+										id="<?php echo $attribute->slug; ?>"
+										<?php if( $default && !in_array( $default, $options ) ) echo "disabled"; ?>
+									>
 										<option value=""><?php _e( 'Select an option', 'dwspecs' ); ?></option>
 										<?php
 										foreach( $options as $opt ){
@@ -76,7 +80,14 @@ $groups = get_post_meta($table_id, '_groups', true);
 									</select>
 
 									<label class="or"><?php _e('Or', 'dwspecs'); ?> <input class="customvalue-switch" type="checkbox"<?php if( $default && !in_array( $default, $options ) ) echo ' checked'; ?>></label>
-									<input type="text" value="<?php if( $default && !in_array( $default, $options ) ) echo $default; ?>" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" class="select-custom" placeholder="<?php _e('Custom value', 'dwspecs'); ?>" <?php if( $default && in_array( $default, $options ) ) echo 'disabled'; ?>>
+									<input
+										type="text"
+										value="<?php if( $default && !in_array( $default, $options ) ) echo $default; ?>"
+										name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]"
+										class="select-custom"
+										placeholder="<?php _e('Custom value', 'dwspecs'); ?>"
+										<?php if( !$default || in_array( $default, $options ) ) echo 'disabled'; ?>
+									>
 							<?php
 									break;
 								case "true_false" : ?>
