@@ -20,12 +20,12 @@ final class App
 	 *
 	 * @var string
 	 */
-    public $version = '0.5.0';
+    public $version = '0.5.1';
 
     /**
      * Plugin instance.
      *
-     * @since 1.0
+     * @since 0.1
      * @var null|DWSpecificationsTable
      */
     public static $instance = null;

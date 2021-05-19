@@ -56,6 +56,11 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 
 ## Changelog
 
+### 0.5.1
+
+- Selectbox Saving issue fixed
+- Selectbox disabled when Alternative option is set
+
 ### 0.5.0
 
 - Added ability to choose title of specs tab
