@@ -10,12 +10,12 @@
  * @version 0.1
 */
 
-$groups = get_post_meta($table_id, '_groups', true);
+$groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 ?>
 
 <ul class="tabs">
 	<?php
-	for( $i = 0; $i < sizeof( $groups ); $i++ ){
+	for( $i = 0; $i < count( $groups ); $i++ ){
 		$group = get_term_by( 'id', $groups[$i], 'spec-group' );
 		if( !is_WP_Error( $group ) ) {
 			$active = $i == 0 ? ' active' : '';
@@ -27,16 +27,16 @@ $groups = get_post_meta($table_id, '_groups', true);
 <div class="tab-contents">
 	<?php
 	$already_has_table = dwspecs_product_has_specs_table( $post->ID );
-	for( $a = 0; $a < sizeof( $groups ); $a++ ) :
+	for( $a = 0; $a < count( $groups ); $a++ ) :
 		$group = get_term_by( 'id', $groups[$a], 'spec-group' );
 		$attributes = get_term_meta( $group->term_id, 'attributes', true );
 
-		if( !is_WP_Error( $group ) && is_array( $attributes ) && sizeof( $attributes ) > 0 ) : ?>
+		if( !is_WP_Error( $group ) && is_array( $attributes ) && count( $attributes ) > 0 ) : ?>
 			<div class="tab-content" id="dwps_attrs_<?php echo $group->term_id; ?>">
 				<ul class="attributes-list">
 					<?php
 					$attributes = array_values( $attributes );
-					for( $b = 0; $b < sizeof( $attributes ); $b++ ) :
+					for( $b = 0; $b < count( $attributes ); $b++ ) :
 						$att_id = $attributes[$b];
 						$attribute   = get_term_by('id', $att_id, 'spec-attr');
 						$type 	     = get_term_meta( $att_id, 'attr_type', true );
