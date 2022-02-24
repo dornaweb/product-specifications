@@ -20,7 +20,7 @@ final class App
 	 *
 	 * @var string
 	 */
-    public $version = '0.5.1';
+    public $version = '0.5.2';
 
     /**
      * Plugin instance.

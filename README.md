@@ -56,6 +56,10 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 
 ## Changelog
 
+### 0.5.2
+
+- Fixed a php 8.0 incompability
+
 ### 0.5.1
 
 - Selectbox Saving issue fixed
@@ -67,41 +71,3 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 - Translation string fixed
 
 - Appearance issue fixed
-
-### 0.4.3
-
-- Appearance issue fixed
-
-### 0.4.2
-
-- Bug: when selecting "OR" value would not be saved -> fixed
-
-### 0.4.1
-
-- Bug: Attributes not being loaded in product table fixed
-
-### 0.4.0
-
-- Changed Modal Library
-- Faster modal Experience
-- Added Ability to import/export tables data in JSON format
-- Plugin Classes are now loaded with PHP Autoloaders
-- Ability to export and import product specs table data
-- Ability to Override Specs Table template from your active theme
-- Performance Improvement
-- Other bug fixes
-
-### 0.3.2
-
-- Fixed Some CSS problems in admin area
-
-### 0.3.1
-
-- Added ability to disable Woocommerce's default information table
-- Added default CSS stylesheet and ability to disable it
-- Added ability to remove `true/false` fields from specific products
-- Bug fix in group re-ordering
-- Bug fix when product spec. table is empty and it's still shown on product page
-- Some minor bug fixes
-- Updated Persian translation
-- Added Russian language ( Thanks to Илья Китаев )
