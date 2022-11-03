@@ -12,43 +12,43 @@
 
 <div class="dwps-page">
 	<div class="dwps-settings-wrap">
-		<h3><?php _e('Product specifications general settings', 'dwspecs'); ?></h3>
+		<h3><?php _e('Product specifications general settings', 'product-specifications'); ?></h3>
 		<p class="title-note"></p>
 
 		<div class="dwps-box-wrapper dwps-box-padded clearfix">
 			<div class="dwps-box-top clearfix">
-				<h4><?php _e('settings', 'dwspecs'); ?></h4>
+				<h4><?php _e('settings', 'product-specifications'); ?></h4>
 			</div><!-- .dwps-box-top -->
 
 			<form method="post" action="options.php">
 				<p class="dwps-field-wrap">
-					<strong class="label"><?php _e('Specs Tab Title', 'dwspecs'); ?></strong>
-					<em class="note"><?php _e('The title of product specs. tab in product single page', 'dwspecs'); ?></em>
+					<strong class="label"><?php _e('Specs Tab Title', 'product-specifications'); ?></strong>
+					<em class="note"><?php _e('The title of product specs. tab in product single page', 'product-specifications'); ?></em>
 					<input type="text" name="dwps_tab_title" value="<?php echo get_option('dwps_tab_title'); ?>">
 				</p>
 
 				<p class="dwps-field-wrap">
-					<strong class="label"><?php _e('Views per page', 'dwspecs'); ?></strong>
-					<em class="note"><?php _e('How many records should be seen in a page?', 'dwspecs'); ?></em>
+					<strong class="label"><?php _e('Views per page', 'product-specifications'); ?></strong>
+					<em class="note"><?php _e('How many records should be seen in a page?', 'product-specifications'); ?></em>
 					<input type="number" name="dwps_view_per_page" value="<?php echo get_option('dwps_view_per_page'); ?>">
 				</p>
 
 				<p class="dwps-field-wrap">
-					<strong class="label"><?php _e('Woocommerce default specs. behaviour', 'dwspecs'); ?></strong>
-					<em class="note"><?php _e('Choose what to do with woocommerce default specifications table', 'dwspecs'); ?></em>
+					<strong class="label"><?php _e('Woocommerce default specs. behaviour', 'product-specifications'); ?></strong>
+					<em class="note"><?php _e('Choose what to do with woocommerce default specifications table', 'product-specifications'); ?></em>
 
 					<select name="dwps_wc_default_specs">
-						<option value="remove" <?php selected( 'remove', get_option('dwps_wc_default_specs') ); ?>><?php _e('Always Remove', 'dwspecs'); ?></option>
-						<option value="remove_if_specs_not_empty" <?php selected( 'remove_if_specs_not_empty', get_option('dwps_wc_default_specs') ); ?>><?php _e('Remove if product has a specs. table', 'dwspecs'); ?></option>
-						<option value="keep" <?php selected( 'keep', get_option('dwps_wc_default_specs') ); ?>><?php _e('Always keep', 'dwspecs'); ?></option>
+						<option value="remove" <?php selected( 'remove', get_option('dwps_wc_default_specs') ); ?>><?php _e('Always Remove', 'product-specifications'); ?></option>
+						<option value="remove_if_specs_not_empty" <?php selected( 'remove_if_specs_not_empty', get_option('dwps_wc_default_specs') ); ?>><?php _e('Remove if product has a specs. table', 'product-specifications'); ?></option>
+						<option value="keep" <?php selected( 'keep', get_option('dwps_wc_default_specs') ); ?>><?php _e('Always keep', 'product-specifications'); ?></option>
 					</select>
 				</p>
 
 				<p class="dwps-field-wrap">
-					<strong class="label"><?php _e('Disable plugin\'s CSS styles', 'dwspecs'); ?></strong>
+					<strong class="label"><?php _e('Disable plugin\'s CSS styles', 'product-specifications'); ?></strong>
 					<label>
 						<input type="checkbox" name="dwps_disable_default_styles" <?php checked( get_option('dwps_disable_default_styles'), 'on' ); ?>>
-						<?php _e('Disable plugin\'s CSS styles', 'dwspecs'); ?>
+						<?php _e('Disable plugin\'s CSS styles', 'product-specifications'); ?>
 					</label>
 				</p>
 

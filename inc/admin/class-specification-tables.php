@@ -25,9 +25,9 @@ class Specification_Tables
 	 * Create Metaboxes
 	**/
 	public static function meta_box(){
-		add_meta_box( 'dw-specs-table-metas', __( 'Table Options', 'dwspecs' ), array( __CLASS__, 'content_spec_table' ), 'specs-table', 'normal', 'high' ); // Table settings in table post type
+		add_meta_box( 'dw-specs-table-metas', __( 'Table Options', 'product-specifications' ), array( __CLASS__, 'content_spec_table' ), 'specs-table', 'normal', 'high' ); // Table settings in table post type
 
-		add_meta_box( 'dwps-specs-table', __( 'Specification table', 'dwspecs' ), array( __CLASS__, 'content_product_specs' ), array( 'product' ), 'normal', 'high' ); // Table input meta boxes
+		add_meta_box( 'dwps-specs-table', __( 'Specification table', 'product-specifications' ), array( __CLASS__, 'content_product_specs' ), array( 'product' ), 'normal', 'high' ); // Table input meta boxes
 	}
 
 	/**

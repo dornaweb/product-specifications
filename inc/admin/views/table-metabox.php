@@ -11,8 +11,8 @@
 */ ?>
 
 <div class="dwsp-meta-wrap">
-	<strong class="title"><?php _e('Attribute Groups : ', 'dwspecs'); ?></strong>
-	<span class="hint"><?php _e('Select attribute groups you want to load in this table : ', 'dwspecs'); ?></span>
+	<strong class="title"><?php _e('Attribute Groups : ', 'product-specifications'); ?></strong>
+	<span class="hint"><?php _e('Select attribute groups you want to load in this table : ', 'product-specifications'); ?></span>
 
 	<div class="dwsp-meta-item">
 		<?php
@@ -30,7 +30,7 @@
 	<?php
 			endforeach;
 		} else{
-			_e('No Group found, Please define some groups first', 'dwspecs');
+			_e('No Group found, Please define some groups first', 'product-specifications');
 		} ?>
 
 		<ul class="table-groups-list dpws-sortable">

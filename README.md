@@ -5,13 +5,9 @@ Product Specifications is very light-weight and easy to customize.
 
 Plugin is available at [Wordpress Repository](https://wordpress.org/plugins/product-specifications/) , There's also a live demo, you can [check it out](http://demos.dornaweb.com/specs/shop/)
 
-### Available languages
+### Translation
 
-English
-Persian
-Russian ( Thanks to Илья Китаев )
-
-To contribute in translating this plugin contact me : info@dornaweb.com
+To contribute in translating this plugin please visit: [Wordpress Translation Repository](https://translate.wordpress.org/projects/wp-plugins/product-specifications/)
 
 ## Usage
 

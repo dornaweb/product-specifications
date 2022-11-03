@@ -72,20 +72,20 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 										id="<?php echo $attribute->slug; ?>"
 										<?php if( $default && !in_array( $default, $options ) ) echo "disabled"; ?>
 									>
-										<option value=""><?php _e( 'Select an option', 'dwspecs' ); ?></option>
+										<option value=""><?php _e( 'Select an option', 'product-specifications' ); ?></option>
 										<?php
 										foreach( $options as $opt ){
 											echo '<option value="'. $opt .'" '. selected( $opt, $default, false ) .'>' . $opt . '</option>';
 										} ?>
 									</select>
 
-									<label class="or"><?php _e('Or', 'dwspecs'); ?> <input class="customvalue-switch" type="checkbox"<?php if( $default && !in_array( $default, $options ) ) echo ' checked'; ?>></label>
+									<label class="or"><?php _e('Or', 'product-specifications'); ?> <input class="customvalue-switch" type="checkbox"<?php if( $default && !in_array( $default, $options ) ) echo ' checked'; ?>></label>
 									<input
 										type="text"
 										value="<?php if( $default && !in_array( $default, $options ) ) echo $default; ?>"
 										name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]"
 										class="select-custom"
-										placeholder="<?php _e('Custom value', 'dwspecs'); ?>"
+										placeholder="<?php _e('Custom value', 'product-specifications'); ?>"
 										<?php if( !$default || in_array( $default, $options ) ) echo 'disabled'; ?>
 									>
 							<?php
@@ -95,7 +95,7 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 									<input type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="yes" <?php echo checked( 'yes', $default ); ?>>
 
 									<label class="remove-checkbox-attr">
-										<?php _e('Remove this field', 'dwspecs'); ?>
+										<?php _e('Remove this field', 'product-specifications'); ?>
 										<input type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="dwspecs_chk_none" <?php echo checked( true, $field_removed ); ?>>
 									</label>
 							<?php
@@ -111,7 +111,7 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 
 	<?php
 		else : ?>
-			<div class="tab-content" id="dwps_attrs_<?php echo $group->term_id; ?>"><?php _e('No attributes defined yet', 'dwspecs'); ?></div>
+			<div class="tab-content" id="dwps_attrs_<?php echo $group->term_id; ?>"><?php _e('No attributes defined yet', 'product-specifications'); ?></div>
 	<?php
 		endif;
 	endfor; ?>
