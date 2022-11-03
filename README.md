@@ -55,6 +55,8 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 `TA6NCxJ97WsCDmUVEEvsVz1PW4kAVza295` (Any TRC20 (Tron network) tokens)
 
 ## Changelog
+### 0.5.3
+* Fixed incompability with WordPress 6.1
 
 ### 0.5.2
 
