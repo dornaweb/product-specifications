@@ -38,7 +38,7 @@ class Specification_Tables
 	public static function save_table_metabox( $post_id ){
 		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 		if( !isset( $_POST['dwps_metabox_nonce'] ) || !wp_verify_nonce( $_POST['dwps_metabox_nonce'], 'dw-specs-table-metas' ) ) return;
-		if( !current_user_can( 'edit_post' ) ) return;
+		if( !current_user_can( 'edit_post', $post_id ) ) return;
 		if( $_POST['post_type'] !== 'specs-table' ) return;
 		if( !isset( $_POST['groups'] ) || !is_array( $_POST['groups'] ) ) return;
 
@@ -60,7 +60,7 @@ class Specification_Tables
 	public static function save_product_table( $post_id ){
 		if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 		if( !isset( $_POST['dwps_metabox_nonce'] ) || !wp_verify_nonce( $_POST['dwps_metabox_nonce'], 'dw-specs-table-metas' ) ) return;
-		if( !current_user_can( 'edit_post' ) ) return;
+		if( !current_user_can( 'edit_post', $post_id ) ) return;
 		if( !in_array( $_POST['post_type'], array('product') ) ) return;
 		if( !isset( $_POST['specs_table'] ) || empty( $_POST['specs_table'] ) || $_POST['specs_table'] == '0' ||  $_POST['specs_table'] == 0 ) return;
 

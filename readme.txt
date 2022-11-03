@@ -3,8 +3,8 @@
 Contributors: dornaweb
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
 Requires at least: 5.1
-Tested up to: 5.9.1
-Stable tag: 0.5.2
+Tested up to: 6.1
+Stable tag: 0.5.3
 Requires PHP: 5.6
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -81,6 +81,12 @@ function my_custom_spec_table_markup( $output, $args ){
 
 
 == Changelog ==
+
+== 0.5.3 ==
+* Fixed incompability with WordPress 6.1
+
+== 0.5.2 ==
+* Fixed incompability with php 8.0
 
 == 0.5.1 ==
 * Selectbox Saving issue fixed
