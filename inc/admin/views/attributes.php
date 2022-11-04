@@ -85,15 +85,15 @@ $attributes = get_terms( $att_args ); ?>
 
 <div class="dwps-page">
 	<div class="dwps-settings-wrap">
-		<h3><?php _e('Attributes', 'dwspecs'); ?></h3>
+		<h3><?php _e('Attributes', 'product-specifications'); ?></h3>
 		<p class="title-note"></p>
 
 		<div class="dwps-box-wrapper clearfix">
 			<div class="dwps-box-top clearfix">
-				<h4><?php _e('Attributes', 'dwspecs'); ?></h4>
+				<h4><?php _e('Attributes', 'product-specifications'); ?></h4>
 				<div class="dwps-group-searchform">
 					<form action="<?php echo esc_url( dwspecs_current_page_url() ); ?>" method="get">
-						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'dwspecs'); ?>">
+						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'product-specifications'); ?>">
 
 						<?php
 						if( !empty( $_GET ) ) {
@@ -110,7 +110,7 @@ $attributes = get_terms( $att_args ); ?>
 					<select class="dw-search-by-tbl" id="search_by_table" onChange="if (this.value) window.location.href=this.value">
 						<?php
 						$default_url = isset( $_GET['table_id'] ) ? esc_url( remove_query_arg( 'table_id', dwspecs_current_page_url() ) ) : ''; ?>
-						<option value="<?php echo $default_url; ?>"><?php _e( 'Select a table', 'dwspecs' ); ?></option>
+						<option value="<?php echo $default_url; ?>"><?php _e( 'Select a table', 'product-specifications' ); ?></option>
 						<?php
 						foreach( $tbl_array as $table ){
 							if( isset( $_GET['table_id'] ) ) {
@@ -130,10 +130,10 @@ $attributes = get_terms( $att_args ); ?>
 					<thead>
 						<tr>
 							<th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
-							<th><?php _e('ID', 'dwspecs'); ?></th>
-							<th><?php _e('Attribute name', 'dwspecs'); ?></th>
-							<th><?php _e('Group name', 'dwspecs'); ?></th>
-							<th><?php _e('Actions', 'dwspecs'); ?></th>
+							<th><?php _e('ID', 'product-specifications'); ?></th>
+							<th><?php _e('Attribute name', 'product-specifications'); ?></th>
+							<th><?php _e('Group name', 'product-specifications'); ?></th>
+							<th><?php _e('Actions', 'product-specifications'); ?></th>
 						</tr>
 					</thead>
 
@@ -160,14 +160,14 @@ $attributes = get_terms( $att_args ); ?>
 
 								<td class="dwps-actions">
 									<a href="#" class="delete" data-type="attribute" data-id="<?php echo $attr->term_id; ?>"><i class="dashicons dashicons-no"></i></a>
-									<a href="#" role="button" class="edit" data-dwpsmodal="true" aria-label="<?php _e('Edit group', 'dwspecs'); ?>" data-type="attribute" data-id="<?php echo $attr->term_id; ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
+									<a href="#" role="button" class="edit" data-dwpsmodal="true" aria-label="<?php _e('Edit group', 'product-specifications'); ?>" data-type="attribute" data-id="<?php echo $attr->term_id; ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
 								</td>
 
 							</tr>
 						<?php
 							endforeach;
 						else :
-							echo '<tr><td class="not-found" colspan="5">' . __('Nothing found', 'dwspecs') . '</td></tr>';
+							echo '<tr><td class="not-found" colspan="5">' . __('Nothing found', 'product-specifications') . '</td></tr>';
 						endif; ?>
 					</tbody>
 				</table>
@@ -175,9 +175,9 @@ $attributes = get_terms( $att_args ); ?>
 			<!-- #attributes_table_wrap -->
 
 			<div class="dwps-buttons clearfix">
-				<a id="dpws_bulk_delete_btn" class="dwps-button red-btn delete-selecteds-btn" href="#" role="button" aria-label="<?php _e('delete Selected attributes', 'dwspecs'); ?>" disabled><?php _e('Delete Selected', 'dwspecs'); ?></a>
+				<a id="dpws_bulk_delete_btn" class="dwps-button red-btn delete-selecteds-btn" href="#" role="button" aria-label="<?php _e('delete Selected attributes', 'product-specifications'); ?>" disabled><?php _e('Delete Selected', 'product-specifications'); ?></a>
 
-				<a data-dwpsmodal="true" id="dpws_add_new_btn" class="dwps-button add-new-btn" href="#" role="button" aria-label="<?php _e('Add a new attribute', 'dwspecs'); ?>"><?php _e('Add new', 'dwspecs'); ?></a>
+				<a data-dwpsmodal="true" id="dpws_add_new_btn" class="dwps-button add-new-btn" href="#" role="button" aria-label="<?php _e('Add a new attribute', 'product-specifications'); ?>"><?php _e('Add new', 'product-specifications'); ?></a>
 
 				<div class="dwps-pagination">
 					<?php echo paginate_links( array(
@@ -189,8 +189,8 @@ $attributes = get_terms( $att_args ); ?>
 						'end_size'           => 4,
 						'mid_size'           => 2,
 						'prev_next'          => true,
-						'prev_text'          => __('«', 'dwspecs'),
-						'next_text'          => __('»', 'dwspecs'),
+						'prev_text'          => __('«', 'product-specifications'),
+						'next_text'          => __('»', 'product-specifications'),
 						'type'               => 'plain',
 						'add_args'           => false,
 						'add_fragment'       => '',
@@ -231,33 +231,33 @@ $attributes = get_terms( $att_args ); ?>
 
 <script id="dwps_texts_template" type="x-tmpl-mustache">
 	{
-		"add_btn"     : "<?php _e('Add', 'dwspecs'); ?>",
-		"edit_btn"    : "<?php _e('Update', 'dwspecs'); ?>",
-		"add_title"   : "<?php _e('Add new attribute', 'dwspecs'); ?>",
-		"edit_title"  : "<?php _e('Edit attribute', 'dwspecs'); ?>"
+		"add_btn"     : "<?php _e('Add', 'product-specifications'); ?>",
+		"edit_btn"    : "<?php _e('Update', 'product-specifications'); ?>",
+		"add_title"   : "<?php _e('Add new attribute', 'product-specifications'); ?>",
+		"edit_title"  : "<?php _e('Edit attribute', 'product-specifications'); ?>"
 	}
 </script>
 
 <script id="modify_form_template" type="x-tmpl-mustache">
 	<form action="#" method="post" id="dwps_modify_form">
 		<p>
-			<label for="attr_name"><?php _e('Attribute name : ', 'dwspecs'); ?></label>
+			<label for="attr_name"><?php _e('Attribute name : ', 'product-specifications'); ?></label>
 			<input type="text" name="attr_name" value="" id="attr_name" aria-required="true">
 		</p>
 
 		<p>
-			<label for="attr_slug"><?php _e('Attribute slug : ', 'dwspecs'); ?></label>
-			<input type="text" name="attr_slug" value="" id="attr_slug" placeholder="<?php _e('Optional', 'dwspecs'); ?>">
+			<label for="attr_slug"><?php _e('Attribute slug : ', 'product-specifications'); ?></label>
+			<input type="text" name="attr_slug" value="" id="attr_slug" placeholder="<?php _e('Optional', 'product-specifications'); ?>">
 		</p>
 
 
 		<?php if( sizeof( $tbl_array ) > 0 ) : ?>
 
 			<p>
-				<label for="attr_table"><?php _e('Table : ', 'dwspecs'); ?></label>
+				<label for="attr_table"><?php _e('Table : ', 'product-specifications'); ?></label>
 
 				<select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json'); ?>'>
-					<option value=""><?php _e('Select a table', 'dwspecs'); ?></option>
+					<option value=""><?php _e('Select a table', 'product-specifications'); ?></option>
 					<?php foreach( $tbl_array as $table ) {
 						echo '<option value="'. $table->ID .'">'. $table->post_title .'</option>';
 					} ?>
@@ -267,9 +267,9 @@ $attributes = get_terms( $att_args ); ?>
 		<?php endif; ?>
 
 		<p>
-			<label for="attr_group"><?php _e('Attribute group : ', 'dwspecs'); ?></label>
+			<label for="attr_group"><?php _e('Attribute group : ', 'product-specifications'); ?></label>
 			<select name="attr_group" id="attr_group" aria-required="true">
-				<option value=""><?php _e('Select a group', 'dwspecs'); ?></option>
+				<option value=""><?php _e('Select a group', 'product-specifications'); ?></option>
 				<?php
 					$all_groups = get_terms( array(
 						'taxonomy'   => 'spec-group',
@@ -284,35 +284,35 @@ $attributes = get_terms( $att_args ); ?>
 		</p>
 
 		<p>
-			<label for="attr_type"><?php _e('Attribute field Type : ', 'dwspecs'); ?></label>
+			<label for="attr_type"><?php _e('Attribute field Type : ', 'product-specifications'); ?></label>
 			<select name="attr_type" id="attr_type" aria-required="true">
-				<option value=""><?php _e('Select a field type', 'dwspecs'); ?></option>
-				<option value="text"><?php _e('Text', 'dwspecs'); ?>
-				<option value="select"><?php _e('Select', 'dwspecs'); ?>
-				<option value="radio"><?php _e('Radio', 'dwspecs'); ?>
-				<option value="textarea"><?php _e('Textarea', 'dwspecs'); ?>
-				<option value="true_false"><?php _e('True/false', 'dwspecs'); ?>
+				<option value=""><?php _e('Select a field type', 'product-specifications'); ?></option>
+				<option value="text"><?php _e('Text', 'product-specifications'); ?>
+				<option value="select"><?php _e('Select', 'product-specifications'); ?>
+				<option value="radio"><?php _e('Radio', 'product-specifications'); ?>
+				<option value="textarea"><?php _e('Textarea', 'product-specifications'); ?>
+				<option value="true_false"><?php _e('True/false', 'product-specifications'); ?>
 			</select>
 		</p>
 
 		<p style="display:none;">
-			<label for="attr_values"><?php _e('Values : ', 'dwspecs'); ?></label>
+			<label for="attr_values"><?php _e('Values : ', 'product-specifications'); ?></label>
 			<textarea name="attr_values" id="attr_values"></textarea>
 		</p>
 
 		<p>
-			<label for="attr_default"><?php _e('Default value : ', 'dwspecs'); ?></label>
+			<label for="attr_default"><?php _e('Default value : ', 'product-specifications'); ?></label>
 			<span id="default_value_wrap"><input type="text" name="attr_default" id="attr_default" value=""></span>
 		</p>
 
 		<p>
-			<label for="attr_desc"><?php _e('Description : ', 'dwspecs'); ?></label>
-			<textarea name="attr_desc" id="attr_desc" placeholder="<?php _e('Optional', 'dwspecs'); ?>"></textarea>
+			<label for="attr_desc"><?php _e('Description : ', 'product-specifications'); ?></label>
+			<textarea name="attr_desc" id="attr_desc" placeholder="<?php _e('Optional', 'product-specifications'); ?>"></textarea>
 		</p>
 
 		<input type="hidden" name="action" value="dwps_modify_attributes">
 		<input type="hidden" name="do" value="add">
 		<?php wp_nonce_field( 'dwps_modify_attributes', 'dwps_modify_attributes_nonce' ); ?>
-		<input type="submit" value="<?php _e('Add attribute', 'dwspecs'); ?>" class="button button-primary">
+		<input type="submit" value="<?php _e('Add attribute', 'product-specifications'); ?>" class="button button-primary">
 	</form>
 </script>

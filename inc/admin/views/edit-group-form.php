@@ -14,18 +14,18 @@ $term = get_term_by('id', $group_id, 'spec-group'); ?>
 
 <form action="#" method="post" id="dwps_modify_form">
 	<p>
-		<label for="group_name"><?php _e('Group name : ', 'dwspecs'); ?></label>
+		<label for="group_name"><?php _e('Group name : ', 'product-specifications'); ?></label>
 		<input name="group_name" value="<?php echo $term->name; ?>" id="group_name" aria-required="true" type="text">
 	</p>
 
 	<p>
-		<label for="group_slug"><?php _e('Group slug : ', 'dwspecs'); ?></label>
-		<input name="group_slug" value="<?php echo urldecode( $term->slug ); ?>" id="group_slug" placeholder="<?php _e('Optional', 'dwspecs'); ?>" type="text">
+		<label for="group_slug"><?php _e('Group slug : ', 'product-specifications'); ?></label>
+		<input name="group_slug" value="<?php echo urldecode( $term->slug ); ?>" id="group_slug" placeholder="<?php _e('Optional', 'product-specifications'); ?>" type="text">
 	</p>
 
 	<p>
-		<label for="group_desc"><?php _e('Description : ', 'dwspecs'); ?></label>
-		<textarea name="group_desc" id="group_desc" placeholder="<?php _e('Optional', 'dwspecs'); ?>"><?php echo $term->description; ?></textarea>
+		<label for="group_desc"><?php _e('Description : ', 'product-specifications'); ?></label>
+		<textarea name="group_desc" id="group_desc" placeholder="<?php _e('Optional', 'product-specifications'); ?>"><?php echo $term->description; ?></textarea>
 	</p>
 
 	<input name="action" value="dwps_modify_groups" type="hidden">
@@ -33,5 +33,5 @@ $term = get_term_by('id', $group_id, 'spec-group'); ?>
 	<input name="group_id" value="<?php echo $group_id; ?>" type="hidden">
 
 	<?php wp_nonce_field( 'dwps_modify_groups', 'dwps_modify_groups_nonce' ); ?>
-	<input value="<?php _e('Update Group', 'dwspecs'); ?>" class="button button-primary" type="submit">
+	<input value="<?php _e('Update Group', 'product-specifications'); ?>" class="button button-primary" type="submit">
 </form>

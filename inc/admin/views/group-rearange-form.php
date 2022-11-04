@@ -28,13 +28,13 @@ $attributes = get_term_meta( $group_id, 'attributes', true ) ?: array();
 			}
 		}
 
-		if( sizeof( $attributes ) == 0 ) _e('This group has no attributes', 'dwspecs'); ?>
+		if( sizeof( $attributes ) == 0 ) _e('This group has no attributes', 'product-specifications'); ?>
 	</ul>
 
 	<input name="action" value="dwps_group_rearange" type="hidden">
 	<input name="group_id" value="<?php echo $group_id; ?>" type="hidden">
 
 	<?php wp_nonce_field( 'dwps_group_rearange', 'dwps_group_rearange_nonce' ); ?>
-	<input value="<?php _e('Update Arrangement', 'dwspecs'); ?>" class="button button-primary" type="submit" style="float:left;">
+	<input value="<?php _e('Update Arrangement', 'product-specifications'); ?>" class="button button-primary" type="submit" style="float:left;">
 	<div class="clearfix"></div>
 </form>
