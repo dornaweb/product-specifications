@@ -65,6 +65,11 @@ class Specification_Tables
 		if( !isset( $_POST['specs_table'] ) ) return;
 
 		$table_id = absint( $_POST['specs_table'] );
+		update_post_meta($post_id, '_dwps_table', $table_id);
+
+		if (!$table_id) {
+			return;
+		}
 
 		$table_array = array_filter( $_POST['dw-attr'] );
 		$table_result = array();
@@ -103,14 +108,6 @@ class Specification_Tables
 		} else{
 			if( get_post_meta( $post_id, '_dwps_specification_table', true ) != $table_result )
 				update_post_meta( $post_id, '_dwps_specification_table', $table_result );
-		}
-
-		if( !get_post_meta( $post_id, '_dwps_table', true ) || get_post_meta( $post_id, '_dwps_table', true ) == '' ){
-			delete_post_meta( $post_id, '_dwps_table' );
-			add_post_meta( $post_id, '_dwps_table', $table_id );
-		} else{
-			if( get_post_meta( $post_id, '_dwps_table', true ) != $table_id )
-				update_post_meta( $post_id, '_dwps_table', $table_id );
 		}
 	}
 
