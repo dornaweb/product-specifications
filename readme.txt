@@ -1,10 +1,10 @@
 === Product Specifications for Woocommerce ===
 
-Contributors: dornaweb
+Contributors: dornaweb, pelentak
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 0.5.3
+Stable tag: 0.6.0
 Requires PHP: 5.6
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -16,12 +16,8 @@ This plugin adds a product specifications table to your woocommerce single-produ
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
 
-Available languages :
-English
-Persian
-Russian ( Thanks to Илья Китаев )
-
-To contribute in translating this plugin contact me : info@dornaweb.com
+Translation :
+To contribute in translating this plugin please visit: [Wordpress Translation Repository](https://translate.wordpress.org/projects/wp-plugins/product-specifications/)
 
 = Development =
 Product specifications is also available at [github](https://github.com/dornaweb/product-specifications/ "Product specifications plugin"), Feel free to contribute.
@@ -81,6 +77,10 @@ function my_custom_spec_table_markup( $output, $args ){
 
 
 == Changelog ==
+
+== 0.6.0 ==
+* Fixed issue with deselecting tables
+* Migrate translation to translate.wordpress.org
 
 == 0.5.3 ==
 * Fixed incompability with WordPress 6.1
