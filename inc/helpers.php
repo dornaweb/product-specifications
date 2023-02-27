@@ -125,7 +125,10 @@ if( ! function_exists('dwspecs_product_has_specs_table') ){
 			$post_id = $post->ID;
 		}
 
-		return boolval( get_post_meta( $post_id, '_dwps_specification_table', true ) );
+		$table_id = get_post_meta($post_id, '_dwps_table', true);
+		$table = get_post_meta($post_id, '_dwps_specification_table', true);
+
+		return !empty($table_id) && !empty($table);
 	}
 }
 

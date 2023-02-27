@@ -24,13 +24,13 @@ class ImportExport
 		// Exit if already migrating
 		if (false !== get_transient('dwspecs_data_migrating')) {
 			wp_send_json_error([
-				'message' => __('Another Migration is in progress', 'dwspecs')
+				'message' => __('Another Migration is in progress', 'product-specifications')
 			]);
 		}
 
 		if (! isset($_FILES['file']) || $_FILES['file']['type'] != 'application/json' || ! $_FILES['file']['size']) {
 			wp_send_json_error([
-				'message' => __('Invalid File', 'dwspecs')
+				'message' => __('Invalid File', 'product-specifications')
 			]);
 		}
 
@@ -38,7 +38,7 @@ class ImportExport
 
 		if (json_last_error() !== JSON_ERROR_NONE) {
 			wp_send_json_error([
-				'message' => __('Invalid File', 'dwspecs')
+				'message' => __('Invalid File', 'product-specifications')
 			]);
 		}
 
@@ -50,7 +50,7 @@ class ImportExport
 		delete_transient('dwspecs_data_migrating');
 
 		wp_send_json_success([
-			'message' => __('Data Imported successfully', 'dwspecs')
+			'message' => __('Data Imported successfully', 'product-specifications')
 		]);
 
 		wp_die();

@@ -13,12 +13,12 @@
 $table_id = get_post_meta( $post->ID, '_dwps_table', true ); ?>
 
 <div class="dwsp-meta-wrap dwps-page">
-	<strong class="title"><?php _e('Select a table : ', 'dwspecs'); ?></strong>
-	<?php /* <span class="hint"><?php _e('Select a table and fill it', 'dwspecs'); ?></span> */ ?>
+	<strong class="title"><?php _e('Select a table : ', 'product-specifications'); ?></strong>
+	<?php /* <span class="hint"><?php _e('Select a table and fill it', 'product-specifications'); ?></span> */ ?>
 
 	<div class="dwsp-meta-item">
 		<select name="specs_table" id="spec_tables_list" data-postid="<?php echo $post->ID; ?>">
-			<option value="0"><?php _e( 'none', 'dwspecs' ); ?></option>
+			<option value="0"><?php _e( 'none', 'product-specifications' ); ?></option>
 			<?php
 			foreach( $tables as $table ){
 				echo '<option value="'. $table->ID .'"'. selected( $table_id, $table->ID ) .'>'. $table->post_title .'</option>';

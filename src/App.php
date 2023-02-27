@@ -47,8 +47,6 @@ final class App
      * Dornaweb_Pack constructor.
      */
     private function __construct() {
-		add_action( 'init', [$this, 'i18n'] );
-
         // Sync group attributes when an attribute gets updated.
 		add_action( 'dwspecs_attributes_modified', array( $this, 'modified_attributes' ) );
 		add_action('woocommerce_init', [$this, 'handle_woocommerce']);
@@ -58,14 +56,6 @@ final class App
         $this->init();
         $this->includes();
         $this->create_options();
-    }
-
-    /**
-     * Make Translatable
-     *
-     */
-    public function i18n() {
-        load_plugin_textdomain('dwspecs', false, dirname( plugin_basename( DWSPECS_PLUGIN_FILE ) ) . '/lang');
     }
 
     /**
@@ -142,36 +132,6 @@ final class App
         $this->options->per_page   = get_option('dwps_view_per_page');
     }
 
-    /**
-	 * Just making some texts translatable!
-	 *
-	 * @since 0.1
-	 */
-	protected function make_dummy_texts() {
-		__('Product Specifications for WooCommerce', 'dwspecs');
-		__('This plugin adds a product specifications table to your woocommerce products.', 'dwspecs');
-    }
-
-	/**
-	 * Do initial stuff
-	*/
-	private function initialize(){
-		// Building menus
-		$top_menu = new dwspecs_options_page(
-			array(
-				'menu_title'    => __('Specification table', 'dwspecs'),
-				'page_title'    => __('Product specifications table', 'dwspecs'), // page title
-				'id'            => 'dw-specs', // page id ( slug )
-				'description'   => __('Product specifications table for E-Commerce websites', 'dwspecs'), // some description
-				'order'         => 25, // menu order
-				'parent'        => false, // parent settings page id
-				'icon'          => '', // icon will be displayed if parent page is empty, Uses dashicons
-				'redirect'		=> true, // redirect to first child-page if options are empty
-				'capability'	=> 'edit_pages' // restrict access to certain users only
-			)
-		);
-	}
-
 	/**
 	 * Check and add specifications table to woocommerce
 	*/
@@ -190,7 +150,7 @@ final class App
 
 		if( dwspecs_product_has_specs_table( $product->get_id() ) ){
 			$tabs['dwspecs_product_specifications'] = array(
-				'title' 	=> get_option('dwps_tab_title') ?: __( 'Product Specifications', 'dwspecs' ),
+				'title' 	=> get_option('dwps_tab_title') ?: __( 'Product Specifications', 'product-specifications' ),
 				'priority' 	=> 10,
 				'callback' 	=> array( $this, 'woo_display_tab' )
 			);
@@ -258,7 +218,7 @@ final class App
 
 	public function wc_needed_notice() {
 		if (! class_exists('WooCommerce')) {
-			$this->add_notice('no_woo_notice', __('This plugin works properly with woocommerce, please install woocommerce first', 'dwspecs'), 'warning', 'forever');
+			$this->add_notice('no_woo_notice', __('This plugin works properly with woocommerce, please install woocommerce first', 'product-specifications'), 'warning', 'forever');
 		}
 
 		add_action('wp_ajax_dw_dismiss_admin_notice', [$this, 'dismiss_alert']);
@@ -278,7 +238,7 @@ final class App
 				echo '<div class="notice notice-'. $type .' '. ($dismiss === 'forever' || $dismiss === 'close' ? 'is-dismissible' : '') .'"><p>';
 
 				if ($dismiss == 'forever') {
-					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. $id .'\'); return false;">'.__('Dismiss', 'dwspecs').'</a>';
+					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. $id .'\'); return false;">'.__('Dismiss', 'product-specifications').'</a>';
 				}
 
 				echo $message;

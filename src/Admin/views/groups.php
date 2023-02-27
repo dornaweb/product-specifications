@@ -47,15 +47,15 @@ $groups = get_terms( array(
 
 <div class="dwps-page">
 	<div class="dwps-settings-wrap">
-		<h3><?php _e('Attribute Groups', 'dwspecs'); ?></h3>
+		<h3><?php _e('Attribute Groups', 'product-specifications'); ?></h3>
 		<p class="title-note"></p>
 
 		<div class="dwps-box-wrapper clearfix">
 			<div class="dwps-box-top clearfix">
-				<h4><?php _e('Attribute Groups', 'dwspecs'); ?></h4>
+				<h4><?php _e('Attribute Groups', 'product-specifications'); ?></h4>
 				<div class="dwps-group-searchform">
 					<form action="<?php echo esc_url( dwspecs_current_page_url() ); ?>" method="get">
-						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'dwspecs'); ?>">
+						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'product-specifications'); ?>">
 
 						<?php
 						if( !empty( $_GET ) ) {
@@ -73,11 +73,11 @@ $groups = get_terms( array(
 					<thead>
 						<tr>
 							<th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
-							<th><?php _e('ID', 'dwspecs'); ?></th>
-							<th><?php _e('Group name', 'dwspecs'); ?></th>
-							<th><?php _e('Group slug', 'dwspecs'); ?></th>
-							<th><?php _e('# of attributes', 'dwspecs'); ?></th>
-							<th><?php _e('Actions', 'dwspecs'); ?></th>
+							<th><?php _e('ID', 'product-specifications'); ?></th>
+							<th><?php _e('Group name', 'product-specifications'); ?></th>
+							<th><?php _e('Group slug', 'product-specifications'); ?></th>
+							<th><?php _e('# of attributes', 'product-specifications'); ?></th>
+							<th><?php _e('Actions', 'product-specifications'); ?></th>
 						</tr>
 					</thead>
 
@@ -89,12 +89,12 @@ $groups = get_terms( array(
 							<tr>
 								<td class="check-column"><input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo $group->term_id; ?>"></td>
 								<td><?php echo $group->term_id; ?></td>
-								<td><h4><a href="#" class="edit" aria-label="<?php _e('Edit group', 'dwspecs'); ?>" data-dwpsmodal="true" data-type="group" data-action="edit" data-id="<?php echo $group->term_id; ?>"><?php echo $group->name; ?></a></h4></td>
+								<td><h4><a href="#" class="edit" aria-label="<?php _e('Edit group', 'product-specifications'); ?>" data-dwpsmodal="true" data-type="group" data-action="edit" data-id="<?php echo $group->term_id; ?>"><?php echo $group->name; ?></a></h4></td>
 								<td><?php echo rawurldecode( $group->slug ); ?></td>
 								<td><?php echo sizeof( $attributes ); ?></td>
 								<td class="dwps-actions">
 									<a href="#" class="delete" data-type="group" data-id="<?php echo $group->term_id; ?>"><i class="dashicons dashicons-no"></i></a>
-									<a href="#" role="button" class="edit" aria-label="<?php _e('Edit group', 'dwspecs'); ?>" data-dwpsmodal="true" data-type="group" data-action="edit" data-id="<?php echo $group->term_id; ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
+									<a href="#" role="button" class="edit" aria-label="<?php _e('Edit group', 'product-specifications'); ?>" data-dwpsmodal="true" data-type="group" data-action="edit" data-id="<?php echo $group->term_id; ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
 
 									<?php
 									echo '<a class="view" href="'. add_query_arg( array( 'group_id' => $group->term_id, 'page' => 'dw-specs-attrs' ), esc_url( admin_url('admin.php') ) ) .'"><i class="dashicons dashicons-visibility"></i></a>'; ?>
@@ -105,7 +105,7 @@ $groups = get_terms( array(
 						<?php
 							endforeach;
 						else :
-							echo '<tr><td class="not-found" colspan="5">' . __('Nothing found', 'dwspecs') . '</td></tr>';
+							echo '<tr><td class="not-found" colspan="5">' . __('Nothing found', 'product-specifications') . '</td></tr>';
 						endif; ?>
 					</tbody>
 				</table>
@@ -113,9 +113,9 @@ $groups = get_terms( array(
 			<!-- #groups_table_wrap -->
 
 			<div class="dwps-buttons clearfix">
-				<a id="dpws_bulk_delete_btn" class="dwps-button red-btn delete-selecteds-btn" href="#" role="button" aria-label="<?php _e('delete Selected attributes', 'dwspecs'); ?>" disabled><?php _e('Delete Selected', 'dwspecs'); ?></a>
+				<a id="dpws_bulk_delete_btn" class="dwps-button red-btn delete-selecteds-btn" href="#" role="button" aria-label="<?php _e('delete Selected attributes', 'product-specifications'); ?>" disabled><?php _e('Delete Selected', 'product-specifications'); ?></a>
 
-				<a data-dwpsmodal="true" id="dpws_add_new_btn" class="dwps-button add-new-btn" href="#" role="button" aria-label="<?php _e('Add a new group', 'dwspecs'); ?>"><?php _e('Add new', 'dwspecs'); ?></a>
+				<a data-dwpsmodal="true" id="dpws_add_new_btn" class="dwps-button add-new-btn" href="#" role="button" aria-label="<?php _e('Add a new group', 'product-specifications'); ?>"><?php _e('Add new', 'product-specifications'); ?></a>
 
 				<div class="dwps-pagination">
 					<?php echo paginate_links( array(
@@ -127,8 +127,8 @@ $groups = get_terms( array(
 						'end_size'           => 4,
 						'mid_size'           => 2,
 						'prev_next'          => true,
-						'prev_text'          => __('«', 'dwspecs'),
-						'next_text'          => __('»', 'dwspecs'),
+						'prev_text'          => __('«', 'product-specifications'),
+						'next_text'          => __('»', 'product-specifications'),
 						'type'               => 'plain',
 						'add_args'           => false,
 						'add_fragment'       => '',
@@ -169,34 +169,34 @@ $groups = get_terms( array(
 
 <script id="dwps_texts_template" type="x-tmpl-mustache">
 	{
-		"add_btn"     : "<?php _e('Add', 'dwspecs'); ?>",
-		"edit_btn"    : "<?php _e('Update', 'dwspecs'); ?>",
-		"add_title"   : "<?php _e('Add new group', 'dwspecs'); ?>",
-		"edit_title"  : "<?php _e('Edit group', 'dwspecs'); ?>",
-		"re_arrange"  : "<?php _e('Re arrange attributes', 'dwspecs'); ?>"
+		"add_btn"     : "<?php _e('Add', 'product-specifications'); ?>",
+		"edit_btn"    : "<?php _e('Update', 'product-specifications'); ?>",
+		"add_title"   : "<?php _e('Add new group', 'product-specifications'); ?>",
+		"edit_title"  : "<?php _e('Edit group', 'product-specifications'); ?>",
+		"re_arrange"  : "<?php _e('Re arrange attributes', 'product-specifications'); ?>"
 	}
 </script>
 
 <script id="modify_form_template" type="x-tmpl-mustache">
 	<form action="#" method="post" id="dwps_modify_form">
 		<p>
-			<label for="group_name"><?php _e('Group name : ', 'dwspecs'); ?></label>
+			<label for="group_name"><?php _e('Group name : ', 'product-specifications'); ?></label>
 			<input type="text" name="group_name" value="" id="group_name" aria-required="true">
 		</p>
 
 		<p>
-			<label for="group_slug"><?php _e('Group slug : ', 'dwspecs'); ?></label>
-			<input type="text" name="group_slug" value="" id="group_slug" placeholder="<?php _e('Optional', 'dwspecs'); ?>">
+			<label for="group_slug"><?php _e('Group slug : ', 'product-specifications'); ?></label>
+			<input type="text" name="group_slug" value="" id="group_slug" placeholder="<?php _e('Optional', 'product-specifications'); ?>">
 		</p>
 
 		<p>
-			<label for="group_desc"><?php _e('Description : ', 'dwspecs'); ?></label>
-			<textarea name="group_desc" id="group_desc" placeholder="<?php _e('Optional', 'dwspecs'); ?>"></textarea>
+			<label for="group_desc"><?php _e('Description : ', 'product-specifications'); ?></label>
+			<textarea name="group_desc" id="group_desc" placeholder="<?php _e('Optional', 'product-specifications'); ?>"></textarea>
 		</p>
 
 		<input type="hidden" name="action" value="dwps_modify_groups">
 		<input type="hidden" name="do" value="add">
 		<?php wp_nonce_field( 'dwps_modify_groups', 'dwps_modify_groups_nonce' ); ?>
-		<input type="submit" value="<?php _e('Add Group', 'dwspecs'); ?>" class="button button-primary">
+		<input type="submit" value="<?php _e('Add Group', 'product-specifications'); ?>" class="button button-primary">
 	</form>
 </script>
