@@ -16,465 +16,465 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/admin/class-admin.php:46
+#: src/admin/class-admin.php:46
 msgid "Importing data may take a long time, please wait..."
 msgstr "وارد کردن اطلاعات ممکن است به طول بیانجامد لطفا صبر کنید..."
 
-#: inc/admin/class-admin.php:47 inc/admin/class-ajax.php:80
-#: inc/admin/class-ajax.php:237
+#: src/admin/class-admin.php:47 src/admin/class-ajax.php:80
+#: src/admin/class-ajax.php:237
 msgid "Something went wrong"
 msgstr "خطایی پیش آمده است"
 
-#: inc/admin/class-admin.php:73 inc/class-app.php:163
+#: src/admin/class-admin.php:73 src/class-app.php:163
 msgid "Product specifications table"
 msgstr "جدول مشخصات محصول"
 
-#: inc/admin/class-admin.php:74 inc/admin/class-specification-tables.php:30
-#: inc/class-app.php:162
+#: src/admin/class-admin.php:74 src/admin/class-specification-tables.php:30
+#: src/class-app.php:162
 msgid "Specification table"
 msgstr "جدول مشخصات"
 
-#: inc/admin/class-admin.php:85
+#: src/admin/class-admin.php:85
 msgid "Add a new table"
 msgstr "افزودن جدول جدید"
 
-#: inc/admin/class-admin.php:86
+#: src/admin/class-admin.php:86
 msgid "New table"
 msgstr "جدول جدید"
 
-#: inc/admin/class-admin.php:95 inc/admin/views/groups.php:50
-#: inc/admin/views/groups.php:55
+#: src/admin/class-admin.php:95 src/admin/views/groups.php:50
+#: src/admin/views/groups.php:55
 msgid "Attribute Groups"
 msgstr "گروه های مشخصه"
 
-#: inc/admin/class-admin.php:96 inc/class-post-types.php:75
+#: src/admin/class-admin.php:96 src/class-post-types.php:75
 msgid "Groups"
 msgstr "گروه ها"
 
-#: inc/admin/class-admin.php:105 inc/admin/class-admin.php:106
-#: inc/admin/views/attributes.php:88 inc/admin/views/attributes.php:93
-#: inc/class-post-types.php:98
+#: src/admin/class-admin.php:105 src/admin/class-admin.php:106
+#: src/admin/views/attributes.php:88 src/admin/views/attributes.php:93
+#: src/class-post-types.php:98
 msgid "Attributes"
 msgstr "مشخصه ها"
 
-#: inc/admin/class-admin.php:115
+#: src/admin/class-admin.php:115
 msgid "Product specifications settings"
 msgstr "تنظیمات افزونه جدول مشخصات محصول"
 
-#: inc/admin/class-admin.php:116
+#: src/admin/class-admin.php:116
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: inc/admin/class-admin.php:125
+#: src/admin/class-admin.php:125
 msgid "Product specifications Import/Export"
 msgstr "درون ریزی / برون بری اطلاعات افزونه جدول مشخصات محصول"
 
-#: inc/admin/class-admin.php:126
+#: src/admin/class-admin.php:126
 msgid "Import/export"
 msgstr "درون ریزی / برون بری"
 
-#: inc/admin/class-ajax.php:47
+#: src/admin/class-ajax.php:47
 msgid "Please enter a group name"
 msgstr "لطفا یک نام برای گروه مورد نظر وارد کنید"
 
-#: inc/admin/class-ajax.php:72
+#: src/admin/class-ajax.php:72
 msgid "Group edited successfully"
 msgstr "گروه با موفقیت ویرایش شد"
 
-#: inc/admin/class-ajax.php:72
+#: src/admin/class-ajax.php:72
 msgid "Group created successfully"
 msgstr "گروه مشخصه با موفقیت ساخته شد"
 
-#: inc/admin/class-ajax.php:101
+#: src/admin/class-ajax.php:101
 msgid "Could not delete group(s)"
 msgstr "حذف گروه(ها) موفقیت آمیز نبود"
 
-#: inc/admin/class-ajax.php:109
+#: src/admin/class-ajax.php:109
 msgid "Group(s) deleted successfully"
 msgstr "گروه یا گروه های انتخاب شده با موفقیت حذف شدند"
 
-#: inc/admin/class-ajax.php:159
+#: src/admin/class-ajax.php:159
 msgid "Please enter an attribute name"
 msgstr "لطفا برای مشخصه یک نام وارد کنید"
 
-#: inc/admin/class-ajax.php:166
+#: src/admin/class-ajax.php:166
 msgid "Please select a group"
 msgstr "لطفا یک گروه برای مشخصه انتخاب کنید"
 
-#: inc/admin/class-ajax.php:173
+#: src/admin/class-ajax.php:173
 msgid "Please select a field type"
 msgstr "لطفا نوع فیلد را انتخاب کنید"
 
-#: inc/admin/class-ajax.php:180
+#: src/admin/class-ajax.php:180
 msgid "Please set some values for attribute"
 msgstr "لطفا مقادیر مشخصه را وارد کنید"
 
-#: inc/admin/class-ajax.php:220
+#: src/admin/class-ajax.php:220
 msgid "Attribute added successfully"
 msgstr "مشخصه با موفقیت ساخته شد"
 
-#: inc/admin/class-ajax.php:220
+#: src/admin/class-ajax.php:220
 msgid "Attribute updated successfully"
 msgstr "مشخصه با موفقیت به روز رسانی شد"
 
-#: inc/admin/class-ajax.php:272
+#: src/admin/class-ajax.php:272
 msgid "Could not delete attribute(s)"
 msgstr "عدم توانایی در حذف مشخصه(ها)"
 
-#: inc/admin/class-ajax.php:290
+#: src/admin/class-ajax.php:290
 msgid "Attribute(s) deleted successfully"
 msgstr "مشخصه(ها) حذف شدند"
 
-#: inc/admin/class-ajax.php:309
+#: src/admin/class-ajax.php:309
 msgid "Unexpected error"
 msgstr "خطای غیر منتظره"
 
-#: inc/admin/class-ajax.php:350
+#: src/admin/class-ajax.php:350
 msgid "Attributes arrangement successfully updated."
 msgstr "چیدمان مشخصه ها به روز رسانی شد."
 
-#: inc/admin/class-import-export.php:27
+#: src/admin/class-import-export.php:27
 msgid "Another Migration is in progress"
 msgstr "یک برون بری دیگر در حال اجراست"
 
-#: inc/admin/class-import-export.php:33 inc/admin/class-import-export.php:41
+#: src/admin/class-import-export.php:33 src/admin/class-import-export.php:41
 msgid "Invalid File"
 msgstr "فایل نامعتبر است"
 
-#: inc/admin/class-import-export.php:53
+#: src/admin/class-import-export.php:53
 msgid "Data Imported successfully"
 msgstr "اطلاعات با موفقیت درون ریزی شد"
 
-#: inc/admin/class-specification-tables.php:28
+#: src/admin/class-specification-tables.php:28
 msgid "Table Options"
 msgstr "گزینه های جدول"
 
-#: inc/admin/options/views/settings.php:15
+#: src/admin/options/views/settings.php:15
 msgid "Product specifications general settings"
 msgstr "تنظیمات عمومی جدول مشخصه های محصول"
 
-#: inc/admin/options/views/settings.php:20
+#: src/admin/options/views/settings.php:20
 msgid "settings"
 msgstr "تنظیمات"
 
-#: inc/admin/options/views/settings.php:25
+#: src/admin/options/views/settings.php:25
 msgid "Specs Tab Title"
 msgstr "عنوان تب مشخصات"
 
-#: inc/admin/options/views/settings.php:26
+#: src/admin/options/views/settings.php:26
 msgid "The title of product specs. tab in product single page"
 msgstr "عنوان تب مشخصات کالا در صفحه توضیحات محصول (سینگل)"
 
-#: inc/admin/options/views/settings.php:31
+#: src/admin/options/views/settings.php:31
 msgid "Views per page"
 msgstr "تعداد نمایش در هر صفحه"
 
-#: inc/admin/options/views/settings.php:32
+#: src/admin/options/views/settings.php:32
 msgid "How many records should be seen in a page?"
 msgstr "در هر صفحه چند آیتم نمایش داده شود؟"
 
-#: inc/admin/options/views/settings.php:37
+#: src/admin/options/views/settings.php:37
 msgid "Woocommerce default specs. behaviour"
 msgstr "جدول مشخصات پیشفرض ووکامرس"
 
-#: inc/admin/options/views/settings.php:38
+#: src/admin/options/views/settings.php:38
 msgid "Choose what to do with woocommerce default specifications table"
 msgstr "انتخاب کنید که با جدول مشخصات پیشفرض ووکامرس چکار کنیم"
 
-#: inc/admin/options/views/settings.php:41
+#: src/admin/options/views/settings.php:41
 msgid "Always Remove"
 msgstr "همیشه حذف شود"
 
-#: inc/admin/options/views/settings.php:42
+#: src/admin/options/views/settings.php:42
 msgid "Remove if product has a specs. table"
 msgstr "فقط زمانی که محصول جدول مشخصات دارد حذف شود"
 
-#: inc/admin/options/views/settings.php:43
+#: src/admin/options/views/settings.php:43
 msgid "Always keep"
 msgstr "همیشه بماند"
 
-#: inc/admin/options/views/settings.php:48
-#: inc/admin/options/views/settings.php:51
+#: src/admin/options/views/settings.php:48
+#: src/admin/options/views/settings.php:51
 msgid "Disable plugin's CSS styles"
 msgstr "غیر فعال کردن CSS های افزونه"
 
-#: inc/admin/views/attributes.php:96 inc/admin/views/groups.php:58
+#: src/admin/views/attributes.php:96 src/admin/views/groups.php:58
 msgid "Search..."
 msgstr "جستجو..."
 
-#: inc/admin/views/attributes.php:113 inc/admin/views/attributes.php:260
-#: inc/admin/views/edit-attribute-form.php:38
+#: src/admin/views/attributes.php:113 src/admin/views/attributes.php:260
+#: src/admin/views/edit-attribute-form.php:38
 msgid "Select a table"
 msgstr "یک جدول انتخاب کنید"
 
-#: inc/admin/views/attributes.php:133 inc/admin/views/groups.php:76
+#: src/admin/views/attributes.php:133 src/admin/views/groups.php:76
 msgid "ID"
 msgstr "آی دی"
 
-#: inc/admin/views/attributes.php:134
+#: src/admin/views/attributes.php:134
 msgid "Attribute name"
 msgstr "نام مشخه"
 
-#: inc/admin/views/attributes.php:135 inc/admin/views/groups.php:77
+#: src/admin/views/attributes.php:135 src/admin/views/groups.php:77
 msgid "Group name"
 msgstr "نام گروه"
 
-#: inc/admin/views/attributes.php:136 inc/admin/views/groups.php:80
+#: src/admin/views/attributes.php:136 src/admin/views/groups.php:80
 msgid "Actions"
 msgstr "عملیات"
 
-#: inc/admin/views/attributes.php:163 inc/admin/views/groups.php:92
-#: inc/admin/views/groups.php:97 inc/admin/views/groups.php:175
-#: inc/class-post-types.php:81
+#: src/admin/views/attributes.php:163 src/admin/views/groups.php:92
+#: src/admin/views/groups.php:97 src/admin/views/groups.php:175
+#: src/class-post-types.php:81
 msgid "Edit group"
 msgstr "ویرایش گروه"
 
-#: inc/admin/views/attributes.php:170 inc/admin/views/groups.php:108
+#: src/admin/views/attributes.php:170 src/admin/views/groups.php:108
 msgid "Nothing found"
 msgstr "چیزی یافت نشد"
 
-#: inc/admin/views/attributes.php:178 inc/admin/views/groups.php:116
+#: src/admin/views/attributes.php:178 src/admin/views/groups.php:116
 msgid "delete Selected attributes"
 msgstr "حذف مشخصه های انتخاب شده"
 
-#: inc/admin/views/attributes.php:178 inc/admin/views/groups.php:116
+#: src/admin/views/attributes.php:178 src/admin/views/groups.php:116
 msgid "Delete Selected"
 msgstr "حذف انتخاب شده ها"
 
-#: inc/admin/views/attributes.php:180 inc/class-post-types.php:106
+#: src/admin/views/attributes.php:180 src/class-post-types.php:106
 msgid "Add a new attribute"
 msgstr "افزودن مشخصه جدید"
 
-#: inc/admin/views/attributes.php:180 inc/admin/views/groups.php:118
+#: src/admin/views/attributes.php:180 src/admin/views/groups.php:118
 msgid "Add new"
 msgstr "افزودن"
 
-#: inc/admin/views/attributes.php:192 inc/admin/views/groups.php:130
+#: src/admin/views/attributes.php:192 src/admin/views/groups.php:130
 msgid "«"
 msgstr "«"
 
-#: inc/admin/views/attributes.php:193 inc/admin/views/groups.php:131
+#: src/admin/views/attributes.php:193 src/admin/views/groups.php:131
 msgid "»"
 msgstr "»"
 
-#: inc/admin/views/attributes.php:213 inc/admin/views/groups.php:151
+#: src/admin/views/attributes.php:213 src/admin/views/groups.php:151
 msgid "Delete Attribute"
 msgstr "حذف مشخصه"
 
-#: inc/admin/views/attributes.php:214 inc/admin/views/groups.php:152
+#: src/admin/views/attributes.php:214 src/admin/views/groups.php:152
 msgid "Are you sure you want to delete selected attribute(s)?"
 msgstr "مطمئنید می خواهید مشخصه(ها) را حذف کنید؟"
 
-#: inc/admin/views/attributes.php:217 inc/admin/views/groups.php:155
+#: src/admin/views/attributes.php:217 src/admin/views/groups.php:155
 msgid "Yes"
 msgstr "بله"
 
-#: inc/admin/views/attributes.php:222 inc/admin/views/groups.php:160
+#: src/admin/views/attributes.php:222 src/admin/views/groups.php:160
 msgid "No"
 msgstr "خیر"
 
-#: inc/admin/views/attributes.php:234 inc/admin/views/groups.php:172
+#: src/admin/views/attributes.php:234 src/admin/views/groups.php:172
 msgid "Add"
 msgstr "افزودن"
 
-#: inc/admin/views/attributes.php:235 inc/admin/views/groups.php:173
+#: src/admin/views/attributes.php:235 src/admin/views/groups.php:173
 msgid "Update"
 msgstr "بروزرسانی"
 
-#: inc/admin/views/attributes.php:236
+#: src/admin/views/attributes.php:236
 msgid "Add new attribute"
 msgstr "افزودن مشخصه جدید"
 
-#: inc/admin/views/attributes.php:237 inc/class-post-types.php:104
+#: src/admin/views/attributes.php:237 src/class-post-types.php:104
 msgid "Edit attribute"
 msgstr "ویرایش مشخصه"
 
-#: inc/admin/views/attributes.php:244
-#: inc/admin/views/edit-attribute-form.php:23
+#: src/admin/views/attributes.php:244
+#: src/admin/views/edit-attribute-form.php:23
 msgid "Attribute name : "
 msgstr "نام مشخصه : "
 
-#: inc/admin/views/attributes.php:249
-#: inc/admin/views/edit-attribute-form.php:28
+#: src/admin/views/attributes.php:249
+#: src/admin/views/edit-attribute-form.php:28
 msgid "Attribute slug : "
 msgstr "نامک مشخصه : "
 
-#: inc/admin/views/attributes.php:250 inc/admin/views/attributes.php:310
-#: inc/admin/views/edit-attribute-form.php:29
-#: inc/admin/views/edit-attribute-form.php:93
-#: inc/admin/views/edit-group-form.php:23
-#: inc/admin/views/edit-group-form.php:28 inc/admin/views/groups.php:189
-#: inc/admin/views/groups.php:194
+#: src/admin/views/attributes.php:250 src/admin/views/attributes.php:310
+#: src/admin/views/edit-attribute-form.php:29
+#: src/admin/views/edit-attribute-form.php:93
+#: src/admin/views/edit-group-form.php:23
+#: src/admin/views/edit-group-form.php:28 src/admin/views/groups.php:189
+#: src/admin/views/groups.php:194
 msgid "Optional"
 msgstr "اختیاری"
 
-#: inc/admin/views/attributes.php:257
-#: inc/admin/views/edit-attribute-form.php:35
+#: src/admin/views/attributes.php:257
+#: src/admin/views/edit-attribute-form.php:35
 msgid "Table : "
 msgstr "جدول : "
 
-#: inc/admin/views/attributes.php:270
-#: inc/admin/views/edit-attribute-form.php:48
+#: src/admin/views/attributes.php:270
+#: src/admin/views/edit-attribute-form.php:48
 msgid "Attribute group : "
 msgstr "گروه مشخصه : "
 
-#: inc/admin/views/attributes.php:272
-#: inc/admin/views/edit-attribute-form.php:50
+#: src/admin/views/attributes.php:272
+#: src/admin/views/edit-attribute-form.php:50
 msgid "Select a group"
 msgstr "یک گروه انتخاب کنید"
 
-#: inc/admin/views/attributes.php:287
-#: inc/admin/views/edit-attribute-form.php:66
+#: src/admin/views/attributes.php:287
+#: src/admin/views/edit-attribute-form.php:66
 msgid "Attribute field Type : "
 msgstr "نوع فیلد مشخصه : "
 
-#: inc/admin/views/attributes.php:289
-#: inc/admin/views/edit-attribute-form.php:68
+#: src/admin/views/attributes.php:289
+#: src/admin/views/edit-attribute-form.php:68
 msgid "Select a field type"
 msgstr "نوع فیلد را انتخاب کنید"
 
-#: inc/admin/views/attributes.php:290
-#: inc/admin/views/edit-attribute-form.php:69
+#: src/admin/views/attributes.php:290
+#: src/admin/views/edit-attribute-form.php:69
 msgid "Text"
 msgstr "متن"
 
-#: inc/admin/views/attributes.php:291
-#: inc/admin/views/edit-attribute-form.php:70
+#: src/admin/views/attributes.php:291
+#: src/admin/views/edit-attribute-form.php:70
 msgid "Select"
 msgstr "فهرست انتخاب"
 
-#: inc/admin/views/attributes.php:292
-#: inc/admin/views/edit-attribute-form.php:71
+#: src/admin/views/attributes.php:292
+#: src/admin/views/edit-attribute-form.php:71
 msgid "Radio"
 msgstr "دکمه رادیویی"
 
-#: inc/admin/views/attributes.php:293
-#: inc/admin/views/edit-attribute-form.php:72
+#: src/admin/views/attributes.php:293
+#: src/admin/views/edit-attribute-form.php:72
 msgid "Textarea"
 msgstr "ناحیه متنی"
 
-#: inc/admin/views/attributes.php:294
-#: inc/admin/views/edit-attribute-form.php:73
+#: src/admin/views/attributes.php:294
+#: src/admin/views/edit-attribute-form.php:73
 msgid "True/false"
 msgstr "صحیح / غلط"
 
-#: inc/admin/views/attributes.php:299
-#: inc/admin/views/edit-attribute-form.php:78
+#: src/admin/views/attributes.php:299
+#: src/admin/views/edit-attribute-form.php:78
 msgid "Values : "
 msgstr "مقادیر : "
 
-#: inc/admin/views/attributes.php:304
-#: inc/admin/views/edit-attribute-form.php:87
+#: src/admin/views/attributes.php:304
+#: src/admin/views/edit-attribute-form.php:87
 msgid "Default value : "
 msgstr "مقدارپیش فرض : "
 
-#: inc/admin/views/attributes.php:309
-#: inc/admin/views/edit-attribute-form.php:92
-#: inc/admin/views/edit-group-form.php:27 inc/admin/views/groups.php:193
+#: src/admin/views/attributes.php:309
+#: src/admin/views/edit-attribute-form.php:92
+#: src/admin/views/edit-group-form.php:27 src/admin/views/groups.php:193
 msgid "Description : "
 msgstr "توضیحات : "
 
-#: inc/admin/views/attributes.php:316
+#: src/admin/views/attributes.php:316
 msgid "Add attribute"
 msgstr "افزودن مشخصه"
 
-#: inc/admin/views/edit-attribute-form.php:100 inc/class-post-types.php:105
+#: src/admin/views/edit-attribute-form.php:100 src/class-post-types.php:105
 msgid "Update attribute"
 msgstr "به روز رسانی مشخصه"
 
-#: inc/admin/views/edit-group-form.php:17 inc/admin/views/groups.php:183
+#: src/admin/views/edit-group-form.php:17 src/admin/views/groups.php:183
 msgid "Group name : "
 msgstr "نام گروه : "
 
-#: inc/admin/views/edit-group-form.php:22 inc/admin/views/groups.php:188
+#: src/admin/views/edit-group-form.php:22 src/admin/views/groups.php:188
 msgid "Group slug : "
 msgstr "نامک گروه : "
 
-#: inc/admin/views/edit-group-form.php:36
+#: src/admin/views/edit-group-form.php:36
 msgid "Update Group"
 msgstr "به روزرسانی گروه"
 
-#: inc/admin/views/group-rearange-form.php:31
+#: src/admin/views/group-rearange-form.php:31
 msgid "This group has no attributes"
 msgstr "این گروه مشخصه ای ندارد"
 
-#: inc/admin/views/group-rearange-form.php:38
+#: src/admin/views/group-rearange-form.php:38
 msgid "Update Arrangement"
 msgstr "به روزرسانی چیدمان"
 
-#: inc/admin/views/groups.php:78
+#: src/admin/views/groups.php:78
 msgid "Group slug"
 msgstr "نامک گروه"
 
-#: inc/admin/views/groups.php:79
+#: src/admin/views/groups.php:79
 msgid "# of attributes"
 msgstr "تعداد مشخصه ها"
 
-#: inc/admin/views/groups.php:118 inc/class-post-types.php:83
+#: src/admin/views/groups.php:118 src/class-post-types.php:83
 msgid "Add a new group"
 msgstr "افزودن گروه جدید"
 
-#: inc/admin/views/groups.php:174
+#: src/admin/views/groups.php:174
 msgid "Add new group"
 msgstr "افزودن گروه جدید"
 
-#: inc/admin/views/groups.php:176
+#: src/admin/views/groups.php:176
 msgid "Re arrange attributes"
 msgstr "چیدمان مجدد مشخصه ها"
 
-#: inc/admin/views/groups.php:200
+#: src/admin/views/groups.php:200
 msgid "Add Group"
 msgstr "افزودن گروه"
 
-#: inc/admin/views/product-load-table.php:71
+#: src/admin/views/product-load-table.php:71
 msgid "Select an option"
 msgstr "یک گزینه انتخاب کنید"
 
-#: inc/admin/views/product-load-table.php:78
+#: src/admin/views/product-load-table.php:78
 msgid "Or"
 msgstr "یا"
 
-#: inc/admin/views/product-load-table.php:79
+#: src/admin/views/product-load-table.php:79
 msgid "Custom value"
 msgstr "مقدار دستی"
 
-#: inc/admin/views/product-load-table.php:87
+#: src/admin/views/product-load-table.php:87
 msgid "Remove this field"
 msgstr "حذف این فیلد"
 
-#: inc/admin/views/product-load-table.php:103
+#: src/admin/views/product-load-table.php:103
 msgid "No attributes defined yet"
 msgstr "هنوز مشخصه ای تعریف نشده است"
 
-#: inc/admin/views/products-specs-table.php:16
+#: src/admin/views/products-specs-table.php:16
 msgid "Select a table : "
 msgstr "یک جدول انتخاب کنید: "
 
-#: inc/admin/views/products-specs-table.php:21
+#: src/admin/views/products-specs-table.php:21
 msgid "none"
 msgstr "هیچکدام"
 
-#: inc/admin/views/table-metabox.php:14
+#: src/admin/views/table-metabox.php:14
 msgid "Attribute Groups : "
 msgstr "گروه مشخصه ها : "
 
-#: inc/admin/views/table-metabox.php:15
+#: src/admin/views/table-metabox.php:15
 msgid "Select attribute groups you want to load in this table : "
 msgstr "گروه مشخصه هایی که میخواهید در جدول بارگذاری شوند را انتخاب کنید: "
 
-#: inc/admin/views/table-metabox.php:33
+#: src/admin/views/table-metabox.php:33
 msgid "No Group found, Please define some groups first"
 msgstr "گروهی پیدا نشد ، لطفا ابتدا چند گروه تعریف کنید"
 
-#: inc/admin/views/tools.php:26
+#: src/admin/views/tools.php:26
 msgid "Import / Export tables and fields"
 msgstr "درون ریزی / برون بری جداول و مشخصه ها"
 
-#: inc/admin/views/tools.php:30
+#: src/admin/views/tools.php:30
 msgid "Export specification tables"
 msgstr "برون بری جدول های مشخصه"
 
-#: inc/admin/views/tools.php:31
+#: src/admin/views/tools.php:31
 msgid ""
 "You can choose the tables you want to export and hit the download button , a "
 "<code>JSON</code> file will be downloaded , you can impot that later or on "
@@ -484,205 +484,205 @@ msgstr ""
 "کنید ، یک فایل <code>JSON</code> دانلود خواهد شد که میتوانید بعدا یا روی یک "
 "وردپرس دیگر فراخوانی کنید."
 
-#: inc/admin/views/tools.php:34
+#: src/admin/views/tools.php:34
 msgid "Export Product Specifications data"
 msgstr "خروجی گرفتن از مشخصه های محصولات"
 
-#: inc/admin/views/tools.php:35
+#: src/admin/views/tools.php:35
 msgid "You can choose to export only tables data or also with product data"
 msgstr ""
 "میتوانید انتخاب کنید که فقط میخواهید از جداول خروجی بگیرید یا میخواهید مشخصه "
 "های وارد شده در محصولات نیز خروجی گرفته شود"
 
-#: inc/admin/views/tools.php:37
+#: src/admin/views/tools.php:37
 msgid "Include Products data (file size may increase)"
 msgstr "قرار دادن اطلاعات محصولات ( حجم فایل ممکن است زیاد شود)"
 
-#: inc/admin/views/tools.php:41
+#: src/admin/views/tools.php:41
 msgid "Download"
 msgstr "دانلود"
 
-#: inc/admin/views/tools.php:46
+#: src/admin/views/tools.php:46
 msgid "Import Product Specifications data"
 msgstr "وارد کردن مشخصه های محصولات"
 
-#: inc/admin/views/tools.php:47
+#: src/admin/views/tools.php:47
 msgid "Import your <code>JSON</code> file here"
 msgstr ""
 "فایل <code>JSON</code> مورد نظر خود را انتخاب کرده و آن را درون ریزی کنید"
 
-#: inc/admin/views/tools.php:49
+#: src/admin/views/tools.php:49
 msgid "Select JSON file"
 msgstr "انتخاب فایل JSON"
 
-#: inc/admin/views/tools.php:53
+#: src/admin/views/tools.php:53
 msgid "Import"
 msgstr "درون ریزی"
 
-#: inc/class-app.php:151
+#: src/class-app.php:151
 msgid "Product Specifications for WooCommerce"
 msgstr "جدول مشخصات محصول برای ووکامرس"
 
-#: inc/class-app.php:152
+#: src/class-app.php:152
 msgid ""
 "This plugin adds a product specifications table to your woocommerce products."
 msgstr ""
 "با این افزونه میتوانید جدول مشخصات محصول را به صفحه محصولات خود اضافه کنید."
 
-#: inc/class-app.php:165
+#: src/class-app.php:165
 msgid "Product specifications table for E-Commerce websites"
 msgstr "جدول مشخصات برای سایت های فروشگاهی"
 
-#: inc/class-app.php:193
+#: src/class-app.php:193
 msgid "Product Specifications"
 msgstr "مشخصات کالا"
 
-#: inc/class-app.php:261
+#: src/class-app.php:261
 msgid ""
 "This plugin works properly with woocommerce, please install woocommerce first"
 msgstr "این پلاگین نیاز به ووکامرس دارد، لطفا ابتدا پلاگین ووکامرس را نصب کنید"
 
-#: inc/class-app.php:281
+#: src/class-app.php:281
 msgid "Dismiss"
 msgstr "لغو"
 
-#: inc/class-post-types.php:25 inc/class-post-types.php:28
+#: src/class-post-types.php:25 src/class-post-types.php:28
 msgid "Specifications tables"
 msgstr "جدول های مشخصات"
 
-#: inc/class-post-types.php:26 inc/class-post-types.php:27
+#: src/class-post-types.php:26 src/class-post-types.php:27
 msgid "Specifications table"
 msgstr "جدول مشخصات"
 
-#: inc/class-post-types.php:29
+#: src/class-post-types.php:29
 msgid "Add New"
 msgstr "افزودن"
 
-#: inc/class-post-types.php:30
+#: src/class-post-types.php:30
 msgid "Add New Spec. table"
 msgstr "افزودن جدول مشخصات جدید"
 
-#: inc/class-post-types.php:31
+#: src/class-post-types.php:31
 msgid "New Spec. table"
 msgstr "جدول مشخصات جدید"
 
-#: inc/class-post-types.php:32
+#: src/class-post-types.php:32
 msgid "Edit Spec. table"
 msgstr "ویرایش جدول مشخصات"
 
-#: inc/class-post-types.php:33
+#: src/class-post-types.php:33
 msgid "View Spec. table"
 msgstr "مشاهده جدول مشخصات"
 
-#: inc/class-post-types.php:34
+#: src/class-post-types.php:34
 msgid "Specification tables"
 msgstr "جدول های مشخصات"
 
-#: inc/class-post-types.php:35
+#: src/class-post-types.php:35
 msgid "Search Spec. tables"
 msgstr "جستجوی جداول مشخصات"
 
-#: inc/class-post-types.php:36
+#: src/class-post-types.php:36
 msgid "Parent Spec. tables:"
 msgstr "جدول مشخصات مادر:"
 
-#: inc/class-post-types.php:37
+#: src/class-post-types.php:37
 msgid "No Spec. tables found."
 msgstr "چیزی یافت نشد."
 
-#: inc/class-post-types.php:38
+#: src/class-post-types.php:38
 msgid "No Spec. tables found in Trash."
 msgstr "چیزی در زباله دانی نیست."
 
-#: inc/class-post-types.php:39
+#: src/class-post-types.php:39
 msgid "Spec. table Cover Image"
 msgstr "تصویر کاور"
 
-#: inc/class-post-types.php:40
+#: src/class-post-types.php:40
 msgid "Set cover image"
 msgstr "تنظیم تصویر"
 
-#: inc/class-post-types.php:41
+#: src/class-post-types.php:41
 msgid "Remove cover image"
 msgstr "حذف تصویر"
 
-#: inc/class-post-types.php:42
+#: src/class-post-types.php:42
 msgid "Use as cover image"
 msgstr "استفاده بعنوان تصویر کاور"
 
-#: inc/class-post-types.php:43
+#: src/class-post-types.php:43
 msgid "Spec. tables archives"
 msgstr "آرشیو جدول های مشخصات"
 
-#: inc/class-post-types.php:44
+#: src/class-post-types.php:44
 msgid "Insert into Spec. table"
 msgstr "گذاشتن درون جدول مشخصات"
 
-#: inc/class-post-types.php:45
+#: src/class-post-types.php:45
 msgid "Uploaded to this Spec. table"
 msgstr "آپلود شده در جدول مشخصات"
 
-#: inc/class-post-types.php:46
+#: src/class-post-types.php:46
 msgid "Filter Spec. tables list"
 msgstr "فیلتر کردن جداول مشخصات"
 
-#: inc/class-post-types.php:47
+#: src/class-post-types.php:47
 msgid "Spec. tables list navigation"
 msgstr "ناوبری لیست جداول مشخصات"
 
-#: inc/class-post-types.php:48
+#: src/class-post-types.php:48
 msgid "Spec. tables list"
 msgstr "لیست جداول مشخصات"
 
-#: inc/class-post-types.php:76
+#: src/class-post-types.php:76
 msgid "group"
 msgstr "گروه"
 
-#: inc/class-post-types.php:77
+#: src/class-post-types.php:77
 msgid "Search in groups"
 msgstr "جستجو در گروه ها"
 
-#: inc/class-post-types.php:78
+#: src/class-post-types.php:78
 msgid "all groups"
 msgstr "همه گروه ها"
 
-#: inc/class-post-types.php:79
+#: src/class-post-types.php:79
 msgid "parent group"
 msgstr "گروه مادر"
 
-#: inc/class-post-types.php:80
+#: src/class-post-types.php:80
 msgid "parent group : "
 msgstr "گروه مادر : "
 
-#: inc/class-post-types.php:82
+#: src/class-post-types.php:82
 msgid "Update group"
 msgstr "به روز رسانی گروه"
 
-#: inc/class-post-types.php:84
+#: src/class-post-types.php:84
 msgid "New group"
 msgstr "گروه جدید"
 
-#: inc/class-post-types.php:99
+#: src/class-post-types.php:99
 msgid "attribute"
 msgstr "مشخصه"
 
-#: inc/class-post-types.php:100
+#: src/class-post-types.php:100
 msgid "Search in attributes"
 msgstr "جستجو در مشخصه ها"
 
-#: inc/class-post-types.php:101
+#: src/class-post-types.php:101
 msgid "all attributes"
 msgstr "همه مشخصه ها"
 
-#: inc/class-post-types.php:102
+#: src/class-post-types.php:102
 msgid "parent attribute"
 msgstr "مشخصه مادر"
 
-#: inc/class-post-types.php:103
+#: src/class-post-types.php:103
 msgid "parent attribute : "
 msgstr "مشخصه مادر : "
 
-#: inc/class-post-types.php:107
+#: src/class-post-types.php:107
 msgid "New attribute"
 msgstr "مشخصه جدید"
 

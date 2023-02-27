@@ -6,7 +6,7 @@
  * @contribute Am!n <dornaweb.com>
  */
 
-namespace DWSpecificationsTable\Admin;
+namespace Amiut\ProductSpecs\Admin;
 
 defined('ABSPATH') || exit;
 
@@ -17,10 +17,10 @@ class Admin
 	*/
 	public static function init(){
 		add_action('admin_enqueue_scripts', array(__CLASS__, 'assets'));
-		Specification_Tables::init();
+		SpecificationTable::init();
 		Ajax::init();
 		Options\Settings::init();
-		Import_Export::init();
+		ImportExport::init();
 		add_action( 'admin_menu', array( __CLASS__, 'create_menus' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'modify_menu_urls' ) );
 	}
@@ -61,7 +61,7 @@ class Admin
 		if( empty( $template ) ) return; // Ignore if $template is empty
 
 		extract( $args );
-		include( DWSPECS_ABSPATH . 'inc/admin/' . $template . '.php' );
+		include( DWSPECS_ABSPATH . 'src/admin/' . $template . '.php' );
 	}
 
 	/**
@@ -128,7 +128,7 @@ class Admin
 			'dw-specs-export',
 			array( __CLASS__, 'tools_page' )
 		);
-	}	
+	}
 
 	/**
 	 * Modify menu page urls
@@ -157,7 +157,7 @@ class Admin
 	 * page : groups
 	*/
 	public static function groups_page(){
-		Attribute_Groups::Page_HTML();
+		AttributeGroups::Page_HTML();
 	}
 
 	/**
@@ -172,7 +172,7 @@ class Admin
 	 * Create Import/export page
 	*/
 	public static function tools_page(){
-		Import_Export::Page_HTML();
+		ImportExport::Page_HTML();
 	}
 
 	/**

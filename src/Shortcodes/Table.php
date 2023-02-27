@@ -2,11 +2,11 @@
 /**
  * Product Specifications main class
  *
- * @package DWSpecificationsTable
+ * @package Amiut\ProductSpecs
  * @since   0.1
  */
 
-namespace DWSpecificationsTable\Shortcodes;
+namespace Amiut\ProductSpecs\Shortcodes;
 
 defined('ABSPATH') || exit;
 
@@ -48,7 +48,7 @@ class Table {
 			if( !$post ) return;
 			$post_id = $post->ID;
         }
-        
+
 		$table = dwspecs_get_table_result( $post_id );
 		$args = array( 'post_id' => $post_id, 'table' => $table );
 

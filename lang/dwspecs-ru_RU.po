@@ -19,586 +19,586 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/admin/ajax.php:46
+#: src/admin/ajax.php:46
 msgid "Please enter a group name"
 msgstr "Пожалуйста, введите имя группы"
 
-#: inc/admin/ajax.php:71
+#: src/admin/ajax.php:71
 msgid "Group edited successfully"
 msgstr "Группа успешно отредактирована"
 
-#: inc/admin/ajax.php:71
+#: src/admin/ajax.php:71
 msgid "Group created successfully"
 msgstr "Группа успешно создана"
 
-#: inc/admin/ajax.php:79 inc/admin/ajax.php:235
+#: src/admin/ajax.php:79 src/admin/ajax.php:235
 msgid "Something went wrong"
 msgstr "Что-то Пошло Не Так"
 
-#: inc/admin/ajax.php:100
+#: src/admin/ajax.php:100
 msgid "Could not delete group(s)"
 msgstr "Не удалось удалить группу"
 
-#: inc/admin/ajax.php:108
+#: src/admin/ajax.php:108
 msgid "Group(s) deleted successfully"
 msgstr "Группа успешно удалена"
 
-#: inc/admin/ajax.php:158
+#: src/admin/ajax.php:158
 msgid "Please enter an attribute name"
 msgstr "Пожалуйста, введите имя атрибута"
 
-#: inc/admin/ajax.php:165
+#: src/admin/ajax.php:165
 msgid "Please select a group"
 msgstr "Выберите группу"
 
-#: inc/admin/ajax.php:172
+#: src/admin/ajax.php:172
 msgid "Please select a field type"
 msgstr "Выберите тип поля"
 
-#: inc/admin/ajax.php:179
+#: src/admin/ajax.php:179
 msgid "Please set some values for attribute"
 msgstr "Пожалуйста, установите несколько значений для атрибута"
 
-#: inc/admin/ajax.php:219
+#: src/admin/ajax.php:219
 msgid "Attribute added successfully"
 msgstr "Атрибут успешно добавлен"
 
-#: inc/admin/ajax.php:219
+#: src/admin/ajax.php:219
 msgid "Attribute updated successfully"
 msgstr "Атрибут обновлен"
 
-#: inc/admin/ajax.php:270
+#: src/admin/ajax.php:270
 msgid "Could not delete attribute(s)"
 msgstr "Не удалось удалить атрибут"
 
-#: inc/admin/ajax.php:287
+#: src/admin/ajax.php:287
 msgid "Attribute(s) deleted successfully"
 msgstr "Атрибут(ы) успешно удален(ы)"
 
-#: inc/admin/ajax.php:306
+#: src/admin/ajax.php:306
 msgid "Unexpected error"
 msgstr "Неожиданная ошибка"
 
-#: inc/admin/ajax.php:347
+#: src/admin/ajax.php:347
 msgid "Attributes arrangement successfully updated."
 msgstr "Атрибут обновлен."
 
-#: inc/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:119
+#: src/admin/class-dwspecs-admin-menus.php:33 wc-specs.php:119
 msgid "Product specifications table"
 msgstr "Атрибуты товаров"
 
-#: inc/admin/class-dwspecs-admin-menus.php:34
-#: inc/admin/class-dwspecs-tables.php:33 wc-specs.php:118
+#: src/admin/class-dwspecs-admin-menus.php:34
+#: src/admin/class-dwspecs-tables.php:33 wc-specs.php:118
 msgid "Specification table"
 msgstr "Атрибуты товаров"
 
-#: inc/admin/class-dwspecs-admin-menus.php:45
+#: src/admin/class-dwspecs-admin-menus.php:45
 msgid "Add a new table"
 msgstr "Добавить таблицу"
 
-#: inc/admin/class-dwspecs-admin-menus.php:46
+#: src/admin/class-dwspecs-admin-menus.php:46
 msgid "New table"
 msgstr "Новая таблица"
 
-#: inc/admin/class-dwspecs-admin-menus.php:55 inc/admin/views/groups.php:50
-#: inc/admin/views/groups.php:55
+#: src/admin/class-dwspecs-admin-menus.php:55 src/admin/views/groups.php:50
+#: src/admin/views/groups.php:55
 msgid "Attribute Groups"
 msgstr "Группы атрибутов"
 
-#: inc/admin/class-dwspecs-admin-menus.php:56
+#: src/admin/class-dwspecs-admin-menus.php:56
 msgid "Groups"
 msgstr "Группы"
 
-#: inc/admin/class-dwspecs-admin-menus.php:65
-#: inc/admin/class-dwspecs-admin-menus.php:66 inc/admin/views/attributes.php:88
-#: inc/admin/views/attributes.php:93
+#: src/admin/class-dwspecs-admin-menus.php:65
+#: src/admin/class-dwspecs-admin-menus.php:66 src/admin/views/attributes.php:88
+#: src/admin/views/attributes.php:93
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: inc/admin/class-dwspecs-admin-menus.php:75
+#: src/admin/class-dwspecs-admin-menus.php:75
 msgid "Product specifications settings"
 msgstr "Настройки спецификации товаров"
 
-#: inc/admin/class-dwspecs-admin-menus.php:76
+#: src/admin/class-dwspecs-admin-menus.php:76
 msgid "Settings"
 msgstr "Настройки"
 
-#: inc/admin/class-dwspecs-tables.php:31
+#: src/admin/class-dwspecs-tables.php:31
 msgid "Table Options"
 msgstr "Настройки таблицы"
 
-#: inc/admin/options/views/settings.php:15
+#: src/admin/options/views/settings.php:15
 msgid "Product specifications general settings"
 msgstr "Общие настройки спецификаций товаров"
 
-#: inc/admin/options/views/settings.php:20
+#: src/admin/options/views/settings.php:20
 msgid "settings"
 msgstr "настройки"
 
-#: inc/admin/options/views/settings.php:25
+#: src/admin/options/views/settings.php:25
 msgid "Views per page"
 msgstr "Показывать на странице"
 
-#: inc/admin/options/views/settings.php:26
+#: src/admin/options/views/settings.php:26
 msgid "How many records should be seen in a page?"
 msgstr "Как много записей отображать на странице?"
 
-#: inc/admin/views/attributes.php:96 inc/admin/views/groups.php:58
+#: src/admin/views/attributes.php:96 src/admin/views/groups.php:58
 msgid "Search..."
 msgstr "Поиск..."
 
-#: inc/admin/views/attributes.php:113 inc/admin/views/attributes.php:260
-#: inc/admin/views/edit-attribute-form.php:38
+#: src/admin/views/attributes.php:113 src/admin/views/attributes.php:260
+#: src/admin/views/edit-attribute-form.php:38
 msgid "Select a table"
 msgstr "Выберите таблицу"
 
-#: inc/admin/views/attributes.php:133 inc/admin/views/groups.php:76
+#: src/admin/views/attributes.php:133 src/admin/views/groups.php:76
 msgid "ID"
 msgstr ""
 
-#: inc/admin/views/attributes.php:134
+#: src/admin/views/attributes.php:134
 msgid "Attribute name"
 msgstr "Имя атрибута"
 
-#: inc/admin/views/attributes.php:135 inc/admin/views/groups.php:77
+#: src/admin/views/attributes.php:135 src/admin/views/groups.php:77
 msgid "Group name"
 msgstr "Название группы"
 
-#: inc/admin/views/attributes.php:136 inc/admin/views/groups.php:80
+#: src/admin/views/attributes.php:136 src/admin/views/groups.php:80
 msgid "Actions"
 msgstr "Действия"
 
-#: inc/admin/views/attributes.php:163 inc/admin/views/groups.php:92
-#: inc/admin/views/groups.php:97 inc/admin/views/groups.php:175
-#: inc/class-dwspecs-post-types.php:84
+#: src/admin/views/attributes.php:163 src/admin/views/groups.php:92
+#: src/admin/views/groups.php:97 src/admin/views/groups.php:175
+#: src/class-dwspecs-post-types.php:84
 msgid "Edit group"
 msgstr "Редактировать группу"
 
-#: inc/admin/views/attributes.php:170 inc/admin/views/groups.php:108
+#: src/admin/views/attributes.php:170 src/admin/views/groups.php:108
 msgid "Nothing found"
 msgstr "Ничего не найдено"
 
-#: inc/admin/views/attributes.php:178 inc/admin/views/groups.php:116
+#: src/admin/views/attributes.php:178 src/admin/views/groups.php:116
 msgid "delete Selected attributes"
 msgstr "удалить Выбранные атрибуты"
 
-#: inc/admin/views/attributes.php:178 inc/admin/views/groups.php:116
+#: src/admin/views/attributes.php:178 src/admin/views/groups.php:116
 msgid "Delete Selected"
 msgstr "Удалить выбранное"
 
-#: inc/admin/views/attributes.php:180 inc/class-dwspecs-post-types.php:109
+#: src/admin/views/attributes.php:180 src/class-dwspecs-post-types.php:109
 msgid "Add a new attribute"
 msgstr "Добавить новый атрибут"
 
-#: inc/admin/views/attributes.php:180 inc/admin/views/groups.php:118
+#: src/admin/views/attributes.php:180 src/admin/views/groups.php:118
 msgid "Add new"
 msgstr "Добавить"
 
-#: inc/admin/views/attributes.php:192 inc/admin/views/groups.php:130
+#: src/admin/views/attributes.php:192 src/admin/views/groups.php:130
 msgid "«"
 msgstr ""
 
-#: inc/admin/views/attributes.php:193 inc/admin/views/groups.php:131
+#: src/admin/views/attributes.php:193 src/admin/views/groups.php:131
 msgid "»"
 msgstr ""
 
-#: inc/admin/views/attributes.php:213 inc/admin/views/groups.php:151
+#: src/admin/views/attributes.php:213 src/admin/views/groups.php:151
 msgid "Delete Attribute"
 msgstr "Удалить атрибут"
 
-#: inc/admin/views/attributes.php:214 inc/admin/views/groups.php:152
+#: src/admin/views/attributes.php:214 src/admin/views/groups.php:152
 msgid "Are you sure you want to delete selected attribute(s)?"
 msgstr "Вы уверены что хотите удалить атрибут(ы)?"
 
-#: inc/admin/views/attributes.php:217 inc/admin/views/groups.php:155
+#: src/admin/views/attributes.php:217 src/admin/views/groups.php:155
 msgid "Yes"
 msgstr "Да"
 
-#: inc/admin/views/attributes.php:222 inc/admin/views/groups.php:160
+#: src/admin/views/attributes.php:222 src/admin/views/groups.php:160
 msgid "No"
 msgstr "Нет"
 
-#: inc/admin/views/attributes.php:234 inc/admin/views/groups.php:172
+#: src/admin/views/attributes.php:234 src/admin/views/groups.php:172
 msgid "Add"
 msgstr "Добавить"
 
-#: inc/admin/views/attributes.php:235 inc/admin/views/groups.php:173
+#: src/admin/views/attributes.php:235 src/admin/views/groups.php:173
 msgid "Update"
 msgstr "Обновить"
 
-#: inc/admin/views/attributes.php:236
+#: src/admin/views/attributes.php:236
 msgid "Add new attribute"
 msgstr "Добавить новый атрибут"
 
-#: inc/admin/views/attributes.php:237 inc/class-dwspecs-post-types.php:107
+#: src/admin/views/attributes.php:237 src/class-dwspecs-post-types.php:107
 msgid "Edit attribute"
 msgstr "Редактировать атрибут"
 
-#: inc/admin/views/attributes.php:244
-#: inc/admin/views/edit-attribute-form.php:23
+#: src/admin/views/attributes.php:244
+#: src/admin/views/edit-attribute-form.php:23
 msgid "Attribute name : "
 msgstr "Название : "
 
-#: inc/admin/views/attributes.php:249
-#: inc/admin/views/edit-attribute-form.php:28
+#: src/admin/views/attributes.php:249
+#: src/admin/views/edit-attribute-form.php:28
 msgid "Attribute slug : "
 msgstr "Слаг : "
 
-#: inc/admin/views/attributes.php:250 inc/admin/views/attributes.php:310
-#: inc/admin/views/edit-attribute-form.php:29
-#: inc/admin/views/edit-attribute-form.php:93
-#: inc/admin/views/edit-group-form.php:23
-#: inc/admin/views/edit-group-form.php:28 inc/admin/views/groups.php:189
-#: inc/admin/views/groups.php:194
+#: src/admin/views/attributes.php:250 src/admin/views/attributes.php:310
+#: src/admin/views/edit-attribute-form.php:29
+#: src/admin/views/edit-attribute-form.php:93
+#: src/admin/views/edit-group-form.php:23
+#: src/admin/views/edit-group-form.php:28 src/admin/views/groups.php:189
+#: src/admin/views/groups.php:194
 msgid "Optional"
 msgstr "Опционально"
 
-#: inc/admin/views/attributes.php:257
-#: inc/admin/views/edit-attribute-form.php:35
+#: src/admin/views/attributes.php:257
+#: src/admin/views/edit-attribute-form.php:35
 msgid "Table : "
 msgstr "Таблица : "
 
-#: inc/admin/views/attributes.php:270
-#: inc/admin/views/edit-attribute-form.php:48
+#: src/admin/views/attributes.php:270
+#: src/admin/views/edit-attribute-form.php:48
 msgid "Attribute group : "
 msgstr "Группа атрибутов : "
 
-#: inc/admin/views/attributes.php:272
-#: inc/admin/views/edit-attribute-form.php:50
+#: src/admin/views/attributes.php:272
+#: src/admin/views/edit-attribute-form.php:50
 msgid "Select a group"
 msgstr "Выберите группу"
 
-#: inc/admin/views/attributes.php:287
-#: inc/admin/views/edit-attribute-form.php:66
+#: src/admin/views/attributes.php:287
+#: src/admin/views/edit-attribute-form.php:66
 msgid "Attribute field Type : "
 msgstr "Тип поля : "
 
-#: inc/admin/views/attributes.php:289
-#: inc/admin/views/edit-attribute-form.php:68
+#: src/admin/views/attributes.php:289
+#: src/admin/views/edit-attribute-form.php:68
 msgid "Select a field type"
 msgstr "Выберите тип поля"
 
-#: inc/admin/views/attributes.php:290
-#: inc/admin/views/edit-attribute-form.php:69
+#: src/admin/views/attributes.php:290
+#: src/admin/views/edit-attribute-form.php:69
 msgid "Text"
 msgstr ""
 
-#: inc/admin/views/attributes.php:291
-#: inc/admin/views/edit-attribute-form.php:70
+#: src/admin/views/attributes.php:291
+#: src/admin/views/edit-attribute-form.php:70
 msgid "Select"
 msgstr ""
 
-#: inc/admin/views/attributes.php:292
-#: inc/admin/views/edit-attribute-form.php:71
+#: src/admin/views/attributes.php:292
+#: src/admin/views/edit-attribute-form.php:71
 msgid "Radio"
 msgstr ""
 
-#: inc/admin/views/attributes.php:293
-#: inc/admin/views/edit-attribute-form.php:72
+#: src/admin/views/attributes.php:293
+#: src/admin/views/edit-attribute-form.php:72
 msgid "Textarea"
 msgstr ""
 
-#: inc/admin/views/attributes.php:294
-#: inc/admin/views/edit-attribute-form.php:73
+#: src/admin/views/attributes.php:294
+#: src/admin/views/edit-attribute-form.php:73
 msgid "True/false"
 msgstr ""
 
-#: inc/admin/views/attributes.php:299
-#: inc/admin/views/edit-attribute-form.php:78
+#: src/admin/views/attributes.php:299
+#: src/admin/views/edit-attribute-form.php:78
 msgid "Values : "
 msgstr "Значения : "
 
-#: inc/admin/views/attributes.php:304
-#: inc/admin/views/edit-attribute-form.php:87
+#: src/admin/views/attributes.php:304
+#: src/admin/views/edit-attribute-form.php:87
 msgid "Default value : "
 msgstr "По умолчанию : "
 
-#: inc/admin/views/attributes.php:309
-#: inc/admin/views/edit-attribute-form.php:92
-#: inc/admin/views/edit-group-form.php:27 inc/admin/views/groups.php:193
+#: src/admin/views/attributes.php:309
+#: src/admin/views/edit-attribute-form.php:92
+#: src/admin/views/edit-group-form.php:27 src/admin/views/groups.php:193
 msgid "Description : "
 msgstr "Описание : "
 
-#: inc/admin/views/attributes.php:316
+#: src/admin/views/attributes.php:316
 msgid "Add attribute"
 msgstr "Добавить атрибут"
 
-#: inc/admin/views/edit-attribute-form.php:100
-#: inc/class-dwspecs-post-types.php:108
+#: src/admin/views/edit-attribute-form.php:100
+#: src/class-dwspecs-post-types.php:108
 msgid "Update attribute"
 msgstr "Обновить атрибут"
 
-#: inc/admin/views/edit-group-form.php:17 inc/admin/views/groups.php:183
+#: src/admin/views/edit-group-form.php:17 src/admin/views/groups.php:183
 msgid "Group name : "
 msgstr "Название группы : "
 
-#: inc/admin/views/edit-group-form.php:22 inc/admin/views/groups.php:188
+#: src/admin/views/edit-group-form.php:22 src/admin/views/groups.php:188
 msgid "Group slug : "
 msgstr "Слаг : "
 
-#: inc/admin/views/edit-group-form.php:36
+#: src/admin/views/edit-group-form.php:36
 msgid "Update Group"
 msgstr "Обновить группу"
 
-#: inc/admin/views/group-rearange-form.php:31
+#: src/admin/views/group-rearange-form.php:31
 msgid "This group has no attributes"
 msgstr "В этой группе нет атрибутов"
 
-#: inc/admin/views/group-rearange-form.php:38
+#: src/admin/views/group-rearange-form.php:38
 msgid "Update Arrangement"
 msgstr "Обновить"
 
-#: inc/admin/views/groups.php:78
+#: src/admin/views/groups.php:78
 msgid "Group slug"
 msgstr "Слаг группы"
 
-#: inc/admin/views/groups.php:79
+#: src/admin/views/groups.php:79
 msgid "# of attributes"
 msgstr "ID атрибутов"
 
-#: inc/admin/views/groups.php:118 inc/class-dwspecs-post-types.php:86
+#: src/admin/views/groups.php:118 src/class-dwspecs-post-types.php:86
 msgid "Add a new group"
 msgstr "Добавить новую группу"
 
-#: inc/admin/views/groups.php:174
+#: src/admin/views/groups.php:174
 msgid "Add new group"
 msgstr "Добавить новую группу"
 
-#: inc/admin/views/groups.php:176
+#: src/admin/views/groups.php:176
 msgid "Re arrange attributes"
 msgstr "Пересмотреть атрибуты"
 
-#: inc/admin/views/groups.php:200
+#: src/admin/views/groups.php:200
 msgid "Add Group"
 msgstr "Добавить группу"
 
-#: inc/admin/views/product-load-table.php:66
+#: src/admin/views/product-load-table.php:66
 msgid "Select an option"
 msgstr "Выберите опцию"
 
-#: inc/admin/views/product-load-table.php:73
+#: src/admin/views/product-load-table.php:73
 msgid "Or"
 msgstr "Или"
 
-#: inc/admin/views/product-load-table.php:74
+#: src/admin/views/product-load-table.php:74
 msgid "Custom value"
 msgstr "Своё значение"
 
-#: inc/admin/views/product-load-table.php:93
+#: src/admin/views/product-load-table.php:93
 msgid "No attributes defined yet"
 msgstr "Атрибуты пока не назначены"
 
-#: inc/admin/views/products-specs-table.php:16
+#: src/admin/views/products-specs-table.php:16
 msgid "Select a table : "
 msgstr "Выберите таблицу : "
 
-#: inc/admin/views/products-specs-table.php:21
+#: src/admin/views/products-specs-table.php:21
 msgid "none"
 msgstr "нет"
 
-#: inc/admin/views/table-metabox.php:14
+#: src/admin/views/table-metabox.php:14
 msgid "Attribute Groups : "
 msgstr "Группы атрибутов : "
 
-#: inc/admin/views/table-metabox.php:15
+#: src/admin/views/table-metabox.php:15
 msgid "Select attribute groups you want to load in this table : "
 msgstr ""
 "Выберите группы атрибутов, которые Вы хотите отобразить в этой таблице : "
 
-#: inc/admin/views/table-metabox.php:32
+#: src/admin/views/table-metabox.php:32
 msgid "No Group found, Please define some groups first"
 msgstr ""
 
-#: inc/admin/views/tools.php:14
+#: src/admin/views/tools.php:14
 msgid "Import / Export tables and fields"
 msgstr ""
 
-#: inc/admin/views/tools.php:18
+#: src/admin/views/tools.php:18
 msgid "Export specification tables"
 msgstr ""
 
-#: inc/admin/views/tools.php:19
+#: src/admin/views/tools.php:19
 msgid ""
 "You can choose the tables you want to export and hit the download button , a "
 "<code>JSON</code> file will be downloaded , you can impot that later or on "
 "another wordpress installation."
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:28 inc/class-dwspecs-post-types.php:31
+#: src/class-dwspecs-post-types.php:28 src/class-dwspecs-post-types.php:31
 msgid "Specifications tables"
 msgstr "Таблицы атрибутов"
 
-#: inc/class-dwspecs-post-types.php:29 inc/class-dwspecs-post-types.php:30
+#: src/class-dwspecs-post-types.php:29 src/class-dwspecs-post-types.php:30
 msgid "Specifications table"
 msgstr "Таблица атрибутов"
 
-#: inc/class-dwspecs-post-types.php:32
+#: src/class-dwspecs-post-types.php:32
 msgid "Add New"
 msgstr "Добавить"
 
-#: inc/class-dwspecs-post-types.php:33
+#: src/class-dwspecs-post-types.php:33
 msgid "Add New Spec. table"
 msgstr "Добавить новую таблицу"
 
-#: inc/class-dwspecs-post-types.php:34
+#: src/class-dwspecs-post-types.php:34
 msgid "New Spec. table"
 msgstr "Новая таблица"
 
-#: inc/class-dwspecs-post-types.php:35
+#: src/class-dwspecs-post-types.php:35
 msgid "Edit Spec. table"
 msgstr "Редактировать таблицу"
 
-#: inc/class-dwspecs-post-types.php:36
+#: src/class-dwspecs-post-types.php:36
 msgid "View Spec. table"
 msgstr "Просмотреть таблицу"
 
-#: inc/class-dwspecs-post-types.php:37
+#: src/class-dwspecs-post-types.php:37
 msgid "Specification tables"
 msgstr "Таблицы атрибутов"
 
-#: inc/class-dwspecs-post-types.php:38
+#: src/class-dwspecs-post-types.php:38
 msgid "Search Spec. tables"
 msgstr "Искать таблицу"
 
-#: inc/class-dwspecs-post-types.php:39
+#: src/class-dwspecs-post-types.php:39
 msgid "Parent Spec. tables:"
 msgstr "Родительская таблица:"
 
-#: inc/class-dwspecs-post-types.php:40
+#: src/class-dwspecs-post-types.php:40
 msgid "No Spec. tables found."
 msgstr "Таблиц не найдено."
 
-#: inc/class-dwspecs-post-types.php:41
+#: src/class-dwspecs-post-types.php:41
 msgid "No Spec. tables found in Trash."
 msgstr "Нет удаленных таблиц."
 
-#: inc/class-dwspecs-post-types.php:42
+#: src/class-dwspecs-post-types.php:42
 msgctxt ""
 "Overrides the “Featured Image” phrase for this post type. Added in 4.3"
 msgid "Spec. table Cover Image"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:43
+#: src/class-dwspecs-post-types.php:43
 msgctxt ""
 "Overrides the “Set featured image” phrase for this post type. Added in 4.3"
 msgid "Set cover image"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:44
+#: src/class-dwspecs-post-types.php:44
 msgctxt ""
 "Overrides the “Remove featured image” phrase for this post type. Added in 4.3"
 msgid "Remove cover image"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:45
+#: src/class-dwspecs-post-types.php:45
 msgctxt ""
 "Overrides the “Use as featured image” phrase for this post type. Added in 4.3"
 msgid "Use as cover image"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:46
+#: src/class-dwspecs-post-types.php:46
 msgctxt ""
 "The post type archive label used in nav menus. Default “Post Archives”. "
 "Added in 4.4"
 msgid "Spec. tables archives"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:47
+#: src/class-dwspecs-post-types.php:47
 msgctxt ""
 "Overrides the “Insert into post”/”Insert into page” phrase (used when "
 "inserting media into a post). Added in 4.4"
 msgid "Insert into Spec. table"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:48
+#: src/class-dwspecs-post-types.php:48
 msgctxt ""
 "Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used "
 "when viewing media attached to a post). Added in 4.4"
 msgid "Uploaded to this Spec. table"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:49
+#: src/class-dwspecs-post-types.php:49
 msgctxt ""
 "Screen reader text for the filter links heading on the post type listing "
 "screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4"
 msgid "Filter Spec. tables list"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:50
+#: src/class-dwspecs-post-types.php:50
 msgctxt ""
 "Screen reader text for the pagination heading on the post type listing "
 "screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4"
 msgid "Spec. tables list navigation"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:51
+#: src/class-dwspecs-post-types.php:51
 msgctxt ""
 "Screen reader text for the items list heading on the post type listing "
 "screen. Default “Posts list”/”Pages list”. Added in 4.4"
 msgid "Spec. tables list"
 msgstr ""
 
-#: inc/class-dwspecs-post-types.php:78
+#: src/class-dwspecs-post-types.php:78
 msgctxt "taxonomy general name"
 msgid "Groups"
 msgstr "Группы"
 
-#: inc/class-dwspecs-post-types.php:79
+#: src/class-dwspecs-post-types.php:79
 msgctxt "taxonomy singular name"
 msgid "group"
 msgstr "группа"
 
-#: inc/class-dwspecs-post-types.php:80
+#: src/class-dwspecs-post-types.php:80
 msgid "Search in groups"
 msgstr "Поиск по группам"
 
-#: inc/class-dwspecs-post-types.php:81
+#: src/class-dwspecs-post-types.php:81
 msgid "all groups"
 msgstr "все группы"
 
-#: inc/class-dwspecs-post-types.php:82
+#: src/class-dwspecs-post-types.php:82
 msgid "parent group"
 msgstr "родительская группа"
 
-#: inc/class-dwspecs-post-types.php:83
+#: src/class-dwspecs-post-types.php:83
 msgid "parent group : "
 msgstr "родительская группа : "
 
-#: inc/class-dwspecs-post-types.php:85
+#: src/class-dwspecs-post-types.php:85
 msgid "Update group"
 msgstr "Обновить группу"
 
-#: inc/class-dwspecs-post-types.php:87
+#: src/class-dwspecs-post-types.php:87
 msgid "New group"
 msgstr "Добавить новую группу"
 
-#: inc/class-dwspecs-post-types.php:101
+#: src/class-dwspecs-post-types.php:101
 msgctxt "taxonomy general name"
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: inc/class-dwspecs-post-types.php:102
+#: src/class-dwspecs-post-types.php:102
 msgctxt "taxonomy singular name"
 msgid "attribute"
 msgstr "атрибут"
 
-#: inc/class-dwspecs-post-types.php:103
+#: src/class-dwspecs-post-types.php:103
 msgid "Search in attributes"
 msgstr "Поиск по атрибутам"
 
-#: inc/class-dwspecs-post-types.php:104
+#: src/class-dwspecs-post-types.php:104
 msgid "all attributes"
 msgstr "все атрибуты"
 
-#: inc/class-dwspecs-post-types.php:105
+#: src/class-dwspecs-post-types.php:105
 msgid "parent attribute"
 msgstr "родительский атрибут"
 
-#: inc/class-dwspecs-post-types.php:106
+#: src/class-dwspecs-post-types.php:106
 msgid "parent attribute : "
 msgstr "родительский атрибут : "
 
-#: inc/class-dwspecs-post-types.php:110
+#: src/class-dwspecs-post-types.php:110
 msgid "New attribute"
 msgstr "Добавить новый атрибут"
 

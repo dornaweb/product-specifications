@@ -60,7 +60,7 @@ Yes, You can use `[specs-table]` shortcode.
 
 
 = How can i fully customize the HTML markup of the table =
-Copy the file `/inc/views/shortcode-table-view.php` file somewhere in your theme and add the below code to your functions.php file
+Copy the file `/src/views/shortcode-table-view.php` file somewhere in your theme and add the below code to your functions.php file
 
 `add_filter('dw_specs_table_shortcode_output', 'my_custom_spec_table_markup', 10, 2 );
 function my_custom_spec_table_markup( $output, $args ){

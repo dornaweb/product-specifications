@@ -6,11 +6,11 @@
  * @contribute Am!n <dornaweb.com>
  */
 
-namespace DWSpecificationsTable\Admin;
+namespace Amiut\ProductSpecs\Admin;
 
 defined('ABSPATH') || exit;
 
-class Import_Export
+class ImportExport
 {
 
 	public static function init() {
@@ -20,7 +20,7 @@ class Import_Export
 
 	public static function import_cb() {
 		header('Content-type: application/json; charset=utf-8');
-		
+
 		// Exit if already migrating
 		if (false !== get_transient('dwspecs_data_migrating')) {
 			wp_send_json_error([
@@ -46,7 +46,7 @@ class Import_Export
 
 		// Migrate Plugin data
 		self::import_plugin_data($data);
-		
+
 		delete_transient('dwspecs_data_migrating');
 
 		wp_send_json_success([
@@ -69,7 +69,7 @@ class Import_Export
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
 		header('Content-Disposition: attachment; filename="'. self::export_filename() .'"');
-		
+
 		echo self::export('json', $include_products);
 
         exit;
@@ -118,7 +118,7 @@ class Import_Export
 					'meta_key'  	=> '_dwps_table',
 					'meta_value'	=> $table['table_id']
 				]);
-	
+
 				foreach ($products_list->posts as $product) {
 					$results[$i]['products'][] = [
 						'title' => $product->post_title,
@@ -137,10 +137,10 @@ class Import_Export
 		} else {
 			return $results;
 
-		} 
+		}
 	}
 
-	public static function import_plugin_data($data) {			
+	public static function import_plugin_data($data) {
 		$ids_map = [];
 		global $wpdb;
 
@@ -148,7 +148,7 @@ class Import_Export
 			// Check for existing table
 			$existing_table = $wpdb->get_var(
 				$wpdb->prepare(
-					"SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", 
+					"SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'",
 					$table['table-slug'],
 					'specs-table'
 				)
@@ -186,7 +186,7 @@ class Import_Export
 
 					update_term_meta($new_group_id, 'old_id', $group['term_id']);
 				}
-				
+
 				$ids_map[$group['term_id']] = $new_group_id;
 
 				/**
@@ -239,7 +239,7 @@ class Import_Export
 					return $el;
 				}
 
-			}, array_filter($table['group-order']));		
+			}, array_filter($table['group-order']));
 
 			update_post_meta($new_table_id, '_groups', $table_g_order);
 
@@ -266,7 +266,7 @@ class Import_Export
 					$import_post_field = apply_filters('dwspecs_import_post_field_key', 'post_name');
 					$product_id = $wpdb->get_var(
 						$wpdb->prepare(
-							"SELECT ID FROM $wpdb->posts WHERE {$import_post_field} = %s AND post_type= %s AND post_status = 'publish'", 
+							"SELECT ID FROM $wpdb->posts WHERE {$import_post_field} = %s AND post_type= %s AND post_status = 'publish'",
 							($import_post_field == 'post_name') ? $product['slug'] : $product['title'],
 							'product'
 						)
