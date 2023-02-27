@@ -6,8 +6,8 @@
  * @contribute Am!n <dornaweb.com>
  */
 
-namespace DWSpecificationsTable\Admin\Options;
-use DWSpecificationsTable\Admin\Admin;
+namespace Amiut\ProductSpecs\Admin\Options;
+use Amiut\ProductSpecs\Admin\Admin;
 
 defined('ABSPATH') || exit;
 

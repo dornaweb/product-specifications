@@ -6,11 +6,11 @@
  * @contribute Am!n <dornaweb.com>
  */
 
-namespace DWSpecificationsTable\Admin;
+namespace Amiut\ProductSpecs\Admin;
 
 defined('ABSPATH') || exit;
 
-class Specification_Tables
+class SpecificationTable
 {
 	public static function init(){
 		// Create meta boxes

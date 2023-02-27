@@ -11,23 +11,6 @@
 */
 
 /**
- * Var_dump pre-ed!
- * For debugging purposes
- *
- * @param mixed $val desired variable to var_dump
- * @uses var_dump
- *
- * @return string
-*/
-if(! function_exists('dwspecs_dumpit')) {
-	function dwspecs_dumpit( $val ) {
-		echo '<pre style="direction:ltr;text-align:left;">';
-		var_dump( $val );
-		echo '</pre>';
-	}
-}
-
-/**
  * current_page_url
  *
  * @return string
@@ -234,7 +217,7 @@ if( !function_exists('dwspecs_get_table_result') ){
 if( !function_exists('dwspecs_get_table_groups') ){
 	function dwspecs_get_table_groups( $format = 'array', $table_id = false ){
 		$output = array();
-		
+
 		if( !$table_id ) {
 			$tables = new WP_Query( array(
 				'post_type' => 'specs-table',

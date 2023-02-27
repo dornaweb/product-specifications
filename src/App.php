@@ -2,16 +2,16 @@
 /**
  * Product Specifications main class
  *
- * @package DWSpecificationsTable
+ * @package Amiut\ProductSpecs
  * @since   0.4
  */
 
-namespace DWSpecificationsTable;
+namespace Amiut\ProductSpecs;
 
 defined('ABSPATH') || exit;
 
 /**
- * DWSpecificationsTable main class
+ * Amiut\ProductSpecs main class
  */
 final class App
 {
@@ -26,14 +26,14 @@ final class App
      * Plugin instance.
      *
      * @since 0.1
-     * @var null|DWSpecificationsTable
+     * @var null|Amiut\ProductSpecs
      */
     public static $instance = null;
 
     /**
      * Return the plugin instance.
      *
-     * @return DWSpecificationsTable/App
+     * @return Amiut\ProductSpecs\App
      */
     public static function instance() {
         if ( ! self::$instance ) {
@@ -46,7 +46,7 @@ final class App
     /**
      * Dornaweb_Pack constructor.
      */
-    private function __construct() {		
+    private function __construct() {
         // Sync group attributes when an attribute gets updated.
 		add_action( 'dwspecs_attributes_modified', array( $this, 'modified_attributes' ) );
 		add_action('woocommerce_init', [$this, 'handle_woocommerce']);
@@ -63,7 +63,7 @@ final class App
      *
      */
     public function includes() {
-        require_once( DWSPECS_ABSPATH . 'inc/functions-all.php' );
+        require_once( DWSPECS_ABSPATH . 'inc/helpers.php' );
     }
 
     /**
@@ -102,10 +102,10 @@ final class App
      */
     public function init() {
         // Install
-        register_activation_hook(DWSPECS_PLUGIN_FILE, ['DWSpecificationsTable\\Install', 'install']);
+        register_activation_hook(DWSPECS_PLUGIN_FILE, ['Amiut\ProductSpecs\\Install', 'install']);
 
         // Post types
-        Post_Types::init();
+        PostTypes::init();
 
 		Admin\Admin::init();
 		Shortcodes\Table::init();
@@ -130,27 +130,7 @@ final class App
         $this->options = new \stdClass();
         $this->options->post_types = get_option('dwps_post_types');
         $this->options->per_page   = get_option('dwps_view_per_page');
-	}
-    
-	/**
-	 * Do initial stuff
-	*/
-	private function initialize(){
-		// Building menus
-		$top_menu = new dwspecs_options_page(
-			array(
-				'menu_title'    => __('Specification table', 'product-specifications'),
-				'page_title'    => __('Product specifications table', 'product-specifications'), // page title
-				'id'            => 'dw-specs', // page id ( slug )
-				'description'   => __('Product specifications table for E-Commerce websites', 'product-specifications'), // some description
-				'order'         => 25, // menu order
-				'parent'        => false, // parent settings page id
-				'icon'          => '', // icon will be displayed if parent page is empty, Uses dashicons
-				'redirect'		=> true, // redirect to first child-page if options are empty
-				'capability'	=> 'edit_pages' // restrict access to certain users only
-			)
-		);
-	}
+    }
 
 	/**
 	 * Check and add specifications table to woocommerce
@@ -167,7 +147,7 @@ final class App
 	*/
 	public function woocommerce_tabs( $tabs ){
 		global $product;
-		
+
 		if( dwspecs_product_has_specs_table( $product->get_id() ) ){
 			$tabs['dwspecs_product_specifications'] = array(
 				'title' 	=> get_option('dwps_tab_title') ?: __( 'Product Specifications', 'product-specifications' ),
@@ -234,20 +214,20 @@ final class App
 			}
 		}
 
-	}    
+	}
 
 	public function wc_needed_notice() {
 		if (! class_exists('WooCommerce')) {
 			$this->add_notice('no_woo_notice', __('This plugin works properly with woocommerce, please install woocommerce first', 'product-specifications'), 'warning', 'forever');
 		}
-	
+
 		add_action('wp_ajax_dw_dismiss_admin_notice', [$this, 'dismiss_alert']);
 
 	}
 
 	/**
 	 * Add a notice to admin notices area
-	 * 
+	 *
 	 * @param String   		$id  		A unique identifier
 	 * @param String   		$message     Notice body
 	 * @param String|Bool  	false - Not dismissable OR "close" - just close button OR "forever" - an option to permanently dismiss the notice
@@ -256,7 +236,7 @@ final class App
 		if (! get_option('dw_notice_dismissed_' . $id)) {
 			add_action( 'admin_notices', function() use($id, $message, $type, $dismiss){
 				echo '<div class="notice notice-'. $type .' '. ($dismiss === 'forever' || $dismiss === 'close' ? 'is-dismissible' : '') .'"><p>';
-				
+
 				if ($dismiss == 'forever') {
 					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. $id .'\'); return false;">'.__('Dismiss', 'product-specifications').'</a>';
 				}

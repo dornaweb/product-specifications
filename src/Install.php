@@ -2,11 +2,11 @@
 /**
  * Product Specifications Install class
  *
- * @package DWSpecificationsTable
+ * @package Amiut\ProductSpecs
  * @since  0.4
  */
 
-namespace DWSpecificationsTable;
+namespace Amiut\ProductSpecs;
 
 defined('ABSPATH') || exit;
 
@@ -26,9 +26,9 @@ class Install
 
         delete_transient( 'dwspecs_installing' );
 
-        Admin\Options\Settings::load_default_settings();    
+        Admin\Options\Settings::load_default_settings();
         flush_rewrite_rules();
-        
+
         do_action('dwspecs_installed');
     }
 }

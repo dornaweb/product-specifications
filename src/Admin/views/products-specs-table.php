@@ -29,7 +29,7 @@ $table_id = get_post_meta( $post->ID, '_dwps_table', true ); ?>
 	<div class="dwps-spec-table-wrap tab-boxes clearfix" id="specifications_table_wrapper">
 		<?php
 		if( $table_id && $table_id !== '0' ){
-			\DWSpecificationsTable\Admin\Admin::get_template( 'views/product-load-table', array( 'table_id' => $table_id, 'post' => $post ) );
+			\Amiut\ProductSpecs\Admin\Admin::get_template( 'views/product-load-table', array( 'table_id' => $table_id, 'post' => $post ) );
 		} ?>
 	</div><!-- #specifications_table_wrapper -->
 

@@ -3,15 +3,15 @@
  * Specifications table Post Types Class
  * Post types, Taxonomies, meta boxes, post columns are registered here
  *
- * @package DWSpecificationsTable/Post_Types
+ * @package Amiut\ProductSpecs\PostTypes
  * @since   0.1
  */
 
-namespace DWSpecificationsTable;
+namespace Amiut\ProductSpecs;
 
 defined('ABSPATH') || exit;
- 
-class Post_Types {
+
+class PostTypes {
 	public static function init(){
 		add_action( 'init', array( __CLASS__, 'register_taxonomies' ) ); // register taxonomies
 		add_action( 'init', array( __CLASS__, 'register_post_types' ) ); // register post types

@@ -11,28 +11,27 @@
  * @link http://www.dornaweb.com
 */
 
+declare(strict_types=1);
+
 defined( 'ABSPATH' ) || exit;
+
+if (is_readable(__DIR__ . '/vendor/autoload.php')) {
+	/* @noinspection PhpIncludeInspection */
+	include_once __DIR__ . '/vendor/autoload.php';
+}
 
 if ( ! defined( 'DWSPECS_PLUGIN_FILE' ) ) {
 	define( 'DWSPECS_PLUGIN_FILE', __FILE__ );
 }
 
 /**
- * Load core packages and the autoloader.
- * The SPL Autoloader needs PHP 5.6.0+ and this plugin won't work on older versions
- */
-if (version_compare(PHP_VERSION, '5.6.0', '>=')) {
-	require __DIR__ . '/inc/class-autoloader.php';
-}
-
-/**
  * Returns the main instance of PDF Gen.
  *
  * @since  0.4
- * @return DWSpecificationsTable\App
+ * @return Amiut\ProductSpecs\App
  */
 function dwspecs_table() {
-	return DWSpecificationsTable\App::instance();
+	return Amiut\ProductSpecs\App::instance();
 }
 
 // Global for backwards compatibility.

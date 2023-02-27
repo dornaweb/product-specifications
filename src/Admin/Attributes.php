@@ -6,7 +6,7 @@
  * @contribute Am!n <dornaweb.com>
  */
 
-namespace DWSpecificationsTable\Admin;
+namespace Amiut\ProductSpecs\Admin;
 
 defined('ABSPATH') || exit;
 
