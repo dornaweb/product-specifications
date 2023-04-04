@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    phpVersion="7.4"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+    <stubs>
+        <file name="vendor/inpsyde/wp-stubs/stubs/latest.php"/>
+    </stubs>
+</psalm>
