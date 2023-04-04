@@ -235,13 +235,13 @@ final class App
 	public function add_notice($id, $message, $type = 'success', $dismiss = 'close') {
 		if (! get_option('dw_notice_dismissed_' . $id)) {
 			add_action( 'admin_notices', function() use($id, $message, $type, $dismiss){
-				echo '<div class="notice notice-'. $type .' '. ($dismiss === 'forever' || $dismiss === 'close' ? 'is-dismissible' : '') .'"><p>';
+				echo '<div class="notice notice-'. esc_attr($type) .' '. ($dismiss === 'forever' || $dismiss === 'close' ? 'is-dismissible' : '') .'"><p>';
 
 				if ($dismiss == 'forever') {
-					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. $id .'\'); return false;">'.__('Dismiss', 'product-specifications').'</a>';
+					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. esc_attr($id) .'\'); return false;">'.__('Dismiss', 'product-specifications').'</a>';
 				}
 
-				echo $message;
+				echo esc_html($message);
 				echo '</p></div>';
 			});
 		}

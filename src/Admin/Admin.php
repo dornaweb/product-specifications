@@ -149,7 +149,7 @@ class Admin
 	 * page : add new table
 	*/
 	public static function addnew_page(){
-		echo 'Click <a href="' . admin_url('post-new.php?post_type=specs-table') . '">here</a> to create a table';
+		echo 'Click <a href="' . esc_url(admin_url('post-new.php?post_type=specs-table')) . '">here</a> to create a table';
 	}
 
 	/**

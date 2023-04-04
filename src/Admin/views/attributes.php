@@ -11,13 +11,10 @@
 */
 
 /** Search query **/
-$search_query = false;
-if( isset( $_GET['q'] ) && !empty( $_GET['q'] ) ) {
-	$search_query = stripcslashes( strip_tags( $_GET['q'] ) );
-}
+$search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_ENCODED));
 
 /** records per page **/
-$limit = intval( get_option('dwps_view_per_page') ) ?: 15;
+$limit = absint( get_option('dwps_view_per_page') ) ?: 15;
 
 // just to count number of records
 $att_args = array(
@@ -25,18 +22,18 @@ $att_args = array(
 	'hide_empty' => false,
 	'search'	 => $search_query
 );
-if( isset( $_GET['group_id'] ) && !empty( $_GET['group_id'] ) ){
+
+$group_id = absint(filter_input(INPUT_GET, 'group_id', FILTER_SANITIZE_SPECIAL_CHARS));
+
+if( $group_id ){
 	$att_args['meta_key']   = 'attr_group';
-	$att_args['meta_value'] = esc_attr( $_GET['group_id'] );
+	$att_args['meta_value'] = $group_id;
 }
 $all_attributes = get_terms( $att_args  );
 
 $total_pages = sizeof( $all_attributes ) > $limit ? ceil( sizeof( $all_attributes ) / $limit ) : 1;
 
-if( isset( $_GET['paged'] ) && !empty( $_GET['paged'] ) )
-	$paged = stripcslashes( strip_tags( $_GET['paged'] ) );
-else
-	$paged = 1;
+$paged = absint(filter_input(INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT)) ?: 1;
 
 $offset = ( $paged - 1 ) * $limit;
 
@@ -93,11 +90,13 @@ $attributes = get_terms( $att_args ); ?>
 				<h4><?php _e('Attributes', 'product-specifications'); ?></h4>
 				<div class="dwps-group-searchform">
 					<form action="<?php echo esc_url( dwspecs_current_page_url() ); ?>" method="get">
-						<input type="text" name="q" value="<?php echo $search_query ?: ''; ?>" placeholder="<?php _e('Search...', 'product-specifications'); ?>">
+						<input type="text" name="q" value="<?php echo esc_attr($search_query) ?: ''; ?>" placeholder="<?php esc_attr_e('Search...', 'product-specifications'); ?>">
 
 						<?php
 						if( !empty( $_GET ) ) {
 							foreach( $_GET as $key => $val ){
+								$key = esc_attr($key);
+								$val = esc_attr($val);
 								if( $key != 'q' ) echo "<input type=\"hidden\" name=\"$key\" value=\"$val\">";
 							}
 						} ?>
@@ -143,31 +142,31 @@ $attributes = get_terms( $att_args ); ?>
 							foreach( $attributes as $attr ) : ?>
 							<tr>
 								<td class="check-column">
-									<input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo $attr->term_id; ?>">
+									<input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo esc_attr($attr->term_id); ?>">
 								</td>
 
 								<td><?php echo $attr->term_id; ?></td>
 
-								<td><h4><a href="#" data-type="attribute" data-dwpsmodal="true" class="edit" data-id="<?php echo $attr->term_id; ?>"><?php echo $attr->name; ?></a></h4></td>
+								<td><h4><a href="#" data-type="attribute" data-dwpsmodal="true" class="edit" data-id="<?php echo esc_attr($attr->term_id); ?>"><?php echo esc_html($attr->name); ?></a></h4></td>
 
 								<td>
 									<h4>
 										<?php
 										$group = get_term( get_term_meta( $attr->term_id, 'attr_group', true ), 'spec-group' );
-										if (! is_wp_error($group)) echo '<a href="'. add_query_arg( 'group_id', $group->term_id, remove_query_arg('paged', dwspecs_current_page_url()) ) .'">' . $group->name . '</a>'; ?>
+										if (! is_wp_error($group)) echo '<a href="'. esc_url(add_query_arg( 'group_id', $group->term_id, remove_query_arg('paged', dwspecs_current_page_url()) )) .'">' . esc_html($group->name) . '</a>'; ?>
 									</h4>
 								</td>
 
 								<td class="dwps-actions">
 									<a href="#" class="delete" data-type="attribute" data-id="<?php echo $attr->term_id; ?>"><i class="dashicons dashicons-no"></i></a>
-									<a href="#" role="button" class="edit" data-dwpsmodal="true" aria-label="<?php _e('Edit group', 'product-specifications'); ?>" data-type="attribute" data-id="<?php echo $attr->term_id; ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
+									<a href="#" role="button" class="edit" data-dwpsmodal="true" aria-label="<?php echo esc_attr__('Edit group', 'product-specifications'); ?>" data-type="attribute" data-id="<?php echo esc_attr($attr->term_id); ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
 								</td>
 
 							</tr>
 						<?php
 							endforeach;
 						else :
-							echo '<tr><td class="not-found" colspan="5">' . __('Nothing found', 'product-specifications') . '</td></tr>';
+							echo '<tr><td class="not-found" colspan="5">' . esc_html__('Nothing found', 'product-specifications') . '</td></tr>';
 						endif; ?>
 					</tbody>
 				</table>
