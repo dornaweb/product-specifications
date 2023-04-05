@@ -67,12 +67,12 @@ $tbl_array = $tables->get_posts(); ?>
 	<p>
 		<label for="attr_type"><?php echo esc_html__('Attribute field Type : ', 'product-specifications'); ?></label>
 		<select name="attr_type" id="attr_type" aria-required="true">
-			<option value="" <?php selected( false, get_term_meta( $term->term_id, 'attr_type' ) ); ?>><?php echo esc_html__('Select a field type', 'product-specifications'); ?></option>
-			<option value="text" <?php selected( 'text', get_term_meta( $term->term_id, 'attr_type' ) ); ?>><?php echo esc_html__('Text', 'product-specifications'); ?>
-			<option value="select" <?php selected( 'select', get_term_meta( $term->term_id, 'attr_type' ) ); ?>><?php echo esc_html__('Select', 'product-specifications'); ?>
-			<option value="radio" <?php selected( 'radio', get_term_meta( $term->term_id, 'attr_type' ) ); ?>><?php echo esc_html__('Radio', 'product-specifications'); ?>
-			<option value="textarea" <?php selected( 'textarea', get_term_meta( $term->term_id, 'attr_type' ) ); ?>><?php echo esc_html__('Textarea', 'product-specifications'); ?>
-			<option value="true_false" <?php selected( 'true_false', get_term_meta( $term->term_id, 'attr_type' ) ); ?>><?php echo esc_html__('True/false', 'product-specifications'); ?>
+			<option value="" <?php selected( false, get_term_meta( $term->term_id, 'attr_type', true ) ); ?>><?php echo esc_html__('Select a field type', 'product-specifications'); ?></option>
+			<option value="text" <?php selected( 'text', get_term_meta( $term->term_id, 'attr_type', true ) ); ?>><?php echo esc_html__('Text', 'product-specifications'); ?>
+			<option value="select" <?php selected( 'select', get_term_meta( $term->term_id, 'attr_type', true ) ); ?>><?php echo esc_html__('Select', 'product-specifications'); ?>
+			<option value="radio" <?php selected( 'radio', get_term_meta( $term->term_id, 'attr_type', true ) ); ?>><?php echo esc_html__('Radio', 'product-specifications'); ?>
+			<option value="textarea" <?php selected( 'textarea', get_term_meta( $term->term_id, 'attr_type', true ) ); ?>><?php echo esc_html__('Textarea', 'product-specifications'); ?>
+			<option value="true_false" <?php selected( 'true_false', get_term_meta( $term->term_id, 'attr_type', true ) ); ?>><?php echo esc_html__('True/false', 'product-specifications'); ?>
 		</select>
 	</p>
 
