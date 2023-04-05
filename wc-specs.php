@@ -1,12 +1,14 @@
 <?php
 /**
- * Plugin Name:       Product Specifications for WooCommerce
- * Plugin URI: 		  https://wwww.dornaweb.com/
- * Description:       This plugin adds a product specifications table to your woocommerce products.
- * Version:           0.6.0
- * Author:            Am!n A.Rezapour
- * Author URI: 		  https://www.dornaweb.com
- * License:           GPL-2.0+
+ * Plugin Name: Product Specifications for WooCommerce
+ * Plugin URI: https://wwww.dornaweb.com/
+ * Description: This plugin adds a product specifications table to your woocommerce products.
+ * Version: 0.7.0
+ * Author: Amin A.Rezapour
+ * Author URI: https://www.dornaweb.com
+ * License: GPL-2.0+
+ * Tested up to: 6.2
+ * WC tested up to: 7.5.1
  *
  * @link http://www.dornaweb.com
 */
