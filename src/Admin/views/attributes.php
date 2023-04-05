@@ -258,7 +258,7 @@ $attributes = get_terms( $att_args ); ?>
 				<select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json'); ?>'>
 					<option value=""><?php echo esc_html__('Select a table', 'product-specifications'); ?></option>
 					<?php foreach( $tbl_array as $table ) {
-						echo '<option value="'. $table->ID .'">'. esc_html($table->post_title) .'</option>';
+						echo '<option value="'. esc_attr($table->ID) .'">'. esc_html($table->post_title) .'</option>';
 					} ?>
 				</select>
 			</p>
