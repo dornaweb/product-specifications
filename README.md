@@ -51,25 +51,4 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 `TA6NCxJ97WsCDmUVEEvsVz1PW4kAVza295` (Any TRC20 (Tron network) tokens)
 
 ## Changelog
-### 0.6.0
-* Fixed issue with deselecting tables
-* Migrate translation to translate.wordpress.org
-
-### 0.5.3
-* Fixed incompability with WordPress 6.1
-
-### 0.5.2
-
-- Fixed a php 8.0 incompability
-
-### 0.5.1
-
-- Selectbox Saving issue fixed
-- Selectbox disabled when Alternative option is set
-
-### 0.5.0
-
-- Added ability to choose title of specs tab
-- Translation string fixed
-
-- Appearance issue fixed
+[See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
