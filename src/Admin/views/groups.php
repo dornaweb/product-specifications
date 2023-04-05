@@ -11,7 +11,7 @@
 */
 
 /** Search query **/
-$search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_ENCODED));
+$search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_SPECIAL_CHARS));
 
 /** records per page **/
 $limit = absint( get_option('dwps_view_per_page') ) ?: 15;
