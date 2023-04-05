@@ -3,8 +3,9 @@
 Contributors: dornaweb, pelentak
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
 Requires at least: 5.1
-Tested up to: 6.1
-Stable tag: 0.6.0
+Tested up to: 6.2
+WC tested up to: 7.5.1
+Stable tag: 0.7.1
 Requires PHP: 5.6
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -77,6 +78,10 @@ function my_custom_spec_table_markup( $output, $args ){
 
 
 == Changelog ==
+
+== 0.7.1 2023-04-05 ==
+* Add full changelog.
+* Tested with latest WP and WC versions.
 
 == 0.7.0 2023-04-05 ==
 * Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)

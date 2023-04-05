@@ -1,3 +1,7 @@
+== 0.7.1 2023-04-05 ==
+* Add full changelog.
+* Tested with latest WP and WC versions.
+
 == 0.7.0 2023-04-05 ==
 * Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)
 
