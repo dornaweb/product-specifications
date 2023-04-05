@@ -11,8 +11,8 @@
 */ ?>
 
 <div class="dwsp-meta-wrap">
-	<strong class="title"><?php _e('Attribute Groups : ', 'product-specifications'); ?></strong>
-	<span class="hint"><?php _e('Select attribute groups you want to load in this table : ', 'product-specifications'); ?></span>
+	<strong class="title"><?php echo esc_html__('Attribute Groups : ', 'product-specifications'); ?></strong>
+	<span class="hint"><?php echo esc_html__('Select attribute groups you want to load in this table : ', 'product-specifications'); ?></span>
 
 	<div class="dwsp-meta-item">
 		<?php
@@ -23,14 +23,14 @@
 				$checked = in_array( $term->term_id, $selected_groups ) ? ' checked' : ''; ?>
 			<p>
 				<label>
-					<input type="checkbox" value="<?php echo $term->term_id; ?>"<?php echo $checked; ?>>
-					<span><?php echo $term->name; ?><?php echo urldecode($slug); ?></span>
+					<input type="checkbox" value="<?php echo esc_attr($term->term_id); ?>"<?php echo $checked; ?>>
+					<span><?php echo esc_html($term->name); ?><?php echo esc_html($slug); ?></span>
 				</label>
 			</p>
 	<?php
 			endforeach;
 		} else{
-			_e('No Group found, Please define some groups first', 'product-specifications');
+			echo esc_html__('No Group found, Please define some groups first', 'product-specifications');
 		} ?>
 
 		<ul class="table-groups-list dpws-sortable">
@@ -39,7 +39,7 @@
 				foreach( $selected_groups as $group ) {
 					$term = get_term_by( 'id', $group, 'spec-group' );
 					$slug = dwspecs_spec_group_has_duplicates( $term->name ) ? " ({$term->slug})" : "";
-					echo '<li><input checked type="checkbox" name="groups[]" value="'. $term->term_id .'" readonly>'. $term->name . urldecode($slug) .'</li>';
+					echo '<li><input checked type="checkbox" name="groups[]" value="'. esc_attr($term->term_id) .'" readonly>'. esc_html($term->name) . esc_html($slug) .'</li>';
 				}
 			} ?>
 		</ul>

@@ -44,7 +44,7 @@ class Ajax
 			if( !$group_name || empty( $group_name ) ) {
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Please enter a group name', 'product-specifications'),
+					'message'  => esc_html__('Please enter a group name', 'product-specifications'),
 					'where'	   => array('input#group_name'),
 					'action'   => 'add'
 				) );
@@ -69,7 +69,7 @@ class Ajax
 			if( !is_WP_Error( $check ) ){
 				$result = json_encode( array(
 					'result'   => 'success',
-					'message'  => $do == 'edit' ? __('Group edited successfully', 'product-specifications') : __('Group created successfully', 'product-specifications'),
+					'message'  => $do == 'edit' ? esc_html__('Group edited successfully', 'product-specifications') : esc_html__('Group created successfully', 'product-specifications'),
 					'action'   => 'add'
 				) );
 
@@ -77,7 +77,7 @@ class Ajax
 			} else{
 				$result = json_encode( array(
 					'result'   => 'success',
-					'message'  => __('Something went wrong', 'product-specifications'),
+					'message'  => esc_html__('Something went wrong', 'product-specifications'),
 					'action'   => 'add'
 				) );
 
@@ -98,7 +98,7 @@ class Ajax
 			if( !$check || is_WP_Error( $check ) ){
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Could not delete group(s)', 'product-specifications'),
+					'message'  => esc_html__('Could not delete group(s)', 'product-specifications'),
 					'action'   => 'delete'
 				) );
 
@@ -106,7 +106,7 @@ class Ajax
 			} else{
 				$result = json_encode( array(
 					'result'   => 'success',
-					'message'  => __('Group(s) deleted successfully', 'product-specifications'),
+					'message'  => esc_html__('Group(s) deleted successfully', 'product-specifications'),
 					'action'   => 'delete'
 				) );
 
@@ -156,28 +156,28 @@ class Ajax
 			if( !$attr_name || empty( $attr_name ) ) {
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Please enter an attribute name', 'product-specifications'),
+					'message'  => esc_html__('Please enter an attribute name', 'product-specifications'),
 					'action'   => $do,
 					'where'	   => array('input#attr_name'),
 				) );
 			} elseif ( !$attr_group || empty( $attr_group ) ){
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Please select a group', 'product-specifications'),
+					'message'  => esc_html__('Please select a group', 'product-specifications'),
 					'action'   => $do,
 					'where'	   => array('input#attr_group'),
 				) );
 			} elseif ( !$attr_type || empty( $attr_type ) ){
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Please select a field type', 'product-specifications'),
+					'message'  => esc_html__('Please select a field type', 'product-specifications'),
 					'action'   => $do,
 					'where'	   => array('input#attr_type'),
 				) );
 			} elseif( $attr_type && ( $attr_type == 'select' || $attr_type == 'radio' ) && ( !$attr_values || empty( $attr_values ) ) ) {
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Please set some values for attribute', 'product-specifications'),
+					'message'  => esc_html__('Please set some values for attribute', 'product-specifications'),
 					'action'   => $do,
 					'where'	   => array('input#attr_values'),
 				) );
@@ -217,7 +217,7 @@ class Ajax
 
 					$result = json_encode( array(
 						'result'   => 'success',
-						'message'  => $do == 'add' ? __('Attribute added successfully', 'product-specifications') : __('Attribute updated successfully', 'product-specifications'),
+						'message'  => $do == 'add' ? esc_html__('Attribute added successfully', 'product-specifications') : esc_html__('Attribute updated successfully', 'product-specifications'),
 						'action'   => $do
 					) );
 
@@ -234,7 +234,7 @@ class Ajax
 				} else{
 					$result = json_encode( array(
 						'result'   => 'error',
-						'message'  => $check->errors["term_exists"][0] ?: __('Something went wrong', 'product-specifications'),
+						'message'  => $check->errors["term_exists"][0] ?: esc_html__('Something went wrong', 'product-specifications'),
 						'action'   => $do,
 						'where'	   => 'unknown'
 					) );
@@ -269,7 +269,7 @@ class Ajax
 			if( ! $check || is_WP_Error( $check ) ){
 				$result = json_encode( array(
 					'result'   => 'error',
-					'message'  => __('Could not delete attribute(s)', 'product-specifications'),
+					'message'  => esc_html__('Could not delete attribute(s)', 'product-specifications'),
 					'action'   => 'delete'
 				) );
 
@@ -287,7 +287,7 @@ class Ajax
 			} else {
 				$result = json_encode( array(
 					'result'   => 'success',
-					'message'  => __('Attribute(s) deleted successfully', 'product-specifications'),
+					'message'  => esc_html__('Attribute(s) deleted successfully', 'product-specifications'),
 					'action'   => 'delete'
 				) );
 
@@ -306,7 +306,7 @@ class Ajax
 
 		die( json_encode( array(
 			'result'   => 'error',
-			'message'  => __('Unexpected error', 'product-specifications'),
+			'message'  => esc_html__('Unexpected error', 'product-specifications'),
 			'action'   => 'unknown'
 		) ) );
 
@@ -347,7 +347,7 @@ class Ajax
 			if( $check ){
 				die( json_encode( array(
 					'result'   => 'success',
-					'message'  => __('Attributes arrangement successfully updated.', 'product-specifications'),
+					'message'  => esc_html__('Attributes arrangement successfully updated.', 'product-specifications'),
 				) ) );
 			}
 

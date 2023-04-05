@@ -43,8 +43,8 @@ class Admin
 		wp_localize_script('dwspecs-javascripts', 'dwspecs_plugin', [
 			'ajaxurl'	=> admin_url('admin-ajax.php'),
 			'i18n' => [
-				'importing_message' => __('Importing data may take a long time, please wait...', 'product-specifications'),
-				'unknown_error' => __('Something went wrong', 'product-specifications')
+				'importing_message' => esc_html__('Importing data may take a long time, please wait...', 'product-specifications'),
+				'unknown_error' => esc_html__('Something went wrong', 'product-specifications')
 			]
 		]);
 		wp_enqueue_script('dwspecs-javascripts');
@@ -70,8 +70,8 @@ class Admin
 	public static function create_menus(){
 		// Add plugin top-level menu page
 		add_menu_page(
-			__('Product specifications table', 'product-specifications'),
-			__('Specification table', 'product-specifications'),
+			esc_html__('Product specifications table', 'product-specifications'),
+			esc_html__('Specification table', 'product-specifications'),
 			'edit_pages',
 			'dw-specs',
 			'',
@@ -82,8 +82,8 @@ class Admin
 		// Add tables page
 		add_submenu_page(
 			'dw-specs',
-			__('Add a new table', 'product-specifications'),
-			__('New table', 'product-specifications'),
+			esc_html__('Add a new table', 'product-specifications'),
+			esc_html__('New table', 'product-specifications'),
 			'edit_pages',
 			'dw-specs-new',
 			array( __CLASS__, 'addnew_page' )
@@ -92,8 +92,8 @@ class Admin
 		// Groups
 		add_submenu_page(
 			'dw-specs',
-			__('Attribute Groups', 'product-specifications'),
-			__('Groups', 'product-specifications'),
+			esc_html__('Attribute Groups', 'product-specifications'),
+			esc_html__('Groups', 'product-specifications'),
 			'edit_pages',
 			'dw-specs-groups',
 			array( __CLASS__, 'groups_page' )
@@ -102,8 +102,8 @@ class Admin
 		// Attributes
 		add_submenu_page(
 			'dw-specs',
-			__('Attributes', 'product-specifications'),
-			__('Attributes', 'product-specifications'),
+			esc_html__('Attributes', 'product-specifications'),
+			esc_html__('Attributes', 'product-specifications'),
 			'edit_pages',
 			'dw-specs-attrs',
 			array( __CLASS__, 'attributes_page' )
@@ -112,8 +112,8 @@ class Admin
 		// Add settings page
 		add_submenu_page(
 			'dw-specs',
-			__('Product specifications settings', 'product-specifications'),
-			__('Settings', 'product-specifications'),
+			esc_html__('Product specifications settings', 'product-specifications'),
+			esc_html__('Settings', 'product-specifications'),
 			'edit_pages',
 			'dw-specs-settings',
 			array( __CLASS__, 'settings_page' )
@@ -122,8 +122,8 @@ class Admin
 		// Add import/export page
 		add_submenu_page(
 			'dw-specs',
-			__('Product specifications Import/Export', 'product-specifications'),
-			__('Import/export', 'product-specifications'),
+			esc_html__('Product specifications Import/Export', 'product-specifications'),
+			esc_html__('Import/export', 'product-specifications'),
 			'edit_pages',
 			'dw-specs-export',
 			array( __CLASS__, 'tools_page' )

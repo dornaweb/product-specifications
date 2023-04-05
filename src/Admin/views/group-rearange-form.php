@@ -21,20 +21,20 @@ $attributes = get_term_meta( $group_id, 'attributes', true ) ?: array();
 			if( term_exists( intval( $attr ), 'spec-attr' ) ){
 				$attr = get_term_by('id', $attr, 'spec-attr');?>
 				<li>
-					<input type="checkbox" readonly checked value="<?php echo $attr->term_id; ?>" name="attr[]">
-					<?php echo $attr->name; ?>
+					<input type="checkbox" readonly checked value="<?php echo esc_attr($attr->term_id); ?>" name="attr[]">
+					<?php echo esc_html($attr->name); ?>
 				</li>
 		<?php
 			}
 		}
 
-		if( sizeof( $attributes ) == 0 ) _e('This group has no attributes', 'product-specifications'); ?>
+		if( sizeof( $attributes ) == 0 ) echo esc_html__('This group has no attributes', 'product-specifications'); ?>
 	</ul>
 
 	<input name="action" value="dwps_group_rearange" type="hidden">
-	<input name="group_id" value="<?php echo $group_id; ?>" type="hidden">
+	<input name="group_id" value="<?php echo esc_attr($group_id); ?>" type="hidden">
 
 	<?php wp_nonce_field( 'dwps_group_rearange', 'dwps_group_rearange_nonce' ); ?>
-	<input value="<?php _e('Update Arrangement', 'product-specifications'); ?>" class="button button-primary" type="submit" style="float:left;">
+	<input value="<?php echo esc_attr__('Update Arrangement', 'product-specifications'); ?>" class="button button-primary" type="submit" style="float:left;">
 	<div class="clearfix"></div>
 </form>

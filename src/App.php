@@ -150,7 +150,7 @@ final class App
 
 		if( dwspecs_product_has_specs_table( $product->get_id() ) ){
 			$tabs['dwspecs_product_specifications'] = array(
-				'title' 	=> get_option('dwps_tab_title') ?: __( 'Product Specifications', 'product-specifications' ),
+				'title' 	=> get_option('dwps_tab_title')?: esc_html__( 'Product Specifications', 'product-specifications' ),
 				'priority' 	=> 10,
 				'callback' 	=> array( $this, 'woo_display_tab' )
 			);
@@ -218,7 +218,7 @@ final class App
 
 	public function wc_needed_notice() {
 		if (! class_exists('WooCommerce')) {
-			$this->add_notice('no_woo_notice', __('This plugin works properly with woocommerce, please install woocommerce first', 'product-specifications'), 'warning', 'forever');
+			$this->add_notice('no_woo_notice', esc_html__('This plugin works properly with woocommerce, please install woocommerce first', 'product-specifications'), 'warning', 'forever');
 		}
 
 		add_action('wp_ajax_dw_dismiss_admin_notice', [$this, 'dismiss_alert']);
@@ -238,7 +238,7 @@ final class App
 				echo '<div class="notice notice-'. esc_attr($type) .' '. ($dismiss === 'forever' || $dismiss === 'close' ? 'is-dismissible' : '') .'"><p>';
 
 				if ($dismiss == 'forever') {
-					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. esc_attr($id) .'\'); return false;">'.__('Dismiss', 'product-specifications').'</a>';
+					$message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \''. esc_attr($id) .'\'); return false;">'.esc_html__('Dismiss', 'product-specifications').'</a>';
 				}
 
 				echo esc_html($message);

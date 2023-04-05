@@ -11,15 +11,10 @@
 */
 
 /** Search query **/
-$search_query = false;
-if( isset( $_GET['q'] ) && !empty( $_GET['q'] ) ) {
-    $search_query = stripcslashes( strip_tags( $_GET['q'] ) );
-}
-
-var_dump($search_query);
+$search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_ENCODED));
 
 /** records per page **/
-$limit = intval( get_option('dwps_view_per_page') ) ?: 15;
+$limit = absint( get_option('dwps_view_per_page') ) ?: 15;
 
 // just to count number of records
 $all_groups = get_terms( array(
@@ -30,10 +25,7 @@ $all_groups = get_terms( array(
 
 $total_pages = sizeof( $all_groups ) > $limit ? ceil( sizeof( $all_groups ) / $limit ) : 1;
 
-if( isset( $_GET['paged'] ) && !empty( $_GET['paged'] ) )
-    $paged = stripcslashes( strip_tags( $_GET['paged'] ) );
-else
-    $paged = 1;
+$paged = absint(filter_input(INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT)) ?: 1;
 
 $offset = ( $paged - 1 ) * $limit;
 
@@ -49,12 +41,12 @@ $groups = get_terms( array(
 
 <div class="dwps-page">
     <div class="dwps-settings-wrap">
-        <h3><?php _e('Attribute Groups', 'product-specifications'); ?></h3>
+        <h3><?php echo esc_html__('Attribute Groups', 'product-specifications'); ?></h3>
         <p class="title-note"></p>
 
         <div class="dwps-box-wrapper clearfix">
             <div class="dwps-box-top clearfix">
-                <h4><?php _e('Attribute Groups', 'product-specifications'); ?></h4>
+                <h4><?php echo esc_html__('Attribute Groups', 'product-specifications'); ?></h4>
                 <div class="dwps-group-searchform">
                     <form action="<?php echo esc_url( dwspecs_current_page_url() ); ?>" method="get">
                         <input type="text" name="q" value="<?php echo esc_attr($search_query) ?: ''; ?>" placeholder="<?php echo esc_html__('Search...', 'product-specifications'); ?>">
@@ -92,10 +84,10 @@ $groups = get_terms( array(
                                 $attributes = dwspecs_get_attributes_by_group( $group->term_id ); ?>
                             <tr>
                                 <td class="check-column"><input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo esc_attr($group->term_id); ?>"></td>
-                                <td><?php echo $group->term_id; ?></td>
+                                <td><?php echo esc_html($group->term_id); ?></td>
                                 <td><h4><a href="#" class="edit" aria-label="<?php echo esc_attr__('Edit group', 'product-specifications'); ?>" data-dwpsmodal="true" data-type="group" data-action="edit" data-id="<?php echo esc_attr($group->term_id); ?>"><?php echo esc_html($group->name); ?></a></h4></td>
-                                <td><?php echo rawurldecode( $group->slug ); ?></td>
-                                <td><?php echo sizeof( $attributes ); ?></td>
+                                <td><?php echo esc_html( $group->slug ); ?></td>
+                                <td><?php echo esc_html(sizeof( $attributes )); ?></td>
                                 <td class="dwps-actions">
                                     <a href="#" class="delete" data-type="group" data-id="<?php echo esc_attr($group->term_id); ?>"><i class="dashicons dashicons-no"></i></a>
                                     <a href="#" role="button" class="edit" aria-label="<?php echo esc_attr__('Edit group', 'product-specifications'); ?>" data-dwpsmodal="true" data-type="group" data-action="edit" data-id="<?php echo esc_attr($group->term_id); ?>"><i class="dashicons dashicons-welcome-write-blog"></i></a>
@@ -117,9 +109,9 @@ $groups = get_terms( array(
             <!-- #groups_table_wrap -->
 
             <div class="dwps-buttons clearfix">
-                <a id="dpws_bulk_delete_btn" class="dwps-button red-btn delete-selecteds-btn" href="#" role="button" aria-label="<?php echo esc_html__('delete Selected attributes', 'product-specifications'); ?>" disabled><?php echo esc_html__('Delete Selected', 'product-specifications'); ?></a>
+                <a id="dpws_bulk_delete_btn" class="dwps-button red-btn delete-selecteds-btn" href="#" role="button" aria-label="<?php echo esc_attr__('delete Selected attributes', 'product-specifications'); ?>" disabled><?php echo esc_html__('Delete Selected', 'product-specifications'); ?></a>
 
-                <a data-dwpsmodal="true" id="dpws_add_new_btn" class="dwps-button add-new-btn" href="#" role="button" aria-label="<?php echo esc_html__('Add a new group', 'product-specifications'); ?>"><?php echo esc_html__('Add new', 'product-specifications'); ?></a>
+                <a data-dwpsmodal="true" id="dpws_add_new_btn" class="dwps-button add-new-btn" href="#" role="button" aria-label="<?php echo esc_attr__('Add a new group', 'product-specifications'); ?>"><?php echo esc_html__('Add new', 'product-specifications'); ?></a>
 
                 <div class="dwps-pagination">
                     <?php echo paginate_links( array(

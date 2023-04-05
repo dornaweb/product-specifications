@@ -16,13 +16,13 @@ foreach( $table as $table_group ):
 	if( $table_group['attributes'] ) :
 		$attributes = $table_group['attributes']; ?>
 	<div class="dwspecs-product-table-group">
-		<div class="group-title"><?php echo $table_group['group_name']; ?></div>
+		<div class="group-title"><?php echo esc_html($table_group['group_name']); ?></div>
 
 		<table>
 			<?php foreach( $attributes as $attr ) : ?>
 			<tr>
-				<td><?php echo $attr['attr_name']; ?></td>
-				<td <?php if( $attr['value'] == 'yes' || $attr['value'] == 'no' ) echo 'class="'. $attr['value'] .'"'; ?>>
+				<td><?php echo esc_html($attr['attr_name']); ?></td>
+				<td <?php if( $attr['value'] == 'yes' || $attr['value'] == 'no' ) echo 'class="'. esc_attr($attr['value']) .'"'; ?>>
 
 					<?php
 					if( $attr['value'] == 'yes' ):
@@ -34,9 +34,9 @@ foreach( $table as $table_group ):
 							echo apply_filters( 'dwspecs_table_value_output', '<svg class="no" width="25" height="32" viewBox="0 0 25 32">
 							<path d="M23.179 23.607q0 0.714-0.5 1.214l-2.429 2.429q-0.5 0.5-1.214 0.5t-1.214-0.5l-5.25-5.25-5.25 5.25q-0.5 0.5-1.214 0.5t-1.214-0.5l-2.429-2.429q-0.5-0.5-0.5-1.214t0.5-1.214l5.25-5.25-5.25-5.25q-0.5-0.5-0.5-1.214t0.5-1.214l2.429-2.429q0.5-0.5 1.214-0.5t1.214 0.5l5.25 5.25 5.25-5.25q0.5-0.5 1.214-0.5t1.214 0.5l2.429 2.429q0.5 0.5 0.5 1.214t-0.5 1.214l-5.25 5.25 5.25 5.25q0.5 0.5 0.5 1.214z"></path>
 						</svg>', $attr['value'] );
-						
+
 					else :
-						echo apply_filters( 'dwspecs_table_value_output', nl2br( $attr['value'] ), $attr['value'] );
+						echo esc_html(apply_filters( 'dwspecs_table_value_output', nl2br( $attr['value'] ), $attr['value'] ));
 					endif; ?>
 				</td>
 			</tr>
