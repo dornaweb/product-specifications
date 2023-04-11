@@ -19,7 +19,7 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 		$group = get_term_by( 'id', $groups[$i], 'spec-group' );
 		if( !is_WP_Error( $group ) ) {
 			$active = $i == 0 ? ' active' : '';
-			echo '<li class="tab'. $active .'" data-target="#dwps_attrs_'. $group->term_id .'">' . $group->name . '</li>';
+			echo '<li class="tab'. esc_attr($active) .'" data-target="#dwps_attrs_'. esc_attr($group->term_id) .'">' . esc_html($group->name) . '</li>';
 		} // !is_WP_Error
 	} ?>
 </ul>
@@ -32,7 +32,7 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 		$attributes = get_term_meta( $group->term_id, 'attributes', true );
 
 		if( !is_WP_Error( $group ) && is_array( $attributes ) && count( $attributes ) > 0 ) : ?>
-			<div class="tab-content" id="dwps_attrs_<?php echo $group->term_id; ?>">
+			<div class="tab-content" id="dwps_attrs_<?php echo esc_attr($group->term_id); ?>">
 				<ul class="attributes-list">
 					<?php
 					$attributes = array_values( $attributes );
@@ -51,15 +51,17 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 
 						if( !is_WP_Error( $attribute ) ) :
 							echo "<li class=\"dw-table-field-wrap\">";
-							echo "<label for=\"{$attribute->slug}\">{$attribute->name} : </label>";
+							$attribute_slug = esc_attr($attribute->slug);
+							$attribute_name = esc_attr($attribute->name);
+							echo "<label for=\"{$attribute_slug}\">{$attribute_name} : </label>";
 							switch( $type ):
 								case "text":
 								default: ?>
-									<input type="text" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" id="<?php echo $attribute->slug; ?>" value="<?php echo $default; ?>">
+									<input type="text" name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>" id="<?php echo esc_attr($attribute->slug); ?>" value="<?php echo esc_attr($default); ?>">
 							<?php
 									break;
 								case "textarea": ?>
-									<textarea name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" id="<?php echo $attribute->slug; ?>"><?php echo $default; ?></textarea>
+									<textarea name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>" id="<?php echo esc_attr($attribute->slug); ?>"><?php echo esc_html($default); ?></textarea>
 							<?php
 									break;
 
@@ -68,35 +70,35 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 									$options  = get_term_meta( $att_id, 'attr_values', true ); ?>
 
 									<select
-										name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]"
-										id="<?php echo $attribute->slug; ?>"
+										name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>"
+										id="<?php echo esc_attr($attribute->slug); ?>"
 										<?php if( $default && !in_array( $default, $options ) ) echo "disabled"; ?>
 									>
-										<option value=""><?php _e( 'Select an option', 'product-specifications' ); ?></option>
+										<option value=""><?php echo esc_html__( 'Select an option', 'product-specifications' ); ?></option>
 										<?php
 										foreach( $options as $opt ){
-											echo '<option value="'. $opt .'" '. selected( $opt, $default, false ) .'>' . $opt . '</option>';
+											echo '<option value="'. esc_attr($opt) .'" '. selected( $opt, $default, false ) .'>' . esc_html($opt) . '</option>';
 										} ?>
 									</select>
 
-									<label class="or"><?php _e('Or', 'product-specifications'); ?> <input class="customvalue-switch" type="checkbox"<?php if( $default && !in_array( $default, $options ) ) echo ' checked'; ?>></label>
+									<label class="or"><?php echo esc_html__('Or', 'product-specifications'); ?> <input class="customvalue-switch" type="checkbox"<?php if( $default && !in_array( $default, $options ) ) echo ' checked'; ?>></label>
 									<input
 										type="text"
-										value="<?php if( $default && !in_array( $default, $options ) ) echo $default; ?>"
-										name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]"
+										value="<?php if( $default && !in_array( $default, $options ) ) echo esc_attr($default); ?>"
+										name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>"
 										class="select-custom"
-										placeholder="<?php _e('Custom value', 'product-specifications'); ?>"
+										placeholder="<?php echo esc_html__('Custom value', 'product-specifications'); ?>"
 										<?php if( !$default || in_array( $default, $options ) ) echo 'disabled'; ?>
 									>
 							<?php
 									break;
 								case "true_false" : ?>
-									<input class="screen-reader-text" type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="no" checked>
-									<input type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="yes" <?php echo checked( 'yes', $default ); ?>>
+									<input class="screen-reader-text" type="checkbox" name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>" value="no" checked>
+									<input type="checkbox" name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>" value="yes" <?php checked( 'yes', $default ); ?>>
 
 									<label class="remove-checkbox-attr">
-										<?php _e('Remove this field', 'product-specifications'); ?>
-										<input type="checkbox" name="dw-attr[<?php echo $group->term_id; ?>][<?php echo $attribute->term_id; ?>]" value="dwspecs_chk_none" <?php echo checked( true, $field_removed ); ?>>
+										<?php echo esc_html__('Remove this field', 'product-specifications'); ?>
+										<input type="checkbox" name="<?php echo sprintf("dw-attr[%s][%s]", esc_attr($group->term_id), esc_attr($attribute->term_id)); ?>" value="dwspecs_chk_none" <?php checked( true, $field_removed ); ?>>
 									</label>
 							<?php
 									break;
@@ -111,7 +113,7 @@ $groups = array_filter((array) get_post_meta($table_id, '_groups', true));
 
 	<?php
 		else : ?>
-			<div class="tab-content" id="dwps_attrs_<?php echo $group->term_id; ?>"><?php _e('No attributes defined yet', 'product-specifications'); ?></div>
+			<div class="tab-content" id="dwps_attrs_<?php echo esc_attr($group->term_id); ?>"><?php echo esc_html__('No attributes defined yet', 'product-specifications'); ?></div>
 	<?php
 		endif;
 	endfor; ?>

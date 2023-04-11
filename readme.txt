@@ -3,8 +3,9 @@
 Contributors: dornaweb, pelentak
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
 Requires at least: 5.1
-Tested up to: 6.1
-Stable tag: 0.6.0
+Tested up to: 6.2
+WC tested up to: 7.5.1
+Stable tag: 0.7.1
 Requires PHP: 5.6
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -78,6 +79,13 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
+== 0.7.1 2023-04-05 ==
+* Add full changelog.
+* Tested with latest WP and WC versions.
+
+== 0.7.0 2023-04-05 ==
+* Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)
+
 == 0.6.0 ==
 * Fixed issue with deselecting tables
 * Migrate translation to translate.wordpress.org
@@ -85,45 +93,4 @@ function my_custom_spec_table_markup( $output, $args ){
 == 0.5.3 ==
 * Fixed incompability with WordPress 6.1
 
-== 0.5.2 ==
-* Fixed incompability with php 8.0
-
-== 0.5.1 ==
-* Selectbox Saving issue fixed
-* Selectbox disabled when Alternative option is set
-
-== 0.5.0 ==
-* Added ability to choose title of specs tab
-* Translation string fixed
-
-== 0.4.3 ==
-* Bug: Appearance issue fixed
-
-== 0.4.2 ==
-* Bug: when selecting "OR" value would not be saved -> fixed
-
-== 0.4.1 ==
-* Bug: Attributes not being loaded in product table fixed
-
-== 0.4.0 ==
-* Changed Modal Library
-* Faster modal Experience
-* Added Ability to import/export tables data in JSON format
-* Plugin Classes are now loaded with PHP Autoloaders
-* Ability to export and import product specs table data
-* Ability to Override Specs Table template from your active theme
-* Performance Improvement
-* Other bug fixes
-
-= 0.3.2 =
-* Fixed Some CSS problems in admin area
-
-= 0.3.1 =
-* Added ability to disable Woocommerce's default information table
-* Added default CSS stylesheet and ability to disable it
-* Added ability to remove `true/false` fields from specific products
-* Bug fix in group re-ordering
-* Bug fix when product spec. table is empty and it's still shown on product page
-* Some minor bug fixes
-* Updated Persian translation
-* Added Russian language ( Thanks to Илья Китаев )
+[See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
