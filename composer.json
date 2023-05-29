@@ -19,14 +19,19 @@
       }
     ],
     "require": {
-      "php": ">=7.2"
+      "php": ">=7.4"
     },
     "require-dev": {
-        "inpsyde/php-coding-standards": "^1.0",
-        "inpsyde/wp-stubs": "dev-main",
-        "johnpbloch/wordpress-core": "^6.1",
-        "squizlabs/php_codesniffer": "^3.7.2",
-        "vimeo/psalm": "^5.8.0"
+        "automattic/phpcs-neutron-standard": "^1.7",
+        "automattic/vipwpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+        "johnpbloch/wordpress-core": "^6.2",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "squizlabs/php_codesniffer": "^3.7",
+        "suin/phpcs-psr4-sniff": "^3.0",
+        "vimeo/psalm": "^5.9",
+        "wp-cli/wp-cli": "^2.7",
+        "wp-coding-standards/wpcs": "^2.3"
     },
     "autoload": {
       "psr-4": {
@@ -44,8 +49,8 @@
     },
     "config": {
       "allow-plugins": {
-        "dealerdirect/phpcodesniffer-composer-installer": true
-      },
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
       "optimize-autoloader": true,
       "sort-packages": true
     }

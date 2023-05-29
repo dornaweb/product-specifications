@@ -1,0 +1,60 @@
+{
+  "name": "product-specifications",
+  "version": "0.7.1",
+  "description": "Product specifications plugin for WooCommerce.",
+  "author": {
+    "name": "Amin",
+    "email": "hi@amin.nz",
+    "url": "https://amin.nz"
+  },
+  "contributors": [
+    {
+      "name": "Amin",
+      "email": "hi@amin.nz",
+      "url": "https://amin.nz"
+    },
+    {
+      "name": "Dornaweb",
+      "email": "info@dornaweb.com",
+      "url": "https://www.dornaweb.com"
+    }
+  ],
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "woocommerce",
+    "wordpress"
+  ],
+  "homepage": "https://github.com/dornaweb/product-specifications",
+  "repository": "https://github.com/dornaweb/product-specifications.git",
+  "bugs": {
+    "url": "https://github.com/dornaweb/product-specifications/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react": "17.0.39",
+    "@types/react-dom": "17.0.11",
+    "@wordpress/eslint-plugin": "^14.4.0",
+    "@wordpress/scripts": "^26.2.0",
+    "autoprefixer": "^10.4.14",
+    "cssnano": "^6.0.0",
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint-css": "wp-scripts lint-style ./resources --ext .css,.scss,.sass",
+    "lint-css:fix": "wp-scripts lint-style ./resources --ext .css,.scss,.sass --fix",
+    "lint-js": "wp-scripts lint-js ./*.js ./resources --ext .js,.jsx,.ts,.tsx",
+    "lint-js:fix": "wp-scripts lint-js ./*.js ./resources --ext .js,.jsx,.ts,.tsx --fix"
+  },
+  "browserslist": [
+    "last 3 years"
+  ],
+  "dependencies": {
+    "@wordpress/components": "^23.8.0",
+    "autoprefixer": "^10.4.14",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

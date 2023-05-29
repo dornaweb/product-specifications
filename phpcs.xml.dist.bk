@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+    <file>./src</file>
+    <file>./templates</file>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <arg name="basepath" value="."/>
+
+    <config name="testVersion" value="7.4-"/>
+
+    <rule ref="PSR12">
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+    </rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain">
+				<element value="product-specifications"/>
+			</property>
+		</properties>
+	</rule>
+    <rule ref="PHPCompatibility"/>
+    <rule ref="WordPressVIPMinimum" />
+    <rule ref="NeutronStandard">
+        <exclude name="NeutronStandard.Whitespace.RequireParenthesisSpacing.Missing" />
+    </rule>
+    <rule ref="Wordpress-Extra">
+        <exclude name="WordPress.Files.FileName" />
+
+        <!--
+        Disable snake_case
+        -->
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
+        <exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase" />
+        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase" />
+        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+
+        <!--
+        Disable extra spaces
+        -->
+        <exclude name="Generic.Classes.OpeningBraceSameLine" />
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
+        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket" />
+        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
+        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
+
+        <!--
+        Disable alignment
+        -->
+        <exclude name="Generic.Formatting.MultipleStatementAlignment" />
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment" />
+
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine" />
+    </rule>
+
+    <rule ref="Squiz.Scope.StaticThisUsage"/>
+
+    <rule ref="vendor/suin/phpcs-psr4-sniff/src/Suin"/>
+
+    <rule ref="Suin.Classes.PSR4">
+        <properties>
+            <property name="composerJsonPath" value="composer.json"/>
+        </properties>
+    </rule>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.gutenberg.base.json",
+    "compilerOptions": {
+        "baseUrl": "resources",
+        "types": ["node"],
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "target": "es5",
+        "removeComments": true,
+    },
+    "include": ["resources/**/*.ts", "resources/**/*.tsx"],
+}

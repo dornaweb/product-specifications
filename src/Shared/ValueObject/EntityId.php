@@ -6,7 +6,7 @@ namespace Amiut\ProductSpecs\Shared\ValueObject;
 
 use InvalidArgumentException;
 
-class EntityId
+class EntityIda
 {
     protected int $id;
 

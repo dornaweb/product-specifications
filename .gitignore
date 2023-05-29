@@ -65,5 +65,9 @@ contributors.html
 # Language files
 
 # Build
+assets/
 build/
 product-specifications.zip
+
+phpcs.xml
+yarn-error.log
