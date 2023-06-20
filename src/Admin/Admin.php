@@ -61,7 +61,7 @@ class Admin
 		if( empty( $template ) ) return; // Ignore if $template is empty
 
 		extract( $args );
-		include( DWSPECS_ABSPATH . 'src/admin/' . $template . '.php' );
+		include( DWSPECS_ABSPATH . 'src/Admin/' . $template . '.php' );
 	}
 
 	/**
