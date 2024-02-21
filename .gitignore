@@ -14,3 +14,6 @@ Thumbs.db
 
 # Composer
 /vendor/
+
+.phpunit.result.cache
+.phpunit.cache
