@@ -81,6 +81,6 @@ class Settings {
 	 * Settings menu page HTML output
 	*/
 	public static function Page_HTML(){
-		Admin::get_template( 'options/views/settings' );
+		Admin::get_template( 'Options/views/settings' );
 	}
 }
