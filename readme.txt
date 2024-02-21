@@ -79,6 +79,12 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
+== 0.7.3 2024-02-21 ==
+* Fix wrong filepath.
+
+== 0.7.2 2023-06-20 ==
+* Fix wrong filepath.
+
 == 0.7.1 2023-04-05 ==
 * Add full changelog.
 * Tested with latest WP and WC versions.
