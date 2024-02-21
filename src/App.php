@@ -104,11 +104,7 @@ final class App
         // Install
         register_activation_hook(DWSPECS_PLUGIN_FILE, ['Amiut\ProductSpecs\\Install', 'install']);
 
-        // Post types
-        PostTypes::init();
-
 		Admin\Admin::init();
-		Shortcodes\Table::init();
 
         // Add scripts and styles
         add_action('wp_enqueue_scripts', [$this, 'public_dependencies']);
