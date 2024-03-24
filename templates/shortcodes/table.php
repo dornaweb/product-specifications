@@ -36,7 +36,7 @@ foreach( $table as $table_group ):
 						</svg>', $attr['value'] );
 
 					else :
-						echo esc_html(apply_filters( 'dwspecs_table_value_output', nl2br( $attr['value'] ), $attr['value'] ));
+						echo wp_kses_post(apply_filters( 'dwspecs_table_value_output', nl2br( $attr['value'] ), $attr['value'] ));
 					endif; ?>
 				</td>
 			</tr>
