@@ -79,6 +79,9 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
+== 0.7.4 2024-03-24 ==
+* Fix wrong filepath.
+
 == 0.7.3 2024-02-21 ==
 * Fix wrong filepath.
 
