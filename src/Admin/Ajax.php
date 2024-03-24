@@ -132,19 +132,19 @@ class Ajax
 		// Add or edit attrubute
 		if( $do == 'add' || $do == 'edit' ){
 
-			$attr_name = isset( $_POST['attr_name'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_name'] ) ) : false;
+			$attr_name = isset( $_POST['attr_name'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_name'] ) ) : '';
 
 			$attr_slug = isset( $_POST['attr_slug'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_slug'] ) ) : '';
 
 			$attr_desc = isset( $_POST['attr_desc'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_desc'] ) ) : '';
 
-			$attr_group = isset( $_POST['attr_group'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_group'] ) ) : false;
+			$attr_group = isset( $_POST['attr_group'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_group'] ) ) : '';
 
-			$attr_type = isset( $_POST['attr_type'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_type'] ) ) : false;
+			$attr_type = isset( $_POST['attr_type'] ) ? sanitize_text_field( htmlspecialchars( $_POST['attr_type'] ) ) : '';
 
-			$attr_values = isset( $_POST['attr_values'] ) ? htmlspecialchars( $_POST['attr_values'] ) : false;
+			$attr_values = isset( $_POST['attr_values'] ) ? htmlspecialchars( $_POST['attr_values'] ) : '';
 
-			$attr_default = isset( $_POST['attr_default'] ) && !empty( $_POST['attr_default'] ) ? htmlspecialchars( $_POST['attr_default'] ) : false;
+			$attr_default = isset( $_POST['attr_default'] ) && !empty( $_POST['attr_default'] ) ? htmlspecialchars( $_POST['attr_default'] ) : '';
 
 			if( $attr_type == 'true_false' ) {
 				$attr_default = $attr_default == 'on' ? 'yes' : 'no';
@@ -204,7 +204,7 @@ class Ajax
 					'attr_group'   => $attr_group,
 					'attr_type'    => $attr_type,
 					'attr_values'  => array_filter( array_map( 'trim', $attr_values ) ),
-					'attr_default' => rawurldecode( $attr_default ),
+					'attr_default' => rawurldecode( (string) $attr_default ),
 				);
 
 				if( $check && !is_WP_Error( $check ) ) {
