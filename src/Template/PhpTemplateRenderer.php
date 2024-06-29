@@ -6,8 +6,11 @@ namespace Amiut\ProductSpecs\Template;
 
 class PhpTemplateRenderer implements TemplateRenderer
 {
-    public function __construct(private Context $context)
+    private Context $context;
+
+    public function __construct(Context $context)
     {
+        $this->context = $context;
     }
 
     public function render(string $name, array $data = []): string
@@ -15,9 +18,15 @@ class PhpTemplateRenderer implements TemplateRenderer
         $template = new Template(
             $this->context,
             $name,
-            $data,
         );
 
-        return $template->render();
+        $data = array_merge(
+            $data,
+            [
+                'renderer' => $this,
+            ]
+        );
+
+        return $template->render($data);
     }
 }

@@ -8,16 +8,16 @@ use Throwable;
 
 class Template
 {
-    public function __construct(
-        private Context $context,
-        private string $name,
-        private array $data = []
-    ) {
-    }
+    private Context $context;
+    private string $name;
 
-    public function data(): array
-    {
-        return $this->data;
+    public function __construct(
+        Context $context,
+        string $name
+    ) {
+
+        $this->context = $context;
+        $this->name = $name;
     }
 
     public function name(): string
@@ -25,17 +25,14 @@ class Template
         return $this->name;
     }
 
-    public function render(): string
+    public function render(array $data): string
     {
         try {
             $level = ob_get_level();
             $path = $this->context->resolveTemplatePath($this->name());
             ob_start();
 
-            $templateData = $this->data();
-
-            (static function (string $path) use ($templateData) {
-                $data = $templateData;
+            (static function (string $path) use ($data) {
                 include $path;
             })($path);
 
