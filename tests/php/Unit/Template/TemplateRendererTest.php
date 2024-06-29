@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Tests\Unit;
+namespace Amiut\ProductSpecs\Tests\Unit\Template;
 
 use Amiut\ProductSpecs\Template\Context;
 use Amiut\ProductSpecs\Template\PhpTemplateRenderer;

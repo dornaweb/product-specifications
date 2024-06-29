@@ -1,3 +1,3 @@
 <div>
-foobar
+    foobar
 </div>
