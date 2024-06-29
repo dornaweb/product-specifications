@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Product Specifications main class
  *
@@ -17,13 +20,22 @@ class SpecificationsTable
 {
     public const KEY = 'specs-table';
 
+    private TemplateRenderer $renderer;
+    private SpecificationsTableRepository $repository;
+
     public function __construct(
-        private TemplateRenderer $renderer,
-        private SpecificationsTableRepository $repository
+        TemplateRenderer $renderer,
+        SpecificationsTableRepository $repository
     ) {
+
+        $this->renderer = $renderer;
+        $this->repository = $repository;
     }
 
-    public function render(array|string $attributes): string
+    /**
+     * @param array|string $attributes
+     */
+    public function render($attributes): string
     {
         $attributes = is_array($attributes) ? $attributes : [];
         $postId = (int) ($attributes['post_id'] ?? 0);
@@ -32,7 +44,7 @@ class SpecificationsTable
             $postId = get_the_ID();
         }
 
-        if (!$postId) {
+        if ($postId < 1) {
             return '';
         }
 
@@ -44,7 +56,7 @@ class SpecificationsTable
             return '';
         }
 
-        return apply_filters(
+        return (string) apply_filters(
             'dw_specs_table_shortcode_output',
             $this->renderer->render(
                 'shortcodes/specifications-table',
@@ -59,6 +71,9 @@ class SpecificationsTable
     {
         return array_filter(
             $attributes,
+            /**
+             * @param ?array $value
+             */
             static fn ($value) =>
                 isset($value['attributes']) && is_array($value['attributes'])
                     && count($value['attributes']) > 0
