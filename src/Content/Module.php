@@ -26,7 +26,7 @@ final class Module implements ServiceModule, ExecutableModule
     {
         add_action(
             'init',
-            function () use ($container) {
+            static function () use ($container) {
                 $specificationsTablePostType = $container->get(PostType\SpecificationsTable::class);
 
                 register_post_type(

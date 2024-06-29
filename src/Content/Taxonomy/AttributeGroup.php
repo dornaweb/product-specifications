@@ -17,7 +17,7 @@ final class AttributeGroup
     {
         return [
             'show_in_menu' => false,
-            'show_in_nav_menus'=> false,
+            'show_in_nav_menus' => false,
             'hierarchical' => false,
             'labels' => self::labels(),
             'show_ui' => false,
@@ -32,7 +32,7 @@ final class AttributeGroup
         return [
             'name' => _x('Groups', 'taxonomy general name', 'product-specifications'),
             'singular_name' => _x('group', 'taxonomy singular name', 'product-specifications'),
-            'search_items' =>  __('Search in groups', 'product-specifications'),
+            'search_items' => __('Search in groups', 'product-specifications'),
             'all_items' => __('all groups', 'product-specifications'),
             'parent_item' => __('parent group', 'product-specifications'),
             'parent_item_colon' => __('parent group : ', 'product-specifications'),

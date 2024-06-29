@@ -13,19 +13,17 @@ final class SpecificationsTable
         return [
             'labels' => self::labels(),
             'capability_type' => 'post',
-            'exclude_from_search'  => true,
+            'exclude_from_search' => true,
             'public' => false,
             'publicly_queryable' => false,
             'show_ui' => true,
             'show_in_menu' => 'dw-specs', // 'admin.php?page=dw-specs'
             'query_var' => false,
-            'rewrite' => array( 'slug' => 'specs-table' ),
-            'capability_type' => 'post',
+            'rewrite' => ['slug' => 'specs-table'],
             'has_archive' => false,
-            'exclude_from_search'  => true,
             'hierarchical' => false,
             'menu_position' => null,
-            'supports' => array( 'title' ),
+            'supports' => ['title'],
         ];
     }
 
@@ -34,6 +32,7 @@ final class SpecificationsTable
         return self::KEY;
     }
 
+    // phpcs:ignore Inpsyde.CodeQuality.FunctionLength.TooLong
     private static function labels(): array
     {
         return [
@@ -102,7 +101,8 @@ final class SpecificationsTable
                 'product-specifications'
             ),
             'remove_featured_image' => esc_html__(
-                'Remove cover image', 'product-specifications'
+                'Remove cover image',
+                'product-specifications'
             ),
             'use_featured_image' => esc_html__(
                 'Use as cover image',
