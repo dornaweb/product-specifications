@@ -1,10 +1,10 @@
 <?php
 
-namespace Amiut\ProductSpecs\Admin;
+namespace Amiut\ProductSpecs\AttributesListUi;
 
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 
-class AttributesListTable implements AdminPageView
+final class AttributeListPage
 {
     private TemplateRenderer $renderer;
 
@@ -13,8 +13,10 @@ class AttributesListTable implements AdminPageView
         $this->renderer = $renderer;
     }
 
-    public function render(): string
+    public function render(): void
     {
-        return $this->renderer->render('');
+        echo $this->renderer->render(
+            'admin/attributes/list-page'
+        );
     }
 }

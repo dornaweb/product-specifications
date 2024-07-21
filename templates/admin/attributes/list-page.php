@@ -2,17 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * Spec. table attributes template
- *
- * @author Am!n <www.dornaweb.com>
- * @package WordPress
- * @subpackage Product Specifications Table Plugin
- * @link http://www.dornaweb.com
- * @license GNU General Public License v2 or later, http://www.gnu.org/licenses/gpl-2.0.html
- * @version 0.1
-*/
-
 /** Search query **/
 $search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_SPECIAL_CHARS));
 
@@ -65,7 +54,7 @@ if (isset($_GET['table_id']) && !empty($_GET['table_id'])) {
     $groups_flt = dwspecs_get_table_groups('array', absint($_GET['table_id']));
     $groups_flt_arr = [];
 
-    if (sizeof($groups_flt[0]['groups'] > 0)) {
+    if (count($groups_flt[0]['groups']) > 0) {
         foreach ($groups_flt[0]['groups'] as $grp) {
             $groups_flt_arr[] = $grp['term_id'];
         }
@@ -79,7 +68,6 @@ if (isset($_GET['table_id']) && !empty($_GET['table_id'])) {
         ],
     ];
 }
-
 
 $attributes = get_terms($att_args); ?>
 
@@ -131,19 +119,19 @@ $attributes = get_terms($att_args); ?>
             <div id="dwps_table_wrap">
                 <table class="dwps-table" id="dwps_table">
                     <thead>
-                        <tr>
-                            <th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
-                            <th><?php echo esc_html__('ID', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('Attribute name', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('Group name', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('Actions', 'product-specifications'); ?></th>
-                        </tr>
+                    <tr>
+                        <th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
+                        <th><?php echo esc_html__('ID', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('Attribute name', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('Group name', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('Actions', 'product-specifications'); ?></th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <?php
-                        if (sizeof($attributes) > 0) :
-                            foreach ($attributes as $attr) : ?>
+                    <?php
+                    if (sizeof($attributes) > 0) :
+                        foreach ($attributes as $attr) : ?>
                             <tr>
                                 <td class="check-column">
                                     <input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo esc_attr($attr->term_id); ?>">
@@ -169,11 +157,11 @@ $attributes = get_terms($att_args); ?>
                                 </td>
 
                             </tr>
-                                <?php
-                            endforeach;
-                        else :
-                            echo '<tr><td class="not-found" colspan="5">' . esc_html__('Nothing found', 'product-specifications') . '</td></tr>';
-                        endif; ?>
+                        <?php
+                        endforeach;
+                    else :
+                        echo '<tr><td class="not-found" colspan="5">' . esc_html__('Nothing found', 'product-specifications') . '</td></tr>';
+                    endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -256,52 +244,52 @@ $attributes = get_terms($att_args); ?>
         </p>
 
 
-        <?php if (sizeof($tbl_array) > 0) : ?>
+    <?php if (sizeof($tbl_array) > 0) : ?>
             <p>
                 <label for="attr_table"><?php echo esc_html__('Table : ', 'product-specifications'); ?></label>
 
                 <select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json'); ?>'>
                     <option value=""><?php echo esc_html__('Select a table', 'product-specifications'); ?></option>
                     <?php foreach ($tbl_array as $table) {
-                        echo '<option value="' . esc_attr($table->ID) . '">' . esc_html($table->post_title) . '</option>';
-                    } ?>
+        echo '<option value="' . esc_attr($table->ID) . '">' . esc_html($table->post_title) . '</option>';
+    } ?>
                 </select>
             </p>
 
         <?php endif; ?>
 
-        <p>
-            <label for="attr_group"><?php echo esc_html__('Attribute group : ', 'product-specifications'); ?></label>
+    <p>
+        <label for="attr_group"><?php echo esc_html__('Attribute group : ', 'product-specifications'); ?></label>
             <select name="attr_group" id="attr_group" aria-required="true">
                 <option value=""><?php echo esc_html__('Select a group', 'product-specifications'); ?></option>
-                <?php
-                    $all_groups = get_terms([
-                        'taxonomy' => 'spec-group',
-                        'hide_empty' => false,
-                    ]);
+    <?php
+    $all_groups = get_terms([
+        'taxonomy' => 'spec-group',
+        'hide_empty' => false,
+    ]);
 
-                    foreach ($all_groups as $group) {
-                        $group_name = esc_html($group->name);
-                        echo "<option value=\"{$group->term_id}\">{$group_name}</option>";
-                    }
-                    ?>
-            </select>
-        </p>
+    foreach ($all_groups as $group) {
+        $group_name = esc_html($group->name);
+        echo "<option value=\"{$group->term_id}\">{$group_name}</option>";
+    }
+    ?>
+    </select>
+</p>
 
-        <p>
-            <label for="attr_type"><?php echo esc_html__('Attribute field Type : ', 'product-specifications'); ?></label>
+<p>
+    <label for="attr_type"><?php echo esc_html__('Attribute field Type : ', 'product-specifications'); ?></label>
             <select name="attr_type" id="attr_type" aria-required="true">
                 <option value=""><?php echo esc_html__('Select a field type', 'product-specifications'); ?></option>
                 <option value="text"><?php echo esc_html__('Text', 'product-specifications'); ?>
-                <option value="select"><?php echo esc_html__('Select', 'product-specifications'); ?>
-                <option value="radio"><?php echo esc_html__('Radio', 'product-specifications'); ?>
-                <option value="textarea"><?php echo esc_html__('Textarea', 'product-specifications'); ?>
-                <option value="true_false"><?php echo esc_html__('True/false', 'product-specifications'); ?>
-            </select>
-        </p>
+    <option value="select"><?php echo esc_html__('Select', 'product-specifications'); ?>
+    <option value="radio"><?php echo esc_html__('Radio', 'product-specifications'); ?>
+    <option value="textarea"><?php echo esc_html__('Textarea', 'product-specifications'); ?>
+    <option value="true_false"><?php echo esc_html__('True/false', 'product-specifications'); ?>
+    </select>
+</p>
 
-        <p style="display:none;">
-            <label for="attr_values"><?php echo esc_html__('Values : ', 'product-specifications'); ?></label>
+<p style="display:none;">
+    <label for="attr_values"><?php echo esc_html__('Values : ', 'product-specifications'); ?></label>
             <textarea name="attr_values" id="attr_values"></textarea>
         </p>
 
@@ -317,7 +305,7 @@ $attributes = get_terms($att_args); ?>
 
         <input type="hidden" name="action" value="dwps_modify_attributes">
         <input type="hidden" name="do" value="add">
-        <?php wp_nonce_field('dwps_modify_attributes', 'dwps_modify_attributes_nonce'); ?>
-        <input type="submit" value="<?php echo esc_attr__('Add attribute', 'product-specifications'); ?>" class="button button-primary">
+    <?php wp_nonce_field('dwps_modify_attributes', 'dwps_modify_attributes_nonce'); ?>
+    <input type="submit" value="<?php echo esc_attr__('Add attribute', 'product-specifications'); ?>" class="button button-primary">
     </form>
 </script>

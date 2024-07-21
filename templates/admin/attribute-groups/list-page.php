@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @link http://www.dornaweb.com
  * @license GNU General Public License v2 or later, http://www.gnu.org/licenses/gpl-2.0.html
  * @version 0.1
-*/
+ */
 
 /** Search query **/
 $search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_SPECIAL_CHARS));
@@ -72,21 +72,21 @@ $groups = get_terms([
             <div id="dwps_table_wrap">
                 <table class="dwps-table" id="dwps_table">
                     <thead>
-                        <tr>
-                            <th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
-                            <th><?php echo esc_html__('ID', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('Group name', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('Group slug', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('# of attributes', 'product-specifications'); ?></th>
-                            <th><?php echo esc_html__('Actions', 'product-specifications'); ?></th>
-                        </tr>
+                    <tr>
+                        <th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
+                        <th><?php echo esc_html__('ID', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('Group name', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('Group slug', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('# of attributes', 'product-specifications'); ?></th>
+                        <th><?php echo esc_html__('Actions', 'product-specifications'); ?></th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <?php
-                        if (sizeof($groups) > 0) :
-                            foreach ($groups as $group) :
-                                $attributes = dwspecs_get_attributes_by_group($group->term_id); ?>
+                    <?php
+                    if (sizeof($groups) > 0) :
+                        foreach ($groups as $group) :
+                            $attributes = dwspecs_get_attributes_by_group($group->term_id); ?>
                             <tr>
                                 <td class="check-column"><input class="dlt-bulk-group" type="checkbox" name="slct_group[]" value="<?php echo esc_attr($group->term_id); ?>"></td>
                                 <td><?php echo esc_html($group->term_id); ?></td>
@@ -103,11 +103,11 @@ $groups = get_terms([
                                     <a href="#" class="re-arange" data-id="<?php echo esc_attr($group->term_id); ?>"><i class="dashicons dashicons-sort"></i></a>
                                 </td>
                             </tr>
-                                <?php
-                            endforeach;
-                        else :
-                            echo '<tr><td class="not-found" colspan="5">' . esc_html__('Nothing found', 'product-specifications') . '</td></tr>';
-                        endif; ?>
+                        <?php
+                        endforeach;
+                    else :
+                        echo '<tr><td class="not-found" colspan="5">' . esc_html__('Nothing found', 'product-specifications') . '</td></tr>';
+                    endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -197,7 +197,7 @@ $groups = get_terms([
 
         <input type="hidden" name="action" value="dwps_modify_groups">
         <input type="hidden" name="do" value="add">
-        <?php wp_nonce_field('dwps_modify_groups', 'dwps_modify_groups_nonce'); ?>
-        <input type="submit" value="<?php echo esc_attr__('Add Group', 'product-specifications'); ?>" class="button button-primary">
+    <?php wp_nonce_field('dwps_modify_groups', 'dwps_modify_groups_nonce'); ?>
+    <input type="submit" value="<?php echo esc_attr__('Add Group', 'product-specifications'); ?>" class="button button-primary">
     </form>
 </script>
