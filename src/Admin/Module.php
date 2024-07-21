@@ -6,6 +6,8 @@ namespace Amiut\ProductSpecs\Admin;
 
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
+use Inpsyde\Modularity\Package;
+use Inpsyde\Modularity\Properties\PluginProperties;
 use Psr\Container\ContainerInterface;
 use Inpsyde\Modularity\Module\ExecutableModule;
 
@@ -16,6 +18,9 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
+            Assets::class => static fn (ContainerInterface $container) => new Assets(
+                $container->get(Package::PROPERTIES)
+            ),
             AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
         ];
     }
@@ -23,12 +28,16 @@ final class Module implements ServiceModule, ExecutableModule
     public function run(ContainerInterface $container): bool
     {
         add_action(
+            'admin_enqueue_scripts',
+            [$container->get(Assets::class), 'load']
+        );
+
+        add_action(
             'admin_menu',
             function () use ($container) {
                 $this->registerMenuPages($container);
             }
         );
-
 
         add_action(
             'admin_menu',
@@ -58,26 +67,6 @@ final class Module implements ServiceModule, ExecutableModule
             'edit_pages',
             'dw-specs-new',
             [ __CLASS__, 'addnew_page' ]
-        );
-
-        // Add settings page
-        add_submenu_page(
-            'dw-specs',
-            esc_html__('Product specifications settings', 'product-specifications'),
-            esc_html__('Settings', 'product-specifications'),
-            'edit_pages',
-            'dw-specs-settings',
-            [ __CLASS__, 'settings_page' ]
-        );
-
-        // Add import/export page
-        add_submenu_page(
-            'dw-specs',
-            esc_html__('Product specifications Import/Export', 'product-specifications'),
-            esc_html__('Import/export', 'product-specifications'),
-            'edit_pages',
-            'dw-specs-export',
-            [ __CLASS__, 'tools_page' ]
         );
     }
 }

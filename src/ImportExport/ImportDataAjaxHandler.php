@@ -1,30 +1,14 @@
 <?php
 
-declare(strict_types=1);
+namespace Amiut\ProductSpecs\ImportExport;
 
-/**
- * Import/Export Menu page
- *
- * @author Dornaweb
- * @contribute Am!n <dornaweb.com>
- */
-
-namespace Amiut\ProductSpecs\Admin;
-
-defined('ABSPATH') || exit;
-
-class ImportExport
+final class ImportDataAjaxHandler
 {
-    public static function init()
+    /**
+     * @return never
+     */
+    public function __invoke(): void
     {
-
-        add_action('wp_ajax_dwspecs_export_data', [__CLASS__, 'download']);
-        add_action('wp_ajax_dwspecs_import_data', [__CLASS__, 'import_cb']);
-    }
-
-    public static function import_cb()
-    {
-
         header('Content-type: application/json; charset=utf-8');
 
         // Exit if already migrating
@@ -51,7 +35,7 @@ class ImportExport
         set_transient('dwspecs_data_migrating', true, MINUTE_IN_SECONDS * 30);
 
         // Migrate Plugin data
-        self::import_plugin_data($data);
+        $this->importPluginData((array) $data);
 
         delete_transient('dwspecs_data_migrating');
 
@@ -62,97 +46,8 @@ class ImportExport
         wp_die();
     }
 
-    public static function download()
+    private function importPluginData(array $data): void
     {
-
-        if (! wp_verify_nonce($_POST['dws_ex_nonce'], 'dwspecs_nonce_export')) {
-            wp_die('Invalid Request');
-        }
-
-        $include_products = isset($_POST['include_products']);
-
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Disposition: attachment; filename="' . self::export_filename() . '"');
-
-        echo self::export('json', $include_products);
-
-        exit;
-    }
-
-    public static function export_filename()
-    {
-
-        return 'dw-specs-table-' . date('j-m-Y') . '-' . rand(1, 1e6) . '.json';
-    }
-
-    public static function export($format = 'array', $include_products = true)
-    {
-
-        $results = [];
-        $i = 0;
-        foreach (dwspecs_get_table_groups() as $table) {
-            $results[$i] = [
-                'table-title' => get_the_title($table['table_id']),
-                'title-base64' => base64_encode(get_the_title($table['table_id'])),
-                'table-slug' => get_post_field('post_name', $table['table_id']),
-                'table-id' => $table['table_id'],
-                'group-order' => array_map('absint', get_post_meta($table['table_id'], '_groups', true)),
-            ];
-
-            $results[$i]['skleton'] = [];
-
-            foreach ($table['groups'] as $group) {
-                $attributes = [];
-
-                foreach ((dwspecs_get_attributes_by_group($group['term_id']) ?: []) as $attr) {
-                    $attributes[] = [
-                        'title' => $attr->name,
-                        'slug' => $attr->slug,
-                        'id' => $attr->term_id,
-                        'type' => get_term_meta($attr->term_id, 'attr_type', true),
-                        'values' => get_term_meta($attr->term_id, 'attr_values', true),
-                        'default' => get_term_meta($attr->term_id, 'attr_default', true),
-                    ];
-                }
-                $group['attributes'] = $attributes;
-                $group['attributes-order'] = get_term_meta($group['term_id'], 'attributes', true);
-                $results[$i]['skleton'][] = $group;
-            }
-
-            if ($include_products) {
-                $products_list = new \WP_Query([
-                    'post_type' => 'product',
-                    'showposts' => -1,
-                    'meta_key' => '_dwps_table',
-                    'meta_value' => $table['table_id'],
-                ]);
-
-                foreach ($products_list->posts as $product) {
-                    $results[$i]['products'][] = [
-                        'title' => $product->post_title,
-                        'slug' => $product->post_name,
-                        'table' => dwspecs_get_table_result($product->ID),
-                    ];
-                }
-            }
-
-            $i++;
-        }
-
-        if ($format === 'json') {
-            return json_encode($results);
-        } else {
-            return $results;
-        }
-    }
-
-    public static function import_plugin_data($data)
-    {
-
         $ids_map = [];
         global $wpdb;
 
@@ -284,25 +179,5 @@ class ImportExport
                 }
             }
         }
-    }
-
-    /**
-     * Menu page HTML output
-    */
-    public static function Page_HTML()
-    {
-
-        $tables = new \WP_Query([
-            'post_type' => 'spec-table',
-            'showposts' => -1,
-        ]);
-        $tables = $tables->get_posts();
-        wp_reset_postdata();
-
-        $args = [
-            'tables' => $tables,
-        ];
-
-        Admin::get_template('views/tools', $args);
     }
 }

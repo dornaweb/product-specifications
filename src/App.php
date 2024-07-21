@@ -4,18 +4,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs;
 
-/**
- * Amiut\ProductSpecs main class
- */
 final class App
 {
-	/**
-	 * Plugin version.
-	 *
-	 * @var string
-	 */
-    public $version = '0.7.4';
-
     /**
      * Plugin instance.
      *
@@ -86,20 +76,6 @@ final class App
     {
 
         $this->define('DWSPECS_ABSPATH', dirname(DWSPECS_PLUGIN_FILE) . '/');
-        $this->define('DWSPECS_PLUGIN_BASENAME', plugin_basename(DWSPECS_PLUGIN_FILE));
-        $this->define('DWSPECS_VERSION', $this->version);
-        $this->define('DWSPECS_PLUGIN_URL', $this->plugin_url());
-    }
-
-    /**
-     * Get the plugin url.
-     *
-     * @return string
-     */
-    public function plugin_url()
-    {
-
-        return untrailingslashit(plugins_url('/', DWSPECS_PLUGIN_FILE));
     }
 
     /**
