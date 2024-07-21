@@ -85,6 +85,7 @@ function bootstrap(): void
             ->addModule(new Attribute\Module())
             ->addModule(new Shortcode\Module())
             ->addModule(new Metabox\Module())
+            ->addModule(new EntityUpdater\Module())
             ->addModule(new ProductSpecifications\Module())
             ->addModule(new SpecificationsTable\Module())
             ->boot();

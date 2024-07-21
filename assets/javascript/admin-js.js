@@ -313,30 +313,26 @@ jQuery.extend({
 			var data = $(this).serializeArray();
 
 			$.post(dwspecs_plugin.ajaxurl, data, function(response) {
-				var response = $.parseJSON( response );
-
 				// append success/error message to end of the form
 				form.find('.result-msg').remove();
-				form.append( '<span class="result-msg"><span class="msg '+ response.result +'">' + response.message + '</span></span>' );
+				form.append( '<span class="result-msg"><span class="msg '+ (response.success ? 'success' : 'error') +'">' + response.data.message + '</span></span>' );
 
 				// validation check
-				if( response.result == 'error' ) {
-					for( i = 0; i <= response.where.length; i++ ){
-						form.find( response.where[i] ).addClass('validation-error');
+				if( !response.success ) {
+					for( i = 0; i <= response.data.where.length; i++ ){
+						form.find( response.data.where[i] ).addClass('validation-error');
 					}
+					return;
 				}
 
-				// Success
-				else if( response.result == 'success' ) {
-					form.find('.validation-error').removeClass('validation-error');
+				form.find('.validation-error').removeClass('validation-error');
 
-					// Add handler
-					$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
+				// Add handler
+				$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
 
-					setTimeout(function(){
-						window.globalmodal.close();
-					}, 1000);
-				}
+				setTimeout(function(){
+					window.globalmodal.close();
+				}, 1000);
 			});
 		});
 
@@ -480,19 +476,18 @@ jQuery.extend({
 
 					$.post(dwspecs_plugin.ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
 						console.log( response );
-						var response = $.parseJSON( response );
 
-						if( response.result == 'success' ) {
+						if( response.success ) {
 							$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
 
 							setTimeout(function(){
 								window.globalmodal.close();
 							}, 1000);
-						} else{
-							window.globalmodal.setContent('Could not delete the group');
-							window.globalmodal.open();
-
+							return;
 						}
+
+						window.globalmodal.setContent('Could not delete the group');
+						window.globalmodal.open();
 					});
 				}
 			}
