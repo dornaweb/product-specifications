@@ -14,4 +14,12 @@ class SpecificationsTableRepository
 
         return is_array($specificationsTable) ? $specificationsTable : [];
     }
+
+    public function productHasSpecsTable(int $productId): bool
+    {
+        $table_id = get_post_meta($productId, '_dwps_table', true);
+        $table = get_post_meta($productId, '_dwps_specification_table', true);
+
+        return !empty($table_id) && !empty($table);
+    }
 }

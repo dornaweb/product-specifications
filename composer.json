@@ -24,7 +24,8 @@
     "phpunit/phpunit": "^9.6",
     "inpsyde/php-coding-standards": "dev-development",
     "vimeo/psalm": "^5.23",
-    "php-stubs/wordpress-stubs": "^6.4"
+    "php-stubs/wordpress-stubs": "^6.4",
+    "php-stubs/woocommerce-stubs": "^9.1"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

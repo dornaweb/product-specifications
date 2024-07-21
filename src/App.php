@@ -36,13 +36,10 @@ final class App
     {
         // Sync group attributes when an attribute gets updated.
         add_action('dwspecs_attributes_modified', [ $this, 'modified_attributes' ]);
-        add_action('woocommerce_init', [$this, 'handle_woocommerce']);
-        add_action('plugins_loaded', [$this, 'wc_needed_notice']);
 
         $this->define_constants();
         $this->init();
         $this->includes();
-        $this->create_options();
     }
 
     /**
@@ -83,79 +80,7 @@ final class App
      */
     public function init()
     {
-        // Install
-        register_activation_hook(DWSPECS_PLUGIN_FILE, ['Amiut\ProductSpecs\\Install', 'install']);
-
         Admin\Admin::init();
-
-        // Add scripts and styles
-        add_action('wp_enqueue_scripts', [$this, 'public_dependencies']);
-    }
-
-    /**
-     * Register scripts and styles for public area
-     */
-    public function public_dependencies()
-    {
-
-        if (! get_option('dwps_disable_default_styles')) {
-            wp_enqueue_style('dwspecs-front-css', DWSPECS_PLUGIN_URL . '/assets/css/front-styles.css', [], DWSPECS_VERSION);
-        }
-    }
-
-    /**
-     * Create Options as an stdClass
-    */
-    public function create_options()
-    {
-
-        $this->options = new \stdClass();
-        $this->options->post_types = get_option('dwps_post_types');
-        $this->options->per_page = get_option('dwps_view_per_page');
-    }
-
-    /**
-     * Check and add specifications table to woocommerce
-    */
-    public function handle_woocommerce()
-    {
-
-        if (class_exists('WooCommerce')) {
-            add_filter('woocommerce_product_tabs', [ $this, 'woocommerce_tabs' ]);
-        }
-    }
-
-    /**
-     * Add tables to woocommerce tabs
-     * Remove or keep old woocommerce tables ( based on plugin's settings )
-    */
-    public function woocommerce_tabs($tabs)
-    {
-
-        global $product;
-
-        if (dwspecs_product_has_specs_table($product->get_id())) {
-            $tabs['dwspecs_product_specifications'] = [
-                'title' => get_option('dwps_tab_title') ?: esc_html__('Product Specifications', 'product-specifications'),
-                'priority' => 10,
-                'callback' => [ $this, 'woo_display_tab' ],
-            ];
-        }
-
-        if (get_option('dwps_wc_default_specs') === 'remove' || (dwspecs_product_has_specs_table($product->get_id()) && get_option('dwps_wc_default_specs') === 'remove_if_specs_not_empty')) {
-            unset($tabs['additional_information']);
-        }
-
-        return $tabs;
-    }
-
-    /**
-     * Display tab content Callback
-    */
-    public function woo_display_tab()
-    {
-
-        echo do_shortcode('[specs-table]');
     }
 
     /**
@@ -200,50 +125,6 @@ final class App
                     add_term_meta($group_id, 'attributes', [ $attr_id ]);
                 }
             }
-        }
-    }
-
-    public function wc_needed_notice()
-    {
-
-        if (! class_exists('WooCommerce')) {
-            $this->add_notice('no_woo_notice', esc_html__('This plugin works properly with woocommerce, please install woocommerce first', 'product-specifications'), 'warning', 'forever');
-        }
-
-        add_action('wp_ajax_dw_dismiss_admin_notice', [$this, 'dismiss_alert']);
-    }
-
-    /**
-     * Add a notice to admin notices area
-     *
-     * @param String        $id         A unique identifier
-     * @param String        $message     Notice body
-     * @param String|Bool   false - Not dismissable OR "close" - just close button OR "forever" - an option to permanently dismiss the notice
-     */
-    public function add_notice($id, $message, $type = 'success', $dismiss = 'close')
-    {
-
-        if (! get_option('dw_notice_dismissed_' . $id)) {
-            add_action('admin_notices', static function () use ($id, $message, $type, $dismiss) {
-                echo '<div class="notice notice-' . esc_attr($type) . ' ' . ($dismiss === 'forever' || $dismiss === 'close' ? 'is-dismissible' : '') . '"><p>';
-
-                if ($dismiss === 'forever') {
-                    $message .= ' <a href="#" onClick="dwDismissAdminNotice(event, \'' . esc_attr($id) . '\'); return false;">' . esc_html__('Dismiss', 'product-specifications') . '</a>';
-                }
-
-                echo esc_html($message);
-                echo '</p></div>';
-            });
-        }
-    }
-
-    public function dismiss_alert()
-    {
-
-        $id = isset($_POST['id']) ? trim(htmlspecialchars($_POST['id'])) : false;
-
-        if ($id) {
-            update_option('dw_notice_dismissed_' . $id, "1");
         }
     }
 }

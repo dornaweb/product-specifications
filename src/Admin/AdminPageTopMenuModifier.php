@@ -6,7 +6,7 @@ class AdminPageTopMenuModifier
 {
     public function modify(): void
     {
-        global $menu, $submenu;
+        global $submenu;
 
         foreach ($submenu['dw-specs'] as $k => $d) {
             if ($d[2] === 'dw-specs-new') {

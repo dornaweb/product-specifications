@@ -3,17 +3,6 @@
 declare(strict_types=1);
 
 /**
- * Functions
- *
- * @author Am!n <www.dornaweb.com>
- * @package WordPress
- * @subpackage Product Specifications for WooCommerce
- * @link http://www.dornaweb.com
- * @license GPL-2.0+
- * @since 0.1
-*/
-
-/**
  * current_page_url
  *
  * @return string
@@ -39,25 +28,6 @@ if (!function_exists('dwspecs_current_page_url')) {
 }
 
 /**
- * Strip certain tags from a string
- *
- * @param string $string the string you want to strip
- * @param array $tags array of tags you want to strip
- * @return string
-*/
-if (!function_exists('dwspecs_strip_some')) {
-    function dwspecs_strip_some($string, $tags = [])
-    {
-
-        foreach ($tags as $tag) {
-            $string = preg_replace('/<\/?' . $tag . '(.|\s)*?>/', '', $string);
-        }
-
-        return $string;
-    }
-}
-
-/**
  * Get the list of attributes related to a group
  *
  * @param int $group_id id of the group
@@ -77,21 +47,6 @@ if (!function_exists('dwspecs_get_attributes_by_group')) {
             'meta_key' => 'attr_group',
             'meta_value' => $group_id,
         ]);
-    }
-}
-
-/**
- * encodeURIComponent as Javascript does.
- *
- * @param string $str
- * @return string
- */
-if (! function_exists('dwspecs_encodeURIComponent')) {
-    function dwspecs_encodeURIComponent($str)
-    {
-
-        $revert = ['%21' => '!', '%2A' => '*', '%27' => "'", '%28' => '(', '%29' => ')'];
-        return strtr(rawurlencode($str), $revert);
     }
 }
 
@@ -136,22 +91,6 @@ if (!function_exists('dwspecs_attr_value_by')) {
         }
 
         return null;
-    }
-}
-
-if (! function_exists('dwspecs_product_has_specs_table')) {
-    function dwspecs_product_has_specs_table($post_id = '')
-    {
-
-        if (! $post_id) {
-            global $post;
-            $post_id = $post->ID;
-        }
-
-        $table_id = get_post_meta($post_id, '_dwps_table', true);
-        $table = get_post_meta($post_id, '_dwps_specification_table', true);
-
-        return !empty($table_id) && !empty($table);
     }
 }
 

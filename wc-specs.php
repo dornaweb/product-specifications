@@ -5,11 +5,10 @@
  * Plugin URI: https://wwww.dornaweb.com/
  * Description: This plugin adds a product specifications table to your woocommerce products.
  * Version: 0.7.4
- * Author: Amin A.Rezapour
+ * Author: Amin Abdolrezapoor
  * Author URI: https://amin.nz
  * License: GPL-2.0+
- *
- * @link http://www.dornaweb.com
+ * Requires Plugins: woocommerce
  */
 
 declare(strict_types=1);
@@ -82,6 +81,7 @@ function bootstrap(): void
             ->addModule(new AttributeGroupsListUi\Module())
             ->addModule(new ImportExport\Module())
             ->addModule(new Settings\Module())
+            ->addModule(new Integration\Module())
             ->addModule(new Attribute\Module())
             ->addModule(new Shortcode\Module())
             ->addModule(new Metabox\Module())
