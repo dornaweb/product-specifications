@@ -9,12 +9,12 @@ namespace Amiut\ProductSpecs;
  */
 final class App
 {
-    /**
-     * Plugin version.
-     *
-     * @var string
-     */
-    public $version = '0.7.1';
+	/**
+	 * Plugin version.
+	 *
+	 * @var string
+	 */
+    public $version = '0.7.4';
 
     /**
      * Plugin instance.
