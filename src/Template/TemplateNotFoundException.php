@@ -6,6 +6,6 @@ namespace Amiut\ProductSpecs\Template;
 
 use Exception;
 
-class TemplateNotfoundException extends Exception
+class TemplateNotFoundException extends Exception
 {
 }

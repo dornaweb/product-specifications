@@ -74,19 +74,19 @@ jQuery.extend({
 	$(document).on('click', '[data-modal]', function (e) {
 		e.preventDefault();
 		var $target = $($(this).data('modal'));
-	
+
 		if ($target.length) {
 			window.globalmodal.setContent($target.html());
 			$(document).trigger('modal_content_loaded');
 			window.globalmodal.open();
-		
+
 			if ($(this).data('classes')) {
 				$('.tingle-modal').addClass($(this).data('classes'));
 			}
 		}
 	});
 
-	
+
 	/*!
 	 * Tab Boxes by dornaweb
 	 * @author Am!n - http://www.dornaweb.com
@@ -191,13 +191,21 @@ jQuery.extend({
 			if( $(this).val() !== 0 && $(this).val() !== '0' ) {
 				if( ( initial_val == 0 || initial_val == '0' ) || window.confirm('Are you sure you want to switch table? all unsaved settings will be lost.') ){
 					container.html( loading );
-					$.post( dwspecs_plugin.ajaxurl, { action: 'dwps_load_table', specs_table: $(this).val(), post_id: post_id }, function( response ){
-						container.html( response );
+					$.post(
+						dwspecs_plugin.ajaxurl,
+						{
+							action: 'dwps_load_table',
+							specs_table: $(this).val(),
+							post_id: post_id
+						},
+						function( response ){
+							container.html( response.data || '' );
 
-						setTimeout(function(){
-							$(document).trigger('dw_dynamic', [true]);
-						}, 250);
-					});
+							setTimeout(function(){
+								$(document).trigger('dw_dynamic', [true]);
+							}, 250);
+						}
+					);
 				}
 				else{
 					$(this).val( $.data(this, 'current') );
@@ -277,7 +285,7 @@ jQuery.extend({
 				};
 
 				elem.css( 'opacity', '0.4' );
-				$.get( dwspecs_plugin.ajaxurl, data, function(e){						
+				$.get( dwspecs_plugin.ajaxurl, data, function(e){
 					window.globalmodal.setContent(e);
 					window.globalmodal.open();
 
@@ -462,10 +470,10 @@ jQuery.extend({
 				var id = $('input.dlt-bulk-group:checked').map(function(){return $(this).val();}).get();
 			}
 
-			
+
 			if( !$(this).is('[disabled]') ){
 				var confirm = window.confirm(template.modal.content);
-				
+
 
 				if (confirm) {
 					var action = template.data.type == 'attribute' ? 'dwps_modify_attributes' : 'dwps_modify_groups';
@@ -473,17 +481,17 @@ jQuery.extend({
 					$.post(dwspecs_plugin.ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
 						console.log( response );
 						var response = $.parseJSON( response );
-	
+
 						if( response.result == 'success' ) {
 							$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
-	
+
 							setTimeout(function(){
 								window.globalmodal.close();
 							}, 1000);
 						} else{
 							window.globalmodal.setContent('Could not delete the group');
 							window.globalmodal.open();
-				
+
 						}
 					});
 				}
@@ -531,7 +539,7 @@ jQuery.extend({
 					}
 				}
 			});
-		});		
+		});
 
 	});
 
@@ -540,7 +548,7 @@ jQuery.extend({
 
 		var data = new FormData(this);
 
-		$('#dwspecs_import_results').html('<div class="notice"><p>'+ dwspecs_plugin.i18n.importing_message + '</p></div>');	
+		$('#dwspecs_import_results').html('<div class="notice"><p>'+ dwspecs_plugin.i18n.importing_message + '</p></div>');
 
 		$.ajax({
 			type: 'POST',
@@ -552,7 +560,7 @@ jQuery.extend({
 			success: function(res) {
 				if (res.success) {
 					$('#dwspecs_import_results').html('<div class="updated success"><p>'+ res.data.message + '</p></div>')
-					
+
 				} else {
 					$('#dwspecs_import_results').html('<div class="error"><p>'+ res.data.message + '</p></div>')
 

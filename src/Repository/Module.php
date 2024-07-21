@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Repository;
 
+use Amiut\ProductSpecs\Attribute\AttributeFieldFactory;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
+use Psr\Container\ContainerInterface;
 
 final class Module implements ServiceModule
 {
@@ -15,6 +17,9 @@ final class Module implements ServiceModule
     {
         return [
             SpecificationsTableRepository::class => static fn () => new SpecificationsTableRepository(),
+            AttributeFieldRepository::class => static fn (ContainerInterface $container) => new AttributeFieldRepository(
+                $container->get(AttributeFieldFactory::class)
+            ),
         ];
     }
 }

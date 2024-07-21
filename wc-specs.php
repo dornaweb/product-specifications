@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs;
 
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
 use Inpsyde\Modularity\Package;
 use Inpsyde\Modularity\Properties\PluginProperties;
 use Throwable;
@@ -23,8 +25,8 @@ use Throwable;
 defined('ABSPATH') || exit;
 
 // TODO: REMOVE
-if ( ! defined( 'DWSPECS_PLUGIN_FILE' ) ) {
-    define( 'DWSPECS_PLUGIN_FILE', __FILE__ );
+if (! defined('DWSPECS_PLUGIN_FILE')) {
+    define('DWSPECS_PLUGIN_FILE', __FILE__);
 }
 
 function handleFailure(Throwable $throwable): void
@@ -75,7 +77,11 @@ function bootstrap(): void
             ->addModule(new Template\Module())
             ->addModule(new Repository\Module())
             ->addModule(new Content\Module())
+            ->addModule(new Attribute\Module())
             ->addModule(new Shortcode\Module())
+            ->addModule(new Metabox\Module())
+            ->addModule(new ProductSpecifications\Module())
+            ->addModule(new SpecificationsTable\Module())
             ->boot();
     } catch (Throwable $throwable) {
         handleFailure($throwable);

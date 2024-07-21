@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Tests\Unit\Template;
 
 use Amiut\ProductSpecs\Template\Context;
-use Amiut\ProductSpecs\Template\TemplateNotfoundException;
+use Amiut\ProductSpecs\Template\TemplateNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 class ContextTest extends TestCase
@@ -33,7 +33,7 @@ class ContextTest extends TestCase
 
     public function testNonExistingTemplate(): void
     {
-        $this->expectException(TemplateNotfoundException::class);
+        $this->expectException(TemplateNotFoundException::class);
         (new Context([self::TEMPLATES_DIRECTORY]))
             ->resolveTemplatePath('notFound.php');
     }

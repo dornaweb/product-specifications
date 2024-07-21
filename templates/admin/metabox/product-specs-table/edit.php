@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Amiut\ProductSpecs\Attribute\AttributeFieldGroupCollection;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 
 /**
  * @var int $currentTableId
  * @var array<WP_Post> $tables
  * @var WP_Post $post
+ * @var AttributeFieldGroupCollection $groupedCollection
  * @var TemplateRenderer $renderer
  * @var array $data
  */
@@ -17,6 +19,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
     'tables' => $tables,
     'renderer' => $renderer,
     'post' => $post,
+    'groupedCollection' => $groupedCollection,
 ] = $data;
 
 ?>
@@ -30,7 +33,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
         <select
             name="specs_table"
             id="spec_tables_list"
-            data-postid="<?= esc_html($post->ID) ?>"
+            data-postid="<?= esc_html((string) $post->ID) ?>"
         >
             <option value="0">
                 <?= esc_html__('none', 'product-specifications') ?>
@@ -61,10 +64,9 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
         id="specifications_table_wrapper"
     >
         <?= $renderer->render(
-            'admin/metabox/product-specs-table/load-table',
+            'admin/metabox/product-specs-table/product-attribute-fields',
             [
-                'tableId' => $currentTableId,
-                'post' => $post,
+                'groupedCollection' => $groupedCollection
             ]
         ) ?>
     </div>

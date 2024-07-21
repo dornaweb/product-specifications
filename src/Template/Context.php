@@ -29,10 +29,10 @@ class Context
             }
         }
 
-        throw new TemplateNotfoundException(
+        throw new TemplateNotFoundException(
             sprintf(
                 'Template "%s" not found',
-                $template
+                esc_html($template)
             ),
         );
     }

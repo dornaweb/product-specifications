@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<psalm
+    useDocblockPropertyTypes="true"
+    usePhpDocMethodsWithoutMagicCall="true"
+    strictBinaryOperands="true"
+    ignoreInternalFunctionFalseReturn="false"
+    ignoreInternalFunctionNullReturn="false"
+    hideExternalErrors="true"
+    findUnusedCode="false"
+    findUnusedBaselineEntry="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <file name="wc-specs.php" />
+        <directory name="src" />
+        <directory name="inc" />
+        <directory name="templates" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+    <stubs>
+        <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php" />
+    </stubs>
+    <issueHandlers>
+        <MixedAssignment errorLevel="suppress" />
+        <MissingClosureParamType errorLevel="suppress" />
+        <MissingClosureReturnType errorLevel="suppress" />
+        <UnresolvableInclude errorLevel="suppress" />
+        <ParadoxicalCondition errorLevel="suppress" />
+    </issueHandlers>
+</psalm>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+    <file>./src/</file>
+    <file>./inc/</file>
+    <file>./templates/</file>
+    <file>./tests/php</file>
+    <file>./wc-specs.php</file>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <config name="testVersion" value="7.4-"/>
+    <config name="text_domain" value="product-specifications"/>
+    <config name="ignore_warnings_on_exit" value="1"/>
+
+    <rule ref="Inpsyde" />
+
+    <rule ref="InpsydeTemplates">
+        <include-pattern>*/templates/*</include-pattern>
+    </rule>
+
+    <rule ref="Inpsyde.CodeQuality.Psr4">
+        <properties>
+            <property
+                    name="psr4"
+                    type="array"
+                    value="Amiut\ProductSpecs=>src,Amiut\ProductSpecs\Tests\Unit=>tests/php/Unit"
+            />
+        </properties>
+    </rule>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/tests/php/assets/*</exclude-pattern>
+
+    <rule ref="Inpsyde.CodeQuality.NoElse.ElseFound">
+        <exclude-pattern>*/templates/*</exclude-pattern>
+    </rule>
+
+    <rule ref="VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable">
+        <exclude-pattern>*/templates/*</exclude-pattern>
+    </rule>
+</ruleset>

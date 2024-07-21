@@ -1,30 +1,26 @@
 <?php
-/**
- * Product Specifications Install class
- *
- * @package Amiut\ProductSpecs
- * @since  0.4
- */
+
+declare(strict_types=1);
 
 namespace Amiut\ProductSpecs;
 
-defined('ABSPATH') || exit;
-
 class Install
 {
-    public static function install() {
-        if ( ! is_blog_installed() ) {
-			return;
-		}
+    public static function install()
+    {
 
-		// Check if we are not already running this routine.
-		if ( 'yes' === get_transient( 'dwspecs_installing' ) ) {
-			return;
+        if (! is_blog_installed()) {
+            return;
         }
 
-        set_transient( 'dwspecs_installing', 'yes', MINUTE_IN_SECONDS * 10 );
+        // Check if we are not already running this routine.
+        if ('yes' === get_transient('dwspecs_installing')) {
+            return;
+        }
 
-        delete_transient( 'dwspecs_installing' );
+        set_transient('dwspecs_installing', 'yes', MINUTE_IN_SECONDS * 10);
+
+        delete_transient('dwspecs_installing');
 
         Admin\Options\Settings::load_default_settings();
         flush_rewrite_rules();

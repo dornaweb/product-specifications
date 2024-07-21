@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\ProductSpecifications;
 
 use Amiut\ProductSpecs\Metabox\Metabox;
+use Amiut\ProductSpecs\Repository\AttributeFieldRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 use WP_Post;
 use WP_Term;
@@ -12,10 +13,15 @@ use WP_Term;
 final class ProductSpecificationsMetabox implements Metabox
 {
     private TemplateRenderer $renderer;
+    private AttributeFieldRepository $repository;
 
-    public function __construct(TemplateRenderer $renderer)
-    {
+    public function __construct(
+        TemplateRenderer $renderer,
+        AttributeFieldRepository $repository
+    ) {
+
         $this->renderer = $renderer;
+        $this->repository = $repository;
     }
 
     public function enabled(WP_Post $post): bool
@@ -53,6 +59,7 @@ final class ProductSpecificationsMetabox implements Metabox
                 'currentTableId' => $currentTableId,
                 'tables' => $this->tables(),
                 'post' => $post,
+                'groupedCollection' => $this->repository->findGroupedCollection($currentTableId, $post->ID),
             ]
         );
     }
