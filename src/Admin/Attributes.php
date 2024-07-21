@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Attributes Menu page
  *
@@ -12,12 +15,12 @@ defined('ABSPATH') || exit;
 
 class Attributes
 {
+    /**
+     * Menu page HTML output
+    */
+    public static function Page_HTML()
+    {
 
-	/**
-	 * Menu page HTML output
-	*/
-	public static function Page_HTML(){
-		Admin::get_template( 'views/attributes' );
-	}
-
+        Admin::get_template('views/attributes');
+    }
 }
