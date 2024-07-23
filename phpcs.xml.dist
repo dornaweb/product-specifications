@@ -4,7 +4,7 @@
     <file>./inc/</file>
     <file>./templates/</file>
     <file>./tests/php</file>
-    <file>./wc-specs.php</file>
+    <file>./product-specifications.php</file>
 
     <arg value="sp"/>
     <arg name="colors"/>

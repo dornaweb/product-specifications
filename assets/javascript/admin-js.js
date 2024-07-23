@@ -500,7 +500,7 @@ jQuery.extend({
 			e.preventDefault();
 			var texts = $.parseJSON( Mustache.render( document.getElementById('dwps_texts_template').innerHTML ) );
 
-			$.get( dwspecs_plugin.ajaxurl, { action: 'dwps_group_rearange', id: $(this).data('id') }, function( response ){
+			$.get( dwspecs_plugin.ajaxurl, { action: 'dwps_group_rearrange_form', id: $(this).data('id') }, function( response ){
 				window.globalmodal.setContent(response);
 				window.globalmodal.open();
 

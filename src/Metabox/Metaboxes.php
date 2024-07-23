@@ -9,7 +9,7 @@ use WP_Post_Type;
 
 final class Metaboxes
 {
-    public const ACTION_SETUP = 'amiut.product_specs.metaboxes.setup';
+    public const ACTION_SETUP = 'product_specs.metaboxes.setup';
     public const NONCE_KEY = 'product_specs_metabox_nonce';
 
     /**

@@ -3,15 +3,12 @@
 declare(strict_types=1);
 
 /**
- * Group edit form
- *
- * @author Am!n <www.dornaweb.com>
- * @package WordPress
- * @subpackage Product Specifications Table Plugin
- * @link http://www.dornaweb.com
- * @license GNU General Public License v2 or later, http://www.gnu.org/licenses/gpl-2.0.html
- * @version 0.1
-*/
+ * @var int $group_id
+ * @var array $data
+ */
+[
+    'id' => $group_id,
+] = $data;
 
 $term = get_term_by('id', $group_id, 'spec-group'); ?>
 

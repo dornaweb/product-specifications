@@ -15,21 +15,6 @@ defined('ABSPATH') || exit;
 
 class Admin
 {
-    /**
-     * Init
-    */
-    public static function init()
-    {
-        Ajax::init();
-    }
-
-    /**
-     * Get HTML template
-     *
-     * @param string $template      template Path
-     * @param array  $args          array of arguments to pass
-     * @return string
-    */
     public static function get_template($template, $args = [])
     {
 
