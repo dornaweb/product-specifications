@@ -2,17 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * Tools ( Import/export )
- *
- * @author Am!n <www.dornaweb.com>
- * @package WordPress
- * @subpackage Product Specifications Table Plugin
- * @link http://www.dornaweb.com
- * @license GNU General Public License v2 or later, http://www.gnu.org/licenses/gpl-2.0.html
- * @version 0.1
-*/
-
 ?>
 
 <div class="dwps-tools-wrap">
@@ -26,7 +15,7 @@ declare(strict_types=1);
             <div class="dwps-export-box">
                 <h2><?php echo esc_html__('Export Product Specifications data', 'product-specifications') ?></h2>
                 <p><?php echo esc_html__('You can choose to export only tables data or also with product data', 'product-specifications') ?></p>
-                <form action="<?php echo admin_url('admin-ajax.php') ?>" method="post">
+                <form action="<?= esc_url(admin_url('admin-ajax.php')) ?>" method="post">
                     <p><label><input type="checkbox" name="include_products"> <?php echo esc_html__('Include Products data (file size may increase)', 'product-specifications') ?></label></p>
 
                     <?php wp_nonce_field('dwspecs_nonce_export', 'dws_ex_nonce') ?>

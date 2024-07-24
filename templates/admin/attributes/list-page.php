@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-/** Search query **/
+use Amiut\ProductSpecs\Content\Taxonomy\Attribute;
 
-$search_query = sanitize_text_field(filter_input(INPUT_GET, 'q', FILTER_SANITIZE_SPECIAL_CHARS));
+$search_query = sanitize_text_field((string) filter_input(INPUT_GET, 'q', FILTER_SANITIZE_SPECIAL_CHARS));
 
 /** records per page **/
 $limit = absint(get_option('dwps_view_per_page')) ?: 15;
 
 // just to count number of records
 $att_args = [
-    'taxonomy' => 'spec-attr',
+    'taxonomy' => Attribute::KEY,
     'hide_empty' => false,
-    'search' => $search_query,
+    'search' => (string) $search_query,
 ];
 
 $group_id = absint(filter_input(INPUT_GET, 'group_id', FILTER_SANITIZE_SPECIAL_CHARS));
 
 if ($group_id) {
     $att_args['meta_key'] = 'attr_group';
-    $att_args['meta_value'] = $group_id;
+    $att_args['meta_value'] = (string) $group_id;
 }
 $all_attributes = get_terms($att_args);
 
@@ -49,6 +49,9 @@ $tables = new WP_Query([
     'post_type' => 'specs-table',
     'showposts' => -1,
 ]);
+/**
+ * @var array<WP_Post> $tbl_array
+ */
 $tbl_array = $tables->get_posts();
 
 if (isset($_GET['table_id']) && !empty($_GET['table_id'])) {
@@ -249,11 +252,11 @@ $attributes = get_terms($att_args) ?>
             <p>
                 <label for="attr_table"><?php echo esc_html__('Table : ', 'product-specifications') ?></label>
 
-                <select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json') ?>'>
+                <select name="attr_table" id="attr_table" aria-required="true" data-tables='<?= esc_attr(dwspecs_get_table_groups('json')) ?>'>
                     <option value=""><?php echo esc_html__('Select a table', 'product-specifications') ?></option>
-                    <?php foreach ($tbl_array as $table) {
-                        echo '<option value="' . esc_attr($table->ID) . '">' . esc_html($table->post_title) . '</option>';
-                    } ?>
+                    <?php foreach ($tbl_array as $table) : ?>
+                        <option value="<?= esc_attr((string) $table->ID) ?>"><?= esc_html($table->post_title) ?></option>
+                    <?php endforeach ?>
                 </select>
             </p>
 

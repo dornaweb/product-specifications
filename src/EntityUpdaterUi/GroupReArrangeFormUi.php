@@ -28,6 +28,7 @@ final class GroupReArrangeFormUi
 
         $attributes = $this->repository->findByGroupSorted($id);
 
+        // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $this->renderer->render(
             'admin/entity-management/group-rearrange-form',
             [
@@ -35,6 +36,7 @@ final class GroupReArrangeFormUi
                 'attributes' => $attributes,
             ]
         );
+        // phpcs:enable
         die;
     }
 }

@@ -33,7 +33,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
         <select
             name="specs_table"
             id="spec_tables_list"
-            data-postid="<?= esc_html((string) $post->ID) ?>"
+            data-postid="<?= esc_attr((string) $post->ID) ?>"
         >
             <option value="0">
                 <?= esc_html__('none', 'product-specifications') ?>
@@ -47,6 +47,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
                     <?= esc_html($table->post_title) ?>
                     <?= esc_html(
                         sprintf(
+                            // translators: %d is table id
                             __(
                                 '(ID: %d)',
                                 'product-specifications'
@@ -63,17 +64,20 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
         class="dwps-spec-table-wrap tab-boxes clearfix"
         id="specifications_table_wrapper"
     >
+        <?php // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         <?= $renderer->render(
             'admin/metabox/product-specs-table/product-attribute-fields',
             [
                 'groupedCollection' => $groupedCollection,
             ]
         ) ?>
+        <?php // phpcs:enable ?>
     </div>
 </div>
 
 <script id="loading_svg" type="x-tmpl-mustache">
-    <svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+    <svg
+        width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#fff">
         <circle cx="15" cy="15" r="15">
             <animate attributeName="r" from="15" to="15"
                     begin="0s" dur="0.8s"

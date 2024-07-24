@@ -51,6 +51,7 @@ final class AttributeController
         );
     }
 
+    // phpcs:ignore Inpsyde.CodeQuality.FunctionLength.TooLong
     private function processAdd(array $data): void
     {
         try {
@@ -114,6 +115,7 @@ final class AttributeController
         }
     }
 
+    // phpcs:ignore Inpsyde.CodeQuality.FunctionLength.TooLong
     private function processEdit(array $data): void
     {
         try {

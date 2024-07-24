@@ -123,11 +123,11 @@ final class ImportDataAjaxHandler
 
                 // Update Arrangement orders information
                 if ($new_group_id && !is_wp_error($new_group_id)) {
-                    $new_order = array_map(static function ($el) use ($ids_map) {
-                        if (isset($ids_map[$el])) {
-                            return str_replace($el, $ids_map[$el], $el);
+                    $new_order = array_map(static function ($element) use ($ids_map) {
+                        if (isset($ids_map[$element])) {
+                            return str_replace($element, $ids_map[$element], $element);
                         } else {
-                            return $el;
+                            return $element;
                         }
                     }, $group['attributes-order']);
                     update_term_meta($new_group_id, 'attributes', $new_order);
@@ -135,11 +135,11 @@ final class ImportDataAjaxHandler
             }
 
             // Update table groups order
-            $table_g_order = array_map(static function ($el) use ($ids_map) {
-                if (isset($ids_map[$el])) {
-                    return str_replace($el, $ids_map[$el], $el);
+            $table_g_order = array_map(static function ($element) use ($ids_map) {
+                if (isset($ids_map[$element])) {
+                    return str_replace($element, $ids_map[$element], $element);
                 } else {
-                    return $el;
+                    return $element;
                 }
             }, array_filter($table['group-order']));
 

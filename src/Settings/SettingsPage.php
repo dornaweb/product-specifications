@@ -17,6 +17,7 @@ final class SettingsPage
 
     public function render(): void
     {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $this->renderer->render(
             'admin/settings',
         );

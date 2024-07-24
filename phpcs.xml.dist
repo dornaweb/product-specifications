@@ -12,7 +12,9 @@
     <config name="text_domain" value="product-specifications"/>
     <config name="ignore_warnings_on_exit" value="1"/>
 
-    <rule ref="Inpsyde" />
+    <rule ref="Inpsyde">
+        <exclude name="Inpsyde.CodeQuality.VariablesName.SnakeCaseVariable"/>
+    </rule>
 
     <rule ref="InpsydeTemplates">
         <include-pattern>*/templates/*</include-pattern>

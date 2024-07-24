@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\EntityUpdaterUi;
 
-use Amiut\ProductSpecs\EntityUpdater\AttributeController;
-use Amiut\ProductSpecs\EntityUpdater\AttributeGroupController;
-use Amiut\ProductSpecs\EntityUpdater\AttributeSyncHandler;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
-use Inpsyde\Modularity\Module\ExecutableModule;
-use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Inpsyde\Modularity\Module\ServiceModule;
-use Psr\Container\ContainerInterface;
 
 final class EditFormUi
 {
@@ -32,22 +25,26 @@ final class EditFormUi
         }
 
         if ($type === 'attribute') {
+            // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
             echo $this->renderer->render(
                 'admin/entity-management/edit-attribute-form',
                 [
                     'id' => $id,
                 ]
             );
+            // phpcs:enable
 
             die;
         }
 
+        // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $this->renderer->render(
             'admin/entity-management/edit-group-form',
             [
                 'id' => $id,
             ]
         );
+        // phpcs:enable
         die;
     }
 }

@@ -10,18 +10,25 @@ declare(strict_types=1);
         'id' => $attribute_id,
 ] = $data;
 
+/**
+ * @var WP_Term $term
+ */
 $term = get_term_by('id', $attribute_id, 'spec-attr');
 
 $tables = new WP_Query([
     'post_type' => 'specs-table',
     'showposts' => -1,
 ]);
+
+/**
+ * @var array<WP_Post> $tbl_array
+ */
 $tbl_array = $tables->get_posts() ?>
 
 <form action="#" method="post" id="dwps_modify_form">
     <p>
         <label for="attr_name"><?php echo esc_html__('Attribute name : ', 'product-specifications') ?></label>
-        <input type="text" name="attr_name" value="<?php echo esc_attr($term->name) ?>" id="attr_name" aria-required="true">
+        <input type="text" name="attr_name" value="<?= esc_attr($term->name) ?>" id="attr_name" aria-required="true">
     </p>
 
     <p>
@@ -29,15 +36,15 @@ $tbl_array = $tables->get_posts() ?>
         <input type="text" name="attr_slug" value="<?php echo esc_attr(urldecode($term->slug)) ?>" id="attr_slug" placeholder="<?php echo esc_attr__('Optional', 'product-specifications') ?>">
     </p>
 
-    <?php if (sizeof($tbl_array) > 0) : ?>
+    <?php if (count($tbl_array) > 0) : ?>
         <p>
             <label for="attr_table"><?php echo esc_html__('Table : ', 'product-specifications') ?></label>
 
-            <select name="attr_table" id="attr_table" aria-required="true" data-tables='<?php echo dwspecs_get_table_groups('json') ?>'>
+            <select name="attr_table" id="attr_table" aria-required="true" data-tables='<?= esc_attr(dwspecs_get_table_groups('json')) ?>'>
                 <option value=""><?php echo esc_html__('Select a table', 'product-specifications') ?></option>
-                <?php foreach ($tbl_array as $table) {
-                    echo '<option value="' . esc_attr($table->ID) . '">' . esc_html($table->post_title) . '</option>';
-                } ?>
+                <?php foreach ($tbl_array as $table) : ?>
+                    <option value="<?= esc_attr((string) $table->ID) ?>"><?= esc_html($table->post_title) ?></option>
+                <?php endforeach ?>
             </select>
         </p>
 
@@ -97,7 +104,7 @@ $tbl_array = $tables->get_posts() ?>
 
     <input type="hidden" name="action" value="dwps_modify_attributes">
     <input type="hidden" name="do" value="edit">
-    <input name="id" value="<?php echo esc_attr($attribute_id) ?>" type="hidden">
+    <input name="id" value="<?= esc_attr((string) $attribute_id) ?>" type="hidden">
     <?php wp_nonce_field('dwps_modify_attributes', 'dwps_modify_attributes_nonce') ?>
     <input type="submit" value="<?php echo esc_attr__('Update attribute', 'product-specifications') ?>" class="button button-primary">
 </form>

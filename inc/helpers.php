@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * current_page_url
- *
- * @return string
-*/
-
 if (!function_exists('dwspecs_current_page_url')) {
     function dwspecs_current_page_url()
     {

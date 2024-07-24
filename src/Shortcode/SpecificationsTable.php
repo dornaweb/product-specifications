@@ -2,19 +2,10 @@
 
 declare(strict_types=1);
 
-/**
- * Product Specifications main class
- *
- * @package Amiut\ProductSpecs
- * @since   0.1
- */
-
 namespace Amiut\ProductSpecs\Shortcode;
 
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
-
-defined('ABSPATH') || exit;
 
 class SpecificationsTable
 {

@@ -46,10 +46,10 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
 
 <input
     type="text"
-    value="<?= $attribute->isCustomValue() ? esc_attr($attribute->value()) : '' ?>"
+    value="<?= $attribute->isCustomValue() ? esc_attr((string) $attribute->value()) : '' ?>"
     name="<?= esc_attr(sprintf("dw-attr[%d][%d]", $group->id(), $attribute->id())) ?>"
     class="select-custom"
-    placeholder="<?= esc_html__('Custom value', 'product-specifications') ?>"
+    placeholder="<?= esc_attr__('Custom value', 'product-specifications') ?>"
     <?php if (!$attribute->isCustomValue()) : ?>
         disabled="disabled"
     <?php endif ?>

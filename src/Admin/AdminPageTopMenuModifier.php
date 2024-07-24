@@ -10,9 +10,9 @@ class AdminPageTopMenuModifier
     {
         global $submenu;
 
-        foreach ($submenu['dw-specs'] as $k => $d) {
-            if ($d[2] === 'dw-specs-new') {
-                $submenu['dw-specs'][$k][2] = 'post-new.php?post_type=specs-table';
+        foreach ($submenu['dw-specs'] as $key => $value) {
+            if ($value[2] === 'dw-specs-new') {
+                $submenu['dw-specs'][$key][2] = 'post-new.php?post_type=specs-table';
                 break;
             }
         }

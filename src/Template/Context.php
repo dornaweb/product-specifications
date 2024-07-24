@@ -49,7 +49,7 @@ class Context
             throw new RuntimeException(
                 sprintf(
                     'Directory "%s" does not exist',
-                    $path
+                    esc_html($path)
                 ),
             );
         }
