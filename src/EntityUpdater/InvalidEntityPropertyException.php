@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\EntityUpdater;
 
 class InvalidEntityPropertyException extends \Exception

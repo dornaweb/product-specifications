@@ -85,6 +85,6 @@ class AttributeFieldSelect implements AttributeField
 
     public function isCustomValue(): bool
     {
-        return $this->value() && ! in_array($this->value(), $this->options, true);
+        return $this->value() && !in_array($this->value(), $this->options, true);
     }
 }

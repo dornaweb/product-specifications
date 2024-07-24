@@ -25,7 +25,7 @@ declare(strict_types=1);
                         value="<?= esc_attr((string) $attr->term_id) ?>"
                         name="attr[]"
                 >
-                <?php echo esc_html($attr->name); ?>
+                <?php echo esc_html($attr->name) ?>
             </li>
         <?php endforeach ?>
 
@@ -38,6 +38,6 @@ declare(strict_types=1);
     <input name="group_id" value="<?= esc_attr($group_id) ?>" type="hidden">
 
     <?php wp_nonce_field('dwps_group_rearrange', 'dwps_group_rearange_nonce') ?>
-    <input value="<?= esc_attr__('Update Arrangement', 'product-specifications'); ?>" class="button button-primary" type="submit" style="float:left;">
+    <input value="<?= esc_attr__('Update Arrangement', 'product-specifications') ?>" class="button button-primary" type="submit" style="float:left;">
     <div class="clearfix"></div>
 </form>

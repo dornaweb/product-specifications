@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\ImportExport;
 
 final class ImportDataAjaxHandler
@@ -18,7 +20,7 @@ final class ImportDataAjaxHandler
             ]);
         }
 
-        if (! isset($_FILES['file']) || $_FILES['file']['type'] !== 'application/json' || ! $_FILES['file']['size']) {
+        if (!isset($_FILES['file']) || $_FILES['file']['type'] !== 'application/json' || !$_FILES['file']['size']) {
             wp_send_json_error([
                 'message' => esc_html__('Invalid File', 'product-specifications'),
             ]);
@@ -120,7 +122,7 @@ final class ImportDataAjaxHandler
                 }
 
                 // Update Arrangement orders information
-                if ($new_group_id && ! is_wp_error($new_group_id)) {
+                if ($new_group_id && !is_wp_error($new_group_id)) {
                     $new_order = array_map(static function ($el) use ($ids_map) {
                         if (isset($ids_map[$el])) {
                             return str_replace($el, $ids_map[$el], $el);

@@ -66,7 +66,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
         <?= $renderer->render(
             'admin/metabox/product-specs-table/product-attribute-fields',
             [
-                'groupedCollection' => $groupedCollection
+                'groupedCollection' => $groupedCollection,
             ]
         ) ?>
     </div>

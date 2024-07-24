@@ -41,7 +41,7 @@ declare(strict_types=1);
                     <label>
                         <input
                             type="checkbox"
-                            value="<?= esc_attr((string) $term->term_id); ?>"
+                            value="<?= esc_attr((string) $term->term_id) ?>"
                             <?php checked($isChecked) ?>
                         >
                         <span><?= esc_html($term->name) ?><?= esc_html($slug) ?></span>

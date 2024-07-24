@@ -54,7 +54,8 @@ final class Module implements ServiceModule, ExecutableModule
             esc_html__('Specs. tables', 'product-specifications'),
             'edit_pages',
             'dw-specs',
-            static function () {},
+            static function () {
+            },
             'dashicons-welcome-view-site',
             25
         );

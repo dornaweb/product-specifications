@@ -32,7 +32,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
     <?php endif ?>
 >
     <option value=""><?= esc_html__('Select an option', 'product-specifications') ?></option>
-    <?php foreach ($attribute->options() as $option): ?>
+    <?php foreach ($attribute->options() as $option) : ?>
         <option value="<?= esc_attr($option) ?>" <?php selected($option, (string) $attribute->value()) ?>>
             <?= esc_html($option) ?>
         </option>
@@ -50,7 +50,7 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
     name="<?= esc_attr(sprintf("dw-attr[%d][%d]", $group->id(), $attribute->id())) ?>"
     class="select-custom"
     placeholder="<?= esc_html__('Custom value', 'product-specifications') ?>"
-    <?php if (! $attribute->isCustomValue()) : ?>
+    <?php if (!$attribute->isCustomValue()) : ?>
         disabled="disabled"
     <?php endif ?>
 >

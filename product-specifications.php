@@ -24,7 +24,7 @@ use Throwable;
 defined('ABSPATH') || exit;
 
 // TODO: REMOVE
-if (! defined('DWSPECS_PLUGIN_FILE')) {
+if (!defined('DWSPECS_PLUGIN_FILE')) {
     define('DWSPECS_PLUGIN_FILE', __FILE__);
 }
 

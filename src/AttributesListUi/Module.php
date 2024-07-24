@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\AttributesListUi;
 
 use Amiut\ProductSpecs\Template\TemplateRenderer;
@@ -15,7 +17,7 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            AttributeListPage::class => static fn (ContainerInterface  $container) => new AttributeListPage(
+            AttributeListPage::class => static fn (ContainerInterface $container) => new AttributeListPage(
                 $container->get(TemplateRenderer::class),
             ),
         ];

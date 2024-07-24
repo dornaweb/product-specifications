@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\ImportExport;
 
 final class ExportDataAjaxHandler
@@ -9,7 +11,7 @@ final class ExportDataAjaxHandler
      */
     public function __invoke(): void
     {
-        if (! wp_verify_nonce($_POST['dws_ex_nonce'], 'dwspecs_nonce_export')) {
+        if (!wp_verify_nonce($_POST['dws_ex_nonce'], 'dwspecs_nonce_export')) {
             wp_die('Invalid Request');
         }
 

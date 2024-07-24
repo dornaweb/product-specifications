@@ -22,7 +22,7 @@ final class App
     public static function instance()
     {
 
-        if (! self::$instance) {
+        if (!self::$instance) {
             self::$instance = new self();
         }
 
@@ -57,7 +57,7 @@ final class App
     private function define($name, $value)
     {
 
-        if (! defined($name)) {
+        if (!defined($name)) {
             define($name, $value);
         }
     }

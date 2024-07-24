@@ -35,7 +35,7 @@ final class Metaboxes
     public function setup(string $postType, WP_Post $post): void
     {
         foreach ($this->metaboxes as $metabox) {
-            if (! $metabox->enabled($post)) {
+            if (!$metabox->enabled($post)) {
                 continue;
             }
 
@@ -49,7 +49,7 @@ final class Metaboxes
     public function save(int $postId, WP_Post $post): void
     {
         foreach ($this->metaboxes as $metabox) {
-            if (! $metabox->enabled($post)) {
+            if (!$metabox->enabled($post)) {
                 continue;
             }
 
@@ -64,7 +64,7 @@ final class Metaboxes
             return;
         }
 
-        if (! $this->isValid($metabox, $post)) {
+        if (!$this->isValid($metabox, $post)) {
             return;
         }
 
@@ -102,17 +102,17 @@ final class Metaboxes
     {
         $postType = get_post_type_object($post->post_type);
 
-        if (! $postType instanceof WP_Post_Type) {
+        if (!$postType instanceof WP_Post_Type) {
             return false;
         }
 
-        if (! current_user_can((string) $postType->cap->edit_post, $post->ID)) {
+        if (!current_user_can((string) $postType->cap->edit_post, $post->ID)) {
             return false;
         }
 
         $nonce = (string) filter_input(INPUT_POST, self::NONCE_KEY, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if (! (bool) wp_verify_nonce($nonce, $this->nonceAction($metabox, $post))) {
+        if (!(bool) wp_verify_nonce($nonce, $this->nonceAction($metabox, $post))) {
             return false;
         }
 

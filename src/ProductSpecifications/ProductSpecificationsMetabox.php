@@ -82,7 +82,7 @@ final class ProductSpecificationsMetabox implements Metabox
     {
         $tableId = (int) filter_input(INPUT_POST, 'specs_table', FILTER_VALIDATE_INT);
 
-        if (! $tableId) {
+        if (!$tableId) {
             delete_post_meta($post->ID, '_dwps_specification_table');
             delete_post_meta($post->ID, '_dwps_table');
             return;
@@ -90,7 +90,7 @@ final class ProductSpecificationsMetabox implements Metabox
 
         update_post_meta($post->ID, '_dwps_table', $tableId);
 
-        if (! $tableId) {
+        if (!$tableId) {
             return;
         }
 
@@ -115,13 +115,13 @@ final class ProductSpecificationsMetabox implements Metabox
         $result = [];
 
         foreach ($specificationsTableData as $groupId => $groupAttributes) {
-            if (! is_array($groupAttributes)) {
+            if (!is_array($groupAttributes)) {
                 continue;
             }
 
             $group = get_term_by('id', (int) $groupId, 'spec-group');
 
-            if (! $group instanceof WP_Term) {
+            if (!$group instanceof WP_Term) {
                 continue;
             }
 
@@ -148,7 +148,7 @@ final class ProductSpecificationsMetabox implements Metabox
 
             $attribute = get_term_by('id', (int) $attributeId, 'spec-attr');
 
-            if (! $attribute instanceof WP_Term) {
+            if (!$attribute instanceof WP_Term) {
                 continue;
             }
 

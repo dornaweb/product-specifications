@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 use Inpsyde\Modularity\Properties\PluginProperties;
@@ -21,7 +23,7 @@ class Assets
             return;
         }
 
-        if (! is_singular('product')) {
+        if (!is_singular('product')) {
             return;
         }
 

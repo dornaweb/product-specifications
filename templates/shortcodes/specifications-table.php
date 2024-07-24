@@ -10,7 +10,7 @@ declare(strict_types=1);
     'table' => $table,
 ] = $data;
 
-if (! $table) {
+if (!$table) {
     return;
 }
 
@@ -19,7 +19,7 @@ if (! $table) {
 <div class="dwspecs-product-table">
     <?php
     foreach ($table as $tableGroup) :
-        $attributes = $tableGroup['attributes']; ?>
+        $attributes = $tableGroup['attributes'] ?>
         <div class="dwspecs-product-table-group">
             <div class="group-title"><?= esc_html($tableGroup['group_name']) ?></div>
 

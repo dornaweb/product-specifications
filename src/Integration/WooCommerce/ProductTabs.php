@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
@@ -21,7 +23,7 @@ class ProductTabs
     {
         $product = wc_get_product();
 
-        if (! $product instanceof WC_Product) {
+        if (!$product instanceof WC_Product) {
             return $tabs;
         }
 

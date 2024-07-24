@@ -7,6 +7,7 @@ declare(strict_types=1);
  *
  * @return string
 */
+
 if (!function_exists('dwspecs_current_page_url')) {
     function dwspecs_current_page_url()
     {
@@ -94,11 +95,11 @@ if (!function_exists('dwspecs_attr_value_by')) {
     }
 }
 
-if (! function_exists('dwspecs_spec_group_has_duplicates')) {
+if (!function_exists('dwspecs_spec_group_has_duplicates')) {
     function dwspecs_spec_group_has_duplicates($name, $tax = 'spec-group')
     {
 
-        if (! $name) {
+        if (!$name) {
             return false;
         }
 

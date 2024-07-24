@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\Settings;
 
 use Amiut\ProductSpecs\Template\TemplateRenderer;

@@ -20,7 +20,7 @@ final class AttributeSyncHandler
             return;
         }
 
-        if (! in_array($attributeId, $attributesOrderedIds, true)) {
+        if (!in_array($attributeId, $attributesOrderedIds, true)) {
             return;
         }
 

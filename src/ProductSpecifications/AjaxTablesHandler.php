@@ -35,7 +35,7 @@ final class AjaxTablesHandler
             wp_send_json_error('Invalid table ID');
         }
 
-        if (! $post instanceof WP_Post) {
+        if (!$post instanceof WP_Post) {
             wp_send_json_error('Invalid post ID');
         }
 

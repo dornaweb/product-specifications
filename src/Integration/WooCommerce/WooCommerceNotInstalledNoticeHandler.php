@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 class WooCommerceNotInstalledNoticeHandler

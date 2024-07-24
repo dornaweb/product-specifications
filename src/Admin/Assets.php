@@ -57,7 +57,8 @@ final class Assets
 
         wp_register_script(
             'dwspecs-javascripts',
-            $this->assetsDirectory() . '/javascript/admin-js.js', [],
+            $this->assetsDirectory() . '/javascript/admin-js.js',
+            [],
             $this->pluginProperties->version(),
             true
         );

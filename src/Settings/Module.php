@@ -20,7 +20,7 @@ final class Module implements ServiceModule, ExecutableModule
             SettingsPage::class => static fn (ContainerInterface $container) => new SettingsPage(
                 $container->get(TemplateRenderer::class),
             ),
-            SettingsRegistrar::class => static fn (ContainerInterface $container) => new SettingsRegistrar()
+            SettingsRegistrar::class => static fn (ContainerInterface $container) => new SettingsRegistrar(),
         ];
     }
 

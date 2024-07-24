@@ -100,7 +100,7 @@ final class AttributeGroupController
             );
         }
 
-        if (! is_int($data['id']) || $data['id'] < 1) {
+        if (!is_int($data['id']) || $data['id'] < 1) {
             wp_send_json_error(
                 [
                     'result' => 'error',
