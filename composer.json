@@ -11,9 +11,10 @@
       "role": "company"
     },
     {
-      "name": "Amin A. Rezapour",
+      "name": "Amin Abdolrezapoor",
       "email": "hi@amin.nz",
-      "homepage": "https://amin.nz"
+      "homepage": "https://amin.nz",
+      "role": "developer"
     }
   ],
   "require": {

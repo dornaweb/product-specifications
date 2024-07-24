@@ -113,29 +113,6 @@ if (! function_exists('dwspecs_spec_group_has_duplicates')) {
 }
 
 /**
- * Load a template part file
- *
- * @param string $path - relative path to the file (e.g includes/views/shortcode-login.php)
- * @param array  $args - Array of key=>value variables for passing to the included file
- */
-if (! function_exists('dwspecs_table_template_part')) {
-    function dwspecs_table_template_part($path = '', $args = [])
-    {
-
-        $theme_path = trailingslashit(get_stylesheet_directory()) . 'specs-table/' . $path . '.php';
-        $plugin_path = trailingslashit(DWSPECS_ABSPATH) . 'templates/' . $path . '.php';
-
-        if (file_exists($theme_path)) {
-            extract($args);
-            include $theme_path;
-        } elseif (file_exists($plugin_path)) {
-            extract($args);
-            include $plugin_path;
-        }
-    }
-}
-
-/**
  * Get Table Results
  *
  * @param  int     $post_id

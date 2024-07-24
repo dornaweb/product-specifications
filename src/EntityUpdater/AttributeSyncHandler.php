@@ -11,22 +11,22 @@ final class AttributeSyncHandler
      */
     public function whenDeleted(int $attributeId, int $groupId): void
     {
-        $groupAttributes = array_map(
+        $attributesOrderedIds = array_map(
             'absint',
             array_filter((array) get_term_meta($groupId, 'attributes', true))
         );
 
-        if (count($groupAttributes) < 1) {
+        if (count($attributesOrderedIds) < 1) {
             return;
         }
 
-        if (! in_array($attributeId, $groupAttributes, true)) {
+        if (! in_array($attributeId, $attributesOrderedIds, true)) {
             return;
         }
 
-        unset($groupAttributes[ $attributeId ]);
-        $updatedAttributes = array_diff($groupAttributes, [$attributeId]);
-        update_term_meta($groupId, 'attributes', $updatedAttributes);
+        unset($attributesOrderedIds[$attributeId]);
+        $updatedAttributes = array_diff($attributesOrderedIds, [$attributeId]);
+        update_term_meta($groupId, 'attributes', array_values($updatedAttributes));
     }
 
     /**
@@ -37,21 +37,17 @@ final class AttributeSyncHandler
     {
         $groupId = (int) get_term_meta($attributeId, 'attr_group', true);
 
-        $groupAttributes = array_map(
+        $attributesOrderedIds = array_map(
             'absint',
             array_filter((array) get_term_meta($groupId, 'attributes', true))
         );
 
-        if (count($groupAttributes) < 1) {
+        if (in_array($attributeId, $attributesOrderedIds, true)) {
             return;
         }
 
-        if (! in_array($attributeId, $groupAttributes, true)) {
-            return;
-        }
+        $attributesOrderedIds[] = $attributeId;
 
-        $groupAttributes[] = $attributeId;
-
-        update_term_meta($groupId, 'attributes', $groupAttributes);
+        update_term_meta($groupId, 'attributes', array_values($attributesOrderedIds));
     }
 }

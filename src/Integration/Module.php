@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration;
 
-use Amiut\ProductSpecs\Admin\Assets;
+use Amiut\ProductSpecs\Integration\WooCommerce\Assets;
 use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;

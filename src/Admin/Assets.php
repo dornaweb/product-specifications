@@ -21,7 +21,7 @@ final class Assets
         $this->pluginProperties = $pluginProperties;
     }
 
-    public function load()
+    public function load(): void
     {
         wp_enqueue_style(
             'tingle',

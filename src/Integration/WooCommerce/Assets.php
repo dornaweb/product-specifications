@@ -17,7 +17,7 @@ class Assets
 
     public function load(): void
     {
-        if (get_option('dwps_disable_default_styles')) {
+        if (get_option('dwps_disable_default_styles') === 'on') {
             return;
         }
 
@@ -27,7 +27,7 @@ class Assets
 
         wp_enqueue_style(
             'dwspecs-front-css',
-            untrailingslashit($this->pluginProperties->baseUrl()) . '/css/front-styles.css',
+            untrailingslashit($this->pluginProperties->baseUrl()) . '/assets/css/front-styles.css',
             [],
             $this->pluginProperties->version()
         );

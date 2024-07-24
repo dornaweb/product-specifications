@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\EntityUpdaterUi;
 
-use Amiut\ProductSpecs\EntityUpdater\AttributeController;
-use Amiut\ProductSpecs\EntityUpdater\AttributeGroupController;
-use Amiut\ProductSpecs\EntityUpdater\AttributeSyncHandler;
+use Amiut\ProductSpecs\Repository\AttributesRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
-use Inpsyde\Modularity\Module\ExecutableModule;
-use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Inpsyde\Modularity\Module\ServiceModule;
-use Psr\Container\ContainerInterface;
 
 final class GroupReArrangeFormUi
 {
     private TemplateRenderer $renderer;
+    private AttributesRepository $repository;
 
-    public function __construct(TemplateRenderer $renderer)
+    public function __construct(TemplateRenderer $renderer, AttributesRepository $repository)
     {
         $this->renderer = $renderer;
+        $this->repository = $repository;
     }
 
     public function render(): void
@@ -30,10 +26,13 @@ final class GroupReArrangeFormUi
             return;
         }
 
+        $attributes = $this->repository->findByGroupSorted($id);
+
         echo $this->renderer->render(
             'admin/entity-management/group-rearrange-form',
             [
                 'id' => $id,
+                'attributes' => $attributes,
             ]
         );
         die;

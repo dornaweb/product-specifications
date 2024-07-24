@@ -15,10 +15,15 @@ use WP_Term;
 class AttributeFieldRepository
 {
     private AttributeFieldFactory $attributeFieldFactory;
+    private AttributesRepository $attributesRepository;
 
-    public function __construct(AttributeFieldFactory $attributeFieldFactory)
-    {
+    public function __construct(
+        AttributeFieldFactory $attributeFieldFactory,
+        AttributesRepository $attributesRepository
+    ) {
+
         $this->attributeFieldFactory = $attributeFieldFactory;
+        $this->attributesRepository = $attributesRepository;
     }
 
     public function findGroupedCollection(int $tableId, ?int $postId = null): AttributeFieldGroupCollection
@@ -44,7 +49,7 @@ class AttributeFieldRepository
     public function findAttributesByGroupId(int $groupId, ?int $postId = null): AttributeFieldCollection
     {
         $collection = new AttributeFieldCollection();
-        $attributeTerms = $this->attributeTermsByGroupId($groupId);
+        $attributeTerms = $this->attributesRepository->findByGroupSorted($groupId);
 
         foreach ($attributeTerms as $attributeTerm) {
             $attributeField = $this->attributeFieldFactory->createFromWpTerm(
@@ -76,26 +81,6 @@ class AttributeFieldRepository
 
             if ($group instanceof WP_Term) {
                 $result[] = $group;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @return array<WP_Term>
-     */
-    private function attributeTermsByGroupId(int $groupId): array
-    {
-        $result = [];
-
-        $attributes = array_filter((array) get_term_meta($groupId, 'attributes', true));
-
-        foreach ($attributes as $attributeId) {
-            $attribute = get_term_by('id', (int) $attributeId, Taxonomy\Attribute::KEY);
-
-            if ($attribute instanceof WP_Term) {
-                $result[] = $attribute;
             }
         }
 

@@ -25,7 +25,7 @@ class ProductTabs
             return $tabs;
         }
 
-        $hasSpecsTable = $this->repository->productHasSpecsTable($product->id());
+        $hasSpecsTable = $this->repository->productHasSpecsTable($product->get_id());
 
         if ($hasSpecsTable) {
             $tabs['dwspecs_product_specifications'] = [

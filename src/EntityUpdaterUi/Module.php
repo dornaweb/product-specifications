@@ -7,6 +7,7 @@ namespace Amiut\ProductSpecs\EntityUpdaterUi;
 use Amiut\ProductSpecs\EntityUpdater\AttributeController;
 use Amiut\ProductSpecs\EntityUpdater\AttributeGroupController;
 use Amiut\ProductSpecs\EntityUpdater\AttributeSyncHandler;
+use Amiut\ProductSpecs\Repository\AttributesRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
@@ -24,7 +25,8 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(TemplateRenderer::class)
             ),
             GroupReArrangeFormUi::class => static fn (ContainerInterface $container) => new GroupReArrangeFormUi(
-                $container->get(TemplateRenderer::class)
+                $container->get(TemplateRenderer::class),
+                $container->get(AttributesRepository::class)
             ),
         ];
     }
