@@ -1,7 +1,6 @@
 name: 🚀 Release to WordPress.org plugins repo
 on:
-  release:
-    types: [published, edited]
+  workflow_dispatch:
 jobs:
   tag:
     name: 🎉 New Release
