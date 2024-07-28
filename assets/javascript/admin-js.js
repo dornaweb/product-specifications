@@ -446,8 +446,6 @@ jQuery.extend({
 					var action = template.data.type == 'attribute' ? 'dwps_modify_attributes' : 'dwps_modify_groups';
 
 					$.post(dwspecs_plugin.ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
-						console.log( response );
-
 						if( response.success ) {
 							$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
 
