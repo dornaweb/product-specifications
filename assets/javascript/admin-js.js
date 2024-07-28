@@ -74,19 +74,19 @@ jQuery.extend({
 	$(document).on('click', '[data-modal]', function (e) {
 		e.preventDefault();
 		var $target = $($(this).data('modal'));
-	
+
 		if ($target.length) {
 			window.globalmodal.setContent($target.html());
 			$(document).trigger('modal_content_loaded');
 			window.globalmodal.open();
-		
+
 			if ($(this).data('classes')) {
 				$('.tingle-modal').addClass($(this).data('classes'));
 			}
 		}
 	});
 
-	
+
 	/*!
 	 * Tab Boxes by dornaweb
 	 * @author Am!n - http://www.dornaweb.com
@@ -191,13 +191,21 @@ jQuery.extend({
 			if( $(this).val() !== 0 && $(this).val() !== '0' ) {
 				if( ( initial_val == 0 || initial_val == '0' ) || window.confirm('Are you sure you want to switch table? all unsaved settings will be lost.') ){
 					container.html( loading );
-					$.post( dwspecs_plugin.ajaxurl, { action: 'dwps_load_table', specs_table: $(this).val(), post_id: post_id }, function( response ){
-						container.html( response );
+					$.post(
+						dwspecs_plugin.ajaxurl,
+						{
+							action: 'dwps_load_table',
+							specs_table: $(this).val(),
+							post_id: post_id
+						},
+						function( response ){
+							container.html( response.data || '' );
 
-						setTimeout(function(){
-							$(document).trigger('dw_dynamic', [true]);
-						}, 250);
-					});
+							setTimeout(function(){
+								$(document).trigger('dw_dynamic', [true]);
+							}, 250);
+						}
+					);
 				}
 				else{
 					$(this).val( $.data(this, 'current') );
@@ -277,7 +285,7 @@ jQuery.extend({
 				};
 
 				elem.css( 'opacity', '0.4' );
-				$.get( dwspecs_plugin.ajaxurl, data, function(e){						
+				$.get( dwspecs_plugin.ajaxurl, data, function(e){
 					window.globalmodal.setContent(e);
 					window.globalmodal.open();
 
@@ -305,59 +313,26 @@ jQuery.extend({
 			var data = $(this).serializeArray();
 
 			$.post(dwspecs_plugin.ajaxurl, data, function(response) {
-				var response = $.parseJSON( response );
-
 				// append success/error message to end of the form
 				form.find('.result-msg').remove();
-				form.append( '<span class="result-msg"><span class="msg '+ response.result +'">' + response.message + '</span></span>' );
+				form.append( '<span class="result-msg"><span class="msg '+ (response.success ? 'success' : 'error') +'">' + response.data.message + '</span></span>' );
 
 				// validation check
-				if( response.result == 'error' ) {
-					for( i = 0; i <= response.where.length; i++ ){
-						form.find( response.where[i] ).addClass('validation-error');
+				if( !response.success ) {
+					for( i = 0; i <= response.data.where.length; i++ ){
+						form.find( response.data.where[i] ).addClass('validation-error');
 					}
+					return;
 				}
 
-				// Success
-				else if( response.result == 'success' ) {
-					form.find('.validation-error').removeClass('validation-error');
+				form.find('.validation-error').removeClass('validation-error');
 
-					// Add handler
-					$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
+				// Add handler
+				$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
 
-					setTimeout(function(){
-						window.globalmodal.close();
-					}, 1000);
-				}
-			});
-		});
-
-		// Load groups of specific tables
-		$(function(){
-			$(document).on('change', '#attr_table', function(){
-				var _groups = window._group.html();
-				var tables  = $.parseJSON( JSON.stringify( $(this).data('tables') )  );
-				var groups  = $('#attr_group');
-				var value   = $(this).val();
-
-				if( $(this).val() != '' ) {
-					var arr = $.map(tables, function( v, i ) {
-						return ( v.table_id == value ? v : null );
-					});
-
-					var options = '';
-					$.each( arr[0].groups, function( i, v ){
-						options += '<option value="' + v.term_id + '">' + v.name + '</option>';
-					} );
-
-					groups.find('option:not(:first-child)').remove();
-					groups.append( options );
-				} else{
-					if( typeof _groups !== 'undefined' ){
-						groups.html( _groups );
-					}
-				}
-
+				setTimeout(function(){
+					window.globalmodal.close();
+				}, 1000);
 			});
 		});
 
@@ -462,29 +437,26 @@ jQuery.extend({
 				var id = $('input.dlt-bulk-group:checked').map(function(){return $(this).val();}).get();
 			}
 
-			
+
 			if( !$(this).is('[disabled]') ){
 				var confirm = window.confirm(template.modal.content);
-				
+
 
 				if (confirm) {
 					var action = template.data.type == 'attribute' ? 'dwps_modify_attributes' : 'dwps_modify_groups';
 
 					$.post(dwspecs_plugin.ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
-						console.log( response );
-						var response = $.parseJSON( response );
-	
-						if( response.result == 'success' ) {
+						if( response.success ) {
 							$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
-	
+
 							setTimeout(function(){
 								window.globalmodal.close();
 							}, 1000);
-						} else{
-							window.globalmodal.setContent('Could not delete the group');
-							window.globalmodal.open();
-				
+							return;
 						}
+
+						window.globalmodal.setContent('Could not delete the group');
+						window.globalmodal.open();
 					});
 				}
 			}
@@ -497,7 +469,7 @@ jQuery.extend({
 			e.preventDefault();
 			var texts = $.parseJSON( Mustache.render( document.getElementById('dwps_texts_template').innerHTML ) );
 
-			$.get( dwspecs_plugin.ajaxurl, { action: 'dwps_group_rearange', id: $(this).data('id') }, function( response ){
+			$.get( dwspecs_plugin.ajaxurl, { action: 'dwps_group_rearrange_form', id: $(this).data('id') }, function( response ){
 				window.globalmodal.setContent(response);
 				window.globalmodal.open();
 
@@ -531,7 +503,7 @@ jQuery.extend({
 					}
 				}
 			});
-		});		
+		});
 
 	});
 
@@ -540,7 +512,7 @@ jQuery.extend({
 
 		var data = new FormData(this);
 
-		$('#dwspecs_import_results').html('<div class="notice"><p>'+ dwspecs_plugin.i18n.importing_message + '</p></div>');	
+		$('#dwspecs_import_results').html('<div class="notice"><p>'+ dwspecs_plugin.i18n.importing_message + '</p></div>');
 
 		$.ajax({
 			type: 'POST',
@@ -552,7 +524,7 @@ jQuery.extend({
 			success: function(res) {
 				if (res.success) {
 					$('#dwspecs_import_results').html('<div class="updated success"><p>'+ res.data.message + '</p></div>')
-					
+
 				} else {
 					$('#dwspecs_import_results').html('<div class="error"><p>'+ res.data.message + '</p></div>')
 

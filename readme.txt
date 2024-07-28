@@ -2,11 +2,11 @@
 
 Contributors: dornaweb, pelentak
 Tags: product specifications,product specs,product specifications table,product attributes table,product attributes, woocommerce, woocommerce product specifications, product details, product information, product table
-Requires at least: 5.1
-Tested up to: 6.2
-WC tested up to: 7.5.1
-Stable tag: 0.7.1
-Requires PHP: 5.6
+Requires at least: 5.9
+Tested up to: 6.4.2
+WC tested up to: 8.4.0
+Stable tag: 0.7.2
+Requires PHP: 8.0
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 

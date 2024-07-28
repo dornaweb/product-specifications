@@ -537,16 +537,6 @@ input[type=checkbox][readonly]{
   margin-top: 12px;
 }
 
-.dw-search-by-tbl{
-  float: right;
-  height: 31px;
-  margin-left: 10px;
-}
-
-.rtl .dw-search-by-tbl{
-  float: left;
-}
-
 .dwps-export-import-wrap {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

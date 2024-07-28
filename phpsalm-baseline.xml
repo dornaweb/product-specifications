@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
+  <file src="inc/helpers.php">
+    <InvalidGlobal>
+      <code><![CDATA[global $post;]]></code>
+      <code><![CDATA[global $post;]]></code>
+    </InvalidGlobal>
+    <MissingParamType>
+      <code><![CDATA[$field]]></code>
+      <code><![CDATA[$format]]></code>
+      <code><![CDATA[$group_id]]></code>
+      <code><![CDATA[$hide_empty]]></code>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$output]]></code>
+      <code><![CDATA[$post_id]]></code>
+      <code><![CDATA[$post_id]]></code>
+      <code><![CDATA[$table_id]]></code>
+      <code><![CDATA[$tax]]></code>
+      <code><![CDATA[$value]]></code>
+    </MissingParamType>
+    <MissingReturnType>
+      <code><![CDATA[dwspecs_attr_value_by]]></code>
+      <code><![CDATA[dwspecs_get_attributes_by_group]]></code>
+      <code><![CDATA[dwspecs_get_table_groups]]></code>
+      <code><![CDATA[dwspecs_get_table_result]]></code>
+      <code><![CDATA[dwspecs_spec_group_has_duplicates]]></code>
+    </MissingReturnType>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$terms]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidPropertyFetch>
+      <code><![CDATA[$group->name]]></code>
+      <code><![CDATA[$group->name]]></code>
+      <code><![CDATA[$group->slug]]></code>
+      <code><![CDATA[$group->slug]]></code>
+      <code><![CDATA[$group->term_id]]></code>
+      <code><![CDATA[$group->term_id]]></code>
+      <code><![CDATA[$table->ID]]></code>
+    </PossiblyInvalidPropertyFetch>
+    <TypeDoesNotContainType>
+      <code><![CDATA[empty($table)]]></code>
+      <code><![CDATA[empty($table)]]></code>
+    </TypeDoesNotContainType>
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$group->name]]></code>
+      <code><![CDATA[$group->name]]></code>
+      <code><![CDATA[$group->slug]]></code>
+      <code><![CDATA[$group->slug]]></code>
+      <code><![CDATA[$group->term_id]]></code>
+      <code><![CDATA[$group->term_id]]></code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="src/Admin/Module.php">
+    <InvalidArgument>
+      <code><![CDATA[[ __CLASS__, 'addnew_page' ]]]></code>
+    </InvalidArgument>
+  </file>
+  <file src="src/App.php">
+    <InvalidPropertyAssignmentValue>
+      <code><![CDATA[new self()]]></code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType>
+      <code><![CDATA[define]]></code>
+      <code><![CDATA[define_constants]]></code>
+      <code><![CDATA[includes]]></code>
+    </MissingReturnType>
+    <UndefinedConstant>
+      <code><![CDATA[DWSPECS_ABSPATH]]></code>
+    </UndefinedConstant>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Amiut\ProductSpecs\App]]></code>
+      <code><![CDATA[null|Amiut\ProductSpecs]]></code>
+      <code><![CDATA[private static $instance = null;]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Attribute/AttributeFieldFactory.php">
+    <UndefinedFunction>
+      <code><![CDATA[dwspecs_attr_value_by($contextPostId, 'id', $term->term_id)]]></code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/Attribute/AttributeFieldSelect.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$this->value()]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/AttributeGroupsListUi/AttributeGroupsListPage.php">
+    <UndefinedConstant>
+      <code><![CDATA[self::DEFAULT_PER_PAGE]]></code>
+    </UndefinedConstant>
+  </file>
+  <file src="src/EntityUpdater/AttributeController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[(array) filter_input(INPUT_POST, 'attr_default', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FORCE_ARRAY)]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[array<string>|string|bool]]></code>
+    </InvalidReturnType>
+    <PossiblyFalseArgument>
+      <code><![CDATA[sprintf(
+                                // translators: %s is the failed reason
+                                __('Unable to create the attribute: %s', 'product-specifications'),
+                                $check->get_error_message(),
+                            )]]></code>
+    </PossiblyFalseArgument>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[!filter_input(INPUT_POST, 'attr_default', FILTER_SANITIZE_SPECIAL_CHARS)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/EntityUpdater/InvalidEntityPropertyException.php">
+    <MissingParamType>
+      <code><![CDATA[$message]]></code>
+    </MissingParamType>
+  </file>
+  <file src="src/ImportExport/ExportDataAjaxHandler.php">
+    <InvalidOperand>
+      <code><![CDATA[rand(1, 1000000)]]></code>
+    </InvalidOperand>
+    <MissingParamType>
+      <code><![CDATA[$format]]></code>
+      <code><![CDATA[$include_products]]></code>
+    </MissingParamType>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$this->export('json', $includeProducts)]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidPropertyFetch>
+      <code><![CDATA[$product->ID]]></code>
+      <code><![CDATA[$product->post_name]]></code>
+      <code><![CDATA[$product->post_title]]></code>
+    </PossiblyInvalidPropertyFetch>
+    <UndefinedFunction>
+      <code><![CDATA[dwspecs_get_attributes_by_group($group['term_id'])]]></code>
+      <code><![CDATA[dwspecs_get_table_groups()]]></code>
+      <code><![CDATA[dwspecs_get_table_result($product->ID)]]></code>
+    </UndefinedFunction>
+  </file>
+  <file src="src/ImportExport/ImportDataAjaxHandler.php">
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$ids_map[$element]]]></code>
+      <code><![CDATA[$ids_map[$element]]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidPropertyFetch>
+      <code><![CDATA[$existing_attribute->term_id]]></code>
+      <code><![CDATA[$existing_group->term_id]]></code>
+    </PossiblyInvalidPropertyFetch>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[!is_wp_error($new_group_id)]]></code>
+    </RedundantConditionGivenDocblockType>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$existing_attribute = get_term_by('slug', $attribute['slug'], 'spec-attr')]]></code>
+      <code><![CDATA[$existing_group = get_term_by('slug', $group['slug'], 'spec-group')]]></code>
+    </RiskyTruthyFalsyComparison>
+    <UndefinedConstant>
+      <code><![CDATA[MINUTE_IN_SECONDS]]></code>
+    </UndefinedConstant>
+    <UndefinedMethod>
+      <code><![CDATA[$new_attr_id]]></code>
+      <code><![CDATA[$new_group_id]]></code>
+    </UndefinedMethod>
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$existing_attribute->term_id]]></code>
+      <code><![CDATA[$existing_group->term_id]]></code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="src/Repository/AttributeGroupsRepository.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($args['current_page'])]]></code>
+      <code><![CDATA[empty($args['per_page'])]]></code>
+      <code><![CDATA[empty($args['search_query'])]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Repository/AttributesRepository.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($args['current_page'])]]></code>
+      <code><![CDATA[empty($args['group_id'])]]></code>
+      <code><![CDATA[empty($args['per_page'])]]></code>
+      <code><![CDATA[empty($args['search_query'])]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Repository/EntityCollection.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[ceil($this->total / $this->perPage())]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[int]]></code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Repository/EntityCollectionFactory.php">
+    <InvalidArgument>
+      <code><![CDATA[$args]]></code>
+    </InvalidArgument>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$terms]]></code>
+    </PossiblyInvalidArgument>
+  </file>
+  <file src="src/Template/Template.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[ob_get_clean()]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
+    <PossiblyUndefinedVariable>
+      <code><![CDATA[$level]]></code>
+    </PossiblyUndefinedVariable>
+  </file>
+  <file src="templates/admin/attribute-groups/list-page.php">
+    <ForbiddenCode>
+      <code><![CDATA[``]]></code>
+    </ForbiddenCode>
+    <InvalidArgument>
+      <code><![CDATA[[ // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        'base' => '%_%',
+                        'format' => '?paged=%#%',
+                        'total' => $collection->totalPages(),
+                        'current' => $collection->currentPage(),
+                        'show_all' => false,
+                        'end_size' => 4,
+                        'mid_size' => 2,
+                        'prev_next' => true,
+                        'prev_text' => esc_html__('«', 'product-specifications'),
+                        'next_text' => esc_html__('»', 'product-specifications'),
+                        'type' => 'plain',
+                        'add_args' => false,
+                        'add_fragment' => '',
+                        'before_page_number' => '',
+                        'after_page_number' => '',
+                    ]]]></code>
+      <code><![CDATA[sizeof($attributes)]]></code>
+    </InvalidArgument>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[paginate_links([ // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        'base' => '%_%',
+                        'format' => '?paged=%#%',
+                        'total' => $collection->totalPages(),
+                        'current' => $collection->currentPage(),
+                        'show_all' => false,
+                        'end_size' => 4,
+                        'mid_size' => 2,
+                        'prev_next' => true,
+                        'prev_text' => esc_html__('«', 'product-specifications'),
+                        'next_text' => esc_html__('»', 'product-specifications'),
+                        'type' => 'plain',
+                        'add_args' => false,
+                        'add_fragment' => '',
+                        'before_page_number' => '',
+                        'after_page_number' => '',
+                    ])]]></code>
+    </PossiblyInvalidArgument>
+    <UndefinedFunction>
+      <code><![CDATA[dwspecs_get_attributes_by_group($group->term_id)]]></code>
+    </UndefinedFunction>
+  </file>
+  <file src="templates/admin/attributes/list-page.php">
+    <InvalidArgument>
+      <code><![CDATA[$groupId]]></code>
+      <code><![CDATA[[ // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        'base' => '%_%',
+                        'format' => '?paged=%#%',
+                        'total' => $collection->totalPages(),
+                        'current' => $collection->currentPage(),
+                        'show_all' => false,
+                        'end_size' => 4,
+                        'mid_size' => 2,
+                        'prev_next' => true,
+                        'prev_text' => esc_html__('«', 'product-specifications'),
+                        'next_text' => esc_html__('»', 'product-specifications'),
+                        'type' => 'plain',
+                        'add_args' => false,
+                        'add_fragment' => '',
+                        'before_page_number' => '',
+                        'after_page_number' => '',
+                    ]]]></code>
+    </InvalidArgument>
+    <PossibleRawObjectIteration>
+      <code><![CDATA[$all_groups]]></code>
+    </PossibleRawObjectIteration>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[paginate_links([ // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        'base' => '%_%',
+                        'format' => '?paged=%#%',
+                        'total' => $collection->totalPages(),
+                        'current' => $collection->currentPage(),
+                        'show_all' => false,
+                        'end_size' => 4,
+                        'mid_size' => 2,
+                        'prev_next' => true,
+                        'prev_text' => esc_html__('«', 'product-specifications'),
+                        'next_text' => esc_html__('»', 'product-specifications'),
+                        'type' => 'plain',
+                        'add_args' => false,
+                        'add_fragment' => '',
+                        'before_page_number' => '',
+                        'after_page_number' => '',
+                    ])]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidIterator>
+      <code><![CDATA[$all_groups]]></code>
+    </PossiblyInvalidIterator>
+    <PossiblyInvalidPropertyFetch>
+      <code><![CDATA[$group->name]]></code>
+      <code><![CDATA[$group->term_id]]></code>
+    </PossiblyInvalidPropertyFetch>
+    <PossiblyNullArgument>
+      <code><![CDATA[$group->name]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyFetch>
+      <code><![CDATA[$group->name]]></code>
+      <code><![CDATA[$group->term_id]]></code>
+    </PossiblyNullPropertyFetch>
+  </file>
+  <file src="templates/admin/entity-management/edit-attribute-form.php">
+    <PossibleRawObjectIteration>
+      <code><![CDATA[$all_groups]]></code>
+    </PossibleRawObjectIteration>
+    <PossiblyInvalidIterator>
+      <code><![CDATA[$all_groups]]></code>
+    </PossiblyInvalidIterator>
+  </file>
+  <file src="templates/admin/entity-management/edit-group-form.php">
+    <InvalidArgument>
+      <code><![CDATA[$groupId]]></code>
+    </InvalidArgument>
+    <PossiblyInvalidPropertyFetch>
+      <code><![CDATA[$term->description]]></code>
+      <code><![CDATA[$term->name]]></code>
+      <code><![CDATA[$term->slug]]></code>
+    </PossiblyInvalidPropertyFetch>
+    <UndefinedPropertyFetch>
+      <code><![CDATA[$term->description]]></code>
+      <code><![CDATA[$term->name]]></code>
+      <code><![CDATA[$term->slug]]></code>
+    </UndefinedPropertyFetch>
+  </file>
+  <file src="templates/admin/entity-management/group-rearrange-form.php">
+    <InvalidArgument>
+      <code><![CDATA[$group_id]]></code>
+    </InvalidArgument>
+  </file>
+  <file src="templates/admin/metabox/specifications-table/table-metabox.php">
+    <UndefinedFunction>
+      <code><![CDATA[dwspecs_spec_group_has_duplicates($group->name)]]></code>
+      <code><![CDATA[dwspecs_spec_group_has_duplicates($term->name)]]></code>
+    </UndefinedFunction>
+  </file>
+  <file src="templates/attribute-field-controls/text.php">
+    <RedundantCast>
+      <code><![CDATA[(string) ($attribute->value() ?? $attribute->default())]]></code>
+    </RedundantCast>
+  </file>
+</files>

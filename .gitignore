@@ -1,21 +1,10 @@
 # Editors
-project.xml
-project.properties
-/nbproject/private/
-.buildpath
-.project
-.settings*
 .idea
 .vscode
 .eslintcache
-*.sublime-project
-*.sublime-workspace
-.sublimelinterrc
-*.swp
 
 # Node
 node_modules/
-none
 
 # OS X metadata
 .DS_Store
@@ -23,47 +12,9 @@ none
 # Windows junk
 Thumbs.db
 
-# Behat/CLI Tests
-tests/cli/installer
-tests/cli/composer.phar
-tests/cli/composer.lock
-tests/cli/composer.json
-tests/cli/vendor
-
-# Unit tests
-/tmp
-/tests/bin/tmp
-/tests/e2e/config/local-*.json
-/tests/e2e/config/local.json
-/tests/e2e/config/default.json
-/tests/e2e/env/config/default.json
-/tests/e2e/docker
-/tests/e2e/env/docker/wp-cli/initialize.sh
-/tests/e2e/env/build/
-/tests/e2e/env/build-module/
-/tests/e2e/screenshots
-/tests/e2e/utils/build/
-/tests/e2e/utils/build-module/
-
-# Logs
-/logs
-
 # Composer
 /vendor/
-/bin/composer/**/vendor/
-/lib/vendor/
-contributors.md
-contributors.html
 
-# Packages
-/packages/*
-!/packages/README.md
-
-# Screenshots for e2e tests failures
-/screenshots/
-
-# Language files
-
-# Build
-build/
-product-specifications.zip
+# PHPUnit
+.phpunit.result.cache
+.phpunit.cache
