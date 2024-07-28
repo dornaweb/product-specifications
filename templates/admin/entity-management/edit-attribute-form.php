@@ -3,27 +3,18 @@
 declare(strict_types=1);
 
 /**
- * @var int $attribute_id
+ * @var int $attributeId
  * @var array $data
  */
 [
-        'id' => $attribute_id,
+        'id' => $attributeId,
 ] = $data;
 
 /**
  * @var WP_Term $term
  */
-$term = get_term_by('id', $attribute_id, 'spec-attr');
-
-$tables = new WP_Query([
-    'post_type' => 'specs-table',
-    'showposts' => -1,
-]);
-
-/**
- * @var array<WP_Post> $tbl_array
- */
-$tbl_array = $tables->get_posts() ?>
+$term = get_term_by('id', $attributeId, 'spec-attr');
+?>
 
 <form action="#" method="post" id="dwps_modify_form">
     <p>
@@ -36,20 +27,6 @@ $tbl_array = $tables->get_posts() ?>
         <input type="text" name="attr_slug" value="<?php echo esc_attr(urldecode($term->slug)) ?>" id="attr_slug" placeholder="<?php echo esc_attr__('Optional', 'product-specifications') ?>">
     </p>
 
-    <?php if (count($tbl_array) > 0) : ?>
-        <p>
-            <label for="attr_table"><?php echo esc_html__('Table : ', 'product-specifications') ?></label>
-
-            <select name="attr_table" id="attr_table" aria-required="true" data-tables='<?= esc_attr(dwspecs_get_table_groups('json')) ?>'>
-                <option value=""><?php echo esc_html__('Select a table', 'product-specifications') ?></option>
-                <?php foreach ($tbl_array as $table) : ?>
-                    <option value="<?= esc_attr((string) $table->ID) ?>"><?= esc_html($table->post_title) ?></option>
-                <?php endforeach ?>
-            </select>
-        </p>
-
-    <?php endif ?>
-
     <p>
         <label for="attr_group"><?php echo esc_html__('Attribute group : ', 'product-specifications') ?></label>
         <select name="attr_group" id="attr_group" aria-required="true">
@@ -60,13 +37,17 @@ $tbl_array = $tables->get_posts() ?>
                     'hide_empty' => false,
                 ]);
 
-                foreach ($all_groups as $group) {
-                    $selected = selected($group->term_id, get_term_meta($term->term_id, 'attr_group', true));
+                foreach ($all_groups as $group) :
                     $group_id = esc_attr($group->term_id);
                     $group_name = esc_attr($group->name);
-                    echo "<option value=\"{$group_id}\" {$selected}>{$group_name}</option>";
-                }
-                ?>
+                    ?>
+                    <option
+                        value="<?= esc_attr($group_id) ?>"
+                        <?php selected($group->term_id, get_term_meta($term->term_id, 'attr_group', true)) ?>>
+                    >
+                        <?= esc_html($group_name) ?>
+                    </option>";
+                <?php endforeach ?>
         </select>
     </p>
 
@@ -104,7 +85,7 @@ $tbl_array = $tables->get_posts() ?>
 
     <input type="hidden" name="action" value="dwps_modify_attributes">
     <input type="hidden" name="do" value="edit">
-    <input name="id" value="<?= esc_attr((string) $attribute_id) ?>" type="hidden">
+    <input name="id" value="<?= esc_attr((string) $attributeId) ?>" type="hidden">
     <?php wp_nonce_field('dwps_modify_attributes', 'dwps_modify_attributes_nonce') ?>
     <input type="submit" value="<?php echo esc_attr__('Update attribute', 'product-specifications') ?>" class="button button-primary">
 </form>

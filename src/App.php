@@ -12,7 +12,7 @@ final class App
      * @since 0.1
      * @var null|Amiut\ProductSpecs
      */
-    public static $instance = null;
+    private static $instance = null;
 
     /**
      * Return the plugin instance.
@@ -34,7 +34,7 @@ final class App
      */
     private function __construct()
     {
-        $this->define_constants();
+        $this->defineConstants();
         $this->includes();
     }
 
@@ -65,7 +65,7 @@ final class App
     /**
      * Define constants
      */
-    public function define_constants()
+    public function defineConstants()
     {
 
         $this->define('DWSPECS_ABSPATH', dirname(DWSPECS_PLUGIN_FILE) . '/');

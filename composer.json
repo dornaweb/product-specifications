@@ -19,7 +19,8 @@
   ],
   "require": {
     "php": ">=7.4",
-    "inpsyde/modularity": "^1.7"
+    "inpsyde/modularity": "^1.7",
+    "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.6",

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\AttributesListUi;
 
+use Amiut\ProductSpecs\Repository\AttributesRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
@@ -19,6 +20,7 @@ final class Module implements ServiceModule, ExecutableModule
         return [
             AttributeListPage::class => static fn (ContainerInterface $container) => new AttributeListPage(
                 $container->get(TemplateRenderer::class),
+                $container->get(AttributesRepository::class)
             ),
         ];
     }

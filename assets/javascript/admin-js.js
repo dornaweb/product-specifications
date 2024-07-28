@@ -336,35 +336,6 @@ jQuery.extend({
 			});
 		});
 
-		// Load groups of specific tables
-		$(function(){
-			$(document).on('change', '#attr_table', function(){
-				var _groups = window._group.html();
-				var tables  = $.parseJSON( JSON.stringify( $(this).data('tables') )  );
-				var groups  = $('#attr_group');
-				var value   = $(this).val();
-
-				if( $(this).val() != '' ) {
-					var arr = $.map(tables, function( v, i ) {
-						return ( v.table_id == value ? v : null );
-					});
-
-					var options = '';
-					$.each( arr[0].groups, function( i, v ){
-						options += '<option value="' + v.term_id + '">' + v.name + '</option>';
-					} );
-
-					groups.find('option:not(:first-child)').remove();
-					groups.append( options );
-				} else{
-					if( typeof _groups !== 'undefined' ){
-						groups.html( _groups );
-					}
-				}
-
-			});
-		});
-
 		// Default value & options by field type
 		var val_opt_form = function(){
 			var elem 		  = $('#attr_type');

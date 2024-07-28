@@ -8,8 +8,33 @@ use Amiut\ProductSpecs\Content\Taxonomy;
 use WP_Error;
 use WP_Term;
 
+/**
+ * @psalm-type CollectionArguments = array{
+ *      search_query?: string,
+ *      group_id?: int,
+ *      per_page?: int,
+ *      current_page?: int
+ * }
+ * @psalm-import-type TermCollectionArguments from EntityCollectionFactory
+ */
 class AttributesRepository
 {
+    private EntityCollectionFactory $factory;
+
+    public function __construct(EntityCollectionFactory $factory)
+    {
+        $this->factory = $factory;
+    }
+
+    /**
+     * @psalm-param CollectionArguments $args
+     * @return EntityCollection<WP_Term>
+     */
+    public function findCollection(array $args): EntityCollection
+    {
+        return $this->factory->termsCollection($this->prepareArguments($args));
+    }
+
     /**
      * @return array<WP_Term>
      */
@@ -66,5 +91,41 @@ class AttributesRepository
         }
 
         return $terms;
+    }
+
+    /**
+     * @param CollectionArguments $args
+     * @return TermCollectionArguments
+     */
+    private function prepareArguments(array $args): array
+    {
+        /** @var TermCollectionArguments $preparedArguments */
+        $preparedArguments = [
+            'taxonomy' => Taxonomy\Attribute::KEY,
+            'hide_empty' => false,
+            'orderby' => 'term_id',
+            'order' => 'DESC',
+        ];
+
+        if (!empty($args['search_query'])) {
+            $preparedArguments['search'] = $args['search_query'];
+        }
+
+        if (!empty($args['group_id'])) {
+            $preparedArguments = $preparedArguments + [
+                    'meta_key' => 'attr_group',
+                    'meta_value' => (string) $args['group_id'],
+                ];
+        }
+
+        if (!empty($args['per_page'])) {
+            $preparedArguments['per_page'] = $args['per_page'];
+        }
+
+        if (!empty($args['current_page'])) {
+            $preparedArguments['current_page'] = $args['current_page'];
+        }
+
+        return $preparedArguments;
     }
 }

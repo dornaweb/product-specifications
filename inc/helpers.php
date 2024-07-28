@@ -2,32 +2,13 @@
 
 declare(strict_types=1);
 
-if (!function_exists('dwspecs_current_page_url')) {
-    function dwspecs_current_page_url()
-    {
-
-        $pageURL = 'http';
-        if (isset($_SERVER["HTTPS"])) {
-            if ($_SERVER["HTTPS"] === "on") {
-                $pageURL .= "s";
-            }
-        }
-        $pageURL .= "://";
-        if ($_SERVER["SERVER_PORT"] !== "80") {
-            $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-        } else {
-            $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-        }
-        return $pageURL;
-    }
-}
-
 /**
  * Get the list of attributes related to a group
  *
  * @param int $group_id id of the group
  * @return Array
  */
+
 if (!function_exists('dwspecs_get_attributes_by_group')) {
     function dwspecs_get_attributes_by_group($group_id = false)
     {

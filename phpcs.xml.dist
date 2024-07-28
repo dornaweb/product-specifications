@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
     <file>./src/</file>
-    <file>./inc/</file>
     <file>./templates/</file>
     <file>./tests/php</file>
     <file>./product-specifications.php</file>
@@ -39,5 +38,11 @@
 
     <rule ref="VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable">
         <exclude-pattern>*/templates/*</exclude-pattern>
+    </rule>
+
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <property name="customAutoEscapedFunctions" value="paginate_links" type="array" />
+        </properties>
     </rule>
 </ruleset>

@@ -24,11 +24,13 @@ final class ImportExportPage
         $tables = $tables->get_posts();
         wp_reset_postdata();
 
+        // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $this->renderer->render(
             'admin/import-export',
             [
                 'tables' => $tables,
             ]
         );
+        // phpcs:enable
     }
 }

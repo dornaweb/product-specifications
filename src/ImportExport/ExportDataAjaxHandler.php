@@ -11,7 +11,13 @@ final class ExportDataAjaxHandler
      */
     public function __invoke(): void
     {
-        if (!wp_verify_nonce($_POST['dws_ex_nonce'], 'dwspecs_nonce_export')) {
+        $nonce = (string) filter_input(
+            INPUT_POST,
+            'dws_ex_nonce',
+            FILTER_SANITIZE_SPECIAL_CHARS
+        );
+
+        if (!(bool) wp_verify_nonce($nonce, 'dwspecs_nonce_export')) {
             wp_die('Invalid Request');
         }
 
@@ -24,7 +30,7 @@ final class ExportDataAjaxHandler
         header('Pragma: public');
         header('Content-Disposition: attachment; filename="' . $this->fileName() . '"');
 
-        echo $this->export('json', $includeProducts);
+        echo $this->export('json', $includeProducts); //phpcs:ignore
 
         exit;
     }
@@ -32,7 +38,7 @@ final class ExportDataAjaxHandler
     private function fileName(): string
     {
 
-        return 'dw-specs-table-' . date('j-m-Y') . '-' . rand(1, 1e6) . '.json';
+        return 'dw-specs-table-' . date('j-m-Y') . '-' . rand(1, 1000000) . '.json';
     }
 
     /**

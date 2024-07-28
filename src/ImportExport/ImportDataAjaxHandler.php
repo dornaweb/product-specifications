@@ -7,26 +7,61 @@ namespace Amiut\ProductSpecs\ImportExport;
 final class ImportDataAjaxHandler
 {
     /**
+     * @wp-hook wp_ajax_dwspecs_import_data
      * @return never
      */
+    // phpcs:ignore Inpsyde.CodeQuality.FunctionLength.TooLong
     public function __invoke(): void
     {
         header('Content-type: application/json; charset=utf-8');
 
+        $nonce = (string) filter_input(INPUT_POST, 'dws_im_nonce', FILTER_SANITIZE_STRING);
+
+        if (!(bool) wp_verify_nonce($nonce, 'dwspecs_nonce_import')) {
+            wp_send_json_error(
+                [
+                    'message' => esc_html__(
+                        'Invalid request',
+                        'product-specifications'
+                    ),
+                ]
+            );
+        }
+
         // Exit if already migrating
         if (false !== get_transient('dwspecs_data_migrating')) {
-            wp_send_json_error([
-                'message' => esc_html__('Another Migration is in progress', 'product-specifications'),
-            ]);
+            wp_send_json_error(
+                [
+                    'message' => esc_html__(
+                        'Another Migration is in progress',
+                        'product-specifications'
+                    ),
+                ]
+            );
         }
 
-        if (!isset($_FILES['file']) || $_FILES['file']['type'] !== 'application/json' || !$_FILES['file']['size']) {
-            wp_send_json_error([
-                'message' => esc_html__('Invalid File', 'product-specifications'),
-            ]);
+        $fileInput = $_FILES['file'] ?? null; // phpcs:ignore
+
+        if (is_null($fileInput)) {
+            wp_send_json_error(
+                [
+                    'message' => esc_html__(
+                        'Invalid file',
+                        'product-specifications'
+                    ),
+                ]
+            );
         }
 
-        $data = json_decode(file_get_contents($_FILES['file']['tmp_name']), true);
+        if ($fileInput['type'] !== 'application/json' || !$fileInput['size']) {
+            wp_send_json_error(
+                [
+                    'message' => esc_html__('Invalid File', 'product-specifications'),
+                ]
+            );
+        }
+
+        $data = json_decode((string) file_get_contents($fileInput['tmp_name']), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             wp_send_json_error([
@@ -48,6 +83,8 @@ final class ImportDataAjaxHandler
         wp_die();
     }
 
+    // phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
+    // phpcs:disable Inpsyde.CodeQuality.NestingLevel.MaxExceeded
     private function importPluginData(array $data): void
     {
         $ids_map = [];
@@ -165,11 +202,10 @@ final class ImportDataAjaxHandler
                     // #End modify IDs
 
                     // Get product by slug
-                    $import_post_field = apply_filters('dwspecs_import_post_field_key', 'post_name');
                     $product_id = $wpdb->get_var(
                         $wpdb->prepare(
-                            "SELECT ID FROM $wpdb->posts WHERE {$import_post_field} = %s AND post_type= %s AND post_status = 'publish'",
-                            ($import_post_field === 'post_name') ? $product['slug'] : $product['title'],
+                            "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'",
+                            $product['slug'],
                             'product'
                         )
                     );
@@ -182,4 +218,6 @@ final class ImportDataAjaxHandler
             }
         }
     }
+
+    // phpcs:enable
 }

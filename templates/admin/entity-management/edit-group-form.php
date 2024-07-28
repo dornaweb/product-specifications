@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 /**
- * @var int $group_id
+ * @var int $groupId
  * @var array $data
  */
 [
-    'id' => $group_id,
+    'id' => $groupId,
 ] = $data;
 
-$term = get_term_by('id', $group_id, 'spec-group') ?>
+$term = get_term_by('id', $groupId, 'spec-group') ?>
 
 <form action="#" method="post" id="dwps_modify_form">
     <p>
@@ -30,7 +30,7 @@ $term = get_term_by('id', $group_id, 'spec-group') ?>
 
     <input name="action" value="dwps_modify_groups" type="hidden">
     <input name="do" value="edit" type="hidden">
-    <input name="group_id" value="<?php echo esc_attr($group_id) ?>" type="hidden">
+    <input name="group_id" value="<?php echo esc_attr($groupId) ?>" type="hidden">
 
     <?php wp_nonce_field('dwps_modify_groups', 'dwps_modify_groups_nonce') ?>
     <input value="<?php echo esc_attr__('Update Group', 'product-specifications') ?>" class="button button-primary" type="submit">
