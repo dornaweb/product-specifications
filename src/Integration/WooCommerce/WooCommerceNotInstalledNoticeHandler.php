@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
+use WooCommerce;
+
 class WooCommerceNotInstalledNoticeHandler
 {
     /**
@@ -13,7 +15,7 @@ class WooCommerceNotInstalledNoticeHandler
      */
     public function __invoke(): void
     {
-        if (class_exists('WooCommerce')) {
+        if (class_exists(WooCommerce::class)) {
             return;
         }
 

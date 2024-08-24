@@ -12,7 +12,7 @@ use Amiut\ProductSpecs\Repository\EntityCollection;
 [
     'collection' => $collection,
     'searchKeyword' => $searchKeyword,
-] = $data;``
+] = $data;
 ?>
 
 <div class="dwps-page">
