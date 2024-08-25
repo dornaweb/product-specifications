@@ -36,7 +36,7 @@ jobs:
         run: wp package install wp-cli/dist-archive-command
 
       - name: Create ZIP file
-        run: wp dist-archive ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
+        run: wp dist-archive . ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
