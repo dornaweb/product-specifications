@@ -1,7 +1,7 @@
 name: 🚀 Release the plugin
 on:
   release:
-    types: [published, edited]
+    types: [published]
 jobs:
   build-release:
     name: 🎉 New Release
@@ -15,7 +15,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          tools: composer, php-scoper, phpcbf
+          tools: composer, php-scoper, phpcbf, wp-cli
 
       - name: Install Composer dependencies in build
         run: composer install --no-dev --no-interaction
@@ -32,8 +32,11 @@ jobs:
       - name: Format Scoped codes
         run: phpcbf build -q -n --standard="PSR12,PSR1" || true
 
+      - name: Install WP-CLI dist-archive
+        run: wp package install wp-cli/dist-archive-command
+
       - name: Create ZIP file
-        run: zip -r "${{ github.event.release.name }}.zip" . -x $(grep -v '^#' .distignore | tr '\n' ' ')
+        run: wp dist-archive ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
