@@ -44,7 +44,6 @@ $term = get_term_by('id', $attributeId, 'spec-attr');
                     <option
                         value="<?= esc_attr($group_id) ?>"
                         <?php selected($group->term_id, get_term_meta($term->term_id, 'attr_group', true)) ?>>
-                    >
                         <?= esc_html($group_name) ?>
                     </option>";
                 <?php endforeach ?>
