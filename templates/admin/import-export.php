@@ -10,7 +10,7 @@ declare(strict_types=1);
 
     <div class="dwps-box-wrapper dwps-tools-box clearfix">
         <h3><?php echo esc_html__('Export specification tables', 'product-specifications') ?></h3>
-        <p><?php echo esc_html__('You can choose the tables you want to export and hit the download button , a <code>JSON</code> file will be downloaded , you can impot that later or on another WordPress installation.', 'product-specifications') ?></p>
+        <p><?php echo esc_html__('You can choose the tables you want to export and hit the download button , a "JSON" file will be downloaded , you can impot that later or on another WordPress installation.', 'product-specifications') ?></p>
         <div class="dwps-export-import-wrap">
             <div class="dwps-export-box">
                 <h2><?php echo esc_html__('Export Product Specifications data', 'product-specifications') ?></h2>
@@ -26,7 +26,7 @@ declare(strict_types=1);
 
             <div class="dwps-import-box">
                 <h2><?php echo esc_html__('Import Product Specifications data', 'product-specifications') ?></h2>
-                <p><?php echo esc_html__('Import your <code>JSON</code> file here', 'product-specifications') ?></p>
+                <p><?php echo esc_html__('Import your "JSON" file here', 'product-specifications') ?></p>
                 <form id="dwps_import_data_form" action="<?php echo esc_url(admin_url('admin-ajax.php')) ?>" method="post">
                     <p><label><?php echo esc_html__('Select JSON file', 'product-specifications') ?></label><br><input type="file" name="file"></p>
 
