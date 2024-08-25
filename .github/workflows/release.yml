@@ -7,6 +7,9 @@ jobs:
     name: 🎉 New Release
     runs-on: ubuntu-latest
 
+    env:
+      PUSH_TO_SVN: 'no'
+
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
@@ -48,9 +51,15 @@ jobs:
           asset_name: ${{ github.event.release.name }}.zip
           asset_content_type: application/zip
 
+      - name: Check release type
+        run: |
+          if [[ ${github.event.release.tag_name} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "PUSH_TO_SVN=yes" >> $GITHUB_ENV
+          fi
+
       - name: 🚀 WordPress Plugin Deploy
         id: deploy
-        if: ${{github.event.release.tag_name}} =~ ^[0-9]+\.[0-9]+\.[0-9]+$
+        if: ${{env.PUSH_TO_SVN}} == 'yes'
         uses: 10up/action-wordpress-plugin-deploy@master
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
