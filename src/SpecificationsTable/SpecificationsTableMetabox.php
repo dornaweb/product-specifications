@@ -91,7 +91,6 @@ final class SpecificationsTableMetabox implements Metabox
 
     public function action(WP_Post $post): void
     {
-        // TODO: Evaluate possibility of checking table data against a filter schema using filter_input_array
         // phpcs:ignore WordPressVIPMinimum.Security.PHPFilterFunctions.RestrictedFilter
         $groups = (array) filter_input(
             INPUT_POST,

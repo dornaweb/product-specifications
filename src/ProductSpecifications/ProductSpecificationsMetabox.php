@@ -94,7 +94,6 @@ final class ProductSpecificationsMetabox implements Metabox
             return;
         }
 
-        // TODO: Evaluate possibility of checking table data against a filter schema using filter_input_array
         // phpcs:ignore WordPressVIPMinimum.Security.PHPFilterFunctions.RestrictedFilter
         $tableValues = (array) filter_input(
             INPUT_POST,
