@@ -47,3 +47,11 @@ jobs:
           asset_path: "./${{ github.event.release.name }}.zip"
           asset_name: ${{ github.event.release.name }}.zip
           asset_content_type: application/zip
+
+      - name: 🚀 WordPress Plugin Deploy
+        id: deploy
+        if: ${{github.event.release.tag_name}} =~ ^[0-9]+\.[0-9]+\.[0-9]+$
+        uses: 10up/action-wordpress-plugin-deploy@master
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
