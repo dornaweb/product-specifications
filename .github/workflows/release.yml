@@ -53,7 +53,7 @@ jobs:
 
       - name: Check release type
         run: |
-          if [[ ${github.event.release.tag_name} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [ "${{github.event.release.tag_name}}" =~ '^[0-9]+\.[0-9]+\.[0-9]+$' ]; then
             echo "PUSH_TO_SVN=yes" >> $GITHUB_ENV
           fi
 
