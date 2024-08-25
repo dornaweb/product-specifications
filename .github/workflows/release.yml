@@ -59,7 +59,7 @@ jobs:
 
       - name: 🚀 WordPress Plugin Deploy
         id: deploy
-        if: ${{env.PUSH_TO_SVN}} == 'yes'
+        if: ${{env.PUSH_TO_SVN == 'yes'}}
         uses: 10up/action-wordpress-plugin-deploy@master
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
