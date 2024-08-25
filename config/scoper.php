@@ -84,11 +84,17 @@ return [
     //
     // For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#patchers
     'patchers' => [
-        // static function (string $filePath, string $prefix, string $contents): string {
-        //     // Change the contents here.
+        static function (string $filePath, string $prefix, string $contents): string {
+            // Remove empty namespaces created by PHP-Scoper
+            if (! str_contains($filePath, 'templates/')) {
+                return $contents;
+            }
 
-        //     return $contents;
-        // },
+            $contents = str_replace('namespace {', "/* namespace { PHP-SCOPER: Namespace removed intentionally */", $contents);
+            $contents = preg_replace('/}$/', '/* } PHP-SCOPER: Namespace removed intentionally */', trim($contents));
+
+            return $contents;
+        },
     ],
 
     // List of symbols to consider internal i.e. to leave untouched.
@@ -96,6 +102,7 @@ return [
     // For more information see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#excluded-symbols
     'exclude-namespaces' => [
         '#^(?!Inpsyde\\\\)#',
+        '~^$~',
     ],
     'exclude-classes' => [
         // 'ReflectionClassConstant',
@@ -104,7 +111,6 @@ return [
         // 'mb_str_split',
     ],
     'exclude-constants' => [
-        // 'STDIN',
     ],
 
     // List of symbols to expose.
