@@ -110,7 +110,15 @@ final class Metaboxes
             return false;
         }
 
-        $nonce = (string) filter_input(INPUT_POST, self::NONCE_KEY, FILTER_SANITIZE_SPECIAL_CHARS);
+        $nonce = sanitize_text_field(
+            wp_unslash(
+                (string) filter_input(
+                    INPUT_POST,
+                    self::NONCE_KEY,
+                    FILTER_SANITIZE_SPECIAL_CHARS
+                )
+            )
+        );
 
         if (!(bool) wp_verify_nonce($nonce, $this->nonceAction($metabox, $post))) {
             return false;

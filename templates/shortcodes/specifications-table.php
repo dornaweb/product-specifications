@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+defined('ABSPATH') || exit;
+
 /**
  * @var array $table
  * @var array $data
@@ -27,7 +29,7 @@ if (!$table) {
                 <?php foreach ($attributes as $attr) : ?>
                 <tr>
                     <td>
-                        <?php echo esc_html($attr['attr_name']) ?>
+                        <?= esc_html($attr['attr_name']) ?>
                     </td>
 
                     <td

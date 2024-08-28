@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Amiut\ProductSpecs\Attribute\AttributeFieldGroup;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 
+defined('ABSPATH') || exit;
+
 /**
  * @var AttributeFieldGroup $group
  * @var TemplateRenderer $renderer

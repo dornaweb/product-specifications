@@ -15,7 +15,15 @@ final class ImportDataAjaxHandler
     {
         header('Content-type: application/json; charset=utf-8');
 
-        $nonce = (string) filter_input(INPUT_POST, 'dws_im_nonce', FILTER_SANITIZE_STRING);
+        $nonce = sanitize_text_field(
+            wp_unslash(
+                (string) filter_input(
+                    INPUT_POST,
+                    'dws_im_nonce',
+                    FILTER_SANITIZE_SPECIAL_CHARS
+                )
+            )
+        );
 
         if (!(bool) wp_verify_nonce($nonce, 'dwspecs_nonce_import')) {
             wp_send_json_error(

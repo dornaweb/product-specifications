@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+defined('ABSPATH') || exit;
+
 /**
  * @var \Amiut\ProductSpecs\Attribute\AttributeField $attribute
  * @var \Amiut\ProductSpecs\Attribute\AttributeFieldGroup $group

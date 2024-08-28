@@ -11,17 +11,25 @@ final class ExportDataAjaxHandler
      */
     public function __invoke(): void
     {
-        $nonce = (string) filter_input(
-            INPUT_POST,
-            'dws_ex_nonce',
-            FILTER_SANITIZE_SPECIAL_CHARS
+        $nonce = sanitize_text_field(
+            wp_unslash(
+                (string) filter_input(
+                    INPUT_POST,
+                    'dws_ex_nonce',
+                    FILTER_SANITIZE_SPECIAL_CHARS
+                )
+            )
         );
 
         if (!(bool) wp_verify_nonce($nonce, 'dwspecs_nonce_export')) {
             wp_die('Invalid Request');
         }
 
-        $includeProducts = isset($_POST['include_products']);
+        $includeProducts = (bool) filter_input(
+            INPUT_POST,
+            'include_products',
+            FILTER_SANITIZE_SPECIAL_CHARS
+        );
 
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');

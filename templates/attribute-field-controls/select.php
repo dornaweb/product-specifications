@@ -6,6 +6,8 @@ use Amiut\ProductSpecs\Attribute\AttributeFieldGroup;
 use Amiut\ProductSpecs\Attribute\AttributeFieldSelect;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 
+defined('ABSPATH') || exit;
+
 /**
  * @var AttributeFieldSelect $attribute
  * @var AttributeFieldGroup $group

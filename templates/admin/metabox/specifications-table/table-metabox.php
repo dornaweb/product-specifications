@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+defined('ABSPATH') || exit;
+
 /**
  * @var WP_Post $post
  * @var array<WP_Term> $groups

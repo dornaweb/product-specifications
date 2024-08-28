@@ -6,6 +6,8 @@ use Amiut\ProductSpecs\Attribute\AttributeFieldGroup;
 use Amiut\ProductSpecs\Attribute\AttributeFieldTrueFalse;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 
+defined('ABSPATH') || exit;
+
 /**
  * @var AttributeFieldTrueFalse $attribute
  * @var AttributeFieldGroup $group

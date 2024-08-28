@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Amiut\ProductSpecs\Repository\EntityCollection;
 
+defined('ABSPATH') || exit;
+
 /**
  * @var EntityCollection $collection
  * @var string $searchKeyword

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+defined('ABSPATH') || exit;
+
 /**
  * @var int $group_id
  * @var array<WP_Term> $attributes
@@ -25,7 +27,7 @@ declare(strict_types=1);
                         value="<?= esc_attr((string) $attr->term_id) ?>"
                         name="attr[]"
                 >
-                <?php echo esc_html($attr->name) ?>
+                <?= esc_html($attr->name) ?>
             </li>
         <?php endforeach ?>
 
