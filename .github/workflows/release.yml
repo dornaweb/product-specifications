@@ -1,14 +1,11 @@
 name: 🚀 Release the plugin
 on:
   release:
-    types: [published]
+    types: [released]
 jobs:
   build-release:
     name: 🎉 New Release
     runs-on: ubuntu-latest
-
-    env:
-      PUSH_TO_SVN: 'no'
 
     steps:
       - name: 🚚 Get latest code
@@ -51,16 +48,9 @@ jobs:
           asset_name: ${{ github.event.release.name }}.zip
           asset_content_type: application/zip
 
-      - name: Check release type
-        run: |
-          if [[ "${{github.event.release.tag_name}}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "PUSH_TO_SVN=yes" >> $GITHUB_ENV
-          fi
-
-      - name: 🚀 WordPress Plugin Deploy
+      - name: 🚀 Deploy plugin to wordpress.org
         id: deploy
-        if: ${{env.PUSH_TO_SVN == 'yes'}}
-        uses: 10up/action-wordpress-plugin-deploy@master
+        uses: 10up/action-wordpress-plugin-deploy@stable
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
