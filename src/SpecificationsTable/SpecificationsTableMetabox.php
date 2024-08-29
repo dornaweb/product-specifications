@@ -91,14 +91,13 @@ final class SpecificationsTableMetabox implements Metabox
 
     public function action(WP_Post $post): void
     {
-        // phpcs:ignore WordPressVIPMinimum.Security.PHPFilterFunctions.RestrictedFilter
-        $groups = (array) filter_input(
+        $groupIds = (array) filter_input(
             INPUT_POST,
             'groups',
-            FILTER_UNSAFE_RAW,
+            FILTER_VALIDATE_INT,
             FILTER_REQUIRE_ARRAY
         );
 
-        update_post_meta($post->ID, '_groups', $groups);
+        update_post_meta($post->ID, '_groups', $groupIds);
     }
 }

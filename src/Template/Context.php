@@ -8,8 +8,12 @@ use RuntimeException;
 
 class Context
 {
+    /** @var array<string> */
     private array $directories = [];
 
+    /**
+     * @param array<string> $directories
+     */
     public function __construct(array $directories)
     {
         foreach ($directories as $directory) {

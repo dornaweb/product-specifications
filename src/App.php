@@ -10,20 +10,18 @@ final class App
      * Plugin instance.
      *
      * @since 0.1
-     * @var null|Amiut\ProductSpecs
+     * @var ?App
      */
     private static $instance = null;
 
     /**
      * Return the plugin instance.
-     *
-     * @return Amiut\ProductSpecs\App
      */
-    public static function instance()
+    public static function instance(): App
     {
 
-        if (!self::$instance) {
-            self::$instance = new self();
+        if (is_null(self::$instance)) {
+            self::$instance = new App();
         }
 
         return self::$instance;
@@ -42,7 +40,7 @@ final class App
      * Include required files
      *
      */
-    public function includes()
+    public function includes(): void
     {
 
         require_once(DWSPECS_ABSPATH . 'inc/helpers.php');
@@ -54,7 +52,7 @@ final class App
      * @param string      $name  Constant name.
      * @param string|bool $value Constant value.
      */
-    private function define($name, $value)
+    private function define($name, $value): void
     {
 
         if (!defined($name)) {
@@ -65,7 +63,7 @@ final class App
     /**
      * Define constants
      */
-    public function defineConstants()
+    public function defineConstants(): void
     {
 
         $this->define('DWSPECS_ABSPATH', dirname(DWSPECS_PLUGIN_FILE) . '/');

@@ -94,11 +94,10 @@ final class ProductSpecificationsMetabox implements Metabox
             return;
         }
 
-        // phpcs:ignore WordPressVIPMinimum.Security.PHPFilterFunctions.RestrictedFilter
         $tableValues = (array) filter_input(
             INPUT_POST,
             'dw-attr',
-            FILTER_UNSAFE_RAW,
+            FILTER_SANITIZE_SPECIAL_CHARS,
             FILTER_REQUIRE_ARRAY
         );
 
