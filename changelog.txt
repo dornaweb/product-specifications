@@ -1,3 +1,7 @@
+== 0.8.2 2024-08-29 ==
+* Minor security improvements.
+* Include composer.json in releases.
+
 == 0.8.1 2024-08-28 ==
 * Minor security improvements
 * Ensure compatibility with latest WordPress and WooCommerce versions.

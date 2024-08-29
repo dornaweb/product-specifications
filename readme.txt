@@ -6,7 +6,7 @@ Requires at least: 5.9
 Tested up to: 6.6.1
 WC tested up to: 9.2.3
 WC requires at least: 8.0.0
-Stable tag: 0.8.1
+Stable tag: 0.8.2
 Requires PHP: 8.0
 License: GNU GPL V2. or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -80,6 +80,10 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
+== 0.8.2 2024-08-29 ==
+* Minor security improvements.
+* Include composer.json in releases.
+
 == 0.8.1 2024-08-28 ==
 * Minor security improvements
 * Ensure compatibility with latest WordPress and WooCommerce versions.
@@ -102,9 +106,5 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == 0.7.0 2023-04-05 ==
 * Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)
-
-== 0.6.0 ==
-* Fixed issue with deselecting tables
-* Migrate translation to translate.wordpress.org
 
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
