@@ -8,7 +8,6 @@
 /build/
 /node_modules/
 /tests/
-composer.*
 package-lock.json
 package.json
 phpcs.xml*
