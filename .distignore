@@ -15,3 +15,5 @@ phpunit.xml*
 README.md
 psalm.xml*
 phpsalm-baseline.xml
+LICENSE
+vendor/**/composer.json
