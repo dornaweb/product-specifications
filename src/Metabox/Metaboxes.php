@@ -31,9 +31,15 @@ final class Metaboxes
 
     /**
      * @wp-hook add_meta_boxes
+     * @param ?WP_Post $post the type is doc-blocked on purpose due to a bug in WooCommerce
+     * @link https://github.com/woocommerce/woocommerce/issues/41579
      */
-    public function setup(string $postType, WP_Post $post): void
+    public function setup(string $postType, $post): void
     {
+        if (!$post instanceof WP_Post) {
+            return;
+        }
+
         foreach ($this->metaboxes as $metabox) {
             if (!$metabox->enabled($post)) {
                 continue;
