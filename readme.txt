@@ -7,8 +7,8 @@ Tested up to: 6.6.1
 WC tested up to: 9.2.3
 WC requires at least: 8.0.0
 Stable tag: 0.8.2
-Requires PHP: 8.0
-License: GNU GPL V2. or later
+Requires PHP: 7.4
+License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
 This plugin adds a product specifications table to your woocommerce single-product page.
