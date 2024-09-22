@@ -45,10 +45,12 @@ function my_custom_spec_table_markup( $output, $args ){
 
 ## Donation
 
-If this plugin has been handy to you, you can keep up the work by donating to below address:
+Donations are happily appreciated, if you find this work useful, you can donate any amount via one of the following ways:
 
-`0x90B0f45e24C6942594Ad0a6cfcf23860F83623bA` (Any Ethereum, BSC, FTM based tokens are welcome)
-`TA6NCxJ97WsCDmUVEEvsVz1PW4kAVza295` (Any TRC20 (Tron network) tokens)
+- [Donate via Paypal](https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA)
+- Cryptocurrency: `0x90B0f45e24C6942594Ad0a6cfcf23860F83623bA` (Ethereum network)
+
+<a href="https://www.buymeacoffee.com/amiut" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## Changelog
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).

@@ -3,13 +3,14 @@
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
 Requires at least: 5.9
-Tested up to: 6.6.1
-WC tested up to: 9.2.3
+Tested up to: 6.6.2
+WC tested up to: 9.3.2
 WC requires at least: 8.0.0
-Stable tag: 0.8.2
+Stable tag: 0.8.3
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+Donate link: https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA
 
 This plugin adds a product specifications table to your woocommerce single-product page.
 
@@ -80,31 +81,17 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
-== 0.8.2 2024-08-29 ==
-* Minor security improvements.
-* Include composer.json in releases.
+= 0.8.3 2024-09-22 =
+- Fix fatal error in order edit page.
+- Fix wrong minimum PHP version requirement (PHP 7.4+ is supported).
+- Ensure compatibility with latest WordPress and WooCommerce versions.
 
-== 0.8.1 2024-08-28 ==
-* Minor security improvements
-* Ensure compatibility with latest WordPress and WooCommerce versions.
+= 0.8.2 2024-08-29 =
+- Minor security improvements.
+- Include composer.json in releases.
 
-== 0.8.0 2024-08-25 ==
-* Refactor plugin code base.
-
-== 0.7.4 2024-03-24 ==
-* Fix wrong filepath.
-
-== 0.7.3 2024-02-21 ==
-* Fix wrong filepath.
-
-== 0.7.2 2023-06-20 ==
-* Fix wrong filepath.
-
-== 0.7.1 2023-04-05 ==
-* Add full changelog.
-* Tested with latest WP and WC versions.
-
-== 0.7.0 2023-04-05 ==
-* Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)
+= 0.8.1 2024-08-28 =
+- Minor security improvements
+- Ensure compatibility with latest WordPress and WooCommerce versions.
 
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).

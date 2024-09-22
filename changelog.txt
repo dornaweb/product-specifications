@@ -1,3 +1,8 @@
+== 0.8.3 2024-09-22 ==
+* Fix fatal error in order edit page.
+* Fix wrong minimum PHP version requirement (PHP 7.4+ is supported).
+* Ensure compatibility with latest WordPress and WooCommerce versions.
+
 == 0.8.2 2024-08-29 ==
 * Minor security improvements.
 * Include composer.json in releases.
