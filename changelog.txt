@@ -1,33 +1,36 @@
-== 0.8.3 2024-09-22 ==
+= 0.8.4 - 2024-09-24 =
+- Fix broken "select" and "radio" field types.
+
+== 0.8.3 - 2024-09-22 ==
 * Fix fatal error in order edit page.
 * Fix wrong minimum PHP version requirement (PHP 7.4+ is supported).
 * Ensure compatibility with latest WordPress and WooCommerce versions.
 
-== 0.8.2 2024-08-29 ==
+== 0.8.2 - - 2024-08-29 ==
 * Minor security improvements.
 * Include composer.json in releases.
 
-== 0.8.1 2024-08-28 ==
+== 0.8.1 - 2024-08-28 ==
 * Minor security improvements
 * Ensure compatibility with latest WordPress and WooCommerce versions.
 
-== 0.8.0 2024-08-25 ==
+== 0.8.0 - 2024-08-25 ==
 * Refactor plugin code base.
 
-== 0.7.4 2024-03-24 ==
+== 0.7.4 - 2024-03-24 ==
 * Allow html in textarea fields.
 
-== 0.7.3 2024-02-21 ==
+== 0.7.3 - 2024-02-21 ==
 * Fix wrong filepath.
 
-== 0.7.2 2023-06-20 ==
+== 0.7.2 - 2023-06-20 ==
 * Fix wrong filepath.
 
-== 0.7.1 2023-04-05 ==
+== 0.7.1 - 2023-04-05 ==
 * Add full changelog.
 * Tested with latest WP and WC versions.
 
-== 0.7.0 2023-04-05 ==
+== 0.7.0 - 2023-04-05 ==
 * Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)
 
 == 0.6.0 ==
