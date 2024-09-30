@@ -3,13 +3,14 @@
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
 Requires at least: 5.9
-Tested up to: 6.6.1
-WC tested up to: 9.2.3
+Tested up to: 6.6.2
+WC tested up to: 9.3.2
 WC requires at least: 8.0.0
-Stable tag: 0.8.2
-Requires PHP: 8.0
-License: GNU GPL V2. or later
+Stable tag: 0.8.4
+Requires PHP: 7.4
+License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+Donate link: https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA
 
 This plugin adds a product specifications table to your woocommerce single-product page.
 
@@ -18,21 +19,11 @@ This plugin adds a product specifications table to your woocommerce single-produ
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
 
-Translation :
+= Translation =
 To contribute in translating this plugin please visit: [Wordpress Translation Repository](https://translate.wordpress.org/projects/wp-plugins/product-specifications/)
 
 = Development =
-Product specifications is also available at [github](https://github.com/dornaweb/product-specifications/ "Product specifications plugin"), Feel free to contribute.
-
-== Donate this plugin: ==
-If this plugin has been handy to you, you can keep up the work by donating to below address:
-
-(Any Ethereum, BSC, FTM based tokens are welcome)
-`0x90B0f45e24C6942594Ad0a6cfcf23860F83623bA`
-
-(Any TRC20 or Tron network tokens)
-`TA6NCxJ97WsCDmUVEEvsVz1PW4kAVza295`
-
+Product specifications development takes place under its [Github Repository](https://github.com/dornaweb/product-specifications/ "Product specifications plugin"), Contributions are more than welcome.
 
 == Installation ==
 
@@ -41,7 +32,7 @@ If this plugin has been handy to you, you can keep up the work by donating to be
 
 == Frequently Asked Questions ==
 
-= How do i use the plugin? =
+= How do I use the plugin? =
 * Install and activate the plugin
 * Go to specification tables -> groups and define some Groups
 * Go to specification tables -> attributes and define some attributes associated with groups defined in previous step
@@ -56,18 +47,6 @@ The specification table is under a div with `.dwspecs-product-table` CSS class a
 = Is there a shortcode i can use to display the table =
 Yes, You can use `[specs-table]` shortcode.
 
-
-= How can i fully customize the HTML markup of the table =
-Copy the file `/src/views/shortcode-table-view.php` file somewhere in your theme and add the below code to your functions.php file
-
-`add_filter('dw_specs_table_shortcode_output', 'my_custom_spec_table_markup', 10, 2 );
-function my_custom_spec_table_markup( $output, $args ){
-	ob_start();
-	extract( $args );
-	include( 'PATH_TO_COPIED_FILE');
-	return ob_get_clean();
-}`
-
 == Screenshots ==
 
 1. Product specs table on product single page
@@ -80,31 +59,20 @@ function my_custom_spec_table_markup( $output, $args ){
 
 == Changelog ==
 
-== 0.8.2 2024-08-29 ==
-* Minor security improvements.
-* Include composer.json in releases.
+= 0.8.4 - 2024-09-24 =
+- Fix broken "select" and "radio" field types.
 
-== 0.8.1 2024-08-28 ==
-* Minor security improvements
-* Ensure compatibility with latest WordPress and WooCommerce versions.
+= 0.8.3 - 2024-09-22 =
+- Fix fatal error in order edit page.
+- Fix wrong minimum PHP version requirement (PHP 7.4+ is supported).
+- Ensure compatibility with latest WordPress and WooCommerce versions.
 
-== 0.8.0 2024-08-25 ==
-* Refactor plugin code base.
+= 0.8.2 - 2024-08-29 =
+- Minor security improvements.
+- Include composer.json in releases.
 
-== 0.7.4 2024-03-24 ==
-* Fix wrong filepath.
-
-== 0.7.3 2024-02-21 ==
-* Fix wrong filepath.
-
-== 0.7.2 2023-06-20 ==
-* Fix wrong filepath.
-
-== 0.7.1 2023-04-05 ==
-* Add full changelog.
-* Tested with latest WP and WC versions.
-
-== 0.7.0 2023-04-05 ==
-* Santize/Escape all outputs in the plugin to prevent possible security issues. [#20](https://github.com/dornaweb/product-specifications/pull/20)
+= 0.8.1 - 2024-08-28 =
+- Minor security improvements
+- Ensure compatibility with latest WordPress and WooCommerce versions.
 
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
