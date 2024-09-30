@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
-use Inpsyde\Modularity\Properties\PluginProperties;
+use Amiut\ProductSpecs\Assets\AssetHelper;
 
 class Assets
 {
-    private PluginProperties $pluginProperties;
+    public const HANDLE_FRONTEND_STYLE = 'product-specifications-frontend';
+
+    private AssetHelper $assetHelper;
 
     public function __construct(
-        PluginProperties $pluginProperties
+        AssetHelper $assetHelper
     ) {
 
-        $this->pluginProperties = $pluginProperties;
+        $this->assetHelper = $assetHelper;
     }
 
     public function load(): void
@@ -27,11 +29,10 @@ class Assets
             return;
         }
 
-        wp_enqueue_style(
-            'dwspecs-front-css',
-            untrailingslashit($this->pluginProperties->baseUrl()) . '/assets/css/front-styles.css',
-            [],
-            $this->pluginProperties->version()
+        $this->assetHelper->registerStyle(
+            self::HANDLE_FRONTEND_STYLE,
+            'frontend.css'
         );
+        wp_enqueue_style(self::HANDLE_FRONTEND_STYLE);
     }
 }

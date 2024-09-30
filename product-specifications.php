@@ -71,6 +71,7 @@ function bootstrap(): void
         App::instance();
 
         $plugin
+            ->addModule(new Assets\Module())
             ->addModule(new Template\Module())
             ->addModule(new Repository\Module())
             ->addModule(new Content\Module())
