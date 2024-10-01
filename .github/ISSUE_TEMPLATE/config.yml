@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: General Help Request
+    url: https://wordpress.org/support/plugin/product-specifications/
+    about: Please ask and answer non-development related questions here.
