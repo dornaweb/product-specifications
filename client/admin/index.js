@@ -1,11 +1,8 @@
+import * as tingle from '../lib/tingle.js';
+import * as Mustache from '../lib/mustache.js';
+import './styles.css';
+import '../lib/tingle.css';
 
-/*!
- * Product specifications plugin
- * Javascript codes loaded in admin area
- *
- * @package Product Specifications Plugin
- * @since   1.0
-*/
 /*!
  * jQuery outerHTML
  */

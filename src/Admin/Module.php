@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Admin;
 
+use Amiut\ProductSpecs\Assets\AssetHelper;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
-use Inpsyde\Modularity\Package;
-use Inpsyde\Modularity\Properties\PluginProperties;
 use Psr\Container\ContainerInterface;
 use Inpsyde\Modularity\Module\ExecutableModule;
 
@@ -19,7 +18,7 @@ final class Module implements ServiceModule, ExecutableModule
     {
         return [
             Assets::class => static fn (ContainerInterface $container) => new Assets(
-                $container->get(Package::PROPERTIES)
+                $container->get(AssetHelper::class)
             ),
             AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
         ];
@@ -54,7 +53,7 @@ final class Module implements ServiceModule, ExecutableModule
             esc_html__('Specs. tables', 'product-specifications'),
             'edit_pages',
             'dw-specs',
-            static function () {
+            static function (): void {
             },
             'dashicons-welcome-view-site',
             25
@@ -67,7 +66,8 @@ final class Module implements ServiceModule, ExecutableModule
             esc_html__('New table', 'product-specifications'),
             'edit_pages',
             'dw-specs-new',
-            [ __CLASS__, 'addnew_page' ]
+            static function (): void {
+            }
         );
     }
 }

@@ -45,9 +45,9 @@ final class Module implements ServiceModule, ExecutableModule
     {
         add_submenu_page(
             'dw-specs',
-            esc_html__('Product specifications settings', 'product-specifications'),
-            esc_html__('Settings', 'product-specifications'),
-            'edit_pages',
+            __('Product specifications settings', 'product-specifications'),
+            __('Settings', 'product-specifications'),
+            'manage_options',
             'dw-specs-settings',
             [$container->get(SettingsPage::class), 'render']
         );
