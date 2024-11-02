@@ -170,7 +170,7 @@ final class ImportDataAjaxHandler
                 if ($new_group_id && !is_wp_error($new_group_id)) {
                     $new_order = array_map(static function ($element) use ($ids_map) {
                         if (isset($ids_map[$element])) {
-                            return str_replace($element, $ids_map[$element], $element);
+                            return $ids_map[$element];
                         } else {
                             return $element;
                         }
@@ -182,7 +182,7 @@ final class ImportDataAjaxHandler
             // Update table groups order
             $table_g_order = array_map(static function ($element) use ($ids_map) {
                 if (isset($ids_map[$element])) {
-                    return str_replace($element, $ids_map[$element], $element);
+                    return $ids_map[$element];
                 } else {
                     return $element;
                 }
@@ -193,6 +193,10 @@ final class ImportDataAjaxHandler
             // Insert tables into products
             if (isset($table['products'])) {
                 foreach ($table['products'] as $product) {
+                    if (!is_array($product['table'])) {
+                        continue;
+                    }
+
                     // Modify IDs
                     foreach ($product['table'] as $idx => $table_gp) {
                         if (isset($ids_map[$table_gp['group_id']])) {

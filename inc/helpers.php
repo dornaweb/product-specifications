@@ -122,7 +122,8 @@ if (!function_exists('dwspecs_get_table_result')) {
 
         if ($hide_empty) {
             $result = array_filter($result, static function ($v) {
-                return sizeof($v['attributes']) > 0;
+                $attributes = $v['attributes'] ?? [];
+                return count($attributes) > 0;
             });
         }
 
