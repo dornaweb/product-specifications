@@ -1,3 +1,8 @@
+= 0.8.5 - 2024-11-05 =
+- Fix possible fatal error in import/export tool.
+- Fix issue with multiline textarea field.
+- Maintenance: Add Github issue and Pull request templates.
+
 = 0.8.4 - 2024-09-24 =
 - Fix broken "select" and "radio" field types.
 

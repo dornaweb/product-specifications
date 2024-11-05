@@ -59,6 +59,11 @@ Yes, You can use `[specs-table]` shortcode.
 
 == Changelog ==
 
+= 0.8.5 - 2024-11-05 =
+- Fix possible fatal error in import/export tool.
+- Fix issue with multiline textarea field.
+- Maintenance: Add Github issue and Pull request templates.
+
 = 0.8.4 - 2024-09-24 =
 - Fix broken "select" and "radio" field types.
 
@@ -70,9 +75,5 @@ Yes, You can use `[specs-table]` shortcode.
 = 0.8.2 - 2024-08-29 =
 - Minor security improvements.
 - Include composer.json in releases.
-
-= 0.8.1 - 2024-08-28 =
-- Minor security improvements
-- Ensure compatibility with latest WordPress and WooCommerce versions.
 
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
