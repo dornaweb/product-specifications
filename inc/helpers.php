@@ -36,7 +36,7 @@ if (!function_exists('dwspecs_get_attributes_by_group')) {
  * @return mixed
 */
 if (!function_exists('dwspecs_attr_value_by')) {
-    function dwspecs_attr_value_by($post_id = '', $field, $value)
+    function dwspecs_attr_value_by($post_id, $field, $value)
     {
 
         if (!$post_id) {

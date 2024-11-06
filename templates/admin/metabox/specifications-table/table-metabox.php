@@ -46,7 +46,7 @@ defined('ABSPATH') || exit;
                             value="<?= esc_attr((string) $term->term_id) ?>"
                             <?php checked($isChecked) ?>
                         >
-                        <span><?= esc_html($term->name) ?><?= esc_html($slug) ?></span>
+                        <span><?= esc_html($term->name) ?><?= esc_html(urldecode($slug)) ?></span>
                     </label>
                 </p>
             <?php endforeach ?>

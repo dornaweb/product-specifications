@@ -97,7 +97,7 @@ defined('ABSPATH') || exit;
                                     </h4>
                                 </td>
                                 <td>
-                                    <?= esc_html($group->slug) ?>
+                                    <?= esc_html(urldecode($group->slug)) ?>
                                 </td>
                                 <td>
                                     <?= esc_html(sizeof($attributes)) ?>
