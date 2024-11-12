@@ -1,3 +1,6 @@
+= 0.8.7 - 2024-11-12 =
+- Add compatibility with HPOS order storage.
+
 = 0.8.6 - 2024-11-06 =
 - Fix: Group names are displayed as encoded strings.
 - Fix: PHP notice.

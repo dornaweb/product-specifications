@@ -4,7 +4,7 @@ Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
 Requires at least: 5.9
 Tested up to: 6.6.2
-Stable tag: 0.8.6
+Stable tag: 0.8.7
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -56,6 +56,9 @@ Yes, You can use `[specs-table]` shortcode.
 
 
 == Changelog ==
+
+= 0.8.7 - 2024-11-12 =
+- Add compatibility with HPOS order storage.
 
 = 0.8.6 - 2024-11-06 =
 - Fix: Group names are displayed as encoded strings.
