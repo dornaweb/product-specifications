@@ -41,7 +41,7 @@ final class Module implements ServiceModule, ExecutableModule
     {
         add_submenu_page(
             'dw-specs',
-            esc_html__('Attribute Groups', 'product-specifications'),
+            esc_html__('Specification Groups', 'product-specifications'),
             esc_html__('Groups', 'product-specifications'),
             'edit_pages',
             'dw-specs-groups',

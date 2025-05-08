@@ -44,7 +44,7 @@ defined('ABSPATH') || exit;
                     ) ?>
                 </ul>
             <?php else : ?>
-                <?= esc_html__('No attributes defined yet', 'product-specifications') ?>
+                <?= esc_html__('No specifications defined yet', 'product-specifications') ?>
             <?php endif ?>
         </div>
     <?php endforeach ?>

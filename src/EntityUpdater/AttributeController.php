@@ -241,7 +241,7 @@ final class AttributeController
         wp_send_json_success(
             [
                 'result' => 'success',
-                'message' => esc_html__('Attribute(s) deleted successfully', 'product-specifications'),
+                'message' => esc_html__('Specification(s) deleted successfully', 'product-specifications'),
                 'action' => 'delete',
             ]
         );
@@ -254,7 +254,7 @@ final class AttributeController
     {
         if (empty($data['name'])) {
             throw new InvalidEntityPropertyException(
-                esc_html__('Please enter an attribute name', 'product-specifications'),
+                esc_html__('Please enter an specification name', 'product-specifications'),
                 'input#attr_name'
             );
         }
@@ -275,7 +275,7 @@ final class AttributeController
 
         if (($data['type'] === 'select' || $data['type'] === 'radio') && (empty($data['values']))) {
             throw new InvalidEntityPropertyException(
-                esc_html__('Please set some values for attribute', 'product-specifications'),
+                esc_html__('Please set some values for specification', 'product-specifications'),
                 'input#attr_values'
             );
         }

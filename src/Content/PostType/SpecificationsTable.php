@@ -37,19 +37,19 @@ final class SpecificationsTable
     {
         return [
             'name' => esc_html__(
-                'Specifications tables',
+                'Specifications bundle',
                 'product-specifications'
             ),
             'singular_name' => esc_html__(
-                'Specifications table',
+                'Specifications bundle',
                 'product-specifications'
             ),
             'menu_name' => esc_html__(
-                'Specifications table',
+                'Specifications bundle',
                 'product-specifications'
             ),
             'name_admin_bar' => esc_html__(
-                'Specifications tables',
+                'Specifications bundle',
                 'product-specifications'
             ),
             'add_new' => esc_html__(
@@ -57,43 +57,43 @@ final class SpecificationsTable
                 'product-specifications'
             ),
             'add_new_item' => esc_html__(
-                'Add New Spec. table',
+                'Add New bundle',
                 'product-specifications'
             ),
             'new_item' => esc_html__(
-                'New Spec. table',
+                'New specification bundle',
                 'product-specifications'
             ),
             'edit_item' => esc_html__(
-                'Edit Spec. table',
+                'Edit bundle',
                 'product-specifications'
             ),
             'view_item' => esc_html__(
-                'View Spec. table',
+                'View bundle',
                 'product-specifications'
             ),
             'all_items' => esc_html__(
-                'Specification tables',
+                'Specification bundles',
                 'product-specifications'
             ),
             'search_items' => esc_html__(
-                'Search Spec. tables',
+                'Search bundle',
                 'product-specifications'
             ),
             'parent_item_colon' => esc_html__(
-                'Parent Spec. tables:',
+                'Parent bundle:',
                 'product-specifications'
             ),
             'not_found' => esc_html__(
-                'No Spec. tables found.',
+                'No bundle found.',
                 'product-specifications'
             ),
             'not_found_in_trash' => esc_html__(
-                'No Spec. tables found in Trash.',
+                'No bundle found in Trash.',
                 'product-specifications'
             ),
             'featured_image' => esc_html__(
-                'Spec. table Cover Image',
+                'set Cover Image',
                 'product-specifications'
             ),
             'set_featured_image' => esc_html__(
@@ -109,27 +109,27 @@ final class SpecificationsTable
                 'product-specifications'
             ),
             'archives' => esc_html__(
-                'Spec. tables archives',
+                'bundle archives',
                 'product-specifications'
             ),
             'insert_into_item' => esc_html__(
-                'Insert into Spec. table',
+                'Insert into bundle',
                 'product-specifications'
             ),
             'uploaded_to_this_item' => esc_html__(
-                'Uploaded to this Spec. table',
+                'Uploaded to this bundle',
                 'product-specifications'
             ),
             'filter_items_list' => esc_html__(
-                'Filter Spec. tables list',
+                'Filter bundle list',
                 'product-specifications'
             ),
             'items_list_navigation' => esc_html__(
-                'Spec. tables list navigation',
+                'bundle list navigation',
                 'product-specifications'
             ),
             'items_list' => esc_html__(
-                'Spec. tables list',
+                'bundle list',
                 'product-specifications'
             ),
         ];

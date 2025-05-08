@@ -49,8 +49,8 @@ final class Module implements ServiceModule, ExecutableModule
     private function registerMenuPages(ContainerInterface $container): void
     {
         add_menu_page(
-            esc_html__('Product specifications table', 'product-specifications'),
-            esc_html__('Specs. tables', 'product-specifications'),
+            esc_html__('Product specifications', 'product-specifications'),
+            esc_html__('Product specs.', 'product-specifications'),
             'edit_pages',
             'dw-specs',
             static function (): void {
@@ -62,8 +62,8 @@ final class Module implements ServiceModule, ExecutableModule
         // Add tables page
         add_submenu_page(
             'dw-specs',
-            esc_html__('Add a new table', 'product-specifications'),
-            esc_html__('New table', 'product-specifications'),
+            esc_html__('Add a new specification bundle', 'product-specifications'),
+            esc_html__('New specification bundle', 'product-specifications'),
             'edit_pages',
             'dw-specs-new',
             static function (): void {

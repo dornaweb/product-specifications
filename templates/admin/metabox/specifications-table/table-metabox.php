@@ -19,10 +19,10 @@ defined('ABSPATH') || exit;
 ?>
 
 <div class="dwsp-meta-wrap">
-    <strong class="title"><?= esc_html__('Attribute Groups : ', 'product-specifications') ?></strong>
+    <strong class="title"><?= esc_html__('Specification Groups : ', 'product-specifications') ?></strong>
     <span class="hint">
         <?= esc_html__(
-            'Select attribute groups you want to load in this table : ',
+            'Select specification groups you want to load in this table : ',
             'product-specifications'
         ) ?>
     </span>

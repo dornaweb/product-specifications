@@ -32,7 +32,7 @@ defined('ABSPATH') || exit;
         <?php endforeach ?>
 
         <?php if (count($attributes) === 0) : ?>
-            <?= esc_html__('This group has no attributes', 'product-specifications') ?>
+            <?= esc_html__('This group has no specifications', 'product-specifications') ?>
         <?php endif ?>
     </ul>
 
