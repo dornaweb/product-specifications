@@ -41,8 +41,8 @@ final class Module implements ServiceModule, ExecutableModule
     {
         add_submenu_page(
             'dw-specs',
-            esc_html__('Attributes', 'product-specifications'),
-            esc_html__('Attributes', 'product-specifications'),
+            esc_html__('Specifications', 'product-specifications'),
+            esc_html__('Specifications', 'product-specifications'),
             'edit_pages',
             'dw-specs-attrs',
             [$container->get(AttributeListPage::class), 'render']

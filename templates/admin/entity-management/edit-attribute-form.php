@@ -20,17 +20,17 @@ $term = get_term_by('id', $attributeId, 'spec-attr');
 
 <form action="#" method="post" id="dwps_modify_form">
     <p>
-        <label for="attr_name"><?= esc_html__('Attribute name : ', 'product-specifications') ?></label>
+        <label for="attr_name"><?= esc_html__('Specification name : ', 'product-specifications') ?></label>
         <input type="text" name="attr_name" value="<?= esc_attr($term->name) ?>" id="attr_name" aria-required="true">
     </p>
 
     <p>
-        <label for="attr_slug"><?= esc_html__('Attribute slug : ', 'product-specifications') ?></label>
+        <label for="attr_slug"><?= esc_html__('Specification slug : ', 'product-specifications') ?></label>
         <input type="text" name="attr_slug" value="<?= esc_attr(urldecode($term->slug)) ?>" id="attr_slug" placeholder="<?= esc_attr__('Optional', 'product-specifications') ?>">
     </p>
 
     <p>
-        <label for="attr_group"><?= esc_html__('Attribute group : ', 'product-specifications') ?></label>
+        <label for="attr_group"><?= esc_html__('Specification group : ', 'product-specifications') ?></label>
         <select name="attr_group" id="attr_group" aria-required="true">
             <option value=""><?= esc_html__('Select a group', 'product-specifications') ?></option>
             <?php
@@ -53,7 +53,7 @@ $term = get_term_by('id', $attributeId, 'spec-attr');
     </p>
 
     <p>
-        <label for="attr_type"><?= esc_html__('Attribute field Type : ', 'product-specifications') ?></label>
+        <label for="attr_type"><?= esc_html__('Specification field Type : ', 'product-specifications') ?></label>
         <select name="attr_type" id="attr_type" aria-required="true">
             <option value="" <?php selected(false, get_term_meta($term->term_id, 'attr_type', true)) ?>><?= esc_html__('Select a field type', 'product-specifications') ?></option>
             <option value="text" <?php selected('text', get_term_meta($term->term_id, 'attr_type', true)) ?>><?= esc_html__('Text', 'product-specifications') ?>
@@ -88,5 +88,5 @@ $term = get_term_by('id', $attributeId, 'spec-attr');
     <input type="hidden" name="do" value="edit">
     <input name="id" value="<?= esc_attr((string) $attributeId) ?>" type="hidden">
     <?php wp_nonce_field('dwps_modify_attributes', 'dwps_modify_attributes_nonce') ?>
-    <input type="submit" value="<?= esc_attr__('Update attribute', 'product-specifications') ?>" class="button button-primary">
+    <input type="submit" value="<?= esc_attr__('Update Specification', 'product-specifications') ?>" class="button button-primary">
 </form>

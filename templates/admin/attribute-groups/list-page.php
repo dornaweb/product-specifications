@@ -19,12 +19,12 @@ defined('ABSPATH') || exit;
 
 <div class="dwps-page">
     <div class="dwps-settings-wrap">
-        <h3><?= esc_html__('Attribute Groups', 'product-specifications') ?></h3>
+        <h3><?= esc_html__('Specification Groups', 'product-specifications') ?></h3>
         <p class="title-note"></p>
 
         <div class="dwps-box-wrapper clearfix">
             <div class="dwps-box-top clearfix">
-                <h4><?= esc_html__('Attribute Groups', 'product-specifications') ?></h4>
+                <h4><?= esc_html__('Specification Groups', 'product-specifications') ?></h4>
                 <div class="dwps-group-searchform">
                     <form action="" method="get">
                         <input

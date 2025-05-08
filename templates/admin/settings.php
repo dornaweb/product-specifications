@@ -18,7 +18,7 @@ defined('ABSPATH') || exit;
 
             <form method="post" action="options.php">
                 <p class="dwps-field-wrap">
-                    <strong class="label"><?= esc_html__('Specs Tab Title', 'product-specifications') ?></strong>
+                    <strong class="label"><?= esc_html__('Specifications tab title', 'product-specifications') ?></strong>
                     <em class="note"><?= esc_html__('The title of product specs. tab in product single page', 'product-specifications') ?></em>
                     <input type="text" name="dwps_tab_title" value="<?= esc_attr(get_option('dwps_tab_title')) ?>">
                 </p>
@@ -30,12 +30,12 @@ defined('ABSPATH') || exit;
                 </p>
 
                 <p class="dwps-field-wrap">
-                    <strong class="label"><?= esc_html__('Woocommerce default specs. behaviour', 'product-specifications') ?></strong>
+                    <strong class="label"><?= esc_html__('Woocommerce default specifications behavior', 'product-specifications') ?></strong>
                     <em class="note"><?= esc_html__('Choose what to do with woocommerce default specifications table', 'product-specifications') ?></em>
 
                     <select name="dwps_wc_default_specs">
                         <option value="remove" <?php selected('remove', get_option('dwps_wc_default_specs')) ?>><?= esc_html__('Always Remove', 'product-specifications') ?></option>
-                        <option value="remove_if_specs_not_empty" <?php selected('remove_if_specs_not_empty', get_option('dwps_wc_default_specs')) ?>><?= esc_html__('Remove if product has a specs. table', 'product-specifications') ?></option>
+                        <option value="remove_if_specs_not_empty" <?php selected('remove_if_specs_not_empty', get_option('dwps_wc_default_specs')) ?>><?= esc_html__('Remove if product has a specification table', 'product-specifications') ?></option>
                         <option value="keep" <?php selected('keep', get_option('dwps_wc_default_specs')) ?>><?= esc_html__('Always keep', 'product-specifications') ?></option>
                     </select>
                 </p>

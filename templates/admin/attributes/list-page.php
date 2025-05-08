@@ -21,12 +21,12 @@ defined('ABSPATH') || exit;
 
 <div class="dwps-page">
     <div class="dwps-settings-wrap">
-        <h3><?= esc_html__('Attributes', 'product-specifications') ?></h3>
+        <h3><?= esc_html__('Product specifications', 'product-specifications') ?></h3>
         <p class="title-note"></p>
 
         <div class="dwps-box-wrapper clearfix">
             <div class="dwps-box-top clearfix">
-                <h4><?= esc_html__('Attributes', 'product-specifications') ?></h4>
+                <h4><?= esc_html__('product specifications', 'product-specifications') ?></h4>
                 <div class="dwps-group-searchform">
                     <form action="" method="get">
                         <input
@@ -53,7 +53,7 @@ defined('ABSPATH') || exit;
                     <tr>
                         <th class="check-column"><input type="checkbox" id="cb-select-all-1" class="selectall"></th>
                         <th><?= esc_html__('ID', 'product-specifications') ?></th>
-                        <th><?= esc_html__('Attribute name', 'product-specifications') ?></th>
+                        <th><?= esc_html__('Specification name', 'product-specifications') ?></th>
                         <th><?= esc_html__('Group name', 'product-specifications') ?></th>
                         <th><?= esc_html__('Actions', 'product-specifications') ?></th>
                     </tr>
@@ -206,17 +206,17 @@ defined('ABSPATH') || exit;
 <script id="modify_form_template" type="x-tmpl-mustache">
     <form action="#" method="post" id="dwps_modify_form">
         <p>
-            <label for="attr_name"><?= esc_html__('Attribute name : ', 'product-specifications') ?></label>
+            <label for="attr_name"><?= esc_html__('Specification name : ', 'product-specifications') ?></label>
             <input type="text" name="attr_name" value="" id="attr_name" aria-required="true">
         </p>
 
         <p>
-            <label for="attr_slug"><?= esc_html__('Attribute slug : ', 'product-specifications') ?></label>
+            <label for="attr_slug"><?= esc_html__('Specification slug : ', 'product-specifications') ?></label>
             <input type="text" name="attr_slug" value="" id="attr_slug" placeholder="<?= esc_attr__('Optional', 'product-specifications') ?>">
         </p>
 
     <p>
-        <label for="attr_group"><?= esc_html__('Attribute group : ', 'product-specifications') ?></label>
+        <label for="attr_group"><?= esc_html__('Specification group : ', 'product-specifications') ?></label>
             <select name="attr_group" id="attr_group" aria-required="true">
                 <option value=""><?= esc_html__('Select a group', 'product-specifications') ?></option>
     <?php
@@ -235,7 +235,7 @@ defined('ABSPATH') || exit;
 </p>
 
 <p>
-    <label for="attr_type"><?= esc_html__('Attribute field Type : ', 'product-specifications') ?></label>
+    <label for="attr_type"><?= esc_html__('Specification field Type : ', 'product-specifications') ?></label>
             <select name="attr_type" id="attr_type" aria-required="true">
                 <option value=""><?= esc_html__('Select a field type', 'product-specifications') ?></option>
                 <option value="text"><?= esc_html__('Text', 'product-specifications') ?>
@@ -264,6 +264,6 @@ defined('ABSPATH') || exit;
         <input type="hidden" name="action" value="dwps_modify_attributes">
         <input type="hidden" name="do" value="add">
     <?php wp_nonce_field('dwps_modify_attributes', 'dwps_modify_attributes_nonce') ?>
-    <input type="submit" value="<?= esc_attr__('Add attribute', 'product-specifications') ?>" class="button button-primary">
+    <input type="submit" value="<?= esc_attr__('Add Specification', 'product-specifications') ?>" class="button button-primary">
     </form>
 </script>
