@@ -8,6 +8,7 @@ use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
 use Inpsyde\Modularity\Module\ExecutableModule;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 
 final class Module implements ServiceModule, ExecutableModule
 {
@@ -16,7 +17,6 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            PostType\SpecificationsTable::class => static fn () => new PostType\SpecificationsTable(),
             Taxonomy\AttributeGroup::class => static fn () => new Taxonomy\AttributeGroup(),
             Taxonomy\Attribute::class => static fn () => new Taxonomy\Attribute(),
         ];
@@ -27,25 +27,18 @@ final class Module implements ServiceModule, ExecutableModule
         add_action(
             'init',
             static function () use ($container) {
-                $specificationsTablePostType = $container->get(PostType\SpecificationsTable::class);
-
-                register_post_type(
-                    $specificationsTablePostType->key(),
-                    $specificationsTablePostType->args()
-                );
-
                 $attributGroupTaxonomy = $container->get(Taxonomy\AttributeGroup::class);
                 $attributeTaxonomy = $container->get(Taxonomy\Attribute::class);
 
                 register_taxonomy(
                     $attributGroupTaxonomy->key(),
-                    $specificationsTablePostType->key(),
+                    SpecificationSetPostType::KEY,
                     $attributGroupTaxonomy->args(),
                 );
 
                 register_taxonomy(
                     $attributeTaxonomy->key(),
-                    $specificationsTablePostType->key(),
+                    SpecificationSetPostType::KEY,
                     $attributeTaxonomy->args(),
                 );
             },

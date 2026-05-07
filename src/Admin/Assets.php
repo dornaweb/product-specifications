@@ -9,6 +9,7 @@ use Amiut\ProductSpecs\Assets\AssetHelper;
 final class Assets
 {
     public const HANDLE_ADMIN_SCRIPT = 'product-specifications-admin-general';
+    public const HANDLE_ADMIN_INIT_SCRIPT = 'product-specifications-admin-init';
 
     private AssetHelper $assetHelper;
 
@@ -24,6 +25,7 @@ final class Assets
         wp_enqueue_script('jquery-ui-sortable');
 
         $this->assetHelper->registerScript(self::HANDLE_ADMIN_SCRIPT, 'admin.js');
+        $this->assetHelper->registerScript(self::HANDLE_ADMIN_INIT_SCRIPT, 'admininit.js');
         $this->assetHelper->registerStyle(self::HANDLE_ADMIN_SCRIPT, 'admin.css');
 
         wp_localize_script(
@@ -42,6 +44,7 @@ final class Assets
         );
 
         wp_enqueue_script(self::HANDLE_ADMIN_SCRIPT);
+        wp_enqueue_script(self::HANDLE_ADMIN_INIT_SCRIPT);
         wp_enqueue_style(self::HANDLE_ADMIN_SCRIPT);
     }
 }

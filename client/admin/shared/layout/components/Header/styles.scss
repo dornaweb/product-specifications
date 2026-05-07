@@ -1,0 +1,20 @@
+@use "../../../styles/variables.scss";
+
+.product-specifications-layout__header {
+    background-color: #fff;
+    top: var(--wp-admin--admin-bar--height, 32px);
+    position: sticky;
+    z-index: 1;
+    display: flex;
+    min-height: 60px;
+
+    .product-specifications-layout__header-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0 0 0 variables.$gutter-large;
+        margin-right: calc(2 * variables.$gutter-large);
+        display: flex;
+        align-items: center;
+    }
+}

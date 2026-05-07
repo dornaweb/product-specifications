@@ -1,0 +1,53 @@
+@use "../../../shared/styles/variables" as *;
+
+.product-specifications-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 64px 24px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+
+	&__icon-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		background-color: rgba(var(--wp-admin-theme-color--rgb), 0.1);
+		color: $wp-admin-theme-color;
+		margin-bottom: 20px;
+	}
+
+	&__title {
+		margin: 0 0 12px;
+		font-size: 18px;
+		font-weight: 600;
+		color: #1e1e1e;
+	}
+	&__description {
+		margin: 0 0 24px;
+		max-width: 440px;
+		color: #757575;
+		line-height: 1.6;
+	}
+
+	&__button {
+		background-color: $wp-admin-theme-color !important;
+		border-color: $wp-admin-theme-color !important;
+
+		&:hover,
+		&:focus {
+			background-color: $wp-admin-theme-color-darker-10 !important;
+			border-color: $wp-admin-theme-color-darker-10 !important;
+		}
+
+		&:active {
+			background-color: $wp-admin-theme-color-darker-20 !important;
+			border-color: $wp-admin-theme-color-darker-20 !important;
+		}
+	}
+}

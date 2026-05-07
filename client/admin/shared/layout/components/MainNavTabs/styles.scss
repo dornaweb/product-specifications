@@ -1,0 +1,29 @@
+.product-specifications-layout__tabs {
+    display: flex;
+    gap: 1.5rem;
+
+    .product-specifications-layout__tab {
+		border-bottom: 1.5px solid transparent;
+		border-radius: 0;
+		font-size: 13px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 16px;
+		padding: 0;
+		white-space: nowrap;
+        text-decoration: none;
+        color: inherit;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+
+		&:focus:not(:disabled) {
+			box-shadow: none;
+		}
+
+		&--active {
+			border-color: var(--wp-admin-theme-color);
+            color: var(--wp-admin-theme-color);
+		}
+    }
+}

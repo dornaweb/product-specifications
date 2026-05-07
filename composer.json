@@ -1,52 +1,55 @@
 {
-  "name": "amiut/product-specifications",
-  "description": "Wordpress plugin to create specification tables",
-  "license": "GPL-2.0-or-later",
-  "type": "wordpress-plugin",
-  "authors": [
-    {
-      "name": "Dornaweb",
-      "email": "info@dornaweb.com",
-      "homepage": "https://www.dornaweb.com",
-      "role": "company"
-    },
-    {
-      "name": "Amin Abdolrezapoor",
-      "email": "hi@amin.nz",
-      "homepage": "https://amin.nz",
-      "role": "developer"
-    }
-  ],
-  "require": {
-    "php": ">=7.4",
-    "inpsyde/modularity": "^1.7",
-    "ext-json": "*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.6",
-    "inpsyde/php-coding-standards": "dev-development",
-    "vimeo/psalm": "^5.23",
-    "php-stubs/wordpress-stubs": "^6.4",
-    "php-stubs/woocommerce-stubs": "^9.1"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "autoload": {
-    "psr-4": {
-      "Amiut\\ProductSpecs\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Amiut\\ProductSpecs\\Tests\\Unit\\": "tests/php/Unit/"
-    }
-  },
-  "config": {
-    "platform": {
-      "php": "7.4"
-    },
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  }
+	"name": "amiut/product-specifications",
+	"description": "Wordpress plugin to create specification tables",
+	"license": "GPL-2.0-or-later",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Dornaweb",
+			"email": "info@dornaweb.com",
+			"homepage": "https://www.dornaweb.com",
+			"role": "company"
+		},
+		{
+			"name": "Amin Abdolrezapoor",
+			"email": "hi@amiut.me",
+			"homepage": "https://amiut.me",
+			"role": "developer"
+		}
+	],
+	"require": {
+		"php": ">=7.4",
+		"ext-json": "*",
+		"inpsyde/modularity": "^1.7"
+	},
+	"require-dev": {
+		"automattic/vipwpcs": "^3.0",
+		"php-stubs/woocommerce-stubs": "^10.7",
+		"php-stubs/wordpress-stubs": "^6.9",
+		"phpstan/phpstan": "^2.1",
+		"phpstan/phpstan-deprecation-rules": "^2.0.3",
+		"phpunit/phpunit": "^9.6",
+		"amiut/phpstan-type-utilities": "^0.1.0"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"Amiut\\ProductSpecs\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Amiut\\ProductSpecs\\Tests\\Unit\\": "tests/php/Unit/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": false
+		},
+		"platform": {
+			"php": "7.4"
+		}
+	}
 }

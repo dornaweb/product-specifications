@@ -1,0 +1,19 @@
+includes:
+    - %currentWorkingDirectory%/vendor/amiut/phpstan-type-utilities/extension.neon
+parameters:
+    level: max
+    paths:
+        - src/
+        - product-specifications.php
+    stubFiles:
+        - .phpstan/psr-container.stub.php
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+    treatPhpDocTypesAsCertain: false
+    earlyTerminatingMethodCalls:
+        WP_CLI:
+            - error
+            - halt
+    dynamicConstantNames:
+        - WP_DEBUG

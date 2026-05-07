@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\SpecificationsTable;
 
-use Amiut\ProductSpecs\Content\PostType;
 use Amiut\ProductSpecs\Content\Taxonomy;
 use Amiut\ProductSpecs\Metabox\Metabox;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 use WP_Post;
 use WP_Term;
@@ -22,7 +22,7 @@ final class SpecificationsTableMetabox implements Metabox
 
     public function enabled(WP_Post $post): bool
     {
-        return $post->post_type === PostType\SpecificationsTable::KEY;
+        return $post->post_type === SpecificationSetPostType::KEY;
     }
 
     public function id(): string

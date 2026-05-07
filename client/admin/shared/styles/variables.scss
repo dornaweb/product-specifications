@@ -1,0 +1,10 @@
+$gutter: var(--main-gap, 24px);
+$gutter-large: var(--large-gap, 40px);
+
+// WordPress admin color scheme variables — set globally by WordPress core
+// and updated automatically when the admin user changes their color scheme.
+// Definitions live in wp-admin/css/common.css.
+$wp-admin-theme-color: var(--wp-admin-theme-color);
+$wp-admin-theme-color-rgb: var(--wp-admin-theme-color--rgb);
+$wp-admin-theme-color-darker-10: var(--wp-admin-theme-color-darker-10);
+$wp-admin-theme-color-darker-20: var(--wp-admin-theme-color-darker-20);

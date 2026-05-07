@@ -1,0 +1,7 @@
+@use "../shared/styles/variables";
+
+.product-specifications-specs-set-editor {
+	&__main {
+		margin-top: variables.$gutter;
+	}
+}

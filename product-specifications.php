@@ -76,6 +76,7 @@ function bootstrap(): void
 
         $plugin
             ->addModule(new Assets\Module())
+            ->addModule(new SpecificationSet\Module())
             ->addModule(new Template\Module())
             ->addModule(new Repository\Module())
             ->addModule(new Content\Module())

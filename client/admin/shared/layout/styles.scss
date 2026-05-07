@@ -1,0 +1,27 @@
+@use "../styles/variables.scss";
+
+[class*="woocommerce-admin-page__dwps-product-specifications"] {
+	#wpcontent,
+	&.woocommerce_page_wc-admin #wpbody-content {
+		overflow-x: inherit !important;
+		position: relative;
+	}
+
+	#wpbody {
+		margin: 0;
+	}
+
+	.woocommerce-layout__primary {
+		margin: 0;
+	}
+
+	.woocommerce-layout__main {
+		padding: 0;
+	}
+}
+
+.product-specifications-layout {
+	&__content {
+		padding: variables.$gutter variables.$gutter-large;
+	}
+}

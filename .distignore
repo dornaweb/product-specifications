@@ -5,6 +5,8 @@
 *.md
 *.zip
 /bin/
+/types/
+/client/
 /build/
 /node_modules/
 /tests/

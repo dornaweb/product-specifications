@@ -1,43 +1,67 @@
 {
-  "name": "product-specifications",
-  "version": "0.8.7",
-  "description": "Specifications table for WooCommerce",
-  "author": "Dornaweb",
-  "license": "GPL-2.0-or-later",
-  "keywords": [
-    "product-specifications",
-    "woocommerce",
-    "specifications table"
-  ],
-  "homepage": "https://github.com/dornaweb/product-specifications",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dornaweb/product-specifications"
-  },
-  "bugs": {
-    "url": "https://github.com/dornaweb/product-specifications/issues"
-  },
-  "engines": {
-    "node": ">=18.0"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.46.1",
-    "@wordpress/scripts": "^28.6.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.9.1",
-    "postcss": "^8.4.42",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sass": "^1.77.8",
-    "typescript": "^5.5.4"
-  },
-  "scripts": {
-    "start": "wp-scripts start",
-    "build": "wp-scripts build",
-    "lint:js": "wp-scripts lint-js 'client/**/*.{ts,tsx}'"
-  },
-  "dependencies": {
-    "jquery": "^3.7.1"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+	"name": "product-specifications",
+	"version": "0.8.7",
+	"description": "Specifications table for WooCommerce",
+	"author": "Dornaweb",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"product-specifications",
+		"woocommerce",
+		"specifications table"
+	],
+	"homepage": "https://github.com/dornaweb/product-specifications",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dornaweb/product-specifications"
+	},
+	"bugs": {
+		"url": "https://github.com/dornaweb/product-specifications/issues"
+	},
+	"engines": {
+		"node": ">=20.19.0"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.46.1",
+		"@types/node": "^20.0",
+		"@woocommerce/dependency-extraction-webpack-plugin": "^4.0.0",
+		"@wordpress/base-styles": "^7.0.0",
+		"@wordpress/browserslist-config": "^6.45.0",
+		"@wordpress/eslint-plugin": "^25.1.0",
+		"@wordpress/prettier-config": "^4.45.0",
+		"@wordpress/scripts": "^32.0.0",
+		"autoprefixer": "^10.4.20",
+		"eslint": "^10.0.0",
+		"path": "^0.12.7",
+		"postcss": "^8.4.42",
+		"prettier": "npm:wp-prettier@3.0.3",
+		"react": "18.3.x",
+		"react-dom": "18.3.x",
+		"sass": "^1.77.8",
+		"typescript": "~5.9.3"
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+	"scripts": {
+		"start": "wp-scripts start",
+		"start:hot": "wp-scripts start --hot",
+		"build": "wp-scripts build",
+		"lint:js": "wp-scripts lint-js 'client/**/*.{ts,tsx}'",
+		"lint:js-fix": "wp-scripts lint-js --fix 'client/**/*.{ts,tsx}'",
+		"format": "wp-scripts format",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"dependencies": {
+		"@types/react": "18.3.x",
+		"@types/react-dom": "18.3.x",
+		"@woocommerce/components": "^13.1.0",
+		"@woocommerce/navigation": "^8.2.0",
+		"@wordpress/components": "^32.6.0",
+		"@wordpress/data": "^10.45.0",
+		"@wordpress/hooks": "^4.44.0",
+		"@wordpress/i18n": "^6.17.0",
+		"@wordpress/ui": "^0.12.0",
+		"clsx": "^2.1.1",
+		"jquery": "^3.7.1"
+	}
 }

@@ -28,7 +28,8 @@ final class Module implements ServiceModule, ExecutableModule
     {
         add_action(
             'admin_enqueue_scripts',
-            [$container->get(Assets::class), 'load']
+            [$container->get(Assets::class), 'load'],
+            30
         );
 
         add_action(
@@ -48,6 +49,20 @@ final class Module implements ServiceModule, ExecutableModule
 
     private function registerMenuPages(ContainerInterface $container): void
     {
+        wc_admin_register_page(
+            [
+                'id'       => 'dwps-product-specifications',
+                'title'    => __('Product Specifications', 'product-specifications'),
+                'parent'   => 'woocommerce',
+                'capability' => 'shop_manager',
+                'nav_args' => [
+                    'parent' => 'woocommerce',
+                    'order' => 50,
+                ],
+                'path' => '/dwps-product-specifications',
+            ]
+        );
+
         add_menu_page(
             esc_html__('Product specifications table', 'product-specifications'),
             esc_html__('Specs. tables', 'product-specifications'),
