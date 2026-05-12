@@ -14,7 +14,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: "8.3"
           tools: composer, php-scoper, phpcbf, wp-cli
 
       - name: Install Composer dependencies in build
@@ -33,7 +33,7 @@ jobs:
         run: phpcbf build -q -n --standard="PSR12,PSR1" || true
 
       - name: Install WP-CLI dist-archive
-        run: wp package install wp-cli/dist-archive-command
+        run: wp package install wp-cli/dist-archive-command:"v3.1.0"
 
       - name: Create ZIP file
         run: wp dist-archive . ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications

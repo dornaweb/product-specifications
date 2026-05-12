@@ -4,7 +4,7 @@ Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
 Requires at least: 5.9
 Tested up to: 6.9.4
-Stable tag: 0.8.8
+Stable tag: 0.8.9
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -56,6 +56,9 @@ Yes, You can use `[specs-table]` shortcode.
 
 
 == Changelog ==
+
+= 0.8.9 - 2026-05-12 =
+- Fix: issue in php scoper.
 
 = 0.8.8 - 2026-05-12 =
 - Test and bump compatibility versions with latest WooCommerce and WordPress versions.
