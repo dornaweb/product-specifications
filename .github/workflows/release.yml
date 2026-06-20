@@ -32,10 +32,16 @@ jobs:
       - name: Format Scoped codes
         run: phpcbf build -q -n --standard="PSR12,PSR1" || true
 
+      # Temporary workaround:
+      # setup-php currently installs a WP-CLI stable PHAR whose package-install Composer stack
+      # rejects GitHub Actions' newer GITHUB_TOKEN format.
+      # Nightly contains the updated Composer/package-manager path.
+      # Remove once the next stable WP-CLI release includes the fix.
+      - name: Update WP-CLI to nightly
+        run: sudo wp cli update --nightly --yes
+
       - name: Install WP-CLI dist-archive
         run: wp package install wp-cli/dist-archive-command:"v3.1.0"
-        env:
-          COMPOSER_AUTH: '{}'
 
       - name: Create ZIP file
         run: wp dist-archive . ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
