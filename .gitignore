@@ -24,3 +24,7 @@ Thumbs.db
 
 # Assets
 /assets/*.map
+
+# WP-env
+.wp-env.override.json
+.wp-env.local.yml

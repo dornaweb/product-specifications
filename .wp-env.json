@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/wp-env.json",
+    "phpVersion": "7.4",
+    "multisite": true,
+    "testsEnvironment": false,
+    "plugins": [
+        ".",
+        "https://downloads.wordpress.org/plugin/query-monitor.zip",
+        "https://downloads.wordpress.org/plugin/woocommerce.zip"
+    ],
+    "config": {
+        "WP_DEBUG": true,
+        "WP_DEBUG_LOG": true,
+        "SCRIPT_DEBUG": true,
+        "WP_DEBUG_DISPLAY": true
+    },
+    "mappings": {
+        "wp-content/uploads": "./.wp-env/uploads",
+        "wp-content/mu-plugins": "./.wp-env/mu-plugins"
+    }
+}
