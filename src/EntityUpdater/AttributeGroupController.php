@@ -18,6 +18,11 @@ final class AttributeGroupController
         $action = $this->sanitizeAction(
             (string) filter_input(INPUT_POST, 'do', FILTER_SANITIZE_SPECIAL_CHARS)
         );
+
+        if (!$this->isAuthorizedRequest($action)) {
+            return;
+        }
+
         $data = $this->formData();
 
         if ($action === self::ACTION_ADD) {
@@ -43,6 +48,62 @@ final class AttributeGroupController
                 'action' => 'unknown',
             ]
         );
+    }
+
+    private function isAuthorizedRequest(string $action): bool
+    {
+        if (!$this->hasValidNonce()) {
+            wp_send_json_error(
+                [
+                    'result' => 'error',
+                    'message' => esc_html__('Security check failed', 'product-specifications'),
+                    'where' => [],
+                    'action' => $action,
+                ],
+                403
+            );
+        }
+
+        if (!$this->canManageTaxonomy($action)) {
+            wp_send_json_error(
+                [
+                    'result' => 'error',
+                    'message' => esc_html__(
+                        'You are not allowed to modify groups',
+                        'product-specifications'
+                    ),
+                    'where' => [],
+                    'action' => $action,
+                ],
+                403
+            );
+        }
+
+        return true;
+    }
+
+    private function hasValidNonce(): bool
+    {
+        return (bool) check_ajax_referer(self::AJAX_ACTION, self::AJAX_ACTION . '_nonce', false);
+    }
+
+    private function canManageTaxonomy(string $action): bool
+    {
+        $taxonomy = get_taxonomy(Taxonomy\AttributeGroup::KEY);
+        if (!$taxonomy || empty($taxonomy->cap)) {
+            return false;
+        }
+
+        $capabilityMap = [
+            self::ACTION_ADD => 'edit_terms',
+            self::ACTION_EDIT => 'edit_terms',
+            self::ACTION_DELETE => 'delete_terms',
+        ];
+
+        $capability = $capabilityMap[$action] ?? 'manage_terms';
+        $taxonomyCapability = (string) ($taxonomy->cap->{$capability} ?? $taxonomy->cap->manage_terms ?? '');
+
+        return $taxonomyCapability !== '' && current_user_can($taxonomyCapability);
     }
 
     private function processAdd(array $data): void
@@ -196,7 +257,7 @@ final class AttributeGroupController
 
     private function sanitizeAction(string $action): string
     {
-        return in_array($action, [self::ACTION_ADD, self::ACTION_EDIT, self::ACTION_DELETE])
+        return in_array($action, [self::ACTION_ADD, self::ACTION_EDIT, self::ACTION_DELETE], true)
             ? $action
             : 'add';
     }

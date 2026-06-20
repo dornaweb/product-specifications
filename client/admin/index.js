@@ -441,8 +441,17 @@ jQuery.extend({
 
 				if (confirm) {
 					var action = template.data.type == 'attribute' ? 'dwps_modify_attributes' : 'dwps_modify_groups';
+					var requestData = {
+						action : action,
+						do: 'delete',
+						id: id
+					};
 
-					$.post(dwspecs_plugin.ajaxurl, {action : action, do: 'delete', id: id }, function(response) {
+					if( template.data.nonceField && template.data.nonce ) {
+						requestData[ template.data.nonceField ] = template.data.nonce;
+					}
+
+					$.post(dwspecs_plugin.ajaxurl, requestData, function(response) {
 						if( response.success ) {
 							$('#dwps_table_wrap').load( window.location.href + ' #dwps_table' );
 

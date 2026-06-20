@@ -172,7 +172,9 @@ defined('ABSPATH') || exit;
 <script id="dwps_delete_template" type="x-tmpl-mustache" data-templateType="JSON">
     {
         "data" : {
-            "type" : "attribute"
+            "type" : "attribute",
+            "nonceField" : "dwps_modify_attributes_nonce",
+            "nonce" : "<?= esc_attr(wp_create_nonce('dwps_modify_attributes')) ?>"
         },
         "modal" : {
             "title" : "<?= esc_attr__("Delete Attribute", "product-specifications") ?>",
