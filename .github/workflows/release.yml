@@ -32,11 +32,8 @@ jobs:
       - name: Format Scoped codes
         run: phpcbf build -q -n --standard="PSR12,PSR1" || true
 
-      - name: Update WP-CLI to nightly
-        run: wp cli update --nightly
-
       - name: Install WP-CLI dist-archive
-        run: wp package install wp-cli/dist-archive-command:"v3.1.0"
+        run: COMPOSER_AUTH="" wp package install wp-cli/dist-archive-command:"v3.1.0"
 
       - name: Create ZIP file
         run: wp dist-archive . ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
