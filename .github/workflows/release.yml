@@ -33,7 +33,9 @@ jobs:
         run: phpcbf build -q -n --standard="PSR12,PSR1" || true
 
       - name: Install WP-CLI dist-archive
-        run: COMPOSER_AUTH="" wp package install wp-cli/dist-archive-command:"v3.1.0"
+        run: wp package install wp-cli/dist-archive-command:"v3.1.0"
+        env:
+          COMPOSER_AUTH: '{}'
 
       - name: Create ZIP file
         run: wp dist-archive . ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
