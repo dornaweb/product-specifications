@@ -1,3 +1,9 @@
+= 0.8.10 - 2026-06-20 =
+- Fix: security issue in attribute/group CRUD.
+- Fix: Possible PHP notice.
+- Maintenance: Add wp-env configuration to plugin's VCS.
+- Maintenance: Test and bump compatibility versions with latest WooCommerce and WordPress versions.
+
 = 0.8.9 - 2026-05-12 =
 - Fix: issue in php scoper.
 

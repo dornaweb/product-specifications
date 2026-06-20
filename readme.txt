@@ -3,8 +3,8 @@
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
 Requires at least: 5.9
-Tested up to: 6.9.4
-Stable tag: 0.8.9
+Tested up to: 7.0
+Stable tag: 0.8.10
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -57,6 +57,12 @@ Yes, You can use `[specs-table]` shortcode.
 
 == Changelog ==
 
+= 0.8.10 - 2026-06-20 =
+- Fix: security issue in attribute/group CRUD.
+- Fix: Possible PHP notice.
+- Maintenance: Add wp-env configuration to plugin's VCS.
+- Maintenance: Test and bump compatibility versions with latest WooCommerce and WordPress versions.
+
 = 0.8.9 - 2026-05-12 =
 - Fix: issue in php scoper.
 
@@ -78,14 +84,5 @@ Yes, You can use `[specs-table]` shortcode.
 
 = 0.8.4 - 2024-09-24 =
 - Fix broken "select" and "radio" field types.
-
-= 0.8.3 - 2024-09-22 =
-- Fix fatal error in order edit page.
-- Fix wrong minimum PHP version requirement (PHP 7.4+ is supported).
-- Ensure compatibility with latest WordPress and WooCommerce versions.
-
-= 0.8.2 - 2024-08-29 =
-- Minor security improvements.
-- Include composer.json in releases.
 
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
