@@ -7,16 +7,24 @@
 
     <arg value="sp"/>
     <arg name="colors"/>
-    <config name="testVersion" value="7.4-"/>
+    <config name="testVersion" value="8.1-"/>
     <config name="ignore_warnings_on_exit" value="1"/>
 
     <exclude-pattern>*/vendor/*</exclude-pattern>
 
-    <config name="testVersion" value="7.4-" />
-
     <rule ref="PSR12"/>
 
     <rule ref="WordPress-VIP-Go"/>
+
+    <!--
+        Exception messages are never printed raw. The one place a message reaches
+        the page, handleFailure() in the bootstrap, runs it through wp_kses_post.
+        Requiring esc_html() at every throw site would put escaping into domain
+        code that has no HTML context. Output escaping itself stays enforced.
+    -->
+    <rule ref="WordPress.Security.EscapeOutput">
+        <exclude name="WordPress.Security.EscapeOutput.ExceptionNotEscaped"/>
+    </rule>
 
     <!-- Strip out conflicting WP sniffs -->
     <exclude name="WordPress.Files.FileName"/>

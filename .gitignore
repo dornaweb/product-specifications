@@ -28,3 +28,11 @@ Thumbs.db
 # WP-env
 .wp-env.override.json
 .wp-env.local.yml
+
+# ENV
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.backup

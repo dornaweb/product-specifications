@@ -1,7 +1,9 @@
 includes:
     - %currentWorkingDirectory%/vendor/amiut/phpstan-type-utilities/extension.neon
+    - phpstan-baseline.neon
 parameters:
     level: max
+    phpVersion: 80100
     paths:
         - src/
         - product-specifications.php

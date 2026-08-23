@@ -1,6 +1,7 @@
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const path = require( 'path' );
 const WooDependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
+const WpDependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isHot = process.argv.includes( '--hot' );
@@ -15,7 +16,12 @@ const webpackConfig = {
 		frontend: './client/frontend/index.js',
 	},
 	plugins: [
-		...defaultConfig.plugins,
+		// The WooCommerce plugin extends the WordPress one; running both leaves
+		// each with half the externals and one overwriting the other's asset file.
+		...defaultConfig.plugins.filter(
+			( plugin ) =>
+				! ( plugin instanceof WpDependencyExtractionWebpackPlugin )
+		),
 		new WooDependencyExtractionWebpackPlugin(),
 	],
 	output: {

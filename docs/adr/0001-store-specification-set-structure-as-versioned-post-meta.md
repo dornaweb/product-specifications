@@ -1,4 +1,4 @@
-# ADR: Store Specification Set Structure as JSON Schema Meta
+# ADR: Store Specification Set Structure as Versioned Post Meta
 
 ## Status
 
@@ -15,7 +15,7 @@ A Specification Set controls:
 - the order of groups
 - the order of specifications inside each group
 
-Specification Sets are stored as a custom post type (same as legacy plugin):
+Specification Sets are stored as a custom post type (same as legacy "specifications tables" for backward compatibility):
 
 ```txt
 post_type: specs-table
@@ -32,25 +32,27 @@ Products only store specification values.
 Each Specification Set will store its structure in a single post meta field:
 
 ```txt
-schema
+specification_set_structure
 ```
 
-The `schema` meta value will be a versioned JSON document.
+The `specification_set_structure` meta value will be a versioned JSON document.
 
-The schema stores:
+The structure stores:
 
 - `schema_version`
 - groups
 - group order
-- specification references
+- specification set items
 - specification order inside each group
 
-The schema does not duplicate full specification definitions.
+The structure does not duplicate full specification definitions.
 
-Each specification reference stores both:
+Each specification set item stores:
 
 - `term_id` for runtime lookup
 - `slug` for portability, import/export, and repair
+- `visible` for set-specific display control
+- `comparable` for set-specific comparison control
 
 Example:
 
@@ -64,14 +66,16 @@ Example:
       "description": "",
       "items": [
         {
-          "type": "specification",
           "term_id": 123,
-          "slug": "screen_size"
+          "slug": "screen_size",
+          "visible": true,
+          "comparable": true
         },
         {
-          "type": "specification",
           "term_id": 124,
-          "slug": "resolution"
+          "slug": "resolution",
+          "visible": true,
+          "comparable": true
         }
       ]
     },
@@ -81,9 +85,10 @@ Example:
       "description": "",
       "items": [
         {
-          "type": "specification",
           "term_id": 201,
-          "slug": "battery_capacity"
+          "slug": "battery_capacity",
+          "visible": true,
+          "comparable": false
         }
       ]
     }
@@ -95,7 +100,7 @@ Example:
 
 Specification definitions should not be copied into every Specification Set.
 
-If definitions were duplicated inside set schemas, updating a specification would require updating every set that contains it.
+If definitions were duplicated inside set structures, updating a specification would require updating every set that contains it.
 
 Instead, the Specification Set stores only layout and composition:
 
@@ -107,17 +112,18 @@ In which order?
 
 The canonical specification definition remains on the specification term.
 
-Using object references instead of bare term IDs is slightly more verbose, but it keeps the schema extensible:
+Using set item objects instead of bare term IDs is slightly more verbose, but it keeps the structure explicit:
 
 ```json
 {
-  "type": "specification",
   "term_id": 123,
-  "key": "screen_size"
+  "slug": "screen_size",
+  "visible": true,
+  "comparable": true
 }
 ```
 
-This allows future additions such as per-set overrides without changing the basic structure.
+This allows set-specific presentation options without duplicating the full specification definition.
 
 The `schema_version` field exists only to version the internal JSON structure. It is not the plugin version or the Specification Set revision.
 
@@ -140,7 +146,7 @@ The `schema_version` field exists only to version the internal JSON structure. I
 
 ## Alternatives Considered
 
-### Store full specification definitions in the set schema
+### Store full specification definitions in the set structure
 
 Rejected because it duplicates definitions and creates synchronization problems.
 
@@ -163,10 +169,10 @@ A Specification Set is stored as a custom post type.
 Its structure is stored in one post meta field:
 
 ```txt
-schema
+specification_set_structure
 ```
 
-The schema is a versioned JSON document that stores groups, ordering, and references to specification terms.
+The structure is a versioned JSON document that stores groups, ordering, and references to specification terms.
 
 Specification definitions live on specification terms.
 

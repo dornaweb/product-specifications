@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Admin;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
+use Amiut\ProductSpecs\Capability\Capabilities;
 
 final class Assets
 {
     public const HANDLE_ADMIN_SCRIPT = 'product-specifications-admin-general';
     public const HANDLE_ADMIN_INIT_SCRIPT = 'product-specifications-admin-init';
 
-    private AssetHelper $assetHelper;
-
     public function __construct(
-        AssetHelper $assetHelper
+        private readonly AssetHelper $assetHelper,
+        private readonly Capabilities $capabilities
     ) {
-
-        $this->assetHelper = $assetHelper;
     }
 
     public function load(): void
@@ -40,6 +38,14 @@ final class Assets
                     ),
                     'unknown_error' => esc_html__('Something went wrong', 'product-specifications'),
                 ],
+            ]
+        );
+
+        wp_localize_script(
+            self::HANDLE_ADMIN_INIT_SCRIPT,
+            'dwspecsAdmin',
+            [
+                'capability' => $this->capabilities->manageSpecifications(),
             ]
         );
 

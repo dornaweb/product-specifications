@@ -18,7 +18,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4",
+		"php": ">=8.1",
 		"ext-json": "*",
 		"inpsyde/modularity": "^1.7"
 	},
@@ -43,13 +43,16 @@
 			"Amiut\\ProductSpecs\\Tests\\Unit\\": "tests/php/Unit/"
 		}
 	},
+	"scripts": {
+		"phpstan": "phpstan analyse --memory-limit=1G"
+	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"phpstan/extension-installer": false
 		},
 		"platform": {
-			"php": "7.4"
+			"php": "8.1"
 		}
 	}
 }

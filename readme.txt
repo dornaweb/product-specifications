@@ -5,7 +5,7 @@ Tags: specifications, product specifications,specs,specifications table,product 
 Requires at least: 5.9
 Tested up to: 6.6.2
 Stable tag: 0.8.7
-Requires PHP: 7.4
+Requires PHP: 8.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 Donate link: https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA

@@ -7,7 +7,7 @@ namespace Amiut\ProductSpecs\Assets;
 use RuntimeException;
 
 /**
- * @psalm-type AssetArguments = array{in_footer?: bool, strategy?: 'defer' | 'async'}
+ * @psalm-type AssetArguments = array{dependencies?: array<string>, in_footer?: bool, strategy?: 'defer' | 'async'}
  */
 final class AssetHelper
 {
@@ -63,12 +63,21 @@ final class AssetHelper
         }
 
         $assetData = $this->wpScriptsGeneratedData($assetPath);
+        $dependencies = array_values(
+            array_unique(
+                array_merge(
+                    $assetData['dependencies'] ?? [],
+                    $args['dependencies'] ?? []
+                )
+            )
+        );
+        unset($args['dependencies']);
 
         if ($type === Asset::TYPE_SCRIPT) {
             wp_register_script(
                 $handle,
                 $this->assetsDirectoryUrl . '/' . $relativePath,
-                $assetData['dependencies'] ?? [],
+                $dependencies,
                 $assetData['version'] ?? false,
                 $args
             );
@@ -88,11 +97,10 @@ final class AssetHelper
      */
     private function wpScriptsGeneratedData(string $assetPath): array
     {
-        $info = pathinfo($assetPath);
         $wpScriptMetaFile = sprintf(
             '%s/%s%s',
-            $info['dirname'],
-            $info['filename'],
+            pathinfo($assetPath, PATHINFO_DIRNAME),
+            pathinfo($assetPath, PATHINFO_FILENAME),
             '.asset.php'
         );
 

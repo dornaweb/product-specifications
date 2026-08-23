@@ -23,6 +23,8 @@
 	"devDependencies": {
 		"@playwright/test": "^1.46.1",
 		"@types/node": "^20.0",
+		"@types/react": "18.3.x",
+		"@types/react-dom": "18.3.x",
 		"@woocommerce/dependency-extraction-webpack-plugin": "^4.0.0",
 		"@wordpress/base-styles": "^7.0.0",
 		"@wordpress/browserslist-config": "^6.45.0",
@@ -34,8 +36,6 @@
 		"path": "^0.12.7",
 		"postcss": "^8.4.42",
 		"prettier": "npm:wp-prettier@3.0.3",
-		"react": "18.3.x",
-		"react-dom": "18.3.x",
 		"sass": "^1.77.8",
 		"typescript": "~5.9.3"
 	},
@@ -45,15 +45,13 @@
 	"scripts": {
 		"start": "wp-scripts start",
 		"start:hot": "wp-scripts start --hot",
-		"build": "wp-scripts build",
+		"build": "NODE_ENV=production wp-scripts build",
 		"lint:js": "wp-scripts lint-js 'client/**/*.{ts,tsx}'",
 		"lint:js-fix": "wp-scripts lint-js --fix 'client/**/*.{ts,tsx}'",
 		"format": "wp-scripts format",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"dependencies": {
-		"@types/react": "18.3.x",
-		"@types/react-dom": "18.3.x",
 		"@woocommerce/components": "^13.1.0",
 		"@woocommerce/navigation": "^8.2.0",
 		"@wordpress/components": "^32.6.0",
@@ -61,7 +59,10 @@
 		"@wordpress/hooks": "^4.44.0",
 		"@wordpress/i18n": "^6.17.0",
 		"@wordpress/ui": "^0.12.0",
+		"@wordpress/url": "^4.46.0",
 		"clsx": "^2.1.1",
-		"jquery": "^3.7.1"
+		"jquery": "^3.7.1",
+		"react": "18.3.x",
+		"react-dom": "18.3.x"
 	}
 }

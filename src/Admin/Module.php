@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Admin;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
+use Amiut\ProductSpecs\Capability\Capabilities;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
@@ -18,9 +19,11 @@ final class Module implements ServiceModule, ExecutableModule
     {
         return [
             Assets::class => static fn (ContainerInterface $container) => new Assets(
-                $container->get(AssetHelper::class)
+                $container->get(AssetHelper::class),
+                $container->get(Capabilities::class)
             ),
             AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
+            PageRegistry::class => static fn () => new WooCommerceAdminPageRegistry(),
         ];
     }
 
@@ -49,24 +52,23 @@ final class Module implements ServiceModule, ExecutableModule
 
     private function registerMenuPages(ContainerInterface $container): void
     {
-        wc_admin_register_page(
-            [
-                'id'       => 'dwps-product-specifications',
-                'title'    => __('Product Specifications', 'product-specifications'),
-                'parent'   => 'woocommerce',
-                'capability' => 'shop_manager',
-                'nav_args' => [
-                    'parent' => 'woocommerce',
-                    'order' => 50,
-                ],
-                'path' => '/dwps-product-specifications',
-            ]
+        $capability = $container->get(Capabilities::class)->manageSpecifications();
+
+        $container->get(PageRegistry::class)->register(
+            new Page(
+                'dwps-product-specifications',
+                __('Product Specifications', 'product-specifications'),
+                '/dwps-product-specifications',
+                'woocommerce',
+                $capability,
+                50
+            )
         );
 
         add_menu_page(
             esc_html__('Product specifications table', 'product-specifications'),
             esc_html__('Specs. tables', 'product-specifications'),
-            'edit_pages',
+            $capability,
             'dw-specs',
             static function (): void {
             },
@@ -79,7 +81,7 @@ final class Module implements ServiceModule, ExecutableModule
             'dw-specs',
             esc_html__('Add a new table', 'product-specifications'),
             esc_html__('New table', 'product-specifications'),
-            'edit_pages',
+            $capability,
             'dw-specs-new',
             static function (): void {
             }

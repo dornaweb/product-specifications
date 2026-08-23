@@ -1,0 +1,997 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: src/Admin/AdminPageTopMenuModifier.php
+
+		-
+			message: '#^Cannot access offset ''dw\-specs'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Admin/AdminPageTopMenuModifier.php
+
+		-
+			message: '#^Cannot access offset 2 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/Admin/AdminPageTopMenuModifier.php
+
+		-
+			message: '#^Cannot access offset mixed on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Admin/AdminPageTopMenuModifier.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''inc/helpers\.php'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/App.php
+
+		-
+			message: '#^Constant DWSPECS_ABSPATH not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: src/App.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''assets'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Assets/Module.php
+
+		-
+			message: '#^Cannot call method basePath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Assets/Module.php
+
+		-
+			message: '#^Cannot call method baseUrl\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Assets/Module.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Assets/Module.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 4
+			path: src/Attribute/AttributeFieldFactory.php
+
+		-
+			message: '#^Function dwspecs_attr_value_by not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: src/Attribute/AttributeFieldFactory.php
+
+		-
+			message: '#^Parameter \#6 \$value of class Amiut\\ProductSpecs\\Attribute\\AttributeFieldText constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Attribute/AttributeFieldFactory.php
+
+		-
+			message: '#^Parameter \#6 \$value of class Amiut\\ProductSpecs\\Attribute\\AttributeFieldTextArea constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Attribute/AttributeFieldFactory.php
+
+		-
+			message: '#^Parameter \#7 \$value of class Amiut\\ProductSpecs\\Attribute\\AttributeFieldSelect constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Attribute/AttributeFieldFactory.php
+
+		-
+			message: '#^Access to undefined constant Amiut\\ProductSpecs\\AttributeGroupsListUi\\AttributeGroupsListPage\:\:DEFAULT_PER_PAGE\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: src/AttributeGroupsListUi/AttributeGroupsListPage.php
+
+		-
+			message: '#^Parameter \#1 \$maybeint of function absint expects array\|bool\|float\|int\|resource\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/AttributeGroupsListUi/AttributeGroupsListPage.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\AttributesListUi\\AttributeListPage\:\:groupId\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/AttributesListUi/AttributeListPage.php
+
+		-
+			message: '#^Parameter \#1 \$maybeint of function absint expects array\|bool\|float\|int\|resource\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/AttributesListUi/AttributeListPage.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:defaultValue\(\) should return array\<string\>\|bool\|string but returns array\<string\|false\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:formData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:processAdd\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:processEdit\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:updateTermMetas\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:validate\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, ''trim'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Parameter \#1 \$term of function wp_insert_term expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Parameter \#2 \$termId of method Amiut\\ProductSpecs\\EntityUpdater\\AttributeController\:\:updateTermMetas\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Parameter \#3 \$args of function wp_insert_term expects array\{alias_of\?\: string, description\?\: string, parent\?\: int, slug\?\: string\}, array\{description\: mixed, slug\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Parameter \#3 \$args of function wp_update_term expects array\{alias_of\?\: string, description\?\: string, parent\?\: int, slug\?\: string\}, array\{name\: mixed, description\: mixed, slug\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeGroupController\:\:formData\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeGroupController\:\:processAdd\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\AttributeGroupController\:\:processEdit\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Parameter \#1 \$term of function wp_insert_term expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Parameter \#3 \$args of function wp_insert_term expects array\{alias_of\?\: string, description\?\: string, parent\?\: int, slug\?\: string\}, array\{description\: mixed, slug\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Parameter \#3 \$args of function wp_update_term expects array\{alias_of\?\: string, description\?\: string, parent\?\: int, slug\?\: string\}, array\{name\: mixed, description\: mixed, slug\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 3
+			path: src/EntityUpdater/AttributeGroupController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/EntityUpdater/AttributeSyncHandler.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, ''absint'' given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/EntityUpdater/AttributeSyncHandler.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\EntityUpdater\\InvalidEntityPropertyException\:\:__construct\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/EntityUpdater/InvalidEntityPropertyException.php
+
+		-
+			message: '#^Parameter \#1 \$message of method Exception\:\:__construct\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/EntityUpdater/InvalidEntityPropertyException.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 3
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access an offset on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''attributes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''attributes\-order'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''groups'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''table_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 6
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''term_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$ID on int\|WP_Post\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$name on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$post_name on int\|WP_Post\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$post_title on int\|WP_Post\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$slug on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$term_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Function dwspecs_get_attributes_by_group not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Function dwspecs_get_table_groups not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Function dwspecs_get_table_result not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ImportExport\\ExportDataAjaxHandler\:\:export\(\) has parameter \$format with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ImportExport\\ExportDataAjaxHandler\:\:export\(\) has parameter \$include_products with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ImportExport\\ExportDataAjaxHandler\:\:export\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, ''absint'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_the_title expects int\|WP_Post, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$post_id of function get_post_meta expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$term_id of function get_term_meta expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\|false\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#2 \$post of function get_post_field expects int\|WP_Post\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ExportDataAjaxHandler.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 4
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Binary operation "\*" between mixed and 30 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''attr_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 3
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''attributes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 4
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''attributes\-order'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''default'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''group\-order'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''group_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 3
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''old_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''products'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''size'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''skleton'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''slug'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 5
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''table'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''table\-id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''table\-slug'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''table\-title'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''term_id'' on array\{term_id\: int, term_taxonomy_id\: int\|string\}\|WP_Error\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''term_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''title'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''tmp_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''type'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset ''values'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access offset mixed on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$posts on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot access property \$term_id on array\<int\|string, int\|string\>\|WP_Term\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot call method get_var\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Cannot call method prepare\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Constant MINUTE_IN_SECONDS not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ImportExport\\ImportDataAjaxHandler\:\:importPluginData\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_filter expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function file_get_contents expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$post_id of function update_post_meta expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$postarr of function wp_insert_post expects array\{ID\?\: int, post_author\?\: int, post_date\?\: string, post_date_gmt\?\: string, post_content\?\: string, post_content_filtered\?\: string, post_title\?\: string, post_excerpt\?\: string, \.\.\.\}, array\{post_type\: ''specs\-table'', post_title\: mixed, post_name\: mixed, post_status\: ''publish'', meta_input\: array\{old_id\: mixed\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$term of function wp_insert_term expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#1 \$term_id of function update_term_meta expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 7
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#2 \$value of function get_term_by expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Parameter \#3 \$args of function wp_insert_term expects array\{alias_of\?\: string, description\?\: string, parent\?\: int, slug\?\: string\}, array\{slug\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Part \$wpdb\-\>posts \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 2
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 10
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: src/ImportExport/ImportDataAjaxHandler.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: src/ImportExport/Module.php
+
+		-
+			message: '#^Parameter \#1 \$pluginProperties of class Amiut\\ProductSpecs\\Integration\\WooCommerce\\FeaturesCompatibilityDeclarations constructor expects Inpsyde\\Modularity\\Properties\\PluginProperties, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Integration/Module.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Integration\\WooCommerce\\FeaturesCompatibilityDeclarations\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Integration/WooCommerce/FeaturesCompatibilityDeclarations.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Integration\\WooCommerce\\ProductTabs\:\:addProductSpecificationsTab\(\) has parameter \$tabs with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Integration/WooCommerce/ProductTabs.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Integration\\WooCommerce\\ProductTabs\:\:addProductSpecificationsTab\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Integration/WooCommerce/ProductTabs.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Metabox/Metaboxes.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Metabox\\Metaboxes\:\:__invoke\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Metabox/Metaboxes.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: src/ProductSpecifications/Module.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 3
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ProductSpecifications\\ProductSpecificationsMetabox\:\:attributesByGroup\(\) has parameter \$group with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ProductSpecifications\\ProductSpecificationsMetabox\:\:attributesByGroup\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ProductSpecifications\\ProductSpecificationsMetabox\:\:prepareSpecificationsTable\(\) has parameter \$specificationsTableData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\ProductSpecifications\\ProductSpecificationsMetabox\:\:prepareSpecificationsTable\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: src/ProductSpecifications/ProductSpecificationsMetabox.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/Repository/AttributeFieldRepository.php
+
+		-
+			message: '#^Cannot access offset ''current_page'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Repository/AttributeGroupsRepository.php
+
+		-
+			message: '#^Cannot access offset ''per_page'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Repository/AttributeGroupsRepository.php
+
+		-
+			message: '#^Cannot access offset ''search'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Repository/AttributeGroupsRepository.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\AttributeGroupsRepository\:\:prepareArguments\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repository/AttributeGroupsRepository.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\AttributeGroupsRepository\:\:prepareArguments\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Repository/AttributeGroupsRepository.php
+
+		-
+			message: '#^PHPDoc tag @return with type mixed is not subtype of native type array\.$#'
+			identifier: return.phpDocType
+			count: 1
+			path: src/Repository/AttributeGroupsRepository.php
+
+		-
+			message: '#^Binary operation "\+" between mixed and array\{meta_key\: ''attr_group'', meta_value\: non\-falsy\-string&numeric\-string\} results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Cannot access offset ''current_page'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Cannot access offset ''per_page'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Cannot access offset ''search'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\AttributesRepository\:\:prepareArguments\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\AttributesRepository\:\:prepareArguments\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^PHPDoc tag @return with type mixed is not subtype of native type array\.$#'
+			identifier: return.phpDocType
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, ''absint'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Repository/AttributesRepository.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\EntityCollection\:\:empty\(\) return type with generic class Amiut\\ProductSpecs\\Repository\\EntityCollection does not specify its types\: Entity$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/EntityCollection.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\EntityCollection\:\:entities\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repository/EntityCollection.php
+
+		-
+			message: '#^Binary operation "\*" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Binary operation "\-" between mixed and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\EntityCollectionFactory\:\:countWpTerms\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\EntityCollectionFactory\:\:termsCollection\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\EntityCollectionFactory\:\:termsCollection\(\) return type with generic class Amiut\\ProductSpecs\\Repository\\EntityCollection does not specify its types\: Entity$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$args with type mixed is not subtype of native type array\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Parameter \#1 \$args of function get_terms expects array\{taxonomy\?\: array\<string\>\|string, object_ids\?\: array\<int\>\|int, orderby\?\: string, order\?\: string, hide_empty\?\: bool\|int, include\?\: array\<int\>\|string, exclude\?\: array\<int\>\|string, exclude_tree\?\: array\<int\>\|string, \.\.\.\}, non\-empty\-array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Parameter \#1 \$args of function wp_count_terms expects array\{taxonomy\?\: array\<string\>\|string, object_ids\?\: array\<int\>\|int, orderby\?\: string, order\?\: string, hide_empty\?\: bool\|int, include\?\: array\<int\>\|string, exclude\?\: array\<int\>\|string, exclude_tree\?\: array\<int\>\|string, \.\.\.\}, non\-empty\-array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Parameter \#3 \$perPage of class Amiut\\ProductSpecs\\Repository\\EntityCollection constructor expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Parameter \#4 \$currentPage of class Amiut\\ProductSpecs\\Repository\\EntityCollection constructor expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Repository/EntityCollectionFactory.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Repository\\SpecificationsTableRepository\:\:findByProductId\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Repository/SpecificationsTableRepository.php
+
+		-
+			message: '#^Cannot access offset ''attributes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Shortcode/SpecificationsTable.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/Shortcode/SpecificationsTable.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/SpecificationsTable/SpecificationsTableMetabox.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''templates'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: src/Template/Module.php
+
+		-
+			message: '#^Cannot call method basePath\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Template/Module.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Template\\PhpTemplateRenderer\:\:render\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Template/PhpTemplateRenderer.php
+
+		-
+			message: '#^Anonymous function has an unused use \$data\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: src/Template/Template.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Template\\Template\:\:render\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Template/Template.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Template\\Template\:\:render\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Template/Template.php
+
+		-
+			message: '#^Method Amiut\\ProductSpecs\\Template\\TemplateRenderer\:\:render\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Template/TemplateRenderer.php
