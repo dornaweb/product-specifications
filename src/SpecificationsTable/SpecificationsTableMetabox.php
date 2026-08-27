@@ -68,7 +68,7 @@ final class SpecificationsTableMetabox implements Metabox
              * @return ?WP_Term
              */
             static function ($groupId) {
-                $term = get_term_by('id', (int) $groupId, Taxonomy\AttributeGroup::KEY);
+                $term = get_term_by('id', (int) $groupId, Taxonomy\LegacyGroupTaxonomy::KEY);
                 return $term instanceof WP_Term ? $term : null;
             },
             (array) get_post_meta($post->ID, '_groups', true)

@@ -24,12 +24,12 @@ class SpecificationsTable
     }
 
     /**
-     * @param array|string $attributes
+     * @param array<string>|string $shortcodeAttributes
      */
-    public function render($attributes): string
+    public function render($shortcodeAttributes): string
     {
-        $attributes = is_array($attributes) ? $attributes : [];
-        $postId = (int) ($attributes['post_id'] ?? 0);
+        $shortcodeAttributes = is_array($shortcodeAttributes) ? $shortcodeAttributes : [];
+        $postId = (int) ($shortcodeAttributes['post_id'] ?? 0);
 
         if (!$postId) {
             $postId = get_the_ID();
@@ -39,7 +39,7 @@ class SpecificationsTable
             return '';
         }
 
-        $table = $this->specificationsTableWithNonEmptyAttributes(
+        $table = $this->groupsWithSpecifications(
             $this->repository->findByProductId($postId)
         );
 
@@ -58,10 +58,14 @@ class SpecificationsTable
         );
     }
 
-    private function specificationsTableWithNonEmptyAttributes(array $attributes): array
+    /**
+     * @param array<mixed> $groups
+     * @return array<mixed>
+     */
+    private function groupsWithSpecifications(array $groups): array
     {
         return array_filter(
-            $attributes,
+            $groups,
             /**
              * @param ?array $value
              */

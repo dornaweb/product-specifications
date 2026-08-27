@@ -27,9 +27,9 @@ class ProductTabs
             return $tabs;
         }
 
-        $hasSpecsTable = $this->repository->productHasSpecsTable($product->get_id());
+        $hasSpecifications = $this->repository->productHasSpecsTable($product->get_id());
 
-        if ($hasSpecsTable) {
+        if ($hasSpecifications) {
             $tabs['dwspecs_product_specifications'] = [
                 'title' => get_option('dwps_tab_title') ?: esc_html__('Product Specifications', 'product-specifications'),
                 'priority' => 10,
@@ -39,7 +39,7 @@ class ProductTabs
 
         if (
             get_option('dwps_wc_default_specs') === 'remove'
-            || ($hasSpecsTable && get_option('dwps_wc_default_specs') === 'remove_if_specs_not_empty')
+            || ($hasSpecifications && get_option('dwps_wc_default_specs') === 'remove_if_specs_not_empty')
         ) {
             unset($tabs['additional_information']);
         }

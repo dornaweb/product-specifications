@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Settings;
 
+use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
@@ -47,7 +48,7 @@ final class Module implements ServiceModule, ExecutableModule
             'dw-specs',
             __('Product specifications settings', 'product-specifications'),
             __('Settings', 'product-specifications'),
-            'manage_options',
+            $container->get(Capabilities::class)->manageSpecifications(),
             'dw-specs-settings',
             [$container->get(SettingsPage::class), 'render']
         );

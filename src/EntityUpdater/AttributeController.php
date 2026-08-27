@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\EntityUpdater;
 
-use Amiut\ProductSpecs\Content\Taxonomy;
+use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
 
 final class AttributeController
 {
@@ -58,7 +58,7 @@ final class AttributeController
             $this->validate($data);
             $check = wp_insert_term(
                 $data['name'],
-                Taxonomy\Attribute::KEY,
+                SpecificationTaxonomy::KEY,
                 [
                     'description' => $data['description'],
                     'slug' => $data['slug'],
@@ -136,7 +136,7 @@ final class AttributeController
 
             $check = wp_update_term(
                 $attributeId,
-                Taxonomy\Attribute::KEY,
+                SpecificationTaxonomy::KEY,
                 [
                     'name' => $data['name'],
                     'description' => $data['description'],
@@ -213,7 +213,7 @@ final class AttributeController
              */
             do_action(self::ACTION_ATTRIBUTES_BEFORE_DELETE, $id, $groupId);
 
-            $check = wp_delete_term($id, Taxonomy\Attribute::KEY);
+            $check = wp_delete_term($id, SpecificationTaxonomy::KEY);
 
             if ($check instanceof \WP_Error) {
                 continue;

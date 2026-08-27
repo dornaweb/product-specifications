@@ -156,7 +156,7 @@ final class AttributeGroupController
         $check = null;
 
         foreach ($ids as $id) {
-            $check = wp_delete_term($id, Taxonomy\AttributeGroup::KEY);
+            $check = wp_delete_term($id, Taxonomy\LegacyGroupTaxonomy::KEY);
         }
 
         if ($check instanceof \WP_Error) {

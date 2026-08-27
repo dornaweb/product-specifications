@@ -77,7 +77,7 @@ class AttributeFieldRepository
         $groups = array_filter((array) get_post_meta($tableId, '_groups', true));
 
         foreach ($groups as $groupId) {
-            $group = get_term_by('id', (int) $groupId, Taxonomy\AttributeGroup::KEY);
+            $group = get_term_by('id', (int) $groupId, Taxonomy\LegacyGroupTaxonomy::KEY);
 
             if ($group instanceof WP_Term) {
                 $result[] = $group;

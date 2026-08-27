@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Repository;
 
-use Amiut\ProductSpecs\Content\Taxonomy;
+use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
 use WP_Error;
 use WP_Term;
 
@@ -79,7 +79,7 @@ class AttributesRepository
         /** @var array<WP_Term>|WP_Error $terms */
         $terms = get_terms(
             [
-                'taxonomy' => Taxonomy\Attribute::KEY,
+                'taxonomy' => SpecificationTaxonomy::KEY,
                 'hide_empty' => false,
                 'meta_key' => 'attr_group',
                 'meta_value' => (string) $groupId,
@@ -101,7 +101,7 @@ class AttributesRepository
     {
         /** @var TermCollectionArguments $preparedArguments */
         $preparedArguments = [
-            'taxonomy' => Taxonomy\Attribute::KEY,
+            'taxonomy' => SpecificationTaxonomy::KEY,
             'hide_empty' => false,
             'orderby' => 'term_id',
             'order' => 'DESC',

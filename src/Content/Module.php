@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Content;
 
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
+use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
-use Inpsyde\Modularity\Module\ExecutableModule;
-use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 
 final class Module implements ServiceModule, ExecutableModule
 {
@@ -17,8 +17,7 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            Taxonomy\AttributeGroup::class => static fn () => new Taxonomy\AttributeGroup(),
-            Taxonomy\Attribute::class => static fn () => new Taxonomy\Attribute(),
+            Taxonomy\LegacyGroupTaxonomy::class => static fn () => new Taxonomy\LegacyGroupTaxonomy(),
         ];
     }
 
@@ -27,19 +26,12 @@ final class Module implements ServiceModule, ExecutableModule
         add_action(
             'init',
             static function () use ($container) {
-                $attributGroupTaxonomy = $container->get(Taxonomy\AttributeGroup::class);
-                $attributeTaxonomy = $container->get(Taxonomy\Attribute::class);
+                $legacyGroupTaxonomy = $container->get(Taxonomy\LegacyGroupTaxonomy::class);
 
                 register_taxonomy(
-                    $attributGroupTaxonomy->key(),
+                    $legacyGroupTaxonomy->key(),
                     SpecificationSetPostType::KEY,
-                    $attributGroupTaxonomy->args(),
-                );
-
-                register_taxonomy(
-                    $attributeTaxonomy->key(),
-                    SpecificationSetPostType::KEY,
-                    $attributeTaxonomy->args(),
+                    $legacyGroupTaxonomy->args(),
                 );
             },
         );

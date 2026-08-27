@@ -42,7 +42,7 @@ class AttributeGroupsRepository
     {
         /** @var TermCollectionArguments $preparedArguments */
         $preparedArguments = [
-            'taxonomy' => Taxonomy\AttributeGroup::KEY,
+            'taxonomy' => Taxonomy\LegacyGroupTaxonomy::KEY,
             'hide_empty' => false,
             'orderby' => 'term_id',
             'order' => 'DESC',
