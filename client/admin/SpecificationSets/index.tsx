@@ -1,19 +1,17 @@
 import { __ } from '@wordpress/i18n';
 import Layout from '../shared/layout';
 import { Button, Flex, FlexItem, Icon } from '@wordpress/components';
-import { getNewPath, navigateTo } from '@woocommerce/navigation';
+import { adminPath, goToAdminPath } from '../shared/platform';
 import { useSpecificationSets } from './hooks/useSpecificationSets';
 import SpecificationSetsTable from './components/SpecificationSetsTable';
 import EmptyState from './components/EmptyState';
 
-const CREATE_URL = getNewPath(
-	{},
-	'/dwps-product-specifications/specification-set/new'
-);
+const CREATE_PATH = '/dwps-product-specifications/specification-set/new';
+const CREATE_URL = adminPath( CREATE_PATH );
 
 const handleCreateClick = ( event: React.MouseEvent< HTMLAnchorElement > ) => {
 	event.preventDefault();
-	navigateTo( { url: CREATE_URL } );
+	goToAdminPath( CREATE_PATH );
 };
 
 const SpecificationSetPage = () => {

@@ -1,100 +1,49 @@
+import { Placeholder, Spinner } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import Layout from '../shared/layout';
-import { Button, Flex, FlexItem } from '@wordpress/components';
-import { Card, InputControl } from '@wordpress/ui';
+import EditorHeader from './components/EditorHeader';
+import EditorNotice from './components/EditorNotice';
+import EditorTabs from './components/EditorTabs';
+import { useSpecificationSetEditor } from './hooks/useSpecificationSetEditor';
 
 import './styles.scss';
 
 const SpecificationSetEditor = () => {
+	const editor = useSpecificationSetEditor();
+
+	const onSubmit = async ( event: React.FormEvent< HTMLFormElement > ) => {
+		event.preventDefault();
+		await editor.save();
+	};
+
 	return (
 		<Layout title="Specification Sets">
-			<form>
+			<form onSubmit={ onSubmit }>
 				<div className="product-specifications-specs-set-editor">
-					<Flex className="product-specifications-specs-sets__header">
-						<FlexItem>
-							<h2>
-								{ __(
-									'Add new Specification Set',
-									'product-specifications'
-								) }
-							</h2>
-							<p>
-								{ __(
-									'Group your specifications into a reusable set for products.',
-									'product-specifications'
-								) }
-							</p>
-						</FlexItem>
-
-						<FlexItem>
-							<Flex align="center">
-								<Button
-									variant="secondary"
-									className="product-specifications-specs-sets__cancel-button"
-									type="button"
-								>
-									{ __( 'Cancel', 'product-specifications' ) }
-								</Button>
-								<Button
-									variant="primary"
-									className="product-specifications-specs-sets__create-button"
-									type="submit"
-								>
-									{ __(
-										'Save Specification Set',
-										'product-specifications'
-									) }
-								</Button>
-							</Flex>
-						</FlexItem>
-					</Flex>
-
-					<Card.Root className="product-specifications-specs-set-editor__title-card">
-						<Card.Header>
-							<Card.Title>
-								{ __(
-									'Specification Set Name',
-									'product-specifications'
-								) }
-							</Card.Title>
-						</Card.Header>
-						<Card.Content>
-							<InputControl
-								label={ __(
-									'Specification Set Name',
-									'product-specifications'
-								) }
-								description={ __(
-									'This name is used for internal organization and will not be visible to customers.',
-									'product-specifications'
-								) }
-								hideLabelFromVision
-							/>
-						</Card.Content>
-					</Card.Root>
-					<Card.Root className="product-specifications-specs-set-editor__main">
-						<Card.Header>
-							<Card.Title>
-								{ __(
-									'Groups and Specifications',
-									'product-specifications'
-								) }
-							</Card.Title>
-						</Card.Header>
-						<Card.Content>
-							<InputControl
-								label={ __(
-									'Specification Set Name',
-									'product-specifications'
-								) }
-								description={ __(
-									'This name is used for internal organization and will not be visible to customers.',
-									'product-specifications'
-								) }
-								hideLabelFromVision
-							/>
-						</Card.Content>
-					</Card.Root>
+					<EditorHeader
+						mode={ editor.mode }
+						hasUnsavedChanges={ editor.hasUnsavedChanges }
+						isSaving={ editor.isSaving }
+					/>
+					<EditorNotice
+						notice={ editor.notice }
+						onDismiss={ editor.dismissNotice }
+					/>
+					{ editor.isLoading ? (
+						<Placeholder>
+							<Spinner />
+							{ __(
+								'Loading specification set…',
+								'product-specifications'
+							) }
+						</Placeholder>
+					) : editor.loadErrorMessage ? (
+						<Placeholder>
+							{ editor.loadErrorMessage }
+						</Placeholder>
+					) : (
+						<EditorTabs editor={ editor } />
+					) }
 				</div>
 			</form>
 		</Layout>

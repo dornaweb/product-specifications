@@ -1,8 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { Button, CheckboxControl } from '@wordpress/components';
-import TableCard from '@woocommerce/components/build/table';
+import { DataTable, adminPath, goToAdminPath } from '../../../shared/platform';
 
 import './styles.scss';
+
+const EDIT_PATH = '/dwps-product-specifications/specification-set/edit';
 
 interface SpecificationSetRecord {
 	id: number;
@@ -20,7 +22,9 @@ interface Props {
 		orderby: string;
 		order: 'asc' | 'desc';
 	};
-	onQueryChange: ( param: string ) => ( value: string, direction?: string ) => void;
+	onQueryChange: (
+		param: string
+	) => ( value: string, direction?: string ) => void;
 	selectedIds: number[];
 	onSelectRow: ( id: number, checked: boolean ) => void;
 	onSelectAll: ( checked: boolean ) => void;
@@ -106,6 +110,7 @@ const SpecificationSetsTable = ( {
 		const date = record.date
 			? new Date( record.date ).toLocaleDateString()
 			: '—';
+		const editUrl = adminPath( EDIT_PATH, { id: record.id } );
 
 		return [
 			{
@@ -130,7 +135,9 @@ const SpecificationSetsTable = ( {
 				value: record.id,
 			},
 			{
-				display: record.title.rendered || __( '(no title)', 'product-specifications' ),
+				display:
+					record.title.rendered ||
+					__( '(no title)', 'product-specifications' ),
 				value: record.title.rendered,
 			},
 			{
@@ -140,14 +147,18 @@ const SpecificationSetsTable = ( {
 			{
 				display: (
 					<span className="product-specifications-specs-sets-table__row-actions">
-						<Button variant="tertiary" size="small">
-							{ __( 'Edit', 'product-specifications' ) }
-						</Button>
 						<Button
 							variant="tertiary"
 							size="small"
-							isDestructive
+							href={ editUrl }
+							onClick={ ( event ) => {
+								event.preventDefault();
+								goToAdminPath( EDIT_PATH, { id: record.id } );
+							} }
 						>
+							{ __( 'Edit', 'product-specifications' ) }
+						</Button>
+						<Button variant="tertiary" size="small" isDestructive>
 							{ __( 'Delete', 'product-specifications' ) }
 						</Button>
 					</span>
@@ -158,7 +169,7 @@ const SpecificationSetsTable = ( {
 	} );
 
 	return (
-		<TableCard
+		<DataTable
 			className="product-specifications-specs-sets-table"
 			title={ __( 'Specification Sets', 'product-specifications' ) }
 			headers={ tableHeaders }
@@ -166,7 +177,11 @@ const SpecificationSetsTable = ( {
 			rowsPerPage={ query.per_page }
 			totalRows={ total }
 			isLoading={ isLoading }
-			query={ { paged: String( query.page ), orderby: query.orderby, order: query.order } }
+			query={ {
+				paged: String( query.page ),
+				orderby: query.orderby,
+				order: query.order,
+			} }
 			onQueryChange={ onQueryChange }
 			rowHeader={ 2 }
 			showMenu

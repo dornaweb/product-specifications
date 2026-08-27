@@ -1,11 +1,10 @@
-// TODO: edit file name
 import { lazy } from 'react';
-import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import { registerAdminPages } from './shared/platform';
 
-const MIN_CAPABILITY = 'shop_manager';
+const MIN_CAPABILITY = window.dwspecsAdmin?.capability ?? 'manage_woocommerce';
 
-// Page containers registered in woocommerce_admin_pages_list must be lazy-loaded.
+// Page containers registered with the admin shell must be lazy-loaded.
 // Do not statically import page containers.
 // Static imports break code splitting and does not work with imported CSS files
 
@@ -27,52 +26,35 @@ const SpecificationSetEditorPage = lazy(
 		)
 );
 
-addFilter(
-	'woocommerce_admin_pages_list',
-	'dwps-product-specifications',
-	( pages ) => {
-		pages.push( {
-			container: MainPage,
-			path: '/dwps-product-specifications',
-			breadcrumbs: [
-				__( 'Product Specifications', 'product-specifications' ),
-			],
-			isDefault: true,
-			capability: MIN_CAPABILITY,
-			layout: {
-				header: false,
-			},
-			wpOpenMenu: 'toplevel_page_woocommerce',
-		} );
-
-		pages.push( {
-			container: SpecificationSetsPage,
-			path: '/dwps-product-specifications/specification-sets',
-			breadcrumbs: [
-				__( 'Specification Sets', 'product-specifications' ),
-			],
-			isDefault: true,
-			capability: MIN_CAPABILITY,
-			layout: {
-				header: false,
-			},
-			wpOpenMenu: 'toplevel_page_woocommerce',
-		} );
-
-		pages.push( {
-			container: SpecificationSetEditorPage,
-			path: '/dwps-product-specifications/specification-set/new',
-			breadcrumbs: [
-				__( 'Product Specifications', 'product-specifications' ),
-			],
-			isDefault: true,
-			capability: MIN_CAPABILITY,
-			layout: {
-				header: false,
-			},
-			wpOpenMenu: 'toplevel_page_woocommerce',
-		} );
-
-		return pages;
-	}
-);
+registerAdminPages( [
+	{
+		container: MainPage,
+		path: '/dwps-product-specifications',
+		breadcrumbs: [
+			__( 'Product Specifications', 'product-specifications' ),
+		],
+		capability: MIN_CAPABILITY,
+	},
+	{
+		container: SpecificationSetsPage,
+		path: '/dwps-product-specifications/specification-sets',
+		breadcrumbs: [ __( 'Specification Sets', 'product-specifications' ) ],
+		capability: MIN_CAPABILITY,
+	},
+	{
+		container: SpecificationSetEditorPage,
+		path: '/dwps-product-specifications/specification-set/new',
+		breadcrumbs: [
+			__( 'Product Specifications', 'product-specifications' ),
+		],
+		capability: MIN_CAPABILITY,
+	},
+	{
+		container: SpecificationSetEditorPage,
+		path: '/dwps-product-specifications/specification-set/edit',
+		breadcrumbs: [
+			__( 'Product Specifications', 'product-specifications' ),
+		],
+		capability: MIN_CAPABILITY,
+	},
+] );
