@@ -9,7 +9,7 @@ export default [
 			'dist/**',
 			'node_modules/**',
 			'vendor/**',
-			'coverage/**'
+			'coverage/**',
 		],
 	},
 	{

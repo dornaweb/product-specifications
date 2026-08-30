@@ -2,8 +2,8 @@
 
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
-Requires at least: 5.9
-Tested up to: 6.6.2
+Requires at least: 6.9
+Tested up to: 7.1
 Stable tag: 0.8.7
 Requires PHP: 8.1
 License: GPL-2.0+

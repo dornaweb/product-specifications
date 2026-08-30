@@ -5,11 +5,10 @@
 
 # Node
 node_modules/
+.pnpm-store
 
-# OS X metadata
+# OS metadata
 .DS_Store
-
-# Windows junk
 Thumbs.db
 
 # Composer
@@ -36,3 +35,7 @@ Thumbs.db
 .env.test.local
 .env.production.local
 .env.backup
+
+# AI
+.claude/settings.json
+.playwright-mcp/
