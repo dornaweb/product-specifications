@@ -213,7 +213,11 @@ final class AttributeController
              */
             do_action(self::ACTION_ATTRIBUTES_BEFORE_DELETE, $id, $groupId);
 
-            $check = wp_delete_term($id, SpecificationTaxonomy::KEY);
+            try {
+                $check = wp_delete_term($id, SpecificationTaxonomy::KEY);
+            } catch (\RuntimeException) {
+                continue;
+            }
 
             if ($check instanceof \WP_Error) {
                 continue;
