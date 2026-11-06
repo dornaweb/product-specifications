@@ -1,0 +1,103 @@
+import {
+	CheckboxControl,
+	SelectControl,
+	TextControl,
+	TextareaControl,
+} from '@wordpress/components';
+import type { ReactNode } from 'react';
+import { __ } from '@wordpress/i18n';
+import { Field } from '../ui';
+import { choiceSelectOptions, choicesFrom } from './ChoiceOptionsPanel';
+import { asText, fromText } from './textConversion';
+import type { SpecificationTypeDefaultProps } from './index';
+
+const DefaultField = ( {
+	children,
+}: {
+	children: ( controlProps: Record< string, unknown > ) => ReactNode;
+} ) => (
+	<Field
+		label={ __( 'Default', 'product-specifications' ) }
+		help={ __(
+			'Offered as a suggestion when a product has no value yet. Never stored until the product is saved, and never shown on your storefront on its own.',
+			'product-specifications'
+		) }
+	>
+		{ children }
+	</Field>
+);
+
+export const TextDefault = ( {
+	value,
+	onChange,
+}: SpecificationTypeDefaultProps ) => (
+	<DefaultField>
+		{ ( controlProps ) => (
+			<TextControl
+				{ ...controlProps }
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
+				value={ asText( value ) }
+				placeholder={ __( 'None', 'product-specifications' ) }
+				onChange={ ( text ) => onChange( fromText( text ) ) }
+			/>
+		) }
+	</DefaultField>
+);
+
+export const ParagraphDefault = ( {
+	value,
+	onChange,
+}: SpecificationTypeDefaultProps ) => (
+	<DefaultField>
+		{ ( controlProps ) => (
+			<TextareaControl
+				{ ...controlProps }
+				__nextHasNoMarginBottom
+				value={ asText( value ) }
+				placeholder={ __( 'None', 'product-specifications' ) }
+				onChange={ ( text ) => onChange( fromText( text ) ) }
+			/>
+		) }
+	</DefaultField>
+);
+
+export const ChoiceDefault = ( {
+	value,
+	options,
+	onChange,
+}: SpecificationTypeDefaultProps ) => (
+	<DefaultField>
+		{ ( controlProps ) => (
+			<SelectControl
+				{ ...controlProps }
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
+				value={ asText( value ) }
+				options={ choiceSelectOptions(
+					choicesFrom( options ),
+					asText( value ),
+					__( 'None', 'product-specifications' )
+				) }
+				onChange={ ( choice ) => onChange( fromText( choice ) ) }
+			/>
+		) }
+	</DefaultField>
+);
+
+export const TrueFalseDefault = ( {
+	value,
+	onChange,
+}: SpecificationTypeDefaultProps ) => (
+	<DefaultField>
+		{ ( controlProps ) => (
+			<CheckboxControl
+				{ ...controlProps }
+				__nextHasNoMarginBottom
+				label={ __( 'Yes', 'product-specifications' ) }
+				checked={ value === true }
+				onChange={ ( checked ) => onChange( checked ? true : null ) }
+			/>
+		) }
+	</DefaultField>
+);

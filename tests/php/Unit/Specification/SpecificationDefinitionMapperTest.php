@@ -62,13 +62,17 @@ final class SpecificationDefinitionMapperTest extends TestCase
         );
     }
 
-    public function testTermArgumentsCarryTheFrozenSlug(): void
+    public function testInsertCarriesTheSlugAndUpdateNeverDoes(): void
     {
         $specification = $this->mapper->fromTerm($this->term(10, 'Screen size', 'screen-size-9f3a2b71'));
 
         static::assertSame(
             ['name' => 'Screen size', 'slug' => 'screen-size-9f3a2b71', 'description' => ''],
-            $this->mapper->termArguments($specification)
+            $this->mapper->insertArguments($specification)
+        );
+        static::assertSame(
+            ['name' => 'Screen size', 'description' => ''],
+            $this->mapper->updateArguments($specification)
         );
     }
 
