@@ -2,7 +2,26 @@
 
 ## Status
 
-Approved
+Approved, amended by ADR 0002.
+
+## Amendment
+
+ADR 0002 makes the specification slug the only stored identity in the model, generated
+once and never editable. A set item therefore no longer carries `term_id`:
+
+```json
+{ "slug": "screen-size-9f3a2b71", "visible": true, "comparable": true }
+```
+
+Term ids are resolved from slugs at runtime and are never stored. `schema_version`
+stays at 1, because schema 1 never shipped.
+
+ADR 0009 settles how `schema_version` is declared and maintained across every stored
+document in the plugin. For this one that means it is declared as a plain integer with
+no `minimum` or `maximum`, stamped by the server on write, and never read from the
+request payload.
+
+Everything else below stands.
 
 ## Context
 
