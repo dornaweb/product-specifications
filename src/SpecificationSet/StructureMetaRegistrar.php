@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\SpecificationSet;
 
+use Amiut\ProductSpecs\Capability\Capabilities;
+
 final class StructureMetaRegistrar
 {
-    private StructureMetaDefinition $definition;
-    private StructureSanitizer $sanitizer;
-
     public function __construct(
-        StructureMetaDefinition $definition,
-        StructureSanitizer $sanitizer
+        private readonly StructureMetaDefinition $definition,
+        private readonly StructureSanitizer $sanitizer,
+        private readonly Capabilities $capabilities
     ) {
-        $this->definition = $definition;
-        $this->sanitizer = $sanitizer;
     }
 
     public function init(): void
@@ -30,14 +28,12 @@ final class StructureMetaRegistrar
             [
                 'type' => 'object',
                 'single' => true,
-                'default' => $this->definition->default(),
+                'default' => StructureMetaDefinition::default(),
                 'show_in_rest' => [
                     'schema' => $this->definition->schema(),
                 ],
                 'sanitize_callback' => [$this->sanitizer, 'sanitize'],
-                'auth_callback' => static function () {
-                    return current_user_can('shop_manager');
-                },
+                'auth_callback' => fn (): bool => $this->capabilities->currentUserCanManage(),
             ]
         );
     }

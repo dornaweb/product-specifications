@@ -4,27 +4,36 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\SpecificationSet;
 
+/**
+ * Normalization, not validation. StructureMetaDefinition decides what is
+ * acceptable; this fills the defaults WordPress cannot apply to nested object
+ * properties, coerces types, and puts keys in the order the mapper writes them.
+ *
+ * Entries with nothing usable in them are still dropped, because a direct
+ * update_post_meta() call never passes through the REST schema and this is the
+ * last thing between it and the database.
+ */
 final class StructureSanitizer
 {
     /**
-     * @param mixed $value
+     * @return array<string, mixed>
      */
-    public function sanitize($value): array
+    public function sanitize(mixed $value): array
     {
         if (!is_array($value)) {
             return StructureMetaDefinition::default();
         }
 
         return [
-            'schema_version' => 1,
+            'schema_version' => StructureMetaDefinition::CURRENT_VERSION,
             'groups' => $this->sanitizeGroups($value['groups'] ?? []),
         ];
     }
 
     /**
-     * @param mixed $groups
+     * @return list<array<string, mixed>>
      */
-    private function sanitizeGroups($groups): array
+    private function sanitizeGroups(mixed $groups): array
     {
         if (!is_array($groups)) {
             return [];
@@ -37,13 +46,18 @@ final class StructureSanitizer
                 continue;
             }
 
-            $key = sanitize_key((string) ($group['key'] ?? ''));
+            $key = sanitize_key($this->stringValue($group['key'] ?? null));
+            $label = sanitize_text_field($this->stringValue($group['label'] ?? null));
+
+            if ($key === '' || $label === '') {
+                continue;
+            }
 
             $sanitized[] = [
                 'key' => $key,
-                'label' => sanitize_text_field((string) ($group['label'] ?? '')),
-                'description' => sanitize_text_field((string) ($group['description'] ?? '')),
-                'visible' => (bool) ($group['visible'] ?? true),
+                'label' => $label,
+                'description' => sanitize_text_field($this->stringValue($group['description'] ?? null)),
+                'visible' => $this->boolValue($group['visible'] ?? null, true),
                 'items' => $this->sanitizeItems($group['items'] ?? []),
             ];
         }
@@ -52,9 +66,9 @@ final class StructureSanitizer
     }
 
     /**
-     * @param mixed $items
+     * @return list<array<string, bool|int|string>>
      */
-    private function sanitizeItems($items): array
+    private function sanitizeItems(mixed $items): array
     {
         if (!is_array($items)) {
             return [];
@@ -67,24 +81,40 @@ final class StructureSanitizer
                 continue;
             }
 
-            if (($item['type'] ?? '') !== 'specification') {
-                continue;
-            }
+            $termId = $this->intValue($item['term_id'] ?? null);
+            $slug = sanitize_key($this->stringValue($item['slug'] ?? null));
 
-            $termId = absint($item['term_id'] ?? 0);
-            $key = sanitize_key((string) ($item['key'] ?? ''));
-
-            if ($termId < 1 || $key === '') {
+            if ($termId < 1 || $slug === '') {
                 continue;
             }
 
             $sanitized[] = [
-                'type'    => 'specification',
                 'term_id' => $termId,
-                'key'     => $key,
+                'slug' => $slug,
+                'visible' => $this->boolValue($item['visible'] ?? null, true),
+                'comparable' => $this->boolValue($item['comparable'] ?? null, false),
             ];
         }
 
         return $sanitized;
+    }
+
+    private function boolValue(mixed $value, bool $default): bool
+    {
+        return $value === null ? $default : (bool) $value;
+    }
+
+    private function stringValue(mixed $value): string
+    {
+        return is_scalar($value) ? (string) $value : '';
+    }
+
+    private function intValue(mixed $value): int
+    {
+        if (is_int($value)) {
+            return $value;
+        }
+
+        return is_numeric($value) ? absint($value) : 0;
     }
 }

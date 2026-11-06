@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\SpecificationSet;
 
-/**
- * @phpstan-type SchemaType \ReturnType<self, 'schema'>
- */
 final class StructureMetaDefinition
 {
     public const KEY = 'specification_set_structure';
@@ -14,7 +11,6 @@ final class StructureMetaDefinition
 
     /**
      * @return array<string, mixed>
-     * @phpstan-return array @phpstan-infer-return
      */
     public static function default(): array
     {
@@ -26,7 +22,6 @@ final class StructureMetaDefinition
 
     /**
      * @return array<string, mixed>
-     * @phpstan-return array @phpstan-infer-return
      */
     public function schema(): array
     {
@@ -53,7 +48,6 @@ final class StructureMetaDefinition
 
     /**
      * @return array<string, mixed>
-     * @phpstan-return array @phpstan-infer-return
      */
     private function groupSchema(): array
     {
@@ -61,18 +55,11 @@ final class StructureMetaDefinition
             'type' => 'object',
             'additionalProperties' => false,
             'required' => [
-                'id',
                 'key',
                 'label',
-                'visible',
                 'items',
             ],
             'properties' => [
-                'id' => [
-                    'type' => 'string',
-                    'minLength' => 1,
-                    'pattern' => '^[a-z0-9_-]+$',
-                ],
                 'key' => [
                     'type' => 'string',
                     'minLength' => 1,
@@ -100,7 +87,6 @@ final class StructureMetaDefinition
 
     /**
      * @return array<string, mixed>
-     * @phpstan-return array @phpstan-infer-return
      */
     private function itemSchema(): array
     {
@@ -108,25 +94,26 @@ final class StructureMetaDefinition
             'type' => 'object',
             'additionalProperties' => false,
             'required' => [
-                'type',
                 'term_id',
-                'key',
+                'slug',
             ],
             'properties' => [
-                'type' => [
-                    'type' => 'string',
-                    'enum' => [
-                        'specification',
-                    ],
-                ],
                 'term_id' => [
                     'type' => 'integer',
                     'minimum' => 1,
                 ],
-                'key' => [
+                'slug' => [
                     'type' => 'string',
                     'minLength' => 1,
                     'pattern' => '^[a-z0-9_-]+$',
+                ],
+                'visible' => [
+                    'type' => 'boolean',
+                    'default' => true,
+                ],
+                'comparable' => [
+                    'type' => 'boolean',
+                    'default' => false,
                 ],
             ],
         ];
