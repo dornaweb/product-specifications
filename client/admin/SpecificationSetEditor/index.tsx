@@ -1,52 +1,174 @@
-import { Placeholder, Spinner } from '@wordpress/components';
+import { Placeholder, Spinner, Button, Modal } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import Layout from '../shared/layout';
-import EditorHeader from './components/EditorHeader';
-import EditorNotice from './components/EditorNotice';
+import { displayShortcut } from '@wordpress/keycodes';
+import { PageShell, PageHeader, Notice } from '../shared/ui';
+import {
+	discardUnsavedChangesAndGoToAdminPath,
+	goToAdminPath,
+} from '../shared/platform';
 import EditorTabs from './components/EditorTabs';
 import { useSpecificationSetEditor } from './hooks/useSpecificationSetEditor';
 
 import './styles.scss';
 
+const LIST_PATH = '/dwps-product-specifications/specification-sets';
+
+type Editor = ReturnType< typeof useSpecificationSetEditor >;
+
+const EditorBody = ( { editor }: { editor: Editor } ) => {
+	if ( editor.isLoading ) {
+		return (
+			<Placeholder>
+				<Spinner />
+				{ __( 'Loading specification set…', 'product-specifications' ) }
+			</Placeholder>
+		);
+	}
+
+	if ( editor.loadErrorMessage ) {
+		return <Placeholder>{ editor.loadErrorMessage }</Placeholder>;
+	}
+
+	return <EditorTabs editor={ editor } />;
+};
+
 const SpecificationSetEditor = () => {
 	const editor = useSpecificationSetEditor();
+	const [ pendingNavigation, setPendingNavigation ] = useState<
+		string | null
+	>( null );
+
+	const requestNavigation = ( path: string ) => {
+		if ( editor.hasUnsavedChanges ) {
+			setPendingNavigation( path );
+			return;
+		}
+
+		goToAdminPath( path );
+	};
 
 	const onSubmit = async ( event: React.FormEvent< HTMLFormElement > ) => {
 		event.preventDefault();
 		await editor.save();
 	};
 
+	const title =
+		editor.mode === 'edit'
+			? editor.general.title ||
+			  __( 'Edit specification set', 'product-specifications' )
+			: __( 'New specification set', 'product-specifications' );
+
 	return (
-		<Layout title="Specification Sets">
-			<form onSubmit={ onSubmit }>
-				<div className="product-specifications-specs-set-editor">
-					<EditorHeader
-						mode={ editor.mode }
-						hasUnsavedChanges={ editor.hasUnsavedChanges }
-						isSaving={ editor.isSaving }
-					/>
-					<EditorNotice
-						notice={ editor.notice }
-						onDismiss={ editor.dismissNotice }
-					/>
-					{ editor.isLoading ? (
-						<Placeholder>
-							<Spinner />
+		<form onSubmit={ onSubmit }>
+			{ pendingNavigation && (
+				<Modal
+					title={ __(
+						'Leave without saving?',
+						'product-specifications'
+					) }
+					onRequestClose={ () => setPendingNavigation( null ) }
+				>
+					<p>
+						{ __(
+							'You have unsaved changes to this specification set. Leaving now discards them.',
+							'product-specifications'
+						) }
+					</p>
+					<div className="product-specifications-specs-set-editor__unsaved-actions">
+						<Button
+							variant="tertiary"
+							isDestructive
+							onClick={ () =>
+								discardUnsavedChangesAndGoToAdminPath(
+									pendingNavigation
+								)
+							}
+						>
 							{ __(
-								'Loading specification set…',
+								'Leave and discard',
 								'product-specifications'
 							) }
-						</Placeholder>
-					) : editor.loadErrorMessage ? (
-						<Placeholder>
-							{ editor.loadErrorMessage }
-						</Placeholder>
-					) : (
-						<EditorTabs editor={ editor } />
-					) }
-				</div>
-			</form>
-		</Layout>
+						</Button>
+						<Button
+							variant="primary"
+							onClick={ () => setPendingNavigation( null ) }
+						>
+							{ __(
+								'Stay and keep editing',
+								'product-specifications'
+							) }
+						</Button>
+					</div>
+				</Modal>
+			) }
+			<PageShell
+				header={
+					<PageHeader
+						title={ title }
+						description={ __(
+							'Arrange reusable specifications into the groups customers see on product pages.',
+							'product-specifications'
+						) }
+						breadcrumb={ {
+							label: __(
+								'Specification sets',
+								'product-specifications'
+							),
+							path: LIST_PATH,
+							onNavigate: () => requestNavigation( LIST_PATH ),
+						} }
+						status={
+							editor.hasUnsavedChanges ? (
+								<span className="ps-dirty">
+									{ __(
+										'Unsaved changes',
+										'product-specifications'
+									) }
+								</span>
+							) : null
+						}
+						actions={
+							<>
+								<Button
+									variant="tertiary"
+									type="button"
+									onClick={ () =>
+										requestNavigation( LIST_PATH )
+									}
+								>
+									{ __( 'Cancel', 'product-specifications' ) }
+								</Button>
+								<Button
+									variant="primary"
+									type="submit"
+									isBusy={ editor.isSaving }
+									disabled={
+										! editor.hasUnsavedChanges ||
+										editor.isSaving
+									}
+									shortcut={ displayShortcut.primary( 's' ) }
+								>
+									{ __(
+										'Save set',
+										'product-specifications'
+									) }
+								</Button>
+							</>
+						}
+					/>
+				}
+				notices={
+					<Notice
+						notice={ editor.notice }
+						onDismiss={ editor.dismissNotice }
+						className="product-specifications-specs-set-editor__notice"
+					/>
+				}
+			>
+				<EditorBody editor={ editor } />
+			</PageShell>
+		</form>
 	);
 };
 

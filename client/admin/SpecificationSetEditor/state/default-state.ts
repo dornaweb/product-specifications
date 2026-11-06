@@ -1,3 +1,4 @@
+import { emptyStructure } from '../mapping/specificationSetStructure';
 import type {
 	SpecificationSetEditorFormState,
 	SpecificationSetEditorState,
@@ -10,6 +11,7 @@ const DEFAULT_FORM: SpecificationSetEditorFormState = {
 		description: '',
 		status: 'draft',
 	},
+	structure: emptyStructure(),
 };
 
 export const DEFAULT_STATE: SpecificationSetEditorState = {

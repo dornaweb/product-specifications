@@ -2,7 +2,14 @@ import { store as coreStore } from '@wordpress/core-data';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { SPECIFICATION_SET_POST_TYPE } from '../../constants';
-import type { SpecificationSetGeneralState } from '../state';
+import type {
+	ResolutionActions,
+	ResolutionSelectors,
+} from '../../shared/storeResolution';
+import type {
+	SpecificationSetGeneralState,
+	SpecificationSetStructure,
+} from '../state';
 import {
 	createSpecificationSetPostRecord,
 	type SpecificationSetEntityRecord,
@@ -11,40 +18,28 @@ import {
 
 const EDIT_CONTEXT_QUERY = { context: 'edit' };
 
-interface CoreDataSelectors {
+interface CoreDataSelectors extends ResolutionSelectors {
 	getEntityRecord: (
 		kind: string,
 		name: string,
 		key?: number,
 		query?: typeof EDIT_CONTEXT_QUERY
 	) => SpecificationSetEntityRecord | null | undefined;
-	isResolving: ( selectorName: string, args: unknown[] ) => boolean;
-	hasFinishedResolution: (
-		selectorName: string,
-		args: unknown[]
-	) => boolean;
-	hasResolutionFailed: ( selectorName: string, args: unknown[] ) => boolean;
-	getResolutionError: (
-		selectorName: string,
-		args: unknown[]
-	) => unknown;
 }
 
-interface CoreDataActions {
+interface CoreDataActions extends ResolutionActions {
 	saveEntityRecord: (
 		kind: string,
 		name: string,
 		record: SpecificationSetPostRecord,
 		options?: { throwOnError?: boolean }
 	) => Promise< SpecificationSetEntityRecord >;
-	invalidateResolutionForStoreSelector: (
-		selectorName: string
-	) => Promise< void >;
 }
 
 interface SaveSpecificationSetArgs {
 	postId: number | null;
 	general: SpecificationSetGeneralState;
+	structure: SpecificationSetStructure;
 }
 
 export interface SpecificationSetEntityData {
@@ -71,7 +66,9 @@ export function useSpecificationSetEntity(
 				};
 			}
 
-			const selectors = select( coreStore ) as CoreDataSelectors;
+			const selectors = select(
+				coreStore
+			) as unknown as CoreDataSelectors;
 			const resolutionArgs = [
 				'postType',
 				SPECIFICATION_SET_POST_TYPE,
@@ -108,16 +105,17 @@ export function useSpecificationSetEntity(
 		[ postId ]
 	);
 	const { saveEntityRecord, invalidateResolutionForStoreSelector } =
-		useDispatch( coreStore ) as CoreDataActions;
+		useDispatch( coreStore ) as unknown as CoreDataActions;
 
 	const saveSpecificationSet = async ( {
-		postId,
+		postId: savedPostId,
 		general,
+		structure,
 	}: SaveSpecificationSetArgs ): Promise< SpecificationSetEntityRecord > => {
 		const savedRecord = await saveEntityRecord(
 			'postType',
 			SPECIFICATION_SET_POST_TYPE,
-			createSpecificationSetPostRecord( postId, general ),
+			createSpecificationSetPostRecord( savedPostId, general, structure ),
 			{ throwOnError: true }
 		);
 

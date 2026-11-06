@@ -1,13 +1,13 @@
 @use "../shared/styles/variables";
 
 .product-specifications-specs-set-editor {
-	&__panel {
-		margin-top: variables.$gutter;
+	.ps-shell &__panel {
+		margin-top: 0;
 		border-radius: 0;
 	}
 
 	&__notice {
-		margin: variables.$gutter 0 0;
+		margin: 0 0 variables.$gutter;
 	}
 
 	&__panel .components-card__body {
@@ -19,51 +19,335 @@
 			display: flex;
 			align-items: stretch;
 			gap: 0;
-			border-bottom: 1px solid #dcdcde;
-			background: #fff;
+			border-bottom: 1px solid var(--ps-gray-300);
+			background: var(--ps-bg);
 			overflow-x: auto;
 		}
 	}
 
 	&__tab {
-		height: 68px;
-		padding: 0 24px;
-		border: 0;
-		border-right: 1px solid transparent;
-		background: #fff;
-		color: #1d2327;
-		font-size: 14px;
-		font-weight: 600;
 		white-space: nowrap;
-
-		&:hover {
-			color: #2271b1;
-		}
-
-		&--active {
-			color: #2271b1;
-			box-shadow: inset 0 0 0 2px #2271b1;
-		}
 	}
 
 	&__tab-panel {
 		min-height: 420px;
 		padding: 28px 32px 36px;
-		background: #fff;
+		background: var(--ps-bg);
 	}
 
 	&__general {
 		display: grid;
-		gap: 24px;
+		gap: var(--ps-space-3);
 		max-width: 560px;
 	}
 
-	&__general .components-base-control__label {
-		font-weight: 600;
+	&__placeholder {
+		color: var(--ps-gray-700);
+		font-size: var(--ps-size-large);
 	}
 
-	&__placeholder {
-		color: #646970;
-		font-size: 14px;
+	&__unsaved-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: var(--ps-space);
+		margin-top: var(--ps-space-3);
 	}
+}
+
+.ps-composer-panel {
+	overflow: hidden;
+	border: 1px solid var(--ps-gray-300);
+	border-radius: var(--ps-radius-large);
+	background: var(--ps-bg);
+}
+
+.ps-composer-panel__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--ps-space-2);
+	min-height: 61px;
+	padding: 14px var(--ps-space-2);
+	border-bottom: 1px solid var(--ps-gray-300);
+	font-weight: var(--ps-weight-medium);
+}
+
+.ps-composer-panel__title {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+
+	span {
+		color: var(--ps-gray-700);
+		font-size: var(--ps-size-small);
+		font-weight: var(--ps-weight-regular);
+	}
+}
+
+.ps-composer-panel__body {
+	padding: var(--ps-space-2);
+}
+
+.ps-composer-panel__hint {
+	margin: var(--ps-space) 0 0;
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+.ps-composer-panel__footer {
+	padding: var(--ps-space-2);
+	border-top: 1px solid var(--ps-gray-300);
+}
+
+.ps-composer-group {
+	margin-bottom: var(--ps-space-half);
+
+	&.is-hidden .ps-composer-group__name {
+		color: var(--ps-gray-600);
+		text-decoration: line-through;
+	}
+}
+
+.ps-composer-group__header {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space-half);
+	min-height: 44px;
+	padding: 0 var(--ps-space);
+	border-radius: var(--ps-radius);
+	font-size: var(--ps-size-medium);
+	font-weight: var(--ps-weight-medium);
+
+	&:hover {
+		background: var(--ps-gray-100);
+	}
+}
+
+.ps-composer-group__count {
+	margin-left: var(--ps-space-half);
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+	font-weight: var(--ps-weight-regular);
+}
+
+.ps-composer-group__menu {
+	margin-left: auto;
+}
+
+.ps-composer-group__rows {
+	margin-left: 18px;
+	border-left: 1px solid var(--ps-gray-300);
+}
+
+.ps-composer-group--empty .ps-composer-group__rows,
+.ps-composer-group.is-empty .ps-composer-group__rows {
+	margin-left: 0;
+	border-left: 0;
+}
+
+.ps-composer-group__empty {
+	margin: 0;
+	padding: var(--ps-space) var(--ps-space-3);
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+.ps-composer-row {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space-half);
+	min-height: 40px;
+	padding: 0 var(--ps-space) 0 var(--ps-space-3);
+	font-size: var(--ps-size-medium);
+
+	&:hover {
+		background: var(--ps-gray-100);
+	}
+
+	&.is-hidden .ps-composer-row__name {
+		color: var(--ps-gray-600);
+		text-decoration: line-through;
+	}
+}
+
+.ps-composer-row__name {
+	flex: 1;
+}
+
+.ps-composer-row__actions {
+	display: flex;
+	gap: var(--ps-space-half);
+	margin-left: auto;
+	opacity: 0;
+	transition: opacity 0.1s;
+}
+
+.ps-composer-row:hover .ps-composer-row__actions,
+.ps-composer-row:focus-within .ps-composer-row__actions {
+	opacity: 1;
+}
+
+.ps-item-options {
+	display: flex;
+	flex-direction: column;
+	gap: var(--ps-space);
+	margin: 0 0 var(--ps-space-half) 18px;
+	padding: var(--ps-space-2);
+	border-radius: var(--ps-radius);
+	background: var(--ps-gray-100);
+}
+
+.ps-item-options__help {
+	margin: 0;
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+// The library beside the canvas. Below 1024px it stacks rather than compressing
+// two columns that each need their width.
+.ps-composer {
+	display: grid;
+	grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+	gap: var(--ps-space-3);
+	align-items: start;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ps-composer-panel__header.is-stacked {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+
+	span {
+		color: var(--ps-gray-700);
+		font-size: var(--ps-size-small);
+		font-weight: var(--ps-weight-regular);
+	}
+}
+
+.ps-composer-filters {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space-half);
+	margin: var(--ps-space) 0;
+}
+
+.ps-composer-library__meta {
+	margin: var(--ps-space) 0;
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+.ps-composer-library__list {
+	max-height: 460px;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	list-style: none;
+}
+
+.ps-composer-library__item {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space-half);
+	min-height: 36px;
+	padding: 0 var(--ps-space-half);
+	border-radius: var(--ps-radius);
+	cursor: grab;
+
+	&:hover {
+		background: var(--ps-gray-100);
+	}
+
+	&.is-used {
+		color: var(--ps-gray-600);
+		cursor: default;
+	}
+}
+
+.ps-composer-library__name {
+	flex: 1;
+}
+
+.ps-composer-library__empty {
+	padding: var(--ps-space-2) var(--ps-space-half);
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+.ps-composer-grip {
+	color: var(--ps-gray-600);
+	cursor: grab;
+	user-select: none;
+}
+
+.ps-composer-drop {
+	display: grid;
+	place-items: center;
+	padding: var(--ps-space-2);
+	margin: var(--ps-space-half) 0;
+	border: 1px dashed var(--ps-gray-300);
+	border-radius: var(--ps-radius);
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+	text-align: center;
+
+	&.is-over {
+		border-color: var(--ps-accent);
+		background: color-mix(in srgb, var(--ps-accent) 8%, transparent);
+		color: var(--ps-fg);
+	}
+
+	&.is-empty {
+		min-height: 120px;
+
+		strong {
+			display: block;
+			font-size: var(--ps-size-medium);
+		}
+
+		small {
+			color: var(--ps-gray-700);
+		}
+	}
+}
+
+// The gap between two rows, or two groups. It holds its space at rest and only
+// shows while something is over it, so a drop target never moves under the
+// pointer that is aiming at it.
+.ps-composer-insert,
+.ps-composer-group-insert {
+	height: 8px;
+	border-radius: var(--ps-radius);
+
+	&.is-over {
+		background: var(--ps-accent);
+	}
+}
+
+.ps-composer-group-insert {
+	height: 10px;
+}
+
+.ps-composer-add-group {
+	padding-top: var(--ps-space);
+}
+
+.ps-choice {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--ps-space);
+	margin-bottom: var(--ps-space-2);
+
+	span {
+		display: block;
+	}
+}
+
+.ps-choice__help {
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
 }

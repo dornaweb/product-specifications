@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { TabPanel } from '@wordpress/components';
-import { Card } from '@wordpress/ui';
+import { Card, CardBody, TabPanel } from '@wordpress/components';
 import type { SpecificationSetEditorData } from '../hooks/useSpecificationSetEditor';
 import GeneralTab from './GeneralTab';
 import PlaceholderTab from './PlaceholderTab';
+import StructureTab from './StructureTab';
 import type {
 	EditorPlaceholderTabName,
 	EditorTab,
@@ -18,13 +18,8 @@ const TABS: EditorTab[] = [
 			'product-specifications-specs-set-editor__tab product-specifications-specs-set-editor__tab--general',
 	},
 	{
-		name: 'groups',
-		title: __( 'Groups & Specifications', 'product-specifications' ),
-		className: 'product-specifications-specs-set-editor__tab',
-	},
-	{
-		name: 'assignments',
-		title: __( 'Assignments', 'product-specifications' ),
+		name: 'specifications',
+		title: __( 'Specifications', 'product-specifications' ),
 		className: 'product-specifications-specs-set-editor__tab',
 	},
 	{
@@ -33,13 +28,8 @@ const TABS: EditorTab[] = [
 		className: 'product-specifications-specs-set-editor__tab',
 	},
 	{
-		name: 'preview',
-		title: __( 'Preview', 'product-specifications' ),
-		className: 'product-specifications-specs-set-editor__tab',
-	},
-	{
-		name: 'advanced',
-		title: __( 'Advanced', 'product-specifications' ),
+		name: 'layout',
+		title: __( 'Layout', 'product-specifications' ),
 		className: 'product-specifications-specs-set-editor__tab',
 	},
 ];
@@ -49,35 +39,42 @@ interface EditorTabsProps {
 }
 
 const EditorTabs = ( { editor }: EditorTabsProps ) => (
-	<Card.Root className="product-specifications-specs-set-editor__panel">
-		<Card.Content>
+	<Card className="product-specifications-specs-set-editor__panel">
+		<CardBody>
 			<TabPanel
 				className="product-specifications-specs-set-editor__tabs"
-				activeClass="product-specifications-specs-set-editor__tab--active"
 				tabs={ TABS }
+				initialTabName="specifications"
 			>
 				{ ( tab ) => {
 					const tabName = tab.name as EditorTabName;
 
 					return (
 						<div className="product-specifications-specs-set-editor__tab-panel">
-							{ tabName === 'general' ? (
+							{ tabName === 'general' && (
 								<GeneralTab
 									general={ editor.general }
 									updateTextField={ editor.updateTextField }
 									updateStatus={ editor.updateStatus }
 								/>
-							) : (
-								<PlaceholderTab
-									tab={ tabName as EditorPlaceholderTabName }
-								/>
 							) }
+							{ tabName === 'specifications' && (
+								<StructureTab editor={ editor } />
+							) }
+							{ tabName !== 'general' &&
+								tabName !== 'specifications' && (
+									<PlaceholderTab
+										tab={
+											tabName as EditorPlaceholderTabName
+										}
+									/>
+								) }
 						</div>
 					);
 				} }
 			</TabPanel>
-		</Card.Content>
-	</Card.Root>
+		</CardBody>
+	</Card>
 );
 
 export default EditorTabs;

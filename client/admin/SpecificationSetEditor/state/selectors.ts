@@ -1,8 +1,9 @@
 import type {
 	SpecificationSetEditorFormState,
-	SpecificationSetEditorNotice,
+	NoticeState,
 	SpecificationSetEditorState,
 	SpecificationSetGeneralState,
+	SpecificationSetStructure,
 } from './types';
 
 export const selectors = {
@@ -19,15 +20,18 @@ export const selectors = {
 	): SpecificationSetGeneralState {
 		return state.form.general;
 	},
+	getStructure(
+		state: SpecificationSetEditorState
+	): SpecificationSetStructure {
+		return state.form.structure;
+	},
 	hasUnsavedChanges( state: SpecificationSetEditorState ): boolean {
 		return state.hasUnsavedChanges;
 	},
 	isSaving( state: SpecificationSetEditorState ): boolean {
 		return state.isSaving;
 	},
-	getNotice(
-		state: SpecificationSetEditorState
-	): SpecificationSetEditorNotice | null {
+	getNotice( state: SpecificationSetEditorState ): NoticeState | null {
 		return state.notice;
 	},
 };

@@ -2,7 +2,9 @@ import { cleanForSlug } from '@wordpress/url';
 import type {
 	SpecificationSetGeneralState,
 	SpecificationSetStatus,
+	SpecificationSetStructure,
 } from '../state';
+import { readStructure, STRUCTURE_META_KEY } from './specificationSetStructure';
 
 export interface SpecificationSetPostRecord {
 	id?: number;
@@ -10,25 +12,32 @@ export interface SpecificationSetPostRecord {
 	slug?: string;
 	content: string;
 	status: SpecificationSetStatus;
+	meta: Record< string, unknown >;
 }
 
 export interface SpecificationSetEntityRecord {
 	id: number;
-	title?: string | {
-		raw?: string;
-		rendered?: string;
-	};
+	title?:
+		| string
+		| {
+				raw?: string;
+				rendered?: string;
+		  };
 	slug?: string;
-	content?: string | {
-		raw?: string;
-		rendered?: string;
-	};
+	content?:
+		| string
+		| {
+				raw?: string;
+				rendered?: string;
+		  };
 	status?: string;
+	meta?: Record< string, unknown >;
 }
 
 export function createSpecificationSetPostRecord(
 	postId: number | null,
-	general: SpecificationSetGeneralState
+	general: SpecificationSetGeneralState,
+	structure: SpecificationSetStructure
 ): SpecificationSetPostRecord {
 	const slug = general.slug.trim();
 	const generatedSlug = cleanForSlug( general.title );
@@ -39,7 +48,14 @@ export function createSpecificationSetPostRecord(
 		title: general.title,
 		content: general.description,
 		status: general.status,
+		meta: { [ STRUCTURE_META_KEY ]: structure },
 	};
+}
+
+export function createSpecificationSetStructureFromPostRecord(
+	record: SpecificationSetEntityRecord
+): SpecificationSetStructure {
+	return readStructure( record.meta?.[ STRUCTURE_META_KEY ] );
 }
 
 export function createEmptySpecificationSetGeneralState(): SpecificationSetGeneralState {

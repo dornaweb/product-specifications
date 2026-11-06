@@ -1,12 +1,13 @@
 export type EditorTabName =
 	| 'general'
-	| 'groups'
-	| 'assignments'
+	| 'specifications'
 	| 'comparison'
-	| 'preview'
-	| 'advanced';
+	| 'layout';
 
-export type EditorPlaceholderTabName = Exclude< EditorTabName, 'general' >;
+export type EditorPlaceholderTabName = Exclude<
+	EditorTabName,
+	'general' | 'specifications'
+>;
 
 export interface EditorTab {
 	name: EditorTabName;
