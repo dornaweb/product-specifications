@@ -10,7 +10,7 @@
  * License: GPL-2.0+
  * Requires Plugins: woocommerce
  * Requires PHP: 8.1
- * Requires at least: 6.9
+ * Requires at least: 7.0
  * WC tested up to: 9.3.3
  * WC requires at least: 8.0.0
  */
@@ -63,6 +63,20 @@ function setupAutoLoader(): void
     }
 }
 
+function install(): void
+{
+    try {
+        setupAutoLoader();
+
+        (new Upgrade\Installer(
+            new Upgrade\DataVersionRepository(),
+            new Upgrade\LegacyDataProbe()
+        ))->install();
+    } catch (Throwable $throwable) {
+        handleFailure($throwable);
+    }
+}
+
 function bootstrap(): void
 {
     try {
@@ -75,7 +89,10 @@ function bootstrap(): void
         App::instance();
 
         $plugin
+            ->addModule(new Capability\Module())
+            ->addModule(new Upgrade\Module())
             ->addModule(new Assets\Module())
+            ->addModule(new Specification\Module())
             ->addModule(new SpecificationSet\Module())
             ->addModule(new Template\Module())
             ->addModule(new Repository\Module())
@@ -91,12 +108,14 @@ function bootstrap(): void
             ->addModule(new Metabox\Module())
             ->addModule(new EntityUpdater\Module())
             ->addModule(new EntityUpdaterUi\Module())
-            ->addModule(new ProductSpecifications\Module())
+            ->addModule(new ProductValues\Module())
             ->addModule(new SpecificationsTable\Module())
             ->boot();
     } catch (Throwable $throwable) {
         handleFailure($throwable);
     }
 }
+
+register_activation_hook(__FILE__, __NAMESPACE__ . '\\install');
 
 add_action('plugins_loaded', __NAMESPACE__ . '\\bootstrap');

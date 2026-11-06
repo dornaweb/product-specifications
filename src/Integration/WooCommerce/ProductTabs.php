@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
+use Amiut\ProductSpecs\Settings\SettingsRepository;
 use WC_Product;
 
 class ProductTabs
 {
     private SpecificationsTableRepository $repository;
 
-    public function __construct(SpecificationsTableRepository $repository)
-    {
+    public function __construct(
+        SpecificationsTableRepository $repository,
+        private readonly SettingsRepository $settingsRepository
+    ) {
         $this->repository = $repository;
     }
 
@@ -28,18 +31,22 @@ class ProductTabs
         }
 
         $hasSpecifications = $this->repository->productHasSpecsTable($product->get_id());
+        $settings = $this->settingsRepository->current();
 
         if ($hasSpecifications) {
             $tabs['dwspecs_product_specifications'] = [
-                'title' => get_option('dwps_tab_title') ?: esc_html__('Product Specifications', 'product-specifications'),
+                'title' => $settings->tabTitle(),
                 'priority' => 10,
                 'callback' => [$this, 'displayTable'],
             ];
         }
 
         if (
-            get_option('dwps_wc_default_specs') === 'remove'
-            || ($hasSpecifications && get_option('dwps_wc_default_specs') === 'remove_if_specs_not_empty')
+            $settings->wooCommerceDefaultSpecifications() === 'remove'
+            || (
+                $hasSpecifications
+                && $settings->wooCommerceDefaultSpecifications() === 'remove_if_specs_not_empty'
+            )
         ) {
             unset($tabs['additional_information']);
         }

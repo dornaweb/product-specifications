@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
+defined('OBJECT') || define('OBJECT', 'OBJECT');
+
 /**
  * Stand-ins for the WordPress functions the unit suite reaches. An integration
  * harness will replace this file; until then a missing shim must fail loudly
@@ -45,6 +47,10 @@ if (!function_exists('update_option')) {
 }
 
 $GLOBALS['wp_test_posts'] = [];
+$GLOBALS['wp_test_post_meta'] = [];
+$GLOBALS['wp_test_post_types'] = [];
+$GLOBALS['wp_test_terms'] = [];
+$GLOBALS['wp_test_actions'] = [];
 
 if (!function_exists('get_posts')) {
     /**
@@ -54,6 +60,59 @@ if (!function_exists('get_posts')) {
     function get_posts(array $args = []): array
     {
         return $GLOBALS['wp_test_posts'];
+    }
+}
+
+if (!function_exists('get_post_meta')) {
+    function get_post_meta(int $postId, string $key = '', bool $single = false): mixed
+    {
+        $value = $GLOBALS['wp_test_post_meta'][$postId][$key] ?? '';
+
+        return $single ? $value : [$value];
+    }
+}
+
+if (!function_exists('update_post_meta')) {
+    function update_post_meta(int $postId, string $key, mixed $value): int|bool
+    {
+        $current = $GLOBALS['wp_test_post_meta'][$postId][$key] ?? null;
+        if ($current === $value) {
+            return false;
+        }
+
+        $GLOBALS['wp_test_post_meta'][$postId][$key] = $value;
+
+        return 1;
+    }
+}
+
+if (!function_exists('delete_post_meta')) {
+    function delete_post_meta(int $postId, string $key): bool
+    {
+        unset($GLOBALS['wp_test_post_meta'][$postId][$key]);
+
+        return true;
+    }
+}
+
+if (!function_exists('metadata_exists')) {
+    function metadata_exists(string $type, int $postId, string $key): bool
+    {
+        return array_key_exists($key, $GLOBALS['wp_test_post_meta'][$postId] ?? []);
+    }
+}
+
+if (!function_exists('get_post_type')) {
+    function get_post_type(int $postId): string|false
+    {
+        return $GLOBALS['wp_test_post_types'][$postId] ?? false;
+    }
+}
+
+if (!function_exists('do_action')) {
+    function do_action(string $hookName, mixed ...$args): void
+    {
+        $GLOBALS['wp_test_actions'][] = [$hookName, $args];
     }
 }
 
@@ -124,5 +183,81 @@ if (!class_exists('WP_Term')) {
         public string $slug = '';
 
         public string $description = '';
+    }
+}
+
+if (!class_exists('WP_Post')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Post
+    {
+        public int $ID = 0;
+
+        public string $post_type = '';
+
+        public string $post_name = '';
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses
+}
+
+if (!function_exists('get_term')) {
+    function get_term(int $termId, string $taxonomy = ''): mixed
+    {
+        return $GLOBALS['wp_test_terms'][$termId] ?? false;
+    }
+}
+
+if (!function_exists('get_term_by')) {
+    function get_term_by(string $field, string|int $value, string $taxonomy = ''): mixed
+    {
+        foreach ($GLOBALS['wp_test_terms'] as $term) {
+            if ($term instanceof WP_Term && $field === 'slug' && $term->slug === $value) {
+                return $term;
+            }
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('get_page_by_path')) {
+    function get_page_by_path(string $slug, string $output = OBJECT, string $postType = 'page'): mixed
+    {
+        foreach ($GLOBALS['wp_test_posts_by_id'] ?? [] as $post) {
+            if ($post instanceof WP_Post && $post->post_name === $slug && $post->post_type === $postType) {
+                return $post;
+            }
+        }
+
+        return null;
+    }
+}
+
+if (!class_exists('WP_REST_Request')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_REST_Request
+    {
+        /**
+         * @param array<string, mixed> $params
+         */
+        public function __construct(private readonly array $params = [])
+        {
+        }
+
+        public function get_param(string $key): mixed
+        {
+            return $this->params[$key] ?? null;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+if (!function_exists('sanitize_title')) {
+    function sanitize_title(string $title): string
+    {
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $title) ?? ''));
+
+        return trim($slug, '-');
     }
 }

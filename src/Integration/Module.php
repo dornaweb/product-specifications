@@ -10,6 +10,7 @@ use Amiut\ProductSpecs\Integration\WooCommerce\FeaturesCompatibilityDeclarations
 use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
+use Amiut\ProductSpecs\Settings\SettingsRepository;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -24,15 +25,19 @@ final class Module implements ServiceModule, ExecutableModule
     {
         return [
             Assets::class => static fn (ContainerInterface $container) => new Assets(
-                $container->get(AssetHelper::class)
+                $container->get(AssetHelper::class),
+                $container->get(SettingsRepository::class)
             ),
-            WooCommerceNotInstalledNoticeHandler::class => static fn () => new WooCommerceNotInstalledNoticeHandler(),
+            WooCommerceNotInstalledNoticeHandler::class => static fn () =>
+                new WooCommerceNotInstalledNoticeHandler(),
             ProductTabs::class => static fn (ContainerInterface $container) => new ProductTabs(
-                $container->get(SpecificationsTableRepository::class)
+                $container->get(SpecificationsTableRepository::class),
+                $container->get(SettingsRepository::class)
             ),
-            FeaturesCompatibilityDeclarations::class => static fn (ContainerInterface $container) => new FeaturesCompatibilityDeclarations(
-                $container->get(Package::PROPERTIES)
-            ),
+            FeaturesCompatibilityDeclarations::class => static fn (ContainerInterface $container) =>
+                new FeaturesCompatibilityDeclarations(
+                    $container->get(Package::PROPERTIES)
+                ),
         ];
     }
 

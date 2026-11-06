@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
+use Amiut\ProductSpecs\Settings\SettingsRepository;
 
 class Assets
 {
@@ -13,7 +14,8 @@ class Assets
     private AssetHelper $assetHelper;
 
     public function __construct(
-        AssetHelper $assetHelper
+        AssetHelper $assetHelper,
+        private readonly SettingsRepository $settingsRepository
     ) {
 
         $this->assetHelper = $assetHelper;
@@ -21,7 +23,7 @@ class Assets
 
     public function load(): void
     {
-        if (get_option('dwps_disable_default_styles') === 'on') {
+        if (!$this->settingsRepository->current()->loadDefaultStyles()) {
             return;
         }
 

@@ -48,7 +48,7 @@ final class AttributeListPage
 
         /** @var CollectionArguments $arguments */
         $arguments = [
-            'per_page' => absint(get_option('dwps_view_per_page')) ?: self::DEFAULT_PER_PAGE,
+            'per_page' => self::DEFAULT_PER_PAGE,
             'search_query' => $this->searchKeyword(),
             'current_page' => $currentPage,
         ];

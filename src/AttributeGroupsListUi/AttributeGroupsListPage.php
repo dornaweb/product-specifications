@@ -12,6 +12,8 @@ use Amiut\ProductSpecs\Template\TemplateRenderer;
  */
 final class AttributeGroupsListPage
 {
+    private const DEFAULT_PER_PAGE = 20;
+
     private TemplateRenderer $renderer;
     private AttributeGroupsRepository $repository;
 
@@ -47,7 +49,7 @@ final class AttributeGroupsListPage
 
         /** @var CollectionArguments $arguments */
         $arguments = [
-            'per_page' => absint(get_option('dwps_view_per_page')) ?: self::DEFAULT_PER_PAGE,
+            'per_page' => self::DEFAULT_PER_PAGE,
             'search_query' => $this->searchKeyword(),
             'current_page' => $currentPage,
         ];

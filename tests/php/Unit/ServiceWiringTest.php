@@ -10,8 +10,14 @@ use Amiut\ProductSpecs\Specification\Module as SpecificationModule;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
+use Amiut\ProductSpecs\Specification\Rest\SetUsageCounter;
+use Amiut\ProductSpecs\Specification\Rest\SlugGuard;
+use Amiut\ProductSpecs\Specification\Rest\SpecificationCollectionQuery;
+use Amiut\ProductSpecs\Specification\Rest\SpecificationRestField;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\Module as SpecificationSetModule;
+use Amiut\ProductSpecs\SpecificationSet\Rest\ProductUsageCounter;
+use Amiut\ProductSpecs\SpecificationSet\Rest\SpecificationSetRestField;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
@@ -50,8 +56,14 @@ final class ServiceWiringTest extends TestCase
             StructureMetaRegistrar::class => StructureMetaRegistrar::class,
             SpecificationSetMapper::class => SpecificationSetMapper::class,
             SpecificationSetRepository::class => SpecificationSetRepositoryImpl::class,
+            ProductUsageCounter::class => ProductUsageCounter::class,
+            SpecificationSetRestField::class => SpecificationSetRestField::class,
             SpecificationTaxonomy::class => SpecificationTaxonomy::class,
             SpecificationTypeRegistry::class => SpecificationTypeRegistry::class,
+            SetUsageCounter::class => SetUsageCounter::class,
+            SlugGuard::class => SlugGuard::class,
+            SpecificationCollectionQuery::class => SpecificationCollectionQuery::class,
+            SpecificationRestField::class => SpecificationRestField::class,
             SpecificationDefinitionMapper::class => SpecificationDefinitionMapper::class,
             SpecificationDefinitionRepository::class => SpecificationDefinitionRepository::class,
             DataVersionRepository::class => DataVersionRepository::class,

@@ -40,9 +40,20 @@ final class AssetHelper
         );
     }
 
-    public function registerStyle(string $handle, string $relativePath): void
-    {
-        $this->registerAsset($handle, $relativePath, [], Asset::TYPE_STYLE);
+    /**
+     * @param list<string> $dependencies Style handles only.
+     */
+    public function registerStyle(
+        string $handle,
+        string $relativePath,
+        array $dependencies = []
+    ): void {
+        $this->registerAsset(
+            $handle,
+            $relativePath,
+            ['dependencies' => $dependencies],
+            Asset::TYPE_STYLE
+        );
     }
 
     /**
@@ -63,6 +74,12 @@ final class AssetHelper
         }
 
         $assetData = $this->wpScriptsGeneratedData($assetPath);
+
+        // A stylesheet never inherits the .asset.php dependencies: those are
+        // script handles, and WordPress silently refuses to enqueue a style
+        // whose dependency is not a registered style.
+        $styleDependencies = $args['dependencies'] ?? [];
+
         $dependencies = array_values(
             array_unique(
                 array_merge(
@@ -87,7 +104,7 @@ final class AssetHelper
         wp_register_style(
             $handle,
             $this->assetsDirectoryUrl . '/' . $relativePath,
-            $assetData['dependencies'] ?? [],
+            $styleDependencies,
             $assetData['version'] ?? false
         );
     }
@@ -97,12 +114,9 @@ final class AssetHelper
      */
     private function wpScriptsGeneratedData(string $assetPath): array
     {
-        $wpScriptMetaFile = sprintf(
-            '%s/%s%s',
-            pathinfo($assetPath, PATHINFO_DIRNAME),
-            pathinfo($assetPath, PATHINFO_FILENAME),
-            '.asset.php'
-        );
+        $directory = pathinfo($assetPath, PATHINFO_DIRNAME);
+        $filename = pathinfo($assetPath, PATHINFO_FILENAME);
+        $wpScriptMetaFile = sprintf('%s/%s.asset.php', $directory, $filename);
 
         if (!file_exists($wpScriptMetaFile)) {
             return [];
