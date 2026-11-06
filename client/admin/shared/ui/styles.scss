@@ -1,0 +1,420 @@
+@use "../styles/tokens";
+
+@import "@wordpress/dataviews/build-style/style.css";
+
+// Sticky positioning does not work inside WooCommerce's admin layout while an
+// ancestor clips overflow.
+#wpbody-content:has(.ps-shell) {
+	overflow-x: inherit !important;
+}
+
+.ps-shell {
+	background: var(--ps-admin-bg);
+	min-height: 100%;
+
+	// WooCommerce Admin's layout gutters its content area:
+	// .woocommerce-layout__primary carries margin-left: 40px and
+	// .woocommerce-layout__main padding-right: 40px. Our shell is a full-bleed
+	// surface — its own header and content supply the padding — so it cancels
+	// those to sit flush against the edges.
+	margin-inline: -40px;
+
+	@media (max-width: 782px) {
+		margin-inline: 0;
+	}
+}
+
+.ps-shell__content {
+	padding: var(--ps-space-3);
+}
+
+.ps-dirty {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--ps-warning-fg);
+	font-size: var(--ps-size-small);
+	font-weight: var(--ps-weight-medium);
+
+	&::before {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--ps-alert-yellow);
+		content: "";
+	}
+}
+
+.ps-page-header {
+	position: sticky;
+	// WooCommerce's scroll container already starts below the admin bar.
+	// Applying the toolbar height again creates a blank band above the header.
+	top: 0;
+	z-index: 15;
+	background: var(--ps-bg);
+	border-bottom: 1px solid var(--ps-gray-300);
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.ps-product-label {
+	position: absolute;
+	inset: 0 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	height: 52px;
+	box-sizing: border-box;
+	padding: 0 var(--ps-space-3);
+	border-bottom: 1px solid var(--ps-gray-200, var(--ps-gray-300));
+	background: color-mix(in srgb, var(--ps-accent) 3%, var(--ps-bg));
+	color: var(--ps-fg);
+	font-size: var(--ps-size-large);
+	font-weight: var(--ps-weight-medium);
+}
+
+.ps-product-label__mark {
+	display: grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border-radius: var(--ps-radius-large);
+	background: var(--ps-accent);
+	box-shadow: inset 0 0 0 1px
+		color-mix(in srgb, var(--ps-fg-inverted) 18%, transparent);
+	color: var(--ps-fg-inverted);
+}
+
+.ps-page-header__main {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space-3);
+	padding: 72px var(--ps-space-3) 18px;
+}
+
+.ps-page-header__titles {
+	flex: 1;
+	min-width: 0;
+}
+
+.ps-page-header .ps-page-header__title {
+	margin: 0;
+	padding: 0;
+	font-size: 24px;
+	font-weight: var(--ps-weight-medium);
+	letter-spacing: -0.02em;
+	line-height: 32px;
+	color: var(--ps-fg);
+}
+
+.ps-page-header__description {
+	max-width: 680px;
+	margin: 4px 0 0;
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-medium);
+	line-height: var(--ps-line-small);
+}
+
+.ps-page-header__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space);
+	flex: none;
+}
+
+.ps-breadcrumb {
+	margin-bottom: var(--ps-space-half);
+}
+
+.ps-area-tabs {
+	display: flex;
+	align-items: flex-end;
+	gap: var(--ps-space-3);
+	min-width: 0;
+	padding: 0 var(--ps-space-3);
+	border-top: 1px solid var(--ps-gray-100);
+	background: color-mix(in srgb, var(--ps-gray-100) 48%, var(--ps-bg));
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.ps-area-tabs__tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 42px;
+	padding: 0 0 1px;
+	margin-bottom: -1px;
+	font-weight: var(--ps-weight-medium);
+	white-space: nowrap;
+	border-bottom: 2px solid transparent;
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-medium);
+	text-decoration: none;
+
+	&:hover {
+		color: var(--ps-fg);
+	}
+
+	&.is-active {
+		color: var(--ps-accent);
+		border-bottom-color: var(--ps-accent);
+		font-weight: var(--ps-weight-medium);
+	}
+
+	&:focus-visible {
+		outline: var(--ps-focus-width) solid var(--ps-accent);
+		outline-offset: 2px;
+	}
+}
+
+.ps-area-tabs__badge {
+	margin-left: var(--ps-space-half);
+	padding: 1px var(--ps-space-half);
+	border-radius: var(--ps-radius);
+	background: var(--ps-warning-bg);
+	color: var(--ps-warning-fg);
+	font-size: var(--ps-size-x-small);
+}
+
+.ps-empty {
+	display: grid;
+	grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+	min-height: 380px;
+	background: var(--ps-bg);
+
+	&:not(:has(.ps-empty__steps)) {
+		grid-template-columns: 1fr;
+		min-height: 300px;
+	}
+}
+
+.ps-empty__intro {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 40px;
+
+	.ps-empty:has(.ps-empty__steps) & {
+		border-right: 1px solid var(--ps-gray-300);
+	}
+}
+
+.ps-empty__icon {
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	margin-bottom: 16px;
+	border-radius: 12px;
+	background: var(--ps-override-bg);
+	color: var(--ps-override-fg);
+}
+
+.ps-empty__title {
+	margin: 0;
+	font-size: 22px;
+	line-height: 24px;
+	font-weight: var(--ps-weight-medium);
+}
+
+.ps-empty__copy {
+	margin: 12px 0 var(--ps-space-2);
+	max-width: 580px;
+	line-height: 24px;
+	color: var(--ps-gray-700);
+}
+
+.ps-empty__actions {
+	display: flex;
+	gap: var(--ps-space);
+	flex-wrap: wrap;
+}
+
+.ps-empty__steps {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 16px;
+	margin: 0;
+	padding: 32px;
+	list-style: none;
+	background: var(--ps-surface-muted);
+}
+
+.ps-empty__step {
+	display: grid;
+	grid-template-columns: 24px minmax(0, 1fr);
+	gap: 12px;
+	color: var(--ps-gray-700);
+
+	&[aria-current="step"] {
+		color: var(--ps-fg);
+	}
+}
+
+.ps-empty__step-number {
+	display: grid;
+	place-items: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: var(--ps-gray-300);
+	color: var(--ps-gray-800);
+	font-size: 16px;
+
+	.ps-empty__step[aria-current="step"] & {
+		background: var(--ps-accent);
+		color: var(--ps-fg-inverted);
+	}
+}
+
+.ps-empty__step-title {
+	display: block;
+	font-weight: var(--ps-weight-medium);
+	color: var(--ps-fg);
+}
+
+.ps-empty__step-copy {
+	display: block;
+	font-size: var(--ps-size-small);
+	line-height: var(--ps-line-small);
+}
+
+.ps-field-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: var(--ps-space-2) var(--ps-space-3);
+	align-items: start;
+}
+
+.ps-field--wide {
+	grid-column: 1 / -1;
+}
+
+.ps-field__help {
+	&.is-warning {
+		color: var(--ps-warning-fg);
+	}
+
+	&.is-error {
+		color: var(--ps-error-fg);
+	}
+}
+
+.ps-inline-form {
+	border-block: 1px solid var(--ps-gray-300);
+	background: var(--ps-gray-100);
+	padding: var(--ps-space-2) var(--ps-space-3) var(--ps-space-3);
+
+	&.is-at-top {
+		border-top: 0;
+	}
+
+	.ps-field-grid {
+		row-gap: var(--ps-space-2);
+	}
+}
+
+.ps-inline-form__label {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space);
+	font-weight: var(--ps-weight-medium);
+	margin-bottom: var(--ps-space-2);
+}
+
+.ps-inline-form__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--ps-space);
+	margin-top: var(--ps-space-2);
+	padding-top: var(--ps-space-2);
+	border-top: 1px solid var(--ps-gray-300);
+}
+
+// The list and any form open inside it read as one surface, the way a form that
+// opens in the list rather than over it has to.
+.ps-surface {
+	background: var(--ps-bg);
+	border: 1px solid var(--ps-gray-300);
+	border-radius: var(--ps-radius-large);
+	overflow: hidden;
+}
+
+.ps-shortcut {
+	margin-left: var(--ps-space);
+	opacity: 0.7;
+	font-size: var(--ps-size-x-small);
+}
+
+.ps-type-list {
+	grid-column: span 2;
+	display: grid;
+	gap: var(--ps-space-half);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+	line-height: var(--ps-line-small);
+}
+
+.ps-snackbar {
+	position: fixed;
+	bottom: var(--ps-space-3);
+	left: var(--ps-space-3);
+	z-index: 100;
+}
+
+.ps-pill {
+	display: inline-block;
+	padding: 1px var(--ps-space);
+	border-radius: 10px;
+	font-size: var(--ps-size-x-small);
+	font-weight: var(--ps-weight-medium);
+	white-space: nowrap;
+
+	&.is-warning {
+		background: var(--ps-warning-bg);
+		color: var(--ps-warning-fg);
+	}
+
+	&.is-neutral {
+		background: var(--ps-gray-100);
+		color: var(--ps-gray-800);
+	}
+
+	&.is-success {
+		margin-left: var(--ps-space);
+		background: var(--ps-success-bg);
+		color: var(--ps-success-fg);
+	}
+}
+
+.ps-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--ps-space-half);
+	margin: 0 0 var(--ps-space-2);
+	padding: 0;
+	list-style: none;
+}
+.ps-chip {
+	padding: 2px var(--ps-space);
+	border-radius: 10px;
+	background: var(--ps-gray-100);
+	color: var(--ps-gray-800);
+	font-size: var(--ps-size-small);
+}
+.ps-modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--ps-space);
+	margin-top: var(--ps-space-3);
+}

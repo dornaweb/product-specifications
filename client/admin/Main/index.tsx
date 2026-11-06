@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import Layout from '../shared/layout';
-import { Placeholder } from '@wordpress/components';
+import { Placeholder, Spinner } from '@wordpress/components';
 import { useEffect } from 'react';
 import { goToAdminPath } from '../shared/platform';
 
@@ -10,14 +9,13 @@ const MainPage = () => {
 	}, [] );
 
 	return (
-		<Layout title="Product Specifications">
-			<Placeholder>
-				{ __(
-					'Redirecting to Specification Sets',
-					'product-specifications'
-				) }
-			</Placeholder>
-		</Layout>
+		<Placeholder>
+			<Spinner />
+			{ __(
+				'Redirecting to specification sets…',
+				'product-specifications'
+			) }
+		</Placeholder>
 	);
 };
 

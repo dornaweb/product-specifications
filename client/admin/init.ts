@@ -2,6 +2,8 @@ import { lazy } from 'react';
 import { __ } from '@wordpress/i18n';
 import { registerAdminPages } from './shared/platform';
 
+import './shared/ui/styles.scss';
+
 const MIN_CAPABILITY = window.dwspecsAdmin?.capability ?? 'manage_woocommerce';
 
 // Page containers registered with the admin shell must be lazy-loaded.
@@ -19,11 +21,25 @@ const SpecificationSetsPage = lazy(
 		)
 );
 
+const SpecificationsPage = lazy(
+	() => import( /* webpackChunkName: "specifications" */ './Specifications' )
+);
+
 const SpecificationSetEditorPage = lazy(
 	() =>
 		import(
 			/* webpackChunkName: "specification-set-editor" */ './SpecificationSetEditor'
 		)
+);
+
+const SettingsPage = lazy(
+	() => import( /* webpackChunkName: "settings" */ './Settings' )
+);
+
+// Registered so every area tab resolves to a page. Each is replaced by the
+// screen for that area.
+const NotBuiltYetPage = lazy(
+	() => import( /* webpackChunkName: "not-built-yet" */ './NotBuiltYet' )
 );
 
 registerAdminPages( [
@@ -56,5 +72,24 @@ registerAdminPages( [
 			__( 'Product Specifications', 'product-specifications' ),
 		],
 		capability: MIN_CAPABILITY,
+	},
+	{
+		container: SpecificationsPage,
+		path: '/dwps-product-specifications/specifications',
+		breadcrumbs: [ __( 'Specifications', 'product-specifications' ) ],
+		capability: MIN_CAPABILITY,
+	},
+	// Placeholders. Replaced by the screen for each area.
+	{
+		container: NotBuiltYetPage,
+		path: '/dwps-product-specifications/import-export',
+		breadcrumbs: [ __( 'Import / Export', 'product-specifications' ) ],
+		capability: MIN_CAPABILITY,
+	},
+	{
+		container: SettingsPage,
+		path: '/dwps-product-specifications/settings',
+		breadcrumbs: [ __( 'Settings', 'product-specifications' ) ],
+		capability: window.dwspecsAdmin?.settingsCapability ?? MIN_CAPABILITY,
 	},
 ] );

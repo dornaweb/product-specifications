@@ -16,8 +16,8 @@ jQuery.fn.outerHTML = function ( s ) {
  * Animate.CSS
  */
 jQuery.fn.extend( {
-	animateCss: function ( animationName ) {
-		var animationEnd =
+	animateCss( animationName ) {
+		const animationEnd =
 			'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 		$( this )
 			.addClass( 'animated ' + animationName )
@@ -29,18 +29,18 @@ jQuery.fn.extend( {
 
 function dwDismissAdminNotice( event, id ) {
 	event.preventDefault();
-	let $notice = jQuery( event.target ).parents( '.notice' );
+	const $notice = jQuery( event.target ).parents( '.notice' );
 
 	jQuery.ajax( {
 		method: 'POST',
 		url: dwspecs_plugin.ajaxurl,
 		data: {
 			action: 'dw_dismiss_admin_notice',
-			id
+			id,
 		},
-		success(res) {
+		success( res ) {
 			$notice.remove();
-		}
+		},
 	} );
 }
 
@@ -51,9 +51,9 @@ function dwDismissAdminNotice( event, id ) {
  * @author Am!n <www.dornaweb.com>
  */
 jQuery.extend( {
-	stripTags(s) {
-		return s ? s.replace(/(<([^>]+)>)/ig,"") : "";
-	}
+	stripTags( s ) {
+		return s ? s.replace( /(<([^>]+)>)/gi, '' ) : '';
+	},
 } );
 
 ( function ( $ ) {
@@ -75,7 +75,7 @@ jQuery.extend( {
 
 	$( document ).on( 'click', '[data-modal]', function ( e ) {
 		e.preventDefault();
-		let $target = $( $( this ).data( 'modal' ) );
+		const $target = $( $( this ).data( 'modal' ) );
 
 		if ( $target.length ) {
 			window.globalmodal.setContent( $target.html() );
@@ -95,7 +95,7 @@ jQuery.extend( {
 	 */
 	$( document ).on( 'ready dw_dynamic', function () {
 		$( '.tab-boxes' ).each( function () {
-			let tabs = $( this );
+			const tabs = $( this );
 
 			$( 'ul.tabs li', tabs ).each( function () {
 				if ( $( this ).hasClass( 'active' ) ) {
@@ -104,20 +104,21 @@ jQuery.extend( {
 						$( this ).data( 'ajax-id' ) &&
 						$( $( this ).attr( 'data-target' ) ).length === 0
 					) {
-						let ajax_id = $( this ).data( 'ajax-id' );
+						const ajax_id = $( this ).data( 'ajax-id' );
 
 						$.ajax( {
 							method: 'GET',
 							url: ajax_url,
 							data: { action: 'load_news_tab', newsid: ajax_id },
 							success( msg ) {
-								tabs.find(".tab-contents").append(msg);
-								$(document).trigger('dwtabs-loaded', [true]);
-							}
+								tabs.find( '.tab-contents' ).append( msg );
+								$( document ).trigger( 'dwtabs-loaded', [
+									true,
+								] );
+							},
 						} );
 					} else {
-
-					/** Normal load */
+						/** Normal load */
 						$( $( this ).attr( 'data-target' ) ).show();
 						$( document ).trigger( 'dwtabs-loaded', [ true ] );
 					}
@@ -127,8 +128,8 @@ jQuery.extend( {
 			} );
 
 			$( "ul.tabs li:not('.exclude')", tabs ).click( function () {
-				let tab = $( this );
-				let tabtar = tab.attr( 'data-target' );
+				const tab = $( this );
+				const tabtar = tab.attr( 'data-target' );
 
 				if ( ! tab.hasClass( 'active' ) ) {
 					$( 'ul.tabs li', tabs ).removeClass( 'active' );
@@ -137,21 +138,21 @@ jQuery.extend( {
 
 					/** Ajax load */
 					if ( tab.data( 'ajax-id' ) && $( tabtar ).length === 0 ) {
-						let ajax_id = tab.data( 'ajax-id' );
+						const ajax_id = tab.data( 'ajax-id' );
 
 						$.ajax( {
 							method: 'GET',
 							url: ajax_url,
 							data: { action: 'load_news_tab', newsid: ajax_id },
 							success( msg ) {
-								tabs.find(".tab-contents").append(msg);
-								$(document).trigger('dwtabs-loaded', [true]);
-							}
+								tabs.find( '.tab-contents' ).append( msg );
+								$( document ).trigger( 'dwtabs-loaded', [
+									true,
+								] );
+							},
 						} );
-					}
-
-					/** Normal load */
-					else {
+					} else {
+						/** Normal load */
 						$( tabtar ).fadeIn( 'medium' );
 						$( document ).trigger( 'dwtabs-loaded', [ true ] );
 					}
@@ -163,7 +164,7 @@ jQuery.extend( {
 	/*!
 	 * Sortable attr. groups
 	 */
-	let fixHelper = function ( e, ui ) {
+	const fixHelper = function ( e, ui ) {
 		ui.children().each( function () {
 			$( this ).width( $( this ).width() );
 		} );
@@ -184,9 +185,9 @@ jQuery.extend( {
 	$( function () {
 		let initial_val = $( 'select#spec_tables_list' ).val();
 		$( 'select#spec_tables_list' ).on( 'change', function ( e ) {
-			let post_id = $( this ).data( 'postid' );
-			let loading = document.getElementById( 'loading_svg' ).innerHTML;
-			let container = $( '#specifications_table_wrapper' );
+			const post_id = $( this ).data( 'postid' );
+			const loading = document.getElementById( 'loading_svg' ).innerHTML;
+			const container = $( '#specifications_table_wrapper' );
 
 			if ( $( this ).val() !== 0 && $( this ).val() !== '0' ) {
 				if (
@@ -202,7 +203,7 @@ jQuery.extend( {
 						{
 							action: 'dwps_load_table',
 							specs_table: $( this ).val(),
-							post_id
+							post_id,
 						},
 						function ( response ) {
 							container.html( response.data || '' );
@@ -216,13 +217,16 @@ jQuery.extend( {
 					$( this ).val( $.data( this, 'current' ) );
 					return false;
 				}
-			} else if( window.confirm('Are you sure you want to switch table? all unsaved settings will be lost.') ){
-					container.html('');
-				}
-				else {
-					$(this).val( $.data(this, 'current') );
-					return false;
-				}
+			} else if (
+				window.confirm(
+					'Are you sure you want to switch table? all unsaved settings will be lost.'
+				)
+			) {
+				container.html( '' );
+			} else {
+				$( this ).val( $.data( this, 'current' ) );
+				return false;
+			}
 
 			initial_val = $( this ).val();
 
@@ -233,8 +237,8 @@ jQuery.extend( {
 			'change',
 			'.dw-table-field-wrap .customvalue-switch',
 			function () {
-			let select = $(this).parents('li').find('select');
-				var tinput = $( this )
+				const select = $( this ).parents( 'li' ).find( 'select' );
+				const tinput = $( this )
 					.parents( 'li' )
 					.find( 'input.select-custom' );
 
@@ -260,24 +264,26 @@ jQuery.extend( {
 		$( document ).on( 'click', 'a[data-dwpsmodal]', function ( e ) {
 			e.preventDefault();
 
-			let template = document.getElementById(
+			const template = document.getElementById(
 				'modify_form_template'
 			).innerHTML;
-			let texts = $.parseJSON(
+			const texts = $.parseJSON(
 				Mustache.render(
 					document.getElementById( 'dwps_texts_template' ).innerHTML
 				)
 			);
-			let elem = $( this );
-			let is_add = $( e.target ).is( $( '#dpws_add_new_btn' ) )
+			const elem = $( this );
+			const is_add = $( e.target ).is( $( '#dpws_add_new_btn' ) )
 				? true
 				: false;
 
-			if ( elem.hasClass( 'edit' ) )
-				{var edit_id = elem.data('id') || false;}
-			else var edit_id = false;
+			if ( elem.hasClass( 'edit' ) ) {
+				var edit_id = elem.data( 'id' ) || false;
+			} else {
+				var edit_id = false;
+			}
 
-			let modal_title = is_add ? texts.add_title : texts.edit_title;
+			const modal_title = is_add ? texts.add_title : texts.edit_title;
 
 			// Create add form modal
 			if ( is_add ) {
@@ -291,7 +297,7 @@ jQuery.extend( {
 
 			// create edit form modal
 			else {
-				let data = {
+				const data = {
 					action: 'dwps_edit_form',
 					id: edit_id,
 					type: elem.data( 'type' ),
@@ -321,8 +327,8 @@ jQuery.extend( {
 		$( document ).on( 'submit', '#dwps_modify_form', function ( e ) {
 			e.preventDefault();
 
-			let form = $( this );
-			let data = $( this ).serializeArray();
+			const form = $( this );
+			const data = $( this ).serializeArray();
 
 			$.post( dwspecs_plugin.ajaxurl, data, function ( response ) {
 				// append success/error message to end of the form
@@ -361,10 +367,10 @@ jQuery.extend( {
 		} );
 
 		// Default value & options by field type
-		let val_opt_form = function () {
-			let elem = $( '#attr_type' );
-			let form = elem.parents( 'form' );
-			let default_value =
+		const val_opt_form = function () {
+			const elem = $( '#attr_type' );
+			const form = elem.parents( 'form' );
+			const default_value =
 				$( 'input#attr_default[data-initial]' ).val() || '';
 
 			switch ( elem.val() ) {
@@ -394,20 +400,21 @@ jQuery.extend( {
 						.show();
 
 					if ( form.find( '#attr_values' ).length ) {
-						var values = new Array();
+						let values = new Array();
 
-						if ( form.find( '#attr_values' ).val().length > 0 )
+						if ( form.find( '#attr_values' ).val().length > 0 ) {
 							values = form
 								.find( '#attr_values' )
 								.val()
 								.split( '\n' );
+						}
 
 						let defaults =
 							'<select name="attr_default" id="attr_default">';
 						defaults += '<option value="">----</option>';
 						for ( i = 0; i < values.length; i++ ) {
-							let value = values[ i ];
-							let selected =
+							const value = values[ i ];
+							const selected =
 								default_value != '' &&
 								default_value == encodeURIComponent( value )
 									? ' selected'
@@ -473,8 +480,9 @@ jQuery.extend( {
 				if (
 					e.type == 'ready' ||
 					$( e.target ).is( $( '#attr_type' ) )
-				)
+				) {
 					val_opt_form();
+				}
 			} )
 			.change();
 
@@ -492,7 +500,7 @@ jQuery.extend( {
 				'change',
 				'.dwps-table .check-column input',
 				function () {
-					var table = $( this ).parents( '.dwps-table' );
+					const table = $( this ).parents( '.dwps-table' );
 
 					if (
 						table
@@ -526,7 +534,7 @@ jQuery.extend( {
 			function ( e ) {
 				e.preventDefault();
 				var id = $( this ).data( 'id' );
-				var template = $.parseJSON(
+				const template = $.parseJSON(
 					Mustache.render(
 						document.getElementById( 'dwps_delete_template' )
 							.innerHTML
@@ -542,17 +550,17 @@ jQuery.extend( {
 				}
 
 				if ( ! $( this ).is( '[disabled]' ) ) {
-					var confirm = window.confirm( template.modal.content );
+					const confirm = window.confirm( template.modal.content );
 
 					if ( confirm ) {
-						var action =
+						const action =
 							template.data.type == 'attribute'
 								? 'dwps_modify_attributes'
 								: 'dwps_modify_groups';
 
 						$.post(
 							dwspecs_plugin.ajaxurl,
-							{ action: action, do: 'delete', id: id },
+							{ action, do: 'delete', id },
 							function ( response ) {
 								if ( response.success ) {
 									$( '#dwps_table_wrap' ).load(
@@ -581,7 +589,7 @@ jQuery.extend( {
 		 */
 		$( document ).on( 'click', '#dwps_table .re-arange', function ( e ) {
 			e.preventDefault();
-			let texts = $.parseJSON(
+			const texts = $.parseJSON(
 				Mustache.render(
 					document.getElementById( 'dwps_texts_template' ).innerHTML
 				)
@@ -616,32 +624,30 @@ jQuery.extend( {
 		 * Table groups handler
 		 */
 		$( function () {
-			let result_container = $( '.table-groups-list' );
+			const result_container = $( '.table-groups-list' );
 
 			$( document ).on(
 				'change',
 				'.dwsp-meta-item input[type=checkbox]',
 				function ( e ) {
-					var val = $( this ).val();
+					const val = $( this ).val();
 
 					if ( $( this ).is( ':checked' ) ) {
-						var elem =
+						const elem =
 							'<li><input checked type="checkbox" name="groups[]" value="' +
 							val +
 							'" readonly>' +
 							$( this ).parent().find( 'span' ).text() +
 							'</li>';
 						result_container.append( elem );
-					} else {
-						if (
-							result_container.has( 'input[value=' + val + ']' )
-								.length
-						) {
-							result_container
-								.find( 'input[value=' + val + ']' )
-								.parents( 'li' )
-								.remove();
-						}
+					} else if (
+						result_container.has( 'input[value=' + val + ']' )
+							.length
+					) {
+						result_container
+							.find( 'input[value=' + val + ']' )
+							.parents( 'li' )
+							.remove();
 					}
 				}
 			);
@@ -651,7 +657,7 @@ jQuery.extend( {
 	$( '#dwps_import_data_form' ).submit( function ( e ) {
 		e.preventDefault();
 
-		let data = new FormData( this );
+		const data = new FormData( this );
 
 		$( '#dwspecs_import_results' ).html(
 			'<div class="notice"><p>' +
@@ -666,18 +672,28 @@ jQuery.extend( {
 			processData: false,
 			url: dwspecs_plugin.ajaxurl,
 			data,
-			success(res) {
-				if (res.success) {
-					$('#dwspecs_import_results').html('<div class="updated success"><p>'+ res.data.message + '</p></div>')
-
+			success( res ) {
+				if ( res.success ) {
+					$( '#dwspecs_import_results' ).html(
+						'<div class="updated success"><p>' +
+							res.data.message +
+							'</p></div>'
+					);
 				} else {
-					$('#dwspecs_import_results').html('<div class="error"><p>'+ res.data.message + '</p></div>')
-
+					$( '#dwspecs_import_results' ).html(
+						'<div class="error"><p>' +
+							res.data.message +
+							'</p></div>'
+					);
 				}
 			},
 			error() {
-				$('#dwspecs_import_results').html('<div class="error"><p>'+ dwspecs_plugin.i18n.unknown_error + '</p></div>')
-			}
+				$( '#dwspecs_import_results' ).html(
+					'<div class="error"><p>' +
+						dwspecs_plugin.i18n.unknown_error +
+						'</p></div>'
+				);
+			},
 		} );
 	} );
 } )( jQuery );

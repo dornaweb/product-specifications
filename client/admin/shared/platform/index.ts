@@ -1,15 +1,15 @@
 export {
 	adminPath,
 	currentPath,
+	discardUnsavedChangesAndGoToAdminPath,
 	goToAdminPath,
 	useAdminQuery,
+	useUnsavedChangesGuard,
 	type AdminQuery,
 	type AdminPathQuery,
 } from './navigation';
-export { registerAdminPages, type AdminPage } from './registerPages';
-export { default as DataTable } from './components/DataTable';
-export type {
-	DataTableCell,
-	DataTableHeader,
-	DataTableProps,
-} from './components/DataTable';
+export {
+	registerAdminPages,
+	isRegisteredPath,
+	type AdminPage,
+} from './registerPages';
