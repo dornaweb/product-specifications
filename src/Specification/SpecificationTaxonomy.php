@@ -13,19 +13,32 @@ final class SpecificationTaxonomy
         return self::KEY;
     }
 
+    public const REST_BASE = 'specifications';
+
     /**
+     * A non-public taxonomy still answers REST once show_in_rest is on, and the
+     * capabilities below are what decides who reaches it.
+     *
      * @return array{
-     * show_in_menu: bool,
-     * show_in_nav_menus: bool,
-     * hierarchical: bool,
-     * labels: array<string, string>,
-     * show_ui: bool,
-     * query_var: bool,
-     * public: bool,
-     * rewrite: bool,
+     *     show_in_menu: bool,
+     *     show_in_nav_menus: bool,
+     *     hierarchical: bool,
+     *     labels: array<string, string>,
+     *     show_ui: bool,
+     *     query_var: bool,
+     *     public: bool,
+     *     rewrite: bool,
+     *     show_in_rest: bool,
+     *     rest_base: string,
+     *     capabilities: array{
+     *         manage_terms: string,
+     *         edit_terms: string,
+     *         delete_terms: string,
+     *         assign_terms: string
+     *     }
      * }
      */
-    public function args(): array
+    public function args(string $capability): array
     {
         return [
             'show_in_menu' => false,
@@ -36,6 +49,14 @@ final class SpecificationTaxonomy
             'query_var' => false,
             'public' => false,
             'rewrite' => false,
+            'show_in_rest' => true,
+            'rest_base' => self::REST_BASE,
+            'capabilities' => [
+                'manage_terms' => $capability,
+                'edit_terms' => $capability,
+                'delete_terms' => $capability,
+                'assign_terms' => $capability,
+            ],
         ];
     }
 

@@ -91,26 +91,8 @@ parameters:
 			path: src/Attribute/AttributeFieldFactory.php
 
 		-
-			message: '#^Access to undefined constant Amiut\\ProductSpecs\\AttributeGroupsListUi\\AttributeGroupsListPage\:\:DEFAULT_PER_PAGE\.$#'
-			identifier: classConstant.notFound
-			count: 1
-			path: src/AttributeGroupsListUi/AttributeGroupsListPage.php
-
-		-
-			message: '#^Parameter \#1 \$maybeint of function absint expects array\|bool\|float\|int\|resource\|string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/AttributeGroupsListUi/AttributeGroupsListPage.php
-
-		-
 			message: '#^Method Amiut\\ProductSpecs\\AttributesListUi\\AttributeListPage\:\:groupId\(\) never returns null so it can be removed from the return type\.$#'
 			identifier: return.unusedType
-			count: 1
-			path: src/AttributesListUi/AttributeListPage.php
-
-		-
-			message: '#^Parameter \#1 \$maybeint of function absint expects array\|bool\|float\|int\|resource\|string\|null, mixed given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/AttributesListUi/AttributeListPage.php
 

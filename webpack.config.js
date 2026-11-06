@@ -1,5 +1,6 @@
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const path = require( 'path' );
+const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const WooDependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
 const WpDependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
@@ -13,15 +14,28 @@ const webpackConfig = {
 	entry: {
 		admin: './client/admin/index.js',
 		admininit: './client/admin/init.ts',
+		'product-values': './client/productValues/index.tsx',
 		frontend: './client/frontend/index.js',
 	},
 	plugins: [
 		// The WooCommerce plugin extends the WordPress one; running both leaves
 		// each with half the externals and one overwriting the other's asset file.
-		...defaultConfig.plugins.filter(
-			( plugin ) =>
-				! ( plugin instanceof WpDependencyExtractionWebpackPlugin )
-		),
+		...defaultConfig.plugins.flatMap( ( plugin ) => {
+			if ( plugin instanceof WpDependencyExtractionWebpackPlugin ) {
+				return [];
+			}
+
+			if ( plugin instanceof MiniCSSExtractPlugin ) {
+				return [
+					new MiniCSSExtractPlugin( {
+						filename: '[name].css',
+						chunkFilename: '[name].css?ver=[contenthash]',
+					} ),
+				];
+			}
+
+			return [ plugin ];
+		} ),
 		new WooDependencyExtractionWebpackPlugin(),
 	],
 	output: {

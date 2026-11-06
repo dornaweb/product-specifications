@@ -27,7 +27,9 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
 
-        "noUncheckedSideEffectImports": true
+        "noUncheckedSideEffectImports": true,
+
+        "types": ["jest"]
     },
     "include": [
         "client/**/*",
