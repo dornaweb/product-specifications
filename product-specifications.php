@@ -91,6 +91,7 @@ function bootstrap(): void
         $plugin
             ->addModule(new Capability\Module())
             ->addModule(new Upgrade\Module())
+            ->addModule(new Migration\Module())
             ->addModule(new Assets\Module())
             ->addModule(new Specification\Module())
             ->addModule(new SpecificationSet\Module())

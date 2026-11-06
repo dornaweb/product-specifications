@@ -41,6 +41,11 @@ final class DataVersion
         return new self(self::LEGACY_VERSION);
     }
 
+    public static function migrated(): self
+    {
+        return new self(self::CURRENT_VERSION);
+    }
+
     public static function forInstall(bool $hasLegacyData): self
     {
         return $hasLegacyData ? self::legacyInstall() : self::freshInstall();

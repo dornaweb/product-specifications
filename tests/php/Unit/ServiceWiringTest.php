@@ -6,6 +6,9 @@ namespace Amiut\ProductSpecs\Tests\Unit;
 
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Capability\Module as CapabilityModule;
+use Amiut\ProductSpecs\Migration\MigrationRunner;
+use Amiut\ProductSpecs\Migration\MigrationRunRepository;
+use Amiut\ProductSpecs\Migration\Module as MigrationModule;
 use Amiut\ProductSpecs\Specification\Module as SpecificationModule;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
@@ -70,6 +73,8 @@ final class ServiceWiringTest extends TestCase
             LegacyDataProbe::class => LegacyDataProbe::class,
             Installer::class => Installer::class,
             MigrationState::class => MigrationState::class,
+            MigrationRunRepository::class => MigrationRunRepository::class,
+            MigrationRunner::class => MigrationRunner::class,
         ];
     }
 
@@ -82,7 +87,8 @@ final class ServiceWiringTest extends TestCase
             (new CapabilityModule())->services(),
             (new SpecificationSetModule())->services(),
             (new SpecificationModule())->services(),
-            (new UpgradeModule())->services()
+            (new UpgradeModule())->services(),
+            (new MigrationModule())->services()
         );
     }
 
