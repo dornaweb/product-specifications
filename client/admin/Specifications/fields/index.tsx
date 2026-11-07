@@ -1,5 +1,6 @@
 import { __, sprintf, _n } from '@wordpress/i18n';
 import type { Field, View } from '@wordpress/dataviews';
+import { safeDecodeURIComponent } from '@wordpress/url';
 import { defaultListView } from '../../shared/ui/listView';
 import { specificationTypes } from '../../shared/specificationTypes';
 import type { SpecificationItem } from '../mapRecord';
@@ -28,7 +29,9 @@ export function fields(): Field< SpecificationItem >[] {
 							</span>
 						) }
 					</span>
-					<span className="ps-spec-name__slug">{ item.slug }</span>
+					<span className="ps-spec-name__slug">
+						{ safeDecodeURIComponent( item.slug ) }
+					</span>
 				</div>
 			),
 		},

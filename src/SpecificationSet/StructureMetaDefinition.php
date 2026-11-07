@@ -105,7 +105,7 @@ final class StructureMetaDefinition
                 'slug' => [
                     'type' => 'string',
                     'minLength' => 1,
-                    'pattern' => '^[a-z0-9_-]+$',
+                    'pattern' => '^[a-z0-9_%-]+$',
                 ],
                 'visible' => [
                     'type' => 'boolean',

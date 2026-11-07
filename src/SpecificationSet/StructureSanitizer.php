@@ -82,7 +82,7 @@ final class StructureSanitizer
             }
 
             $termId = $this->intValue($item['term_id'] ?? null);
-            $slug = sanitize_key($this->stringValue($item['slug'] ?? null));
+            $slug = $this->slugValue($item['slug'] ?? null);
 
             if ($termId < 1 || $slug === '') {
                 continue;
@@ -102,6 +102,14 @@ final class StructureSanitizer
     private function boolValue(mixed $value, bool $default): bool
     {
         return $value === null ? $default : (bool) $value;
+    }
+
+    /**
+     * A slug for a non-Latin name is stored percent-encoded, so `%` is part of it.
+     */
+    private function slugValue(mixed $value): string
+    {
+        return (string) preg_replace('/[^a-z0-9_%-]/', '', strtolower($this->stringValue($value)));
     }
 
     private function stringValue(mixed $value): string

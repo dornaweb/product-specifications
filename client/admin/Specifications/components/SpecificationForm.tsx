@@ -8,6 +8,7 @@ import {
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
+import { safeDecodeURIComponent } from '@wordpress/url';
 import { Field, FieldGrid, InlineForm, Shortcut } from '../../shared/ui';
 import {
 	specificationType,
@@ -403,7 +404,9 @@ const SpecificationForm = ( {
 											__next40pxDefaultSize
 											className="ps-slug"
 											readOnly
-											value={ slug }
+											value={ safeDecodeURIComponent(
+												slug
+											) }
 											onChange={ () => undefined }
 										/>
 									) }

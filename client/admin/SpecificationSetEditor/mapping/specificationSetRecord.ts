@@ -1,4 +1,4 @@
-import { cleanForSlug } from '@wordpress/url';
+import { cleanForSlug, safeDecodeURIComponent } from '@wordpress/url';
 import type {
 	SpecificationSetGeneralState,
 	SpecificationSetStatus,
@@ -72,7 +72,7 @@ export function createSpecificationSetGeneralStateFromPostRecord(
 ): SpecificationSetGeneralState {
 	return {
 		title: readTextField( record.title ),
-		slug: record.slug ?? '',
+		slug: safeDecodeURIComponent( record.slug ?? '' ),
 		description: readTextField( record.content ),
 		status: record.status === 'publish' ? 'publish' : 'draft',
 	};

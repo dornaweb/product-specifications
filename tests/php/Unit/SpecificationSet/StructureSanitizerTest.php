@@ -45,6 +45,23 @@ final class StructureSanitizerTest extends TestCase
         static::assertFalse($group['items'][0]['comparable']);
     }
 
+    public function testAPercentEncodedSlugForANonLatinNameSurvives(): void
+    {
+        $sanitized = $this->sanitizer->sanitize([
+            'groups' => [
+                [
+                    'key' => 'display',
+                    'label' => 'Display',
+                    'items' => [
+                        ['term_id' => 123, 'slug' => '%d8%b1%d9%86%da%af'],
+                    ],
+                ],
+            ],
+        ]);
+
+        static::assertSame('%d8%b1%d9%86%da%af', $sanitized['groups'][0]['items'][0]['slug']);
+    }
+
     public function testExplicitFalseSurvivesInsteadOfBeingDefaulted(): void
     {
         $sanitized = $this->sanitizer->sanitize([
