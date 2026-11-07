@@ -6,6 +6,8 @@ namespace Amiut\ProductSpecs\Tests\Unit;
 
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Capability\Module as CapabilityModule;
+use Amiut\ProductSpecs\Migration\BackgroundMigration;
+use Amiut\ProductSpecs\Migration\MigrationCommand;
 use Amiut\ProductSpecs\Migration\MigrationRunner;
 use Amiut\ProductSpecs\Migration\MigrationRunRepository;
 use Amiut\ProductSpecs\Migration\Module as MigrationModule;
@@ -81,6 +83,8 @@ final class ServiceWiringTest extends TestCase
             MigrationState::class => MigrationState::class,
             MigrationRunRepository::class => MigrationRunRepository::class,
             MigrationRunner::class => MigrationRunner::class,
+            MigrationCommand::class => MigrationCommand::class,
+            BackgroundMigration::class => BackgroundMigration::class,
             SpecificationDefinitionsStep::class => SpecificationDefinitionsStep::class,
             SpecificationSetsStep::class => SpecificationSetsStep::class,
             ProductValuesStep::class => ProductValuesStep::class,

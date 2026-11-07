@@ -262,6 +262,24 @@ if (!function_exists('sanitize_title')) {
     }
 }
 
+$GLOBALS['wp_test_scheduled'] = [];
+
+if (!function_exists('wp_next_scheduled')) {
+    function wp_next_scheduled(string $hook, array $args = []): int|false
+    {
+        return $GLOBALS['wp_test_scheduled'][$hook] ?? false;
+    }
+}
+
+if (!function_exists('wp_schedule_single_event')) {
+    function wp_schedule_single_event(int $timestamp, string $hook, array $args = [], bool $wpError = false): bool
+    {
+        $GLOBALS['wp_test_scheduled'][$hook] = $timestamp;
+
+        return true;
+    }
+}
+
 if (!function_exists('get_post_stati')) {
     /**
      * @return array<string, string>

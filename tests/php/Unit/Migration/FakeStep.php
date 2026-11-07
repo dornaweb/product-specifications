@@ -13,6 +13,7 @@ final class FakeStep implements MigrationStep
     /** @var list<int> */
     public array $cursors = [];
     public bool $throwOnNextRun = false;
+    public ?\Closure $onRun = null;
 
     /**
      * @param list<int> $ids
@@ -40,6 +41,10 @@ final class FakeStep implements MigrationStep
     public function run(int $cursor, int $limit): ChunkResult
     {
         $this->cursors[] = $cursor;
+
+        if ($this->onRun !== null) {
+            ($this->onRun)();
+        }
 
         if ($this->throwOnNextRun) {
             $this->throwOnNextRun = false;
