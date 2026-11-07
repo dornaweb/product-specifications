@@ -107,6 +107,10 @@ final class AssetHelper
             $styleDependencies,
             $assetData['version'] ?? false
         );
+
+        if (file_exists(preg_replace('/\.css$/', '-rtl.css', $assetPath) ?? '')) {
+            wp_style_add_data($handle, 'rtl', 'replace');
+        }
     }
 
     /**
