@@ -10,6 +10,7 @@ import {
 	TrueFalseDefault,
 } from './defaultControls';
 import type { SpecificationTypes } from './index';
+import YesNoOptionsPanel from './YesNoOptionsPanel';
 import {
 	ChoiceValue,
 	ParagraphValue,
@@ -58,6 +59,7 @@ export const coreSpecificationTypes: SpecificationTypes = {
 	true_false: {
 		label: __( 'Yes or no', 'product-specifications' ),
 		description: __( 'A single yes or no.', 'product-specifications' ),
+		options: YesNoOptionsPanel,
 		defaultControl: TrueFalseDefault,
 		valueControl: TrueFalseValue,
 	},

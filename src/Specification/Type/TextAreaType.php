@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Specification\Type;
 
+use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use WC_Product;
 
 final class TextAreaType implements SpecificationType
@@ -44,7 +45,7 @@ final class TextAreaType implements SpecificationType
         return is_scalar($stored) ? (string) $stored : null;
     }
 
-    public function render(mixed $value): string
+    public function render(mixed $value, SpecificationOptions $options): string
     {
         return is_scalar($value) ? nl2br(esc_html((string) $value)) : '';
     }

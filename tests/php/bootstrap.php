@@ -289,3 +289,10 @@ if (!function_exists('get_post_stati')) {
         return ['publish' => 'publish', 'trash' => 'trash'];
     }
 }
+
+if (!function_exists('esc_attr')) {
+    function esc_attr(string $text): string
+    {
+        return htmlspecialchars($text, ENT_QUOTES);
+    }
+}

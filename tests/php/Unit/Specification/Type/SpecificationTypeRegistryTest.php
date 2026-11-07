@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Tests\Unit\Specification\Type;
 
+use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\Type\SelectType;
 use Amiut\ProductSpecs\Specification\Type\SpecificationType;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
@@ -78,7 +79,7 @@ final class SpecificationTypeRegistryTest extends TestCase
                 return $stored;
             }
 
-            public function render(mixed $value): string
+            public function render(mixed $value, SpecificationOptions $options): string
             {
                 return '';
             }

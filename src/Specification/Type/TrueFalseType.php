@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Specification\Type;
 
+use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use WC_Product;
 
 final class TrueFalseType implements SpecificationType
@@ -25,7 +26,7 @@ final class TrueFalseType implements SpecificationType
      */
     public function optionsSchema(): array
     {
-        return OptionsSchema::none();
+        return YesNoDisplay::optionsSchema();
     }
 
     public function sanitize(mixed $input): mixed
@@ -38,17 +39,11 @@ final class TrueFalseType implements SpecificationType
         return $this->asBoolean($stored);
     }
 
-    public function render(mixed $value): string
+    public function render(mixed $value, SpecificationOptions $options): string
     {
         $boolean = $this->asBoolean($value);
 
-        if ($boolean === null) {
-            return '';
-        }
-
-        return $boolean
-            ? esc_html__('Yes', 'product-specifications')
-            : esc_html__('No', 'product-specifications');
+        return $boolean === null ? '' : YesNoDisplay::fromOptions($options)->render($boolean);
     }
 
     private function asBoolean(mixed $input): ?bool
