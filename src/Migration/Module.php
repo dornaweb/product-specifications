@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration;
 
+use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Migration\Step\ProductValuesStep;
 use Amiut\ProductSpecs\Migration\Step\SetStructureBuilder;
 use Amiut\ProductSpecs\Migration\Step\SnapshotValueReader;
@@ -16,6 +17,7 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -56,6 +58,19 @@ final class Module implements ServiceModule, ExecutableModule
             BackgroundMigration::class => static fn (ContainerInterface $container) => new BackgroundMigration(
                 $container->get(MigrationRunner::class)
             ),
+            MigrationScreen::class => static fn () => new MigrationScreen(),
+            MigrationNotice::class => static fn (ContainerInterface $container) => new MigrationNotice(
+                $container->get(MigrationState::class),
+                $container->get(MigrationRunRepository::class),
+                $container->get(MigrationScreen::class),
+                $container->get(Capabilities::class)
+            ),
+            MigrationRestController::class => static fn (ContainerInterface $container) => new MigrationRestController(
+                $container->get(MigrationRunner::class),
+                $container->get(BackgroundMigration::class),
+                $container->get(DataVersionRepository::class),
+                $container->get(Capabilities::class)
+            ),
             MigrationCommand::class => static fn (ContainerInterface $container) => new MigrationCommand(
                 $container->get(MigrationRunner::class)
             ),
@@ -68,6 +83,29 @@ final class Module implements ServiceModule, ExecutableModule
             BackgroundMigration::HOOK,
             static function () use ($container): void {
                 $container->get(BackgroundMigration::class)->process();
+            }
+        );
+
+        add_action(
+            'rest_api_init',
+            static function () use ($container): void {
+                $container->get(MigrationRestController::class)->registerRoutes();
+            }
+        );
+
+        add_action(
+            'admin_init',
+            static function () use ($container): void {
+                if (!wp_doing_ajax()) {
+                    $container->get(MigrationRunner::class)->completeIfNothingToMigrate();
+                }
+            }
+        );
+
+        add_action(
+            'admin_notices',
+            static function () use ($container): void {
+                $container->get(MigrationNotice::class)->render();
             }
         );
 

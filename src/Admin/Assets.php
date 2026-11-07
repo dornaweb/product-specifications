@@ -6,7 +6,10 @@ namespace Amiut\ProductSpecs\Admin;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
 use Amiut\ProductSpecs\Capability\Capabilities;
+use Amiut\ProductSpecs\Migration\MigrationNotice;
+use Amiut\ProductSpecs\Migration\MigrationRestController;
 use Amiut\ProductSpecs\Settings\SettingsRestController;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 
 final class Assets
 {
@@ -15,7 +18,9 @@ final class Assets
 
     public function __construct(
         private readonly AssetHelper $assetHelper,
-        private readonly Capabilities $capabilities
+        private readonly Capabilities $capabilities,
+        private readonly MigrationState $migration,
+        private readonly MigrationNotice $migrationNotice
     ) {
     }
 
@@ -64,6 +69,9 @@ final class Assets
                     ? SettingsRestController::READ_CAPABILITY
                     : $this->capabilities->manageSpecifications(),
                 'settingsEndpoint' => rest_url('product-specifications/v2/settings'),
+                'migrationRequired' => $this->migration->requiresMigration(),
+                'migrationEndpoint' => rest_url(MigrationRestController::NAMESPACE . MigrationRestController::ROUTE),
+                'migrationNotice' => $this->migrationNotice->content(),
                 'restNonce' => wp_create_nonce('wp_rest'),
             ]
         );

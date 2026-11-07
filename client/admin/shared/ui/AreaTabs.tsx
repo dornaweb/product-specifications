@@ -1,3 +1,4 @@
+import { VisuallyHidden } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import clsx from 'clsx';
 import {
@@ -11,7 +12,7 @@ export interface AreaTab {
 	path: string;
 	title: string;
 	capability?: string;
-	badge?: string;
+	needsAttention?: boolean;
 }
 
 interface Props {
@@ -64,10 +65,19 @@ const AreaTabs = ( { tabs, capabilities = [] }: Props ) => {
 					} }
 				>
 					{ tab.title }
-					{ tab.badge && (
-						<span className="ps-area-tabs__badge">
-							{ tab.badge }
-						</span>
+					{ tab.needsAttention && (
+						<>
+							<span
+								className="ps-area-tabs__attention"
+								aria-hidden="true"
+							/>
+							<VisuallyHidden>
+								{ __(
+									'Action required',
+									'product-specifications'
+								) }
+							</VisuallyHidden>
+						</>
 					) }
 				</a>
 			) ) }

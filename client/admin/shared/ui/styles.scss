@@ -173,13 +173,15 @@
 	}
 }
 
-.ps-area-tabs__badge {
-	margin-left: var(--ps-space-half);
-	padding: 1px var(--ps-space-half);
-	border-radius: var(--ps-radius);
-	background: var(--ps-warning-bg);
-	color: var(--ps-warning-fg);
-	font-size: var(--ps-size-x-small);
+.ps-migration-banner.components-notice {
+	margin: 0 0 var(--ps-space-2);
+}
+
+.ps-area-tabs__attention {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--ps-error-fg);
 }
 
 .ps-empty {

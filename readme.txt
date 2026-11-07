@@ -55,6 +55,11 @@ Yes, You can use `[specs-table]` shortcode.
 6. Right-to-left languages support
 
 
+== Upgrade Notice ==
+
+= 2.0.0 =
+2.0.0 changes how specifications are stored. After updating, specification tables disappear from your store until you run the migration under WooCommerce > Product Specifications. Take a backup before you update.
+
 == Changelog ==
 
 = 0.8.7 - 2024-11-12 =

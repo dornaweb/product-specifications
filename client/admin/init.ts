@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { __ } from '@wordpress/i18n';
+import { MIGRATION_PATH } from './shared/areas';
 import { registerAdminPages } from './shared/platform';
 
 import './shared/ui/styles.scss';
@@ -34,6 +35,10 @@ const SpecificationSetEditorPage = lazy(
 
 const SettingsPage = lazy(
 	() => import( /* webpackChunkName: "settings" */ './Settings' )
+);
+
+const MigrationPage = lazy(
+	() => import( /* webpackChunkName: "migration" */ './Migration' )
 );
 
 // Registered so every area tab resolves to a page. Each is replaced by the
@@ -92,4 +97,17 @@ registerAdminPages( [
 		breadcrumbs: [ __( 'Settings', 'product-specifications' ) ],
 		capability: window.dwspecsAdmin?.settingsCapability ?? MIN_CAPABILITY,
 	},
+	// Only while there is a migration to run, so the tab disappears with it.
+	...( window.dwspecsAdmin?.migrationRequired
+		? [
+				{
+					container: MigrationPage,
+					path: MIGRATION_PATH,
+					breadcrumbs: [
+						__( 'Migration', 'product-specifications' ),
+					],
+					capability: MIN_CAPABILITY,
+				},
+		  ]
+		: [] ),
 ] );

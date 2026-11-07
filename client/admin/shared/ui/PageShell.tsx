@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import MigrationBanner from '../MigrationBanner';
 
 interface Props {
 	header: ReactNode;
@@ -10,6 +11,7 @@ const PageShell = ( { header, notices, children }: Props ) => (
 	<div className="ps-shell">
 		{ header }
 		<div className="ps-shell__content">
+			<MigrationBanner />
 			{ notices }
 			{ children }
 		</div>
