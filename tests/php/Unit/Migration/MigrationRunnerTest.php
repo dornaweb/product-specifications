@@ -92,6 +92,26 @@ final class MigrationRunnerTest extends TestCase
         self::assertSame(MigrationRun::IDLE, $runner->start()->status());
     }
 
+    public function testASiteWithNothingLeftToMigrateIsSwitchedWithoutARun(): void
+    {
+        $this->runner([$this->step('specifications', []), $this->step('values', [])])->completeIfNothingToMigrate();
+
+        self::assertSame(2, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+        self::assertSame(MigrationRun::IDLE, (new MigrationRunRepository())->stored()->status());
+    }
+
+    public function testWorkLeftOrAStoppedRunKeepsTheSiteWaiting(): void
+    {
+        $this->runner([$this->step('specifications', []), $this->step('values', [7])])->completeIfNothingToMigrate();
+
+        self::assertSame(1, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+
+        (new MigrationRunRepository())->store(MigrationRun::started('values', 1, 1)->failed('database went away'));
+        $this->runner([$this->step('values', [])])->completeIfNothingToMigrate();
+
+        self::assertSame(1, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+    }
+
     /**
      * @param list<MigrationStep> $steps
      */

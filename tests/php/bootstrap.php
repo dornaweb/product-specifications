@@ -261,3 +261,13 @@ if (!function_exists('sanitize_title')) {
         return trim($slug, '-');
     }
 }
+
+if (!function_exists('get_post_stati')) {
+    /**
+     * @return array<string, string>
+     */
+    function get_post_stati(): array
+    {
+        return ['publish' => 'publish', 'trash' => 'trash'];
+    }
+}

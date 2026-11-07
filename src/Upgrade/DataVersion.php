@@ -14,9 +14,8 @@ final class DataVersion
     }
 
     /**
-     * Anything unusable reads as the legacy version. Guessing "already migrated"
-     * on a damaged option skips a migration and loses data; guessing the other
-     * way costs a re-run of something idempotent.
+     * Anything unusable reads as version 1. Reading a damaged option as migrated
+     * would leave data unmoved; reading it as version 1 only repeats idempotent work.
      */
     public static function fromStored(mixed $value): self
     {

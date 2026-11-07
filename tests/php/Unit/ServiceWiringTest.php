@@ -9,6 +9,12 @@ use Amiut\ProductSpecs\Capability\Module as CapabilityModule;
 use Amiut\ProductSpecs\Migration\MigrationRunner;
 use Amiut\ProductSpecs\Migration\MigrationRunRepository;
 use Amiut\ProductSpecs\Migration\Module as MigrationModule;
+use Amiut\ProductSpecs\Migration\Step\ProductValuesStep;
+use Amiut\ProductSpecs\Migration\Step\SpecificationDefinitionsStep;
+use Amiut\ProductSpecs\Migration\Step\SpecificationSetsStep;
+use Amiut\ProductSpecs\ProductValues\Module as ProductValuesModule;
+use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\Module as SpecificationModule;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
@@ -75,6 +81,10 @@ final class ServiceWiringTest extends TestCase
             MigrationState::class => MigrationState::class,
             MigrationRunRepository::class => MigrationRunRepository::class,
             MigrationRunner::class => MigrationRunner::class,
+            SpecificationDefinitionsStep::class => SpecificationDefinitionsStep::class,
+            SpecificationSetsStep::class => SpecificationSetsStep::class,
+            ProductValuesStep::class => ProductValuesStep::class,
+            ProductValueRepository::class => WordPressProductValueRepository::class,
         ];
     }
 
@@ -88,7 +98,11 @@ final class ServiceWiringTest extends TestCase
             (new SpecificationSetModule())->services(),
             (new SpecificationModule())->services(),
             (new UpgradeModule())->services(),
-            (new MigrationModule())->services()
+            (new MigrationModule())->services(),
+            array_intersect_key(
+                (new ProductValuesModule())->services(),
+                [ProductValueRepository::class => true]
+            )
         );
     }
 

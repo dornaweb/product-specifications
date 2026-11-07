@@ -50,6 +50,23 @@ final class MigrationRunner
         return $started;
     }
 
+    public function completeIfNothingToMigrate(): void
+    {
+        $run = $this->runs->stored();
+
+        if ($run->isRunning() || $run->isFailed() || $this->versions->stored()->isMigrated()) {
+            return;
+        }
+
+        foreach ($this->steps as $step) {
+            if ($step->total() > 0) {
+                return;
+            }
+        }
+
+        $this->versions->store(DataVersion::migrated());
+    }
+
     public function runChunk(): MigrationRun
     {
         $run = $this->runs->stored();
@@ -91,6 +108,17 @@ final class MigrationRunner
         $this->runs->store($resumed);
 
         return $resumed;
+    }
+
+    /**
+     * @return list<array{key: string, total: int}>
+     */
+    public function scope(): array
+    {
+        return array_map(
+            static fn (MigrationStep $step): array => ['key' => $step->key(), 'total' => $step->total()],
+            $this->steps
+        );
     }
 
     private function advance(MigrationRun $run, int $index): MigrationRun
