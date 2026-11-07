@@ -6,6 +6,7 @@ namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 use WC_Product;
 
 class ProductTabs
@@ -14,7 +15,8 @@ class ProductTabs
 
     public function __construct(
         SpecificationsTableRepository $repository,
-        private readonly SettingsRepository $settingsRepository
+        private readonly SettingsRepository $settingsRepository,
+        private readonly MigrationState $migration
     ) {
         $this->repository = $repository;
     }
@@ -24,6 +26,10 @@ class ProductTabs
      */
     public function addProductSpecificationsTab(array $tabs): array
     {
+        if ($this->migration->requiresMigration()) {
+            return $tabs;
+        }
+
         $product = wc_get_product();
 
         if (!$product instanceof WC_Product) {

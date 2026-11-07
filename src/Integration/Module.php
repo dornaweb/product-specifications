@@ -11,6 +11,7 @@ use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -32,7 +33,8 @@ final class Module implements ServiceModule, ExecutableModule
                 new WooCommerceNotInstalledNoticeHandler(),
             ProductTabs::class => static fn (ContainerInterface $container) => new ProductTabs(
                 $container->get(SpecificationsTableRepository::class),
-                $container->get(SettingsRepository::class)
+                $container->get(SettingsRepository::class),
+                $container->get(MigrationState::class)
             ),
             FeaturesCompatibilityDeclarations::class => static fn (ContainerInterface $container) =>
                 new FeaturesCompatibilityDeclarations(

@@ -6,6 +6,7 @@ namespace Amiut\ProductSpecs\Shortcode;
 
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 
 class SpecificationsTable
 {
@@ -16,7 +17,8 @@ class SpecificationsTable
 
     public function __construct(
         TemplateRenderer $renderer,
-        SpecificationsTableRepository $repository
+        SpecificationsTableRepository $repository,
+        private readonly MigrationState $migration
     ) {
 
         $this->renderer = $renderer;
@@ -28,6 +30,10 @@ class SpecificationsTable
      */
     public function render($shortcodeAttributes): string
     {
+        if ($this->migration->requiresMigration()) {
+            return '';
+        }
+
         $shortcodeAttributes = is_array($shortcodeAttributes) ? $shortcodeAttributes : [];
         $postId = (int) ($shortcodeAttributes['post_id'] ?? 0);
 

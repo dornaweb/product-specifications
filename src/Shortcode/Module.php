@@ -6,6 +6,7 @@ namespace Amiut\ProductSpecs\Shortcode;
 
 use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -21,6 +22,7 @@ final class Module implements ServiceModule, ExecutableModule
             SpecificationsTable::class => static fn (ContainerInterface $container) => new SpecificationsTable(
                 $container->get(TemplateRenderer::class),
                 $container->get(SpecificationsTableRepository::class),
+                $container->get(MigrationState::class),
             ),
         ];
     }
