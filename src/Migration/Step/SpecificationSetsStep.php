@@ -13,6 +13,7 @@ use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetStructure;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaDefinition;
+use WP_Error;
 use WP_Term;
 
 final class SpecificationSetsStep implements MigrationStep
@@ -71,10 +72,30 @@ final class SpecificationSetsStep implements MigrationStep
 
             if ($stored === false) {
                 $errors[$setId] = __('The specification set could not be saved.', 'product-specifications');
+                continue;
+            }
+
+            if (!$this->publish($setId)) {
+                $errors[$setId] = __('The specification set could not be published.', 'product-specifications');
             }
         }
 
         return $batch->result($processed, $skipped, $errors);
+    }
+
+    // Only a published set renders, and a draft has no slug for its products to point at,
+    // so every migrated table is published.
+    private function publish(int $setId): bool
+    {
+        $status = get_post_status($setId);
+
+        if ($status === 'publish' || $status === 'trash') {
+            return true;
+        }
+
+        $updated = wp_update_post(['ID' => $setId, 'post_status' => 'publish'], true);
+
+        return !$updated instanceof WP_Error && $updated > 0;
     }
 
     private function needsMigration(int $setId): bool
