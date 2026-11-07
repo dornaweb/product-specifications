@@ -59,7 +59,7 @@ final class SpecificationRestField
             'type' => $specification->typeId(),
             'type_label' => $this->types->get($specification->typeId())->label(),
             'options' => (object) $specification->options()->toArray(),
-            'default' => $specification->defaultValue(),
+            'default' => $this->types->get($specification->typeId())->sanitize($specification->defaultValue()),
             'usage_count' => $this->usageCount($specification, $request),
         ];
     }
