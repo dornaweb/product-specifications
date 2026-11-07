@@ -20,7 +20,6 @@ final class Module implements ServiceModule
             AttributesRepository::class => static fn (ContainerInterface $container) => new AttributesRepository(
                 $container->get(EntityCollectionFactory::class)
             ),
-            SpecificationsTableRepository::class => static fn () => new SpecificationsTableRepository(),
             AttributeFieldRepository::class => static fn (ContainerInterface $container) => new AttributeFieldRepository(
                 $container->get(AttributeFieldFactory::class),
                 $container->get(AttributesRepository::class)

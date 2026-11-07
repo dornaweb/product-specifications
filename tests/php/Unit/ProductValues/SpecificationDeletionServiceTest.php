@@ -142,6 +142,11 @@ final class SpecificationDeletionServiceTest extends TestCase
                 return null;
             }
 
+            public function bySlug(string $slug): ?SpecificationSet
+            {
+                return null;
+            }
+
             public function all(array $args = []): array
             {
                 return $this->all;

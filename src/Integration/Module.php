@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration;
 
-use Amiut\ProductSpecs\Assets\AssetHelper;
-use Amiut\ProductSpecs\Integration\WooCommerce\Assets;
 use Amiut\ProductSpecs\Integration\WooCommerce\FeaturesCompatibilityDeclarations;
 use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
-use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
+use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
@@ -25,14 +23,10 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            Assets::class => static fn (ContainerInterface $container) => new Assets(
-                $container->get(AssetHelper::class),
-                $container->get(SettingsRepository::class)
-            ),
             WooCommerceNotInstalledNoticeHandler::class => static fn () =>
                 new WooCommerceNotInstalledNoticeHandler(),
             ProductTabs::class => static fn (ContainerInterface $container) => new ProductTabs(
-                $container->get(SpecificationsTableRepository::class),
+                $container->get(ProductSpecificationsBlock::class),
                 $container->get(SettingsRepository::class),
                 $container->get(MigrationState::class)
             ),
@@ -53,11 +47,6 @@ final class Module implements ServiceModule, ExecutableModule
         add_filter(
             'woocommerce_product_tabs',
             [$container->get(ProductTabs::class), 'addProductSpecificationsTab']
-        );
-
-        add_action(
-            'wp_enqueue_scripts',
-            [$container->get(Assets::class), 'load']
         );
 
         add_action(

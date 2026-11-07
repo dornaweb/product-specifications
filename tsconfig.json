@@ -33,6 +33,7 @@
     },
     "include": [
         "client/**/*",
+        "src/Block/**/*",
         "types/**/*"
     ],
     "exclude": [

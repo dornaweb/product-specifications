@@ -8,6 +8,8 @@ interface SpecificationSetRepository
 {
     public function byId(int $id): ?SpecificationSet;
 
+    public function bySlug(string $slug): ?SpecificationSet;
+
     /**
      * @param array<string, mixed> $args
      * @return array<SpecificationSet>

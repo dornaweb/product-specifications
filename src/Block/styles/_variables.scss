@@ -1,0 +1,26 @@
+@use "sass:map";
+
+// Defaults for the plugin's storefront blocks. Every value is read through a
+// custom property and never set by the plugin, so a theme overrides it from any
+// ancestor, for example: :root { --ps-table-border-color: #ddd; }
+$defaults: (
+	"block-margin": 0 0 1.5em,
+	"table-border-color": rgba(0, 0, 0, 0.1),
+	"table-cell-padding": 0.75em 1em,
+	"table-heading-background": rgba(0, 0, 0, 0.04),
+	"table-heading-color": inherit,
+	"table-heading-font-weight": 600,
+	"table-name-width": 33%,
+	"table-name-color": inherit,
+	"table-value-color": inherit,
+	"yes-color": #4db051,
+	"no-color": #e5484d,
+);
+
+@function token($name) {
+	@if not map.has-key($defaults, $name) {
+		@error "Unknown storefront token \"#{$name}\".";
+	}
+
+	@return var(--ps-#{$name}, #{map.get($defaults, $name)});
+}

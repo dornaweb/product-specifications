@@ -296,3 +296,20 @@ if (!function_exists('esc_attr')) {
         return htmlspecialchars($text, ENT_QUOTES);
     }
 }
+
+if (!class_exists('WC_Product')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WooCommerce owns this name.
+    class WC_Product
+    {
+        public function __construct(private readonly int $id = 0)
+        {
+        }
+
+        public function get_id(): int
+        {
+            return $this->id;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}

@@ -1,4 +1,5 @@
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const { getWebpackEntryPoints } = require( '@wordpress/scripts/utils' );
 const path = require( 'path' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const WooDependencyExtractionWebpackPlugin = require( '@woocommerce/dependency-extraction-webpack-plugin' );
@@ -12,10 +13,12 @@ const isProduction = NODE_ENV === 'production';
 const webpackConfig = {
 	...defaultConfig,
 	entry: {
+		// Every src/**/block.json lists its scripts; wp-scripts copies the
+		// block.json and render.php next to them under the same relative path.
+		...getWebpackEntryPoints( 'script' )(),
 		admin: './client/admin/index.js',
 		admininit: './client/admin/init.ts',
 		'product-values': './client/productValues/index.tsx',
-		frontend: './client/frontend/index.js',
 	},
 	plugins: [
 		// The WooCommerce plugin extends the WordPress one; running both leaves

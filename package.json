@@ -47,8 +47,8 @@
 		"start": "wp-scripts start",
 		"start:hot": "wp-scripts start --hot",
 		"build": "NODE_ENV=production wp-scripts build",
-		"lint:js": "eslint 'client/**/*.{ts,tsx}'",
-		"lint:js-fix": "eslint --fix 'client/**/*.{ts,tsx}'",
+		"lint:js": "eslint 'client/**/*.{ts,tsx}' 'src/Block/**/*.{ts,tsx}'",
+		"lint:js-fix": "eslint --fix 'client/**/*.{ts,tsx}' 'src/Block/**/*.{ts,tsx}'",
 		"test:js": "wp-scripts test-unit-js",
 		"format": "wp-scripts format",
 		"packages-update": "wp-scripts packages-update"
@@ -56,6 +56,8 @@
 	"dependencies": {
 		"@woocommerce/navigation": "^9.0.0",
 		"@wordpress/api-fetch": "~7.46.0",
+		"@wordpress/block-editor": "~20.0.0",
+		"@wordpress/blocks": "~17.1.0",
 		"@wordpress/components": "~32.2.1",
 		"@wordpress/core-data": "~7.40.2",
 		"@wordpress/data": "~10.40.1",
@@ -65,6 +67,7 @@
 		"@wordpress/i18n": "~6.13.1",
 		"@wordpress/icons": "~11.7.1",
 		"@wordpress/keycodes": "^4.54.0",
+		"@wordpress/server-side-render": "~7.1.0",
 		"@wordpress/url": "~4.40.1",
 		"clsx": "^2.1.1",
 		"jquery": "^3.7.1",

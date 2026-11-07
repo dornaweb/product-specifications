@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
-use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
+use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 use Amiut\ProductSpecs\Upgrade\MigrationState;
 use WC_Product;
 
-class ProductTabs
+final class ProductTabs
 {
-    private SpecificationsTableRepository $repository;
-
     public function __construct(
-        SpecificationsTableRepository $repository,
+        private readonly ProductSpecificationsBlock $block,
         private readonly SettingsRepository $settingsRepository,
         private readonly MigrationState $migration
     ) {
-        $this->repository = $repository;
     }
 
     /**
      * @wp-hook woocommerce_product_tabs
+     *
+     * @param array<string, mixed> $tabs
+     * @return array<string, mixed>
      */
     public function addProductSpecificationsTab(array $tabs): array
     {
@@ -36,7 +36,7 @@ class ProductTabs
             return $tabs;
         }
 
-        $hasSpecifications = $this->repository->productHasSpecsTable($product->get_id());
+        $hasSpecifications = $this->block->hasTableFor($product);
         $settings = $this->settingsRepository->current();
 
         if ($hasSpecifications) {
@@ -62,6 +62,11 @@ class ProductTabs
 
     public function displayTable(): void
     {
-        echo do_shortcode('[specs-table]');
+        $product = wc_get_product();
+
+        if ($product instanceof WC_Product) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The block template escapes its output.
+            echo $this->block->renderFor($product->get_id());
+        }
     }
 }

@@ -77,18 +77,22 @@ function install(): void
     }
 }
 
+function plugin(): Package
+{
+    /** @var Package|null $package */
+    static $package = null;
+
+    return $package ??= Package::new(PluginProperties::new(__FILE__));
+}
+
 function bootstrap(): void
 {
     try {
         setupAutoLoader();
 
-        $plugin = Package::new(
-            PluginProperties::new(__FILE__)
-        );
-
         App::instance();
 
-        $plugin
+        plugin()
             ->addModule(new Capability\Module())
             ->addModule(new Upgrade\Module())
             ->addModule(new Migration\Module())
@@ -105,6 +109,8 @@ function bootstrap(): void
             ->addModule(new Settings\Module())
             ->addModule(new Integration\Module())
             ->addModule(new Attribute\Module())
+            ->addModule(new Storefront\Module())
+            ->addModule(new Block\Module())
             ->addModule(new Shortcode\Module())
             ->addModule(new Metabox\Module())
             ->addModule(new EntityUpdater\Module())

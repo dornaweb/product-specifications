@@ -46,6 +46,11 @@ final class SpecificationSet
         return $this->status;
     }
 
+    public function isPublished(): bool
+    {
+        return $this->status === 'publish';
+    }
+
     public function structure(): SpecificationSetStructure
     {
         return $this->structure;

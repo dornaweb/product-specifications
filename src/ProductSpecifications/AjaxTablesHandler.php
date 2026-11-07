@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\ProductSpecifications;
 
 use Amiut\ProductSpecs\Repository\AttributeFieldRepository;
-use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
 use Amiut\ProductSpecs\Template\TemplateRenderer;
 use WP_Post;
 

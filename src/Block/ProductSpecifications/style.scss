@@ -1,0 +1,51 @@
+@use "../styles/variables" as *;
+
+.ps-product-specifications {
+	margin: token("block-margin");
+}
+
+.ps-product-specifications .ps-product-specifications__table {
+	width: 100%;
+	margin: 0;
+	border: 0;
+	border-collapse: collapse;
+}
+
+.ps-product-specifications .ps-product-specifications__table .ps-product-specifications__label,
+.ps-product-specifications .ps-product-specifications__table .ps-product-specifications__name,
+.ps-product-specifications .ps-product-specifications__table .ps-product-specifications__value {
+	padding: token("table-cell-padding");
+	border: 0;
+	border-block-end: 1px solid token("table-border-color");
+	background: none;
+	font-weight: inherit;
+	text-align: start;
+	vertical-align: top;
+}
+
+.ps-product-specifications .ps-product-specifications__table .ps-product-specifications__label {
+	background: token("table-heading-background");
+	color: token("table-heading-color");
+	font-weight: token("table-heading-font-weight");
+}
+
+.ps-product-specifications .ps-product-specifications__table .ps-product-specifications__name {
+	width: token("table-name-width");
+	color: token("table-name-color");
+}
+
+.ps-product-specifications .ps-product-specifications__table .ps-product-specifications__value {
+	color: token("table-value-color");
+}
+
+.ps-yes-no {
+	vertical-align: middle;
+}
+
+.ps-yes-no--yes {
+	color: token("yes-color");
+}
+
+.ps-yes-no--no {
+	color: token("no-color");
+}

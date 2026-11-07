@@ -24,6 +24,13 @@ final class SpecificationSetRepositoryImpl implements SpecificationSetRepository
         return $this->mapper->fromPost($post);
     }
 
+    public function bySlug(string $slug): ?SpecificationSet
+    {
+        $post = get_page_by_path($slug, 'OBJECT', SpecificationSetPostType::KEY);
+
+        return $post instanceof WP_Post ? $this->mapper->fromPost($post) : null;
+    }
+
     public function all(array $args = []): array
     {
         /** @var WP_Post[] $posts */
