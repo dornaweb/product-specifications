@@ -92,7 +92,6 @@ final class StructureSanitizer
                 'term_id' => $termId,
                 'slug' => $slug,
                 'visible' => $this->boolValue($item['visible'] ?? null, true),
-                'comparable' => $this->boolValue($item['comparable'] ?? null, false),
             ];
         }
 

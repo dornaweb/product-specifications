@@ -38,7 +38,6 @@ final class StructureMetaDefinitionTest extends TestCase
         return [
             'group visible' => ['group', 'visible'],
             'item visible' => ['item', 'visible'],
-            'item comparable' => ['item', 'comparable'],
         ];
     }
 

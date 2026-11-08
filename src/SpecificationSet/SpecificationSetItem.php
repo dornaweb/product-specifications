@@ -9,18 +9,16 @@ final class SpecificationSetItem
     private function __construct(
         private readonly int $termId,
         private readonly string $slug,
-        private readonly bool $visible,
-        private readonly bool $comparable
+        private readonly bool $visible
     ) {
     }
 
     public static function create(
         int $termId,
         string $slug,
-        bool $visible = true,
-        bool $comparable = false
+        bool $visible = true
     ): self {
-        return new self($termId, $slug, $visible, $comparable);
+        return new self($termId, $slug, $visible);
     }
 
     public function termId(): int
@@ -36,10 +34,5 @@ final class SpecificationSetItem
     public function visible(): bool
     {
         return $this->visible;
-    }
-
-    public function comparable(): bool
-    {
-        return $this->comparable;
     }
 }

@@ -111,10 +111,6 @@ final class StructureMetaDefinition
                     'type' => 'boolean',
                     'default' => true,
                 ],
-                'comparable' => [
-                    'type' => 'boolean',
-                    'default' => false,
-                ],
             ],
         ];
     }

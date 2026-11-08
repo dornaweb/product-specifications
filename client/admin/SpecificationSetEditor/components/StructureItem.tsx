@@ -206,22 +206,6 @@ const StructureItem = ( {
 						)
 					}
 				/>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label={ __(
-						'Available for comparison',
-						'product-specifications'
-					) }
-					checked={ item.comparable }
-					onChange={ ( value ) =>
-						editor.updateItem(
-							groupKey,
-							item.slug,
-							'comparable',
-							value
-						)
-					}
-				/>
 				<p className="ps-item-options__help">
 					{ __(
 						'These apply to this set only. The same specification can be visible in one set and hidden in another.',

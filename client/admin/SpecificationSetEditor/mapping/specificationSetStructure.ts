@@ -5,7 +5,6 @@ export interface StructureItem {
 	term_id: number;
 	slug: string;
 	visible: boolean;
-	comparable: boolean;
 }
 
 export interface StructureGroup {
@@ -86,7 +85,6 @@ function readItem( value: unknown ): StructureItem | null {
 		term_id: termId,
 		slug,
 		visible: item.visible !== false,
-		comparable: item.comparable === true,
 	};
 }
 

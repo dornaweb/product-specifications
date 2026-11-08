@@ -2,13 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { Card, CardBody, TabPanel } from '@wordpress/components';
 import type { SpecificationSetEditorData } from '../hooks/useSpecificationSetEditor';
 import GeneralTab from './GeneralTab';
-import PlaceholderTab from './PlaceholderTab';
 import StructureTab from './StructureTab';
-import type {
-	EditorPlaceholderTabName,
-	EditorTab,
-	EditorTabName,
-} from './types';
+import type { EditorTab, EditorTabName } from './types';
 
 const TABS: EditorTab[] = [
 	{
@@ -20,16 +15,6 @@ const TABS: EditorTab[] = [
 	{
 		name: 'specifications',
 		title: __( 'Specifications', 'product-specifications' ),
-		className: 'product-specifications-specs-set-editor__tab',
-	},
-	{
-		name: 'comparison',
-		title: __( 'Comparison', 'product-specifications' ),
-		className: 'product-specifications-specs-set-editor__tab',
-	},
-	{
-		name: 'layout',
-		title: __( 'Layout', 'product-specifications' ),
 		className: 'product-specifications-specs-set-editor__tab',
 	},
 ];
@@ -61,14 +46,6 @@ const EditorTabs = ( { editor }: EditorTabsProps ) => (
 							{ tabName === 'specifications' && (
 								<StructureTab editor={ editor } />
 							) }
-							{ tabName !== 'general' &&
-								tabName !== 'specifications' && (
-									<PlaceholderTab
-										tab={
-											tabName as EditorPlaceholderTabName
-										}
-									/>
-								) }
 						</div>
 					);
 				} }

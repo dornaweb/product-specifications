@@ -12,7 +12,6 @@ export interface StructureItem {
 	term_id: number;
 	slug: string;
 	visible: boolean;
-	comparable: boolean;
 }
 
 export interface StructureGroup {

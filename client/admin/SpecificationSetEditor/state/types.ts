@@ -22,7 +22,7 @@ export interface SpecificationSetEditorFormState {
 }
 
 export type GroupProperty = 'label' | 'description' | 'visible';
-export type ItemProperty = 'visible' | 'comparable';
+export type ItemProperty = 'visible';
 
 export interface SpecificationSetEditorState {
 	postId: number | null;

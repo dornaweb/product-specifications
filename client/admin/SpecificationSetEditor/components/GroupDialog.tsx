@@ -54,7 +54,7 @@ const GroupDialog = ( { label, isNew, onConfirm, onCancel }: Props ) => {
 						__next40pxDefaultSize
 						label={ __( 'Group label', 'product-specifications' ) }
 						help={ __(
-							'Shown as the heading above these specifications on the storefront, if your layout uses group headings.',
+							'Shown as the heading above these specifications on the storefront.',
 							'product-specifications'
 						) }
 						value={ value }

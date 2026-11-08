@@ -237,7 +237,7 @@ final class SpecificationSetStructureTest extends TestCase
                         'description' => '',
                         'visible' => true,
                         'items' => [
-                            ['term_id' => 101, 'slug' => 'width', 'visible' => true, 'comparable' => false],
+                            ['term_id' => 101, 'slug' => 'width', 'visible' => true],
                         ],
                     ],
                     [
@@ -246,7 +246,7 @@ final class SpecificationSetStructureTest extends TestCase
                         'description' => '',
                         'visible' => true,
                         'items' => [
-                            ['term_id' => 102, 'slug' => 'height', 'visible' => true, 'comparable' => false],
+                            ['term_id' => 102, 'slug' => 'height', 'visible' => true],
                         ],
                     ],
                 ],

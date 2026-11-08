@@ -42,7 +42,6 @@ final class StructureSanitizerTest extends TestCase
         static::assertTrue($group['visible']);
         static::assertSame('', $group['description']);
         static::assertTrue($group['items'][0]['visible']);
-        static::assertFalse($group['items'][0]['comparable']);
     }
 
     public function testAPercentEncodedSlugForANonLatinNameSurvives(): void
@@ -91,7 +90,7 @@ final class StructureSanitizerTest extends TestCase
             'groups' => [
                 [
                     'items' => [
-                        ['comparable' => true, 'slug' => 'screen_size', 'visible' => true, 'term_id' => 123],
+                        ['slug' => 'screen_size', 'visible' => true, 'term_id' => 123],
                     ],
                     'visible' => true,
                     'label' => 'Display',
@@ -107,7 +106,7 @@ final class StructureSanitizerTest extends TestCase
             array_keys($sanitized['groups'][0])
         );
         static::assertSame(
-            ['term_id', 'slug', 'visible', 'comparable'],
+            ['term_id', 'slug', 'visible'],
             array_keys($sanitized['groups'][0]['items'][0])
         );
     }

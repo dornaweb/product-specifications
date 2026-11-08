@@ -47,6 +47,5 @@ final class SetStructureBuilderTest extends TestCase
         self::assertTrue($group->visible());
         self::assertSame('%d8%b1%d9%86%da%af', $group->items()[0]->slug());
         self::assertTrue($group->items()[0]->visible());
-        self::assertFalse($group->items()[0]->comparable());
     }
 }

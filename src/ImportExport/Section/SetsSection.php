@@ -113,7 +113,6 @@ final class SetsSection implements Section
                             static fn (SpecificationSetItem $item): array => [
                                 'specification' => $item->slug(),
                                 'visible' => $item->visible(),
-                                'comparable' => $item->comparable(),
                             ],
                             $group->items()
                         ),
@@ -256,7 +255,6 @@ final class SetsSection implements Section
                 $itemErrors = [
                     ...Shape::identifier($item, 'specification', $itemPath, Shape::SLUG_PATTERN),
                     ...Shape::boolean($item, 'visible', $itemPath),
-                    ...Shape::boolean($item, 'comparable', $itemPath),
                 ];
 
                 $specification = Shape::string($item, 'specification');
@@ -313,8 +311,7 @@ final class SetsSection implements Section
                     $items[] = SpecificationSetItem::create(
                         $definition->id(),
                         $definition->key(),
-                        ($item['visible'] ?? true) !== false,
-                        ($item['comparable'] ?? false) === true
+                        ($item['visible'] ?? true) !== false
                     );
                 }
             }

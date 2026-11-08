@@ -117,8 +117,7 @@ final class SpecificationSetMapper
             $mapped[] = SpecificationSetItem::create(
                 $this->intValue($item['term_id'] ?? null),
                 $this->stringValue($item['slug'] ?? null),
-                (bool) ($item['visible'] ?? true),
-                (bool) ($item['comparable'] ?? false)
+                (bool) ($item['visible'] ?? true)
             );
         }
 
@@ -143,7 +142,7 @@ final class SpecificationSetMapper
     }
 
     /**
-     * @return array{term_id: int, slug: string, visible: bool, comparable: bool}
+     * @return array{term_id: int, slug: string, visible: bool}
      */
     private function itemToArray(SpecificationSetItem $item): array
     {
@@ -151,7 +150,6 @@ final class SpecificationSetMapper
             'term_id' => $item->termId(),
             'slug' => $item->slug(),
             'visible' => $item->visible(),
-            'comparable' => $item->comparable(),
         ];
     }
 

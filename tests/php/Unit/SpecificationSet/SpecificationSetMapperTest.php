@@ -32,8 +32,8 @@ final class SpecificationSetMapperTest extends TestCase
                     'description' => 'Screen and panel',
                     'visible' => true,
                     'items' => [
-                        ['term_id' => 123, 'slug' => 'screen_size', 'visible' => true, 'comparable' => true],
-                        ['term_id' => 124, 'slug' => 'resolution', 'visible' => false, 'comparable' => false],
+                        ['term_id' => 123, 'slug' => 'screen_size', 'visible' => true],
+                        ['term_id' => 124, 'slug' => 'resolution', 'visible' => false],
                     ],
                 ],
                 [
@@ -77,7 +77,7 @@ final class SpecificationSetMapperTest extends TestCase
                         'description' => '',
                         'visible' => true,
                         'items' => [
-                            ['term_id' => 123, 'slug' => 'screen_size', 'visible' => true, 'comparable' => false],
+                            ['term_id' => 123, 'slug' => 'screen_size', 'visible' => true],
                         ],
                     ],
                 ],

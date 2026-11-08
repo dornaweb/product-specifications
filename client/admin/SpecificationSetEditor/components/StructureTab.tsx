@@ -38,7 +38,6 @@ const itemFrom = ( entry: LibraryEntry ): StructureItem => ( {
 	term_id: entry.id,
 	slug: entry.slug,
 	visible: true,
-	comparable: false,
 } );
 
 const StructureTab = ( { editor }: { editor: SpecificationSetEditorData } ) => {
