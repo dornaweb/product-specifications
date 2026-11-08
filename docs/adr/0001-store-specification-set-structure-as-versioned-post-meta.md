@@ -10,7 +10,7 @@ ADR 0002 makes the specification slug the only stored identity in the model, gen
 once and never editable. A set item therefore no longer carries `term_id`:
 
 ```json
-{ "slug": "screen-size-9f3a2b71", "visible": true, "comparable": true }
+{ "slug": "screen-size-9f3a2b71", "visible": true }
 ```
 
 Term ids are resolved from slugs at runtime and are never stored. `schema_version`
@@ -71,7 +71,6 @@ Each specification set item stores:
 - `term_id` for runtime lookup
 - `slug` for portability, import/export, and repair
 - `visible` for set-specific display control
-- `comparable` for set-specific comparison control
 
 Example:
 
@@ -87,14 +86,12 @@ Example:
         {
           "term_id": 123,
           "slug": "screen_size",
-          "visible": true,
-          "comparable": true
+          "visible": true
         },
         {
           "term_id": 124,
           "slug": "resolution",
-          "visible": true,
-          "comparable": true
+          "visible": true
         }
       ]
     },
@@ -106,8 +103,7 @@ Example:
         {
           "term_id": 201,
           "slug": "battery_capacity",
-          "visible": true,
-          "comparable": false
+          "visible": true
         }
       ]
     }
@@ -121,7 +117,7 @@ Specification definitions should not be copied into every Specification Set.
 
 If definitions were duplicated inside set structures, updating a specification would require updating every set that contains it.
 
-Instead, the Specification Set stores only layout and composition:
+Instead, the Specification Set stores only composition:
 
 ```txt
 Which specifications are shown?
@@ -137,8 +133,7 @@ Using set item objects instead of bare term IDs is slightly more verbose, but it
 {
   "term_id": 123,
   "slug": "screen_size",
-  "visible": true,
-  "comparable": true
+  "visible": true
 }
 ```
 
@@ -198,7 +193,7 @@ Specification definitions live on specification terms.
 Product values live on products.
 
 ```txt
-Specification Set = grouped layout/composition
+Specification Set = grouped composition
 Specification Term = reusable specification definition
 Product Meta = product-specific values
 ```

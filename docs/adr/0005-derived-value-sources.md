@@ -115,7 +115,7 @@ is settled here:
 ```txt
 render()  returns output-ready HTML
 the type  is responsible for escaping everything inside it
-the layout template outputs it unescaped
+the template outputs it unescaped
 ```
 
 A template that escaped the return value would destroy both cases. A type that returns
@@ -177,9 +177,9 @@ type is always reversible.**
 ### Negative
 
 - **A taxonomy source costs a term query per product.** Free inside a normal product
-  loop, where `update_post_term_cache` has primed the terms. Not free in a comparison
-  table (PS-065), which renders many products at once and must prime term caches across
-  its whole product set explicitly.
+  loop, where `update_post_term_cache` has primed the terms. Not free in a view that
+  renders many products at once, which must prime term caches across its whole product
+  set explicitly.
 - Orphaned values from a type change persist indefinitely and are invisible in the
   admin. They are inert, and they are the price of reversibility.
 - Each source is a class. Six sources are six small classes rather than one with a
@@ -193,9 +193,6 @@ type is always reversible.**
   rebuildable from the map" is false for a derived specification, whose value is
   rebuildable from the *product*. Filtering on a derived specification needs a different
   mechanism from filtering on a stored one, and PS-077 must account for both.
-- **PS-065 comparison** across a derived specification means loading every product
-  object, not reading a meta value. Its cost profile differs from comparison across
-  stored values.
 - **PS-061** implements the types this ADR describes. Reading a variation's own
   WooCommerce attribute stays out of scope there and here.
 

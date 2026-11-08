@@ -80,7 +80,7 @@ interface SpecificationType
 | `optionsSchema()` | The REST endpoint, to validate a specification's configuration payload |
 | `sanitize()` | The save lifecycle, on the way into the value map. Returning `null` means an empty value |
 | `value()` | Every read. Returns the value to present. The default implementation returns `$stored` |
-| `plainValue()` | Anything that cannot take markup: comparison exports, structured data, search. Unescaped text, such as "Yes" for a yes-or-no value shown as an icon. Added 2026-11-08 (PS-098) |
+| `plainValue()` | Anything that cannot take markup: exports, structured data, search. Unescaped text, such as "Yes" for a yes-or-no value shown as an icon. Added 2026-11-08 (PS-098) |
 | `render()` | Frontend rendering, to format a value. It does not emit markup around the value |
 
 ### What a type declares on the client
@@ -183,7 +183,7 @@ shape.
 
 ### The type formats the value, the template owns the markup
 
-`render()` returns the presentable value. The layout template owns the row, the cell and
+`render()` returns the presentable value. The template owns the row, the cell and
 the table around it, and stays theme-overridable, which is what PS-054 needs to have
 anything left to override.
 

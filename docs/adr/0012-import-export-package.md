@@ -61,7 +61,7 @@ changes to the importer.
             "label": "General",
             "description": "",
             "visible": true,
-            "items": [{ "specification": "weight", "visible": true, "comparable": false }]
+            "items": [{ "specification": "weight", "visible": true }]
           }
         ]
       }

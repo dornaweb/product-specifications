@@ -10,7 +10,7 @@ ask before picking it up.
 
 1. **Refactor the plugin and make its basic features work.** Everything in the
    v1 feature set, running on the v2 model.
-2. **New features.** Comparison, WooCommerce built-in details, table layouts,
+2. **New features.** WooCommerce built-in details, new specification types,
    the Gutenberg block.
 3. **Meta work.** Test harnesses, tooling, documentation. Last, and only when
    asked.

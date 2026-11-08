@@ -134,8 +134,8 @@ v1's behavior is the safe one, and nothing in the v2 feature set depends on more
 ## Effects on other tickets
 
 - **PS-029, per-item set options**, is currently scoped as "per-item visible and
-  comparable switches, and the set-level default value". The third item does not exist.
-  `visible` and `comparable` are already members of the structure schema, so what remains
+  switch, and the set-level default value". The second item does not exist.
+  `visible` is already a member of the structure schema, so what remains
   is interface work.
 - **PS-029's dependency on this ticket disappears.** It depended on PS-017 only for the
   set-level default.

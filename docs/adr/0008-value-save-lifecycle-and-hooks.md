@@ -186,7 +186,7 @@ to rediscover them.
 ## Rationale
 
 Every part of this ADR is a seam rather than a feature. The plugin has none today, which
-is why filtering, comparison and projections all currently have nowhere to attach.
+is why filtering and projections both currently have nowhere to attach.
 
 Passing both maps to the action is the load-bearing detail. An action that carries only
 the new values lets a listener add but never remove, so every projection built on it
@@ -202,7 +202,7 @@ a real extension point and becomes a core convenience with a public façade.
 
 - One save path, whatever the entry point, so hooks fire consistently.
 - Per-type sanitization replaces one blanket filter that flattened every type.
-- Filtering, comparison and any future projection have somewhere to attach, without any
+- Filtering and any future projection have somewhere to attach, without any
   of them being designed yet.
 - A migration does not run third-party code eighty thousand times.
 - Unassigning a set is warned about and is not persisted by a UI action alone.

@@ -136,7 +136,7 @@ consumer to break. This is a deliberate amendment in place, not an omission.
 The type's sanitizer decides what a stored value is: a string, an integer, a float, a
 boolean, or an array for a composite type such as a number with a unit. Values are not
 stringified on the way in. A type that needs structure gets structure without inventing
-a second convention, and a numeric specification stays comparable without parsing.
+a second convention, and a numeric specification can be sorted and filtered without parsing.
 
 Slug keys also remove a hazard that term id keys carry. `json_decode( $json, true )`
 turns `{"456": "6.1"}` into `[456 => "6.1"]`, because PHP casts canonical decimal
