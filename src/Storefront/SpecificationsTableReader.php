@@ -53,7 +53,7 @@ final class SpecificationsTableReader
             $rows = $group->visible() ? $this->rows($group, $product, $values) : [];
 
             if ($rows !== []) {
-                $groups[] = new TableGroup($group->label(), $rows);
+                $groups[] = new TableGroup($group->key(), $group->label(), $rows);
             }
         }
 
@@ -85,7 +85,7 @@ final class SpecificationsTableReader
             $output = $type->render($value, $definition->options());
 
             if ($output !== '') {
-                $rows[] = new TableRow($definition->name(), $output);
+                $rows[] = new TableRow($definition->key(), $definition->name(), $output);
             }
         }
 

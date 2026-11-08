@@ -16,6 +16,8 @@ use WC_Product;
  */
 final class ProductSpecifications
 {
+    public const TABLE_FILTER = 'product_specifications_table';
+
     public function __construct(
         private readonly SpecificationsTableReader $tables,
         private readonly ProductValueRepository $values,
@@ -29,7 +31,14 @@ final class ProductSpecifications
     {
         $product = $this->product($product);
 
-        return $product === null ? SpecificationsTable::empty() : $this->tables->forProduct($product);
+        if ($product === null) {
+            return SpecificationsTable::empty();
+        }
+
+        $table = $this->tables->forProduct($product);
+        $filtered = apply_filters(self::TABLE_FILTER, $table, $product);
+
+        return $filtered instanceof SpecificationsTable ? $filtered : $table;
     }
 
     public function has(int|WC_Product $product): bool

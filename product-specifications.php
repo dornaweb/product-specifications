@@ -105,6 +105,7 @@ function bootstrap(): void
 
         if ($booted) {
             require_once __DIR__ . '/inc/api.php';
+            do_action('product_specifications_loaded');
         }
     } catch (Throwable $throwable) {
         handleFailure($throwable);

@@ -205,10 +205,14 @@ if (!function_exists('esc_html__')) {
     }
 }
 
+$GLOBALS['wp_test_filters'] = [];
+
 if (!function_exists('apply_filters')) {
-    function apply_filters(string $hookName, mixed $value): mixed
+    function apply_filters(string $hookName, mixed $value, mixed ...$args): mixed
     {
-        return $value;
+        $callback = $GLOBALS['wp_test_filters'][$hookName] ?? null;
+
+        return is_callable($callback) ? $callback($value, ...$args) : $value;
     }
 }
 

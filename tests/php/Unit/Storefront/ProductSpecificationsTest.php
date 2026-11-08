@@ -14,7 +14,10 @@ use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
 use Amiut\ProductSpecs\SpecificationSet\WordPressSpecificationSetRepository;
 use Amiut\ProductSpecs\Storefront\ProductSpecifications;
+use Amiut\ProductSpecs\Storefront\SpecificationsTable;
 use Amiut\ProductSpecs\Storefront\SpecificationsTableReader;
+use Amiut\ProductSpecs\Storefront\TableGroup;
+use Amiut\ProductSpecs\Storefront\TableRow;
 use Amiut\ProductSpecs\Upgrade\DataVersion;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use PHPUnit\Framework\TestCase;
@@ -42,6 +45,33 @@ final class ProductSpecificationsTest extends TestCase
                 ],
             ],
         ];
+        $GLOBALS['wp_test_filters'] = [];
+    }
+
+    protected function tearDown(): void
+    {
+        $GLOBALS['wp_test_filters'] = [];
+    }
+
+    public function testATableFilterCanReplaceTheTable(): void
+    {
+        $replacement = new SpecificationsTable([
+            new TableGroup('extra', 'Extra', [new TableRow('origin', 'Origin', 'Germany')]),
+        ]);
+        $GLOBALS['wp_test_filters'][ProductSpecifications::TABLE_FILTER] =
+            static fn (SpecificationsTable $table, WC_Product $product): SpecificationsTable => $replacement;
+
+        self::assertSame($replacement, $this->specifications()->table(new WC_Product(self::PRODUCT)));
+    }
+
+    public function testATableFilterReturningSomethingElseLeavesTheTableAsItWas(): void
+    {
+        $GLOBALS['wp_test_filters'][ProductSpecifications::TABLE_FILTER] = static fn (): string => '<p>broken</p>';
+
+        self::assertInstanceOf(
+            SpecificationsTable::class,
+            $this->specifications()->table(new WC_Product(self::PRODUCT))
+        );
     }
 
     public function testAValueIsReadAsItsSpecificationsTypeReadsIt(): void
