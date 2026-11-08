@@ -7,9 +7,11 @@ namespace Amiut\ProductSpecs\Tests\Unit\ProductValues;
 use Amiut\ProductSpecs\ProductValues\ProductValueDocument;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
 use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
+use Amiut\ProductSpecs\ProductValues\RejectedValues;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
+use Amiut\ProductSpecs\Specification\Type\SelectType;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
@@ -234,10 +236,64 @@ final class ProductValueWriterTest extends TestCase
         self::assertSame([], $GLOBALS['wp_test_actions']);
     }
 
+    public function testAChangedValueItsTypeRejectsFailsTheWholeSave(): void
+    {
+        $this->storeSpecification(10, 'screen-a1b2c3d4', 'text');
+        $this->storeSpecification(11, 'colour-a1b2c3d4', 'select', ['Red', 'Blue']);
+        $this->storeValues(['screen-a1b2c3d4' => '13"']);
+
+        try {
+            $this->writer()->replace(20, 'laptops', ['screen-a1b2c3d4' => '15"', 'colour-a1b2c3d4' => 'Green']);
+            self::fail('Expected the save to be rejected.');
+        } catch (RejectedValues $rejected) {
+            self::assertSame(['colour-a1b2c3d4' => 'Choose one of the options.'], $rejected->messages());
+        }
+
+        self::assertSame(
+            ['screen-a1b2c3d4' => '13"'],
+            $GLOBALS['wp_test_post_meta'][20][WordPressProductValueRepository::VALUES_META_KEY]['values']
+        );
+        self::assertArrayNotHasKey(WordPressProductValueRepository::SET_META_KEY, $GLOBALS['wp_test_post_meta'][20]);
+        self::assertSame([], $GLOBALS['wp_test_actions']);
+    }
+
+    public function testAStoredValueItsTypeRejectsDoesNotBlockTheSave(): void
+    {
+        $this->storeSpecification(11, 'colour-a1b2c3d4', 'select', ['Red', 'Blue']);
+        $this->storeValues(['colour-a1b2c3d4' => 'Green']);
+
+        self::assertSame(
+            ['colour-a1b2c3d4' => 'Green'],
+            $this->writer()->replace(20, 'laptops', ['colour-a1b2c3d4' => 'Green'])
+        );
+    }
+
+    public function testTheSpecificationsOwnDefaultIsNeverRejected(): void
+    {
+        $this->storeSpecification(11, 'colour-a1b2c3d4', 'select', ['Red', 'Blue']);
+        $GLOBALS['wp_test_term_meta'][11]['attr_default'] = 'Green';
+
+        self::assertSame(
+            ['colour-a1b2c3d4' => 'Green'],
+            $this->writer()->replace(20, 'laptops', ['colour-a1b2c3d4' => 'Green'])
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $values
+     */
+    private function storeValues(array $values): void
+    {
+        $GLOBALS['wp_test_post_meta'][20] = [
+            WordPressProductValueRepository::VALUES_META_KEY => ['schema_version' => 1, 'values' => $values],
+        ];
+    }
+
     private function writer(): ProductValueWriter
     {
         $types = new SpecificationTypeRegistry(new TextType());
         $types->register(new TrueFalseType());
+        $types->register(new SelectType());
 
         return new ProductValueWriter(
             new WordPressProductValueRepository(),
@@ -247,14 +303,21 @@ final class ProductValueWriterTest extends TestCase
         );
     }
 
-    private function storeSpecification(int $id, string $slug, string $type): void
+    /**
+     * @param list<string> $choices
+     */
+    private function storeSpecification(int $id, string $slug, string $type, array $choices = []): void
     {
         $term = new WP_Term();
         $term->term_id = $id;
         $term->name = $slug;
         $term->slug = $slug;
         $GLOBALS['wp_test_terms'][$id] = $term;
-        $GLOBALS['wp_test_term_meta'][$id] = ['attr_type' => $type, 'attr_values' => [], 'attr_default' => ''];
+        $GLOBALS['wp_test_term_meta'][$id] = [
+            'attr_type' => $type,
+            'attr_values' => $choices === [] ? [] : ['values' => $choices],
+            'attr_default' => '',
+        ];
     }
 
     private function repository(ProductValueDocument $initial): ProductValueRepository

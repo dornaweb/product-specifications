@@ -17,6 +17,7 @@ import {
 } from './api';
 import { mergeSuggestedDefaults } from './suggestedDefaults';
 import type { SetRecord, SpecificationRecord, StructureGroup } from './types';
+import { rejectedFields, type FieldErrors } from './validation';
 
 interface Props {
 	productId: number;
@@ -53,6 +54,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 	const [ isSaving, setIsSaving ] = useState( false );
 	const [ dirty, setDirty ] = useState( false );
 	const [ error, setError ] = useState< string | null >( null );
+	const [ fieldErrors, setFieldErrors ] = useState< FieldErrors >( {} );
 	const [ changeMode, setChangeMode ] = useState( false );
 	const [ candidate, setCandidate ] = useState( '' );
 	const [ confirming, setConfirming ] = useState<
@@ -138,10 +140,10 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 		};
 	}, [ definitionsKey, specificationIds ] );
 
-	const latestSave = useRef( { dirty, isSaving, setSlug, values } );
+	const latestSave = useRef( { dirty, isSaving, setSlug, values, groups } );
 	useEffect( () => {
-		latestSave.current = { dirty, isSaving, setSlug, values };
-	}, [ dirty, isSaving, setSlug, values ] );
+		latestSave.current = { dirty, isSaving, setSlug, values, groups };
+	}, [ dirty, isSaving, setSlug, values, groups ] );
 
 	useEffect( () => {
 		const form = document.querySelector< HTMLFormElement >( '#post' );
@@ -167,6 +169,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 
 			setIsSaving( true );
 			setError( null );
+			setFieldErrors( {} );
 
 			void saveProductValues( productId, current.setSlug, current.values )
 				.then( () => {
@@ -178,7 +181,22 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 							: undefined
 					);
 				} )
-				.catch( ( reason ) => setError( errorMessage( reason ) ) )
+				.catch( ( reason ) => {
+					const rejected = rejectedFields( reason );
+					const firstRejected = latestSave.current.groups.find(
+						( group ) =>
+							group.items.some(
+								( item ) => item.slug in rejected
+							)
+					);
+
+					if ( firstRejected ) {
+						setActiveGroup( firstRejected.key );
+					}
+
+					setFieldErrors( rejected );
+					setError( errorMessage( reason ) );
+				} )
 				.finally( () => setIsSaving( false ) );
 		};
 
@@ -188,6 +206,11 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 
 	const updateValue = ( slug: string, value: unknown ) => {
 		setValues( ( current ) => ( { ...current, [ slug ]: value } ) );
+		setFieldErrors( ( current ) => {
+			const next = { ...current };
+			delete next[ slug ];
+			return next;
+		} );
 		setSuggested( ( current ) => {
 			const next = new Set( current );
 			next.delete( slug );
@@ -431,6 +454,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 											key={ item.slug }
 											specification={ specification }
 											value={ values[ item.slug ] }
+											error={ fieldErrors[ item.slug ] }
 											isSuggested={ suggested.has(
 												item.slug
 											) }
@@ -517,11 +541,13 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 const ValueField = ( {
 	specification,
 	value,
+	error,
 	isSuggested,
 	onChange,
 }: {
 	specification: SpecificationRecord;
 	value: unknown;
+	error?: string;
 	isSuggested: boolean;
 	onChange: ( value: unknown ) => void;
 } ) => {
@@ -585,6 +611,11 @@ const ValueField = ( {
 							} }
 						/>
 					</>
+				) }
+				{ error && (
+					<p className="ps-product-values__field-error" role="alert">
+						{ error }
+					</p>
 				) }
 			</div>
 		</div>

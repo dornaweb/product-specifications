@@ -61,7 +61,10 @@ final class SpecificationRestField
             'type' => $specification->typeId(),
             'type_label' => $this->types->get($specification->typeId())->label(),
             'options' => (object) $specification->options()->toArray(),
-            'default' => $this->types->get($specification->typeId())->sanitize($specification->defaultValue()),
+            'default' => $this->types->get($specification->typeId())->sanitize(
+                $specification->defaultValue(),
+                $specification->options()
+            ),
             'usage_count' => $this->usageCount($specification, $request),
         ];
     }
@@ -100,15 +103,20 @@ final class SpecificationRestField
             $options = $checked;
         }
 
-        $this->repository->save(
-            $specification->withDefinition(
-                $typeId,
-                $options,
-                array_key_exists('default', $value)
-                    ? $this->types->get($typeId)->sanitize($value['default'])
-                    : $specification->defaultValue()
-            )
-        );
+        $type = $this->types->get($typeId);
+        $default = $specification->defaultValue();
+
+        if (array_key_exists('default', $value)) {
+            $rejection = $type->validate($value['default'], SpecificationOptions::fromMap($options));
+
+            if ($rejection !== null) {
+                return new WP_Error('product_specifications_invalid_default', $rejection, ['status' => 400]);
+            }
+
+            $default = $type->sanitize($value['default'], SpecificationOptions::fromMap($options));
+        }
+
+        $this->repository->save($specification->withDefinition($typeId, $options, $default));
 
         return null;
     }

@@ -43,7 +43,8 @@ final class SnapshotValueReader
             }
 
             $value = $this->types->get($definition->typeId())->sanitize(
-                html_entity_decode($entry['value'], ENT_QUOTES | ENT_HTML5, 'UTF-8')
+                html_entity_decode($entry['value'], ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+                $definition->options()
             );
 
             if ($value !== null) {

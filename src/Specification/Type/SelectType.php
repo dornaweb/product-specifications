@@ -29,7 +29,7 @@ final class SelectType implements SpecificationType
         return OptionsSchema::choices();
     }
 
-    public function sanitize(mixed $input): mixed
+    public function sanitize(mixed $input, SpecificationOptions $options): mixed
     {
         if (!is_scalar($input)) {
             return null;
@@ -38,6 +38,17 @@ final class SelectType implements SpecificationType
         $sanitized = sanitize_text_field((string) $input);
 
         return $sanitized === '' ? null : $sanitized;
+    }
+
+    public function validate(mixed $input, SpecificationOptions $options): ?string
+    {
+        $choice = $this->sanitize($input, $options);
+
+        if ($choice === null || in_array($choice, array_map('sanitize_text_field', $options->choices()), true)) {
+            return null;
+        }
+
+        return __('Choose one of the options.', 'product-specifications');
     }
 
     public function value(WC_Product $product, mixed $stored): mixed

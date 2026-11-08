@@ -34,7 +34,7 @@ final class TextType implements SpecificationType
      * types it knows nothing about. Anything but a scalar is left alone rather
      * than flattened into a string.
      */
-    public function sanitize(mixed $input): mixed
+    public function sanitize(mixed $input, SpecificationOptions $options): mixed
     {
         if (!is_scalar($input)) {
             return $input;
@@ -43,6 +43,11 @@ final class TextType implements SpecificationType
         $sanitized = sanitize_text_field((string) $input);
 
         return $sanitized === '' ? null : $sanitized;
+    }
+
+    public function validate(mixed $input, SpecificationOptions $options): ?string
+    {
+        return null;
     }
 
     public function value(WC_Product $product, mixed $stored): mixed

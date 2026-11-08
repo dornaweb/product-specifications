@@ -25,17 +25,19 @@ final class ProductValueWriter
 
     /**
      * The submitted map becomes the whole value map, so an absent key is removed. Without
-     * a set the product is unassigned and keeps no values.
+     * a set the product is unassigned and keeps no values. A changed value its type rejects
+     * fails the whole save.
      *
      * @param array<string, mixed> $submittedValues
      * @return array<string, mixed>
+     * @throws RejectedValues
      */
     public function replace(int $postId, ?string $setSlug, array $submittedValues): array
     {
         $isVariation = $this->productType($postId) === 'product_variation';
         $setSlug = $setSlug === null ? null : $this->storedSetSlug($setSlug);
         $oldValues = $this->repository->read($postId)->values();
-        $newValues = $setSlug === null ? [] : $this->sanitizedReplacement($submittedValues, $isVariation);
+        $newValues = $setSlug === null ? [] : $this->sanitizedReplacement($submittedValues, $oldValues, $isVariation);
 
         $this->write($postId, $setSlug, $newValues);
         do_action(self::SAVED_ACTION, $postId, $newValues, $oldValues);
@@ -46,6 +48,7 @@ final class ProductValueWriter
     /**
      * Each value is laid over the stored ones. A value with no registered specification,
      * or one its type does not accept, is left out. Without a set the product keeps its own.
+     * Values are not validated: a merge carries bulk data, such as an import.
      *
      * @param array<string, mixed> $values
      * @return array<string, mixed>
@@ -59,9 +62,14 @@ final class ProductValueWriter
 
         foreach ($values as $key => $value) {
             $definition = $this->registeredDefinition($key);
-            $sanitized = $definition === null ? null : $this->types->get($definition->typeId())->sanitize($value);
 
-            if ($definition !== null && $sanitized !== null) {
+            if ($definition === null) {
+                continue;
+            }
+
+            $sanitized = $this->types->get($definition->typeId())->sanitize($value, $definition->options());
+
+            if ($sanitized !== null) {
                 $newValues[$definition->key()] = $sanitized;
             }
         }
@@ -137,12 +145,30 @@ final class ProductValueWriter
     }
 
     /**
-     * @param array<string, mixed> $submittedValues
-     * @return array<string, mixed>
+     * @param array<string, mixed> $oldValues
      */
-    private function sanitizedReplacement(array $submittedValues, bool $isVariation): array
+    private function rejection(SpecificationDefinition $definition, mixed $value, array $oldValues): ?string
+    {
+        $key = $definition->key();
+        $unchanged = array_key_exists($key, $oldValues) && $oldValues[$key] === $value;
+
+        if ($unchanged || $value === $definition->defaultValue()) {
+            return null;
+        }
+
+        return $this->types->get($definition->typeId())->validate($value, $definition->options());
+    }
+
+    /**
+     * @param array<string, mixed> $submittedValues
+     * @param array<string, mixed> $oldValues
+     * @return array<string, mixed>
+     * @throws RejectedValues
+     */
+    private function sanitizedReplacement(array $submittedValues, array $oldValues, bool $isVariation): array
     {
         $values = [];
+        $rejections = [];
 
         foreach ($submittedValues as $key => $value) {
             if (!is_string($key) || $key === '') {
@@ -161,11 +187,22 @@ final class ProductValueWriter
                 continue;
             }
 
-            $sanitized = $this->types->get($definition->typeId())->sanitize($value);
+            $rejection = $this->rejection($definition, $value, $oldValues);
+
+            if ($rejection !== null) {
+                $rejections[$key] = $rejection;
+                continue;
+            }
+
+            $sanitized = $this->types->get($definition->typeId())->sanitize($value, $definition->options());
 
             if ($sanitized !== null || $isVariation) {
                 $values[$key] = $sanitized;
             }
+        }
+
+        if ($rejections !== []) {
+            throw new RejectedValues($rejections);
         }
 
         return $values;

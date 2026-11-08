@@ -328,6 +328,36 @@ if (!function_exists('get_page_by_path')) {
     }
 }
 
+if (!class_exists('WP_Error')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Error
+    {
+        public function __construct(
+            private readonly string $code = '',
+            private readonly string $message = '',
+            private readonly mixed $data = null
+        ) {
+        }
+
+        public function get_error_code(): string
+        {
+            return $this->code;
+        }
+
+        public function get_error_message(): string
+        {
+            return $this->message;
+        }
+
+        public function get_error_data(): mixed
+        {
+            return $this->data;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
 if (!class_exists('WP_REST_Request')) {
     // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.

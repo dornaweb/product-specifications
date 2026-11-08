@@ -83,6 +83,12 @@ final class ProductValuesRestController
 
         try {
             $saved = $this->writer->replace($this->requestId($request), $setSlug, $valueMap);
+        } catch (RejectedValues $rejected) {
+            return new WP_Error(
+                'product_specifications_rejected_values',
+                $rejected->getMessage(),
+                ['status' => 400, 'errors' => $rejected->messages()]
+            );
         } catch (RuntimeException $exception) {
             return new WP_Error(
                 'product_specifications_value_save_failed',

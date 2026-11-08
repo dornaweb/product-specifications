@@ -69,9 +69,14 @@ final class SpecificationTypeRegistryTest extends TestCase
                 return [];
             }
 
-            public function sanitize(mixed $input): mixed
+            public function sanitize(mixed $input, SpecificationOptions $options): mixed
             {
                 return $input;
+            }
+
+            public function validate(mixed $input, SpecificationOptions $options): ?string
+            {
+                return null;
             }
 
             public function value(WC_Product $product, mixed $stored): mixed

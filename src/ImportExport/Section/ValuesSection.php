@@ -257,7 +257,7 @@ final class ValuesSection implements Section
             }
 
             $sanitized = $this->types->has($definition->typeId())
-                ? $this->types->get($definition->typeId())->sanitize($value)
+                ? $this->types->get($definition->typeId())->sanitize($value, $definition->options())
                 : null;
 
             if ($sanitized === null) {
@@ -325,7 +325,7 @@ final class ValuesSection implements Section
             }
 
             $readable = $this->types->has($definition->typeId())
-                ? $this->types->get($definition->typeId())->sanitize($value)
+                ? $this->types->get($definition->typeId())->sanitize($value, $definition->options())
                 : $value;
 
             if ($readable !== null) {

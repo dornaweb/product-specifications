@@ -88,7 +88,10 @@ final class SpecificationsSection implements Section
                 'type' => $definition->typeId(),
                 'options' => $definition->options()->toArray(),
                 'default' => $this->types->has($definition->typeId())
-                    ? $this->types->get($definition->typeId())->sanitize($definition->defaultValue())
+                    ? $this->types->get($definition->typeId())->sanitize(
+                        $definition->defaultValue(),
+                        $definition->options()
+                    )
                     : $definition->defaultValue(),
             ];
         }
@@ -192,7 +195,7 @@ final class SpecificationsSection implements Section
             is_string($entry['description'] ?? null) ? $entry['description'] : '',
             $typeId,
             SpecificationOptions::fromMap($options),
-            $this->types->get($typeId)->sanitize($entry['default'] ?? null)
+            $this->types->get($typeId)->sanitize($entry['default'] ?? null, SpecificationOptions::fromMap($options))
         );
     }
 
@@ -203,7 +206,7 @@ final class SpecificationsSection implements Section
         return $existing->name() === $incoming->name()
             && $existing->description() === $incoming->description()
             && $existing->options()->toArray() === $incoming->options()->toArray()
-            && $type->sanitize($existing->defaultValue()) === $incoming->defaultValue();
+            && $type->sanitize($existing->defaultValue(), $existing->options()) === $incoming->defaultValue();
     }
 
     /**

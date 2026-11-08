@@ -21,7 +21,13 @@ interface SpecificationType
     /**
      * Null is an empty value, not a refusal to store.
      */
-    public function sanitize(mixed $input): mixed;
+    public function sanitize(mixed $input, SpecificationOptions $options): mixed;
+
+    /**
+     * Why the input cannot be stored, or null when it can. Called with raw input for a product
+     * value a person changes and for a default being saved, never for imported data.
+     */
+    public function validate(mixed $input, SpecificationOptions $options): ?string;
 
     public function value(WC_Product $product, mixed $stored): mixed;
 

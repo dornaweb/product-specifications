@@ -29,9 +29,14 @@ final class TrueFalseType implements SpecificationType
         return YesNoDisplay::optionsSchema();
     }
 
-    public function sanitize(mixed $input): mixed
+    public function sanitize(mixed $input, SpecificationOptions $options): mixed
     {
         return $this->asBoolean($input);
+    }
+
+    public function validate(mixed $input, SpecificationOptions $options): ?string
+    {
+        return null;
     }
 
     public function value(WC_Product $product, mixed $stored): mixed

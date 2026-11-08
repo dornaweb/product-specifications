@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Tests\Unit\Specification\Type;
 
+use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use PHPUnit\Framework\TestCase;
 
@@ -38,17 +39,17 @@ final class TextTypeTest extends TestCase
      */
     public function testANonScalarValueIsReturnedUntouched(mixed $value): void
     {
-        static::assertSame($value, $this->type->sanitize($value));
+        static::assertSame($value, $this->type->sanitize($value, SpecificationOptions::fromMap([])));
     }
 
     public function testAScalarIsSanitizedToAString(): void
     {
-        static::assertSame('6.1', $this->type->sanitize(6.1));
-        static::assertSame('plain', $this->type->sanitize('plain'));
+        static::assertSame('6.1', $this->type->sanitize(6.1, SpecificationOptions::fromMap([])));
+        static::assertSame('plain', $this->type->sanitize('plain', SpecificationOptions::fromMap([])));
     }
 
     public function testAnEmptyStringSanitizesToNull(): void
     {
-        static::assertNull($this->type->sanitize(''));
+        static::assertNull($this->type->sanitize('', SpecificationOptions::fromMap([])));
     }
 }

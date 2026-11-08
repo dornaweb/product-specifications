@@ -68,6 +68,17 @@ configured in the admin.
 
 `render()` returns output-ready HTML, and the type escapes everything inside it.
 
+`sanitize($input, $options)` turns input into the stored value, and `null` means empty.
+`validate($input, $options)` returns the message for input the type rejects, or `null`.
+Both receive the specification's options. `validate()` sees raw input, and only for a
+value that differs from the stored one, so changing a specification's options never
+blocks saving a product that keeps an old value.
+
+A rejected value is never written. Saving a product in the admin fails as a whole and
+shows each message under its field, and saving a specification refuses a rejected
+default. A product value equal to its specification's default is always accepted.
+Imports and data upgrades are not validated: they sanitize what they carry.
+
 ## Product values
 
 | Hook | Type | Arguments |

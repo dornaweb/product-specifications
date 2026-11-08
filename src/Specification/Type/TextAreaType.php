@@ -29,7 +29,7 @@ final class TextAreaType implements SpecificationType
         return OptionsSchema::none();
     }
 
-    public function sanitize(mixed $input): mixed
+    public function sanitize(mixed $input, SpecificationOptions $options): mixed
     {
         if (!is_scalar($input)) {
             return null;
@@ -38,6 +38,11 @@ final class TextAreaType implements SpecificationType
         $sanitized = sanitize_textarea_field((string) $input);
 
         return $sanitized === '' ? null : $sanitized;
+    }
+
+    public function validate(mixed $input, SpecificationOptions $options): ?string
+    {
+        return null;
     }
 
     public function value(WC_Product $product, mixed $stored): mixed
