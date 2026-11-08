@@ -20,6 +20,7 @@ import type { SetRecord, SpecificationRecord, StructureGroup } from './types';
 
 interface Props {
 	productId: number;
+	migrationRequired: boolean;
 }
 
 const titleOf = ( set: SetRecord ) =>
@@ -38,7 +39,7 @@ const errorMessage = ( error: unknown ) =>
 				'product-specifications'
 		  );
 
-const ProductValuesPanel = ( { productId }: Props ) => {
+const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 	const [ sets, setSets ] = useState< SetRecord[] >( [] );
 	const [ setSlug, setSetSlug ] = useState< string | null >( null );
 	const [ values, setValues ] = useState< Record< string, unknown > >( {} );
@@ -209,6 +210,14 @@ const ProductValuesPanel = ( { productId }: Props ) => {
 
 	return (
 		<div className="ps-product-values">
+			{ migrationRequired && (
+				<Notice status="warning" isDismissible={ false }>
+					{ __(
+						'This product’s specifications appear here once the Product Specifications migration has run. If you save specifications for it before then, the migration skips this product and keeps what you saved.',
+						'product-specifications'
+					) }
+				</Notice>
+			) }
 			{ error && (
 				<Notice status="error" isDismissible={ false }>
 					{ error }{ ' ' }

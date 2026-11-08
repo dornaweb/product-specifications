@@ -9,7 +9,10 @@ if ( mount ) {
 
 	if ( productId > 0 ) {
 		createRoot( mount ).render(
-			<ProductValuesPanel productId={ productId } />
+			<ProductValuesPanel
+				productId={ productId }
+				migrationRequired={ mount.dataset.migrationRequired === '1' }
+			/>
 		);
 	}
 }

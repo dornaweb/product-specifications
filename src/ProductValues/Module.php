@@ -10,6 +10,7 @@ use Amiut\ProductSpecs\Metabox\Metaboxes;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -50,7 +51,9 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(SpecificationSetRepository::class),
                 $container->get(ProductValueRepository::class)
             ),
-            ProductValuesMetabox::class => static fn () => new ProductValuesMetabox(),
+            ProductValuesMetabox::class => static fn (ContainerInterface $container) => new ProductValuesMetabox(
+                $container->get(MigrationState::class)
+            ),
             Assets::class => static fn (ContainerInterface $container) => new Assets(
                 $container->get(AssetHelper::class)
             ),

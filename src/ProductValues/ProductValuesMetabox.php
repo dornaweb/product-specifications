@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\ProductValues;
 
 use Amiut\ProductSpecs\Metabox\Metabox;
+use Amiut\ProductSpecs\Upgrade\MigrationState;
 use WP_Post;
 
 final class ProductValuesMetabox implements Metabox
 {
+    public function __construct(private readonly MigrationState $migration)
+    {
+    }
+
     public function id(): string
     {
         return 'product-specifications-values';
@@ -37,8 +42,9 @@ final class ProductValuesMetabox implements Metabox
     public function render(WP_Post $post): string
     {
         return sprintf(
-            '<div id="product-specifications-values-root" data-product-id="%d"></div>',
-            $post->ID
+            '<div id="product-specifications-values-root" data-product-id="%d" data-migration-required="%d"></div>',
+            $post->ID,
+            (int) $this->migration->requiresMigration()
         );
     }
 
