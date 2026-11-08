@@ -105,7 +105,6 @@ function bootstrap(): void
             ->addModule(new Admin\Module())
             ->addModule(new AttributesListUi\Module())
             ->addModule(new AttributeGroupsListUi\Module())
-            ->addModule(new ImportExport\Module())
             ->addModule(new Settings\Module())
             ->addModule(new Integration\Module())
             ->addModule(new Attribute\Module())

@@ -36,13 +36,6 @@ final class Assets
             'dwspecs_plugin',
             [
                 'ajaxurl' => admin_url('admin-ajax.php'),
-                'i18n' => [
-                    'importing_message' => esc_html__(
-                        'Importing data may take a long time, please wait...',
-                        'product-specifications'
-                    ),
-                    'unknown_error' => esc_html__('Something went wrong', 'product-specifications'),
-                ],
             ]
         );
 

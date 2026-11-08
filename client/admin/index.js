@@ -653,47 +653,4 @@ jQuery.extend( {
 			);
 		} );
 	} );
-
-	$( '#dwps_import_data_form' ).submit( function ( e ) {
-		e.preventDefault();
-
-		const data = new FormData( this );
-
-		$( '#dwspecs_import_results' ).html(
-			'<div class="notice"><p>' +
-				dwspecs_plugin.i18n.importing_message +
-				'</p></div>'
-		);
-
-		$.ajax( {
-			type: 'POST',
-			cache: false,
-			contentType: false,
-			processData: false,
-			url: dwspecs_plugin.ajaxurl,
-			data,
-			success( res ) {
-				if ( res.success ) {
-					$( '#dwspecs_import_results' ).html(
-						'<div class="updated success"><p>' +
-							res.data.message +
-							'</p></div>'
-					);
-				} else {
-					$( '#dwspecs_import_results' ).html(
-						'<div class="error"><p>' +
-							res.data.message +
-							'</p></div>'
-					);
-				}
-			},
-			error() {
-				$( '#dwspecs_import_results' ).html(
-					'<div class="error"><p>' +
-						dwspecs_plugin.i18n.unknown_error +
-						'</p></div>'
-				);
-			},
-		} );
-	} );
 } )( jQuery );
