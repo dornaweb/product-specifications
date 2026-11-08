@@ -11,6 +11,8 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextType;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepositoryImpl;
 use PHPUnit\Framework\TestCase;
 use WP_Post;
 use WP_Term;
@@ -51,7 +53,8 @@ final class ProductValueSaveServiceTest extends TestCase
         $service = new ProductValueSaveService(
             $repository,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
-            $registry
+            $registry,
+            new SpecificationSetRepositoryImpl(new SpecificationSetMapper())
         );
 
         $saved = $service->save(
@@ -85,7 +88,8 @@ final class ProductValueSaveServiceTest extends TestCase
         $service = new ProductValueSaveService(
             $repository,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
-            new SpecificationTypeRegistry(new TextType())
+            new SpecificationTypeRegistry(new TextType()),
+            new SpecificationSetRepositoryImpl(new SpecificationSetMapper())
         );
 
         self::assertSame([], $service->save(20, null, ['screen-a1b2c3d4' => '15']));
@@ -112,10 +116,20 @@ final class ProductValueSaveServiceTest extends TestCase
         $registry = new SpecificationTypeRegistry(new TextType());
         $empty = ProductValueDocument::empty();
 
-        $productService = new ProductValueSaveService($this->repository($empty), $definitions, $registry);
+        $productService = new ProductValueSaveService(
+            $this->repository($empty),
+            $definitions,
+            $registry,
+            $this->sets()
+        );
         self::assertSame([], $productService->save(20, 'laptops', ['screen-a1b2c3d4' => '   ']));
 
-        $variationService = new ProductValueSaveService($this->repository($empty), $definitions, $registry);
+        $variationService = new ProductValueSaveService(
+            $this->repository($empty),
+            $definitions,
+            $registry,
+            $this->sets()
+        );
         self::assertSame(
             ['screen-a1b2c3d4' => null],
             $variationService->save(21, 'laptops', ['screen-a1b2c3d4' => '   '])
@@ -163,6 +177,11 @@ final class ProductValueSaveServiceTest extends TestCase
                 return 0;
             }
 
+            public function countUsing(string $specificationKey, array $values): int
+            {
+                return 0;
+            }
+
             public function purge(string $specificationKey): bool
             {
                 return true;
@@ -171,7 +190,8 @@ final class ProductValueSaveServiceTest extends TestCase
         $service = new ProductValueSaveService(
             $repository,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
-            new SpecificationTypeRegistry(new TextType())
+            new SpecificationTypeRegistry(new TextType()),
+            new SpecificationSetRepositoryImpl(new SpecificationSetMapper())
         );
 
         $this->expectException(\RuntimeException::class);
@@ -228,10 +248,20 @@ final class ProductValueSaveServiceTest extends TestCase
                 return 0;
             }
 
+            public function countUsing(string $specificationKey, array $values): int
+            {
+                return 0;
+            }
+
             public function purge(string $specificationKey): bool
             {
                 return true;
             }
         };
+    }
+
+    private function sets(): SpecificationSetRepositoryImpl
+    {
+        return new SpecificationSetRepositoryImpl(new SpecificationSetMapper());
     }
 }

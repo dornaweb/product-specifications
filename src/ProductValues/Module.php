@@ -29,7 +29,8 @@ final class Module implements ServiceModule, ExecutableModule
             ) => new ProductValueSaveService(
                 $container->get(ProductValueRepository::class),
                 $container->get(SpecificationDefinitionRepository::class),
-                $container->get(SpecificationTypeRegistry::class)
+                $container->get(SpecificationTypeRegistry::class),
+                $container->get(SpecificationSetRepository::class)
             ),
             ProductValuesRestController::class => static fn (
                 ContainerInterface $container

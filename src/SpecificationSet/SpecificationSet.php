@@ -10,25 +10,31 @@ final class SpecificationSet
         private readonly ?int $id,
         private readonly string $title,
         private readonly string $status,
-        private readonly SpecificationSetStructure $structure
+        private readonly SpecificationSetStructure $structure,
+        private readonly string $slug,
+        private readonly string $description
     ) {
     }
 
     public static function create(
         string $title,
         string $status,
-        SpecificationSetStructure $structure
+        SpecificationSetStructure $structure,
+        string $slug = '',
+        string $description = ''
     ): self {
-        return new self(null, $title, $status, $structure);
+        return new self(null, $title, $status, $structure, $slug, $description);
     }
 
     public static function fromStorage(
         int $id,
         string $title,
         string $status,
-        SpecificationSetStructure $structure
+        SpecificationSetStructure $structure,
+        string $slug = '',
+        string $description = ''
     ): self {
-        return new self($id, $title, $status, $structure);
+        return new self($id, $title, $status, $structure, $slug, $description);
     }
 
     public function id(): ?int
@@ -39,6 +45,16 @@ final class SpecificationSet
     public function title(): string
     {
         return $this->title;
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
     }
 
     public function status(): string
@@ -58,6 +74,6 @@ final class SpecificationSet
 
     public function withStructure(SpecificationSetStructure $structure): self
     {
-        return new self($this->id, $this->title, $this->status, $structure);
+        return new self($this->id, $this->title, $this->status, $structure, $this->slug, $this->description);
     }
 }

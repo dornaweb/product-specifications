@@ -10,7 +10,6 @@ use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\SpecificationSlug;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
 use Amiut\ProductSpecs\Specification\Type\TextType;
-use WP_Term;
 
 final class WordPressSpecificationLookup implements SpecificationLookup
 {
@@ -77,7 +76,7 @@ final class WordPressSpecificationLookup implements SpecificationLookup
     {
         $preserved = $slug === '' ? '' : SpecificationSlug::preserved($slug)->value();
 
-        if ($preserved !== '' && !get_term_by('slug', $preserved, SpecificationTaxonomy::KEY) instanceof WP_Term) {
+        if ($preserved !== '' && $this->definitions->findByKey($preserved) === null) {
             return $preserved;
         }
 

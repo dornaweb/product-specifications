@@ -46,9 +46,15 @@ final class SpecificationDefinitionNormalizer
         return is_string($decoded) && in_array($decoded, $choices, true) ? $decoded : null;
     }
 
+    /**
+     * A stored slug can hold characters sanitize_title() strips, such as the zero-width
+     * non-joiner. It takes its sanitized form, so lookups and other stores agree on it.
+     */
     public function slug(string $stored): string
     {
-        return SpecificationSlug::preserved($stored)->value();
+        $current = sanitize_title($stored);
+
+        return SpecificationSlug::preserved($current !== '' ? $current : $stored)->value();
     }
 
     private static function decoded(string $value): string

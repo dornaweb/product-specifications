@@ -14,7 +14,9 @@ final class SpecificationSetMapper
             $post->ID,
             $post->post_title,
             $post->post_status,
-            $this->structureFromArray(get_post_meta($post->ID, StructureMetaDefinition::KEY, true))
+            $this->structureFromArray(get_post_meta($post->ID, StructureMetaDefinition::KEY, true)),
+            $post->post_name,
+            $post->post_content
         );
     }
 
@@ -54,7 +56,12 @@ final class SpecificationSetMapper
             'post_type' => SpecificationSetPostType::KEY,
             'post_title' => $set->title(),
             'post_status' => $set->status(),
+            'post_content' => $set->description(),
         ];
+
+        if ($set->slug() !== '') {
+            $arguments['post_name'] = $set->slug();
+        }
 
         if (is_int($set->id())) {
             $arguments['ID'] = $set->id();

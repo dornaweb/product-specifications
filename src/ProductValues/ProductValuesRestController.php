@@ -79,7 +79,7 @@ final class ProductValuesRestController
             $valueMap[$key] = $value;
         }
 
-        $setSlug = $set === null ? null : sanitize_title($set);
+        $setSlug = $set === null ? null : trim($set);
 
         try {
             $saved = $this->saveService->save($this->requestId($request), $setSlug, $valueMap);

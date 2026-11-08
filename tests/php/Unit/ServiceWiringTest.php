@@ -29,6 +29,7 @@ use Amiut\ProductSpecs\Specification\Rest\SlugGuard;
 use Amiut\ProductSpecs\Specification\Rest\SpecificationCollectionQuery;
 use Amiut\ProductSpecs\Specification\Rest\SpecificationRestField;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
+use Amiut\ProductSpecs\SpecificationSet\DraftSlug;
 use Amiut\ProductSpecs\SpecificationSet\Module as SpecificationSetModule;
 use Amiut\ProductSpecs\SpecificationSet\Rest\ProductUsageCounter;
 use Amiut\ProductSpecs\SpecificationSet\Rest\SpecificationSetRestField;
@@ -71,6 +72,7 @@ final class ServiceWiringTest extends TestCase
             SpecificationSetMapper::class => SpecificationSetMapper::class,
             SpecificationSetRepository::class => SpecificationSetRepositoryImpl::class,
             ProductUsageCounter::class => ProductUsageCounter::class,
+            DraftSlug::class => DraftSlug::class,
             SpecificationSetRestField::class => SpecificationSetRestField::class,
             SpecificationTaxonomy::class => SpecificationTaxonomy::class,
             SpecificationTypeRegistry::class => SpecificationTypeRegistry::class,

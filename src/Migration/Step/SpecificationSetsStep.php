@@ -14,6 +14,7 @@ use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetStructure;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaDefinition;
 use WP_Error;
+use WP_Post;
 use WP_Term;
 
 final class SpecificationSetsStep implements MigrationStep
@@ -75,25 +76,41 @@ final class SpecificationSetsStep implements MigrationStep
                 continue;
             }
 
-            if (!$this->publish($setId)) {
-                $errors[$setId] = __('The specification set could not be published.', 'product-specifications');
+            if (!$this->normalize($setId)) {
+                $errors[$setId] = __('The specification set could not be updated.', 'product-specifications');
             }
         }
 
         return $batch->result($processed, $skipped, $errors);
     }
 
-    // Only a published set renders, and a draft has no slug for its products to point at,
-    // so every migrated table is published.
-    private function publish(int $setId): bool
+    // Only a published set renders, and products point at a set by a slug WordPress gives it
+    // on publishing. A slug holding characters sanitize_title() strips takes its sanitized
+    // form, as specification slugs do.
+    private function normalize(int $setId): bool
     {
-        $status = get_post_status($setId);
+        $post = get_post($setId);
 
-        if ($status === 'publish' || $status === 'trash') {
+        if (!$post instanceof WP_Post || $post->post_status === 'trash') {
             return true;
         }
 
-        $updated = wp_update_post(['ID' => $setId, 'post_status' => 'publish'], true);
+        $changes = [];
+        $slug = sanitize_title($post->post_name);
+
+        if ($post->post_status !== 'publish') {
+            $changes['post_status'] = 'publish';
+        }
+
+        if ($post->post_name !== '' && $slug !== $post->post_name) {
+            $changes['post_name'] = $slug;
+        }
+
+        if ($changes === []) {
+            return true;
+        }
+
+        $updated = wp_update_post(['ID' => $setId] + $changes, true);
 
         return !$updated instanceof WP_Error && $updated > 0;
     }

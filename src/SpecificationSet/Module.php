@@ -36,6 +36,7 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(SpecificationSetMapper::class)
             ),
             ProductUsageCounter::class => static fn () => new ProductUsageCounter(),
+            DraftSlug::class => static fn () => new DraftSlug(),
             SpecificationSetRestField::class => static fn (
                 ContainerInterface $container
             ) => new SpecificationSetRestField(
@@ -54,6 +55,8 @@ final class Module implements ServiceModule, ExecutableModule
         );
 
         $container->get(StructureMetaRegistrar::class)->init();
+
+        add_filter('wp_insert_post_data', [$container->get(DraftSlug::class), 'assign'], 10, 2);
 
         add_action(
             'rest_api_init',

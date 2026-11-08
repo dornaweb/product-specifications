@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\SpecificationSet;
 
+use Amiut\ProductSpecs\Slug\SlugLookup;
 use WP_Error;
 use WP_Post;
 
@@ -26,9 +27,9 @@ final class SpecificationSetRepositoryImpl implements SpecificationSetRepository
 
     public function bySlug(string $slug): ?SpecificationSet
     {
-        $post = get_page_by_path($slug, 'OBJECT', SpecificationSetPostType::KEY);
+        $post = SlugLookup::post($slug, SpecificationSetPostType::KEY);
 
-        return $post instanceof WP_Post ? $this->mapper->fromPost($post) : null;
+        return $post === null ? null : $this->mapper->fromPost($post);
     }
 
     public function all(array $args = []): array

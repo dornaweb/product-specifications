@@ -6,16 +6,16 @@ namespace Amiut\ProductSpecs\ProductValues;
 
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
-use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 use RuntimeException;
-use WP_Post;
 
 final class ProductValueSaveService
 {
     public function __construct(
         private readonly ProductValueRepository $repository,
         private readonly SpecificationDefinitionRepository $definitions,
-        private readonly SpecificationTypeRegistry $types
+        private readonly SpecificationTypeRegistry $types,
+        private readonly SpecificationSetRepository $sets
     ) {
     }
 
@@ -32,12 +32,15 @@ final class ProductValueSaveService
         }
 
         if ($setSlug !== null) {
-            $set = get_page_by_path($setSlug, 'OBJECT', SpecificationSetPostType::KEY);
-            if (!$set instanceof WP_Post) {
+            $set = $this->sets->bySlug($setSlug);
+
+            if ($set === null) {
                 throw new RuntimeException(
                     __('The selected specification set does not exist.', 'product-specifications')
                 );
             }
+
+            $setSlug = $set->slug() !== '' ? $set->slug() : $setSlug;
         }
 
         $oldValues = $this->repository->read($postId)->values();
