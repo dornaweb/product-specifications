@@ -76,6 +76,21 @@ final class WordPressProductValueRepository implements ProductValueRepository
         return $count;
     }
 
+    public function countUsing(string $specificationKey, array $values): int
+    {
+        $count = 0;
+
+        foreach ($this->postIdsWithValues() as $postId) {
+            $stored = $this->read($postId)->values()[$specificationKey] ?? null;
+
+            if (is_scalar($stored) && in_array((string) $stored, $values, true)) {
+                ++$count;
+            }
+        }
+
+        return $count;
+    }
+
     public function purge(string $specificationKey): bool
     {
         foreach ($this->postIdsWithValues() as $postId) {

@@ -18,5 +18,10 @@ interface ProductValueRepository
 
     public function countContaining(string $specificationKey): int;
 
+    /**
+     * @param list<string> $values
+     */
+    public function countUsing(string $specificationKey, array $values): int;
+
     public function purge(string $specificationKey): bool;
 }

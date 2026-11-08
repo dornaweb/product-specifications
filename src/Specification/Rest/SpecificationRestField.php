@@ -8,6 +8,7 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
+use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use WP_Error;
 use WP_REST_Request;
@@ -25,7 +26,8 @@ final class SpecificationRestField
     public function __construct(
         private readonly SpecificationDefinitionRepository $repository,
         private readonly SpecificationTypeRegistry $types,
-        private readonly SetUsageCounter $usage
+        private readonly SetUsageCounter $usage,
+        private readonly OptionsChecker $options
     ) {
     }
 
@@ -112,38 +114,17 @@ final class SpecificationRestField
     }
 
     /**
-     * The type owns what a valid configuration is, so its schema both rejects a
-     * bad payload and decides what a good one becomes. Storing the raw input
-     * instead would let the two disagree: the schema coerces a bare string into
-     * a one-item list, and normalization alone would discard it.
-     *
      * @return array<string, mixed>|WP_Error
      */
     private function checkOptions(string $typeId, mixed $options): array|WP_Error
     {
-        $schema = $this->types->get($typeId)->optionsSchema();
-        $param = self::FIELD . '[options]';
-        $invalid = rest_validate_value_from_schema($options, $schema, $param);
+        $checked = $this->options->check($typeId, $options, self::FIELD . '[options]');
 
-        if ($invalid instanceof WP_Error) {
-            return new WP_Error(
-                $invalid->get_error_code(),
-                $invalid->get_error_message(),
-                ['status' => 400]
-            );
+        if ($checked instanceof WP_Error) {
+            return new WP_Error($checked->get_error_code(), $checked->get_error_message(), ['status' => 400]);
         }
 
-        $sanitized = rest_sanitize_value_from_schema($options, $schema, $param);
-
-        if ($sanitized instanceof WP_Error) {
-            return new WP_Error(
-                $sanitized->get_error_code(),
-                $sanitized->get_error_message(),
-                ['status' => 400]
-            );
-        }
-
-        return SpecificationOptions::fromStorage($sanitized)->toArray();
+        return $checked;
     }
 
     /**

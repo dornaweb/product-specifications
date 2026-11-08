@@ -73,6 +73,17 @@ final class SpecificationGroup
         );
     }
 
+    public function withDescription(string $description): self
+    {
+        return new self(
+            $this->key,
+            $this->label,
+            $description,
+            $this->visible,
+            $this->items
+        );
+    }
+
     public function withItem(SpecificationSetItem $item): self
     {
         if ($this->hasItem($item->termId())) {

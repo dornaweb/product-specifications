@@ -57,8 +57,17 @@ final class SpecificationDefinitionMapper
         return [
             'attr_type' => $specification->typeId(),
             'attr_values' => $specification->options()->toArray(),
-            'attr_default' => $specification->defaultValue(),
+            'attr_default' => $this->storableDefault($specification->defaultValue()),
         ];
+    }
+
+    /**
+     * Meta stores false as an empty string, which reads back as no default at all, so a
+     * boolean is stored as "1" or "0".
+     */
+    private function storableDefault(mixed $default): mixed
+    {
+        return is_bool($default) ? ($default ? '1' : '0') : $default;
     }
 
     /**

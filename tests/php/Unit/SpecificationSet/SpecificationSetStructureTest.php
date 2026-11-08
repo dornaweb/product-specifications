@@ -289,4 +289,43 @@ final class SpecificationSetStructureTest extends TestCase
             $structure->group($groupKey)->items()
         );
     }
+
+    public function testMergingOnlyAddsAndKeepsWhatIsAlreadyArranged(): void
+    {
+        $current = new SpecificationSetStructure(1, [
+            new SpecificationGroup('general', 'General', '', true, [
+                SpecificationSetItem::create(1, 'weight'),
+                SpecificationSetItem::create(2, 'colour'),
+            ]),
+            new SpecificationGroup('power', 'Power', '', true, [SpecificationSetItem::create(3, 'battery')]),
+        ]);
+        $incoming = new SpecificationSetStructure(1, [
+            new SpecificationGroup('display', 'Display', '', true, [SpecificationSetItem::create(4, 'screen')]),
+            new SpecificationGroup('general', 'Overview', 'Basics', true, [
+                SpecificationSetItem::create(3, 'battery'),
+                SpecificationSetItem::create(5, 'material'),
+            ]),
+        ]);
+
+        $merged = $current->mergedWith($incoming);
+
+        self::assertSame(
+            [
+                'general' => ['Overview', 'Basics', [1, 2, 5]],
+                'power' => ['Power', '', [3]],
+                'display' => ['Display', '', [4]],
+            ],
+            array_combine(
+                array_map(static fn (SpecificationGroup $group): string => $group->key(), $merged->groups()),
+                array_map(
+                    static fn (SpecificationGroup $group): array => [
+                        $group->label(),
+                        $group->description(),
+                        array_map(static fn (SpecificationSetItem $item): int => $item->termId(), $group->items()),
+                    ],
+                    $merged->groups()
+                )
+            )
+        );
+    }
 }

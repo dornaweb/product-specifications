@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Tests\Unit\Specification;
 
+use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\Type\TextType;
@@ -85,5 +86,15 @@ final class SpecificationDefinitionMapperTest extends TestCase
         $term->description = '';
 
         return $term;
+    }
+
+    public function testABooleanDefaultIsStoredSoThatNoSurvives(): void
+    {
+        $options = SpecificationOptions::fromMap([]);
+        $no = SpecificationDefinition::create('Wi-Fi', 'wifi', '', 'true_false', $options, false);
+        $yes = SpecificationDefinition::create('Wi-Fi', 'wifi', '', 'true_false', $options, true);
+
+        static::assertSame('0', $this->mapper->termMeta($no)['attr_default']);
+        static::assertSame('1', $this->mapper->termMeta($yes)['attr_default']);
     }
 }

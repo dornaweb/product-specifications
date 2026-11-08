@@ -205,6 +205,11 @@ final class SpecificationDeletionServiceTest extends TestCase
                 return 0;
             }
 
+            public function countUsing(string $specificationKey, array $values): int
+            {
+                return 0;
+            }
+
             public function purge(string $specificationKey): bool
             {
                 if (!$this->purgeSucceeds) {

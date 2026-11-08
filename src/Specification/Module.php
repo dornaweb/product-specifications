@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Specification;
 
 use Amiut\ProductSpecs\Specification\Type\SelectType;
+use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextAreaType;
 use Amiut\ProductSpecs\Specification\Type\TextType;
@@ -42,7 +43,11 @@ final class Module implements ServiceModule, ExecutableModule
             SpecificationRestField::class => static fn (ContainerInterface $container) => new SpecificationRestField(
                 $container->get(SpecificationDefinitionRepository::class),
                 $container->get(SpecificationTypeRegistry::class),
-                $container->get(SetUsageCounter::class)
+                $container->get(SetUsageCounter::class),
+                $container->get(OptionsChecker::class)
+            ),
+            OptionsChecker::class => static fn (ContainerInterface $container) => new OptionsChecker(
+                $container->get(SpecificationTypeRegistry::class)
             ),
         ];
     }
