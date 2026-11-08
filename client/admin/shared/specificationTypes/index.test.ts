@@ -25,6 +25,7 @@ describe( 'specificationType', () => {
 			'textarea',
 			'select',
 			'true_false',
+			'unit',
 		] );
 	} );
 

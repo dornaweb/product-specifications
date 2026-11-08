@@ -12,7 +12,7 @@
  * Requires PHP: 8.1
  * Requires at least: 7.0
  * WC tested up to: 9.3.3
- * WC requires at least: 8.0.0
+ * WC requires at least: 9.2.0
  */
 
 declare(strict_types=1);

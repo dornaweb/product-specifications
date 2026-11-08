@@ -70,7 +70,7 @@ no rendering rule.
 | Stored on a variation | This variation has no value | Renders empty |
 
 A specification whose value comes from elsewhere is not part of this at all. It stores
-nothing because the client draws no `edit` component for it, so its key never reaches
+nothing because its client `edit` component is read-only, so its key never reaches
 the payload and `sanitize()` is never called. Nothing about `null` identifies such a
 type; `value()` ignoring `$stored` does.
 

@@ -358,6 +358,26 @@ if (!class_exists('WP_Error')) {
     // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
 }
 
+if (!class_exists('WP_Locale')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Locale
+    {
+        /** @var array{decimal_point: string, thousands_sep: string} */
+        public array $number_format = ['decimal_point' => '.', 'thousands_sep' => ','];
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses
+}
+
+if (!function_exists('number_format_i18n')) {
+    function number_format_i18n(float $number, int $decimals = 0): string
+    {
+        $format = ($GLOBALS['wp_locale'] ?? new WP_Locale())->number_format;
+
+        return number_format($number, $decimals, $format['decimal_point'], $format['thousands_sep']);
+    }
+}
+
 if (!class_exists('WP_REST_Request')) {
     // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.

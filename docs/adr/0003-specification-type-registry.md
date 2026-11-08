@@ -2,7 +2,8 @@
 
 ## Status
 
-Approved
+Approved. Amended 2026-11-08: `value()` receives the specification's options, and a
+derived type registers a read-only `edit` component.
 
 ## Context
 
@@ -66,7 +67,7 @@ interface SpecificationType
 
     public function sanitize(mixed $input): mixed;
 
-    public function value(WC_Product $product, mixed $stored): mixed;
+    public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed;
 
     public function plainValue(mixed $value, SpecificationOptions $options): string;
 
@@ -79,7 +80,7 @@ interface SpecificationType
 | `id()`, `label()` | Everything. The id is what `attr_type` already stores |
 | `optionsSchema()` | The REST endpoint, to validate a specification's configuration payload |
 | `sanitize()` | The save lifecycle, on the way into the value map. Returning `null` means an empty value |
-| `value()` | Every read. Returns the value to present. The default implementation returns `$stored` |
+| `value()` | Every read. Returns the value to present. The default implementation returns `$stored`. Receives the options because a derived type needs to know what to read. Added 2026-11-08 (PS-061) |
 | `plainValue()` | Anything that cannot take markup: exports, structured data, search. Unescaped text, such as "Yes" for a yes-or-no value shown as an icon. Added 2026-11-08 (PS-098) |
 | `render()` | Frontend rendering, to format a value. It does not emit markup around the value |
 
@@ -132,7 +133,7 @@ is not a special kind of type. It is a type that draws no input and computes its
 ```php
 final class WeightType implements SpecificationType
 {
-    public function value(WC_Product $product, mixed $stored): mixed
+    public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed
     {
         return $product->get_weight();
     }
@@ -144,11 +145,12 @@ Two ordinary behaviors replace a flag and a second method:
 | Question | Answered by |
 | --- | --- |
 | Where does the value come from? | `value()`, which the reader calls for every type |
-| Does the editor draw an input? | The client registry has no `edit` component for this type |
+| Does the editor draw an input? | The type's `edit` component is read-only and never reports a change |
 
-Nothing is stored because nothing is ever submitted. With no `edit` component the
-specification's key never appears in the payload, so `sanitize()` is never called for
-it. `sanitize()` is not how a type declines to store, and `null` returned from it means
+Nothing is stored because nothing is ever submitted. The `edit` component only says where
+the value comes from, so the specification's key never appears in the payload and
+`sanitize()` is never called for it. A type with no `edit` component at all is shown as
+unavailable, with its raw stored value. Amended 2026-11-08 (PS-061). `sanitize()` is not how a type declines to store, and `null` returned from it means
 an empty value — see ADR 0006, where a stored `null` on a variation means that variation
 has no value.
 

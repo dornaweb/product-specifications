@@ -8,9 +8,13 @@ import {
 	ParagraphDefault,
 	TextDefault,
 	TrueFalseDefault,
+	UnitDefault,
 } from './defaultControls';
 import type { SpecificationTypes } from './index';
 import YesNoOptionsPanel from './YesNoOptionsPanel';
+import MeasurementInput from './unit/MeasurementInput';
+import UnitOptionsPanel from './unit/UnitOptionsPanel';
+import { unitOptions } from './unit/unitOptions';
 import {
 	ChoiceValue,
 	ParagraphValue,
@@ -24,6 +28,11 @@ const requiresChoices = ( options: Record< string, unknown > ) =>
 				'Add at least one option, one per line.',
 				'product-specifications'
 		  )
+		: undefined;
+
+const requiresUnits = ( options: Record< string, unknown > ) =>
+	unitOptions( options ).units.length === 0
+		? __( 'Choose at least one unit.', 'product-specifications' )
 		: undefined;
 
 export const coreSpecificationTypes: SpecificationTypes = {
@@ -62,5 +71,16 @@ export const coreSpecificationTypes: SpecificationTypes = {
 		options: YesNoOptionsPanel,
 		defaultControl: TrueFalseDefault,
 		valueControl: TrueFalseValue,
+	},
+	unit: {
+		label: __( 'Number with unit', 'product-specifications' ),
+		description: __(
+			'A number, or a range, with a unit such as mm, kg or GB.',
+			'product-specifications'
+		),
+		options: UnitOptionsPanel,
+		validateOptions: requiresUnits,
+		defaultControl: UnitDefault,
+		valueControl: MeasurementInput,
 	},
 };
