@@ -7,6 +7,7 @@ namespace Amiut\ProductSpecs\Admin;
 use Amiut\ProductSpecs\Assets\AssetHelper;
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Migration\MigrationNotice;
+use Amiut\ProductSpecs\ImportExport\ExportDownload;
 use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -24,7 +25,8 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(AssetHelper::class),
                 $container->get(Capabilities::class),
                 $container->get(MigrationState::class),
-                $container->get(MigrationNotice::class)
+                $container->get(MigrationNotice::class),
+                $container->get(ExportDownload::class)
             ),
             AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
             PageRegistry::class => static fn () => new WooCommerceAdminPageRegistry(),

@@ -7,6 +7,8 @@ declare global {
 			restNonce: string;
 			migrationRequired: boolean;
 			migrationEndpoint: string;
+			exportUrl: string;
+			importEndpoint: string;
 			migrationNotice: {
 				status: 'warning' | 'info' | 'error';
 				message: string;

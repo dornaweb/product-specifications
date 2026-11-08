@@ -41,10 +41,8 @@ const MigrationPage = lazy(
 	() => import( /* webpackChunkName: "migration" */ './Migration' )
 );
 
-// Registered so every area tab resolves to a page. Each is replaced by the
-// screen for that area.
-const NotBuiltYetPage = lazy(
-	() => import( /* webpackChunkName: "not-built-yet" */ './NotBuiltYet' )
+const ImportExportPage = lazy(
+	() => import( /* webpackChunkName: "import-export" */ './ImportExport' )
 );
 
 registerAdminPages( [
@@ -84,9 +82,8 @@ registerAdminPages( [
 		breadcrumbs: [ __( 'Specifications', 'product-specifications' ) ],
 		capability: MIN_CAPABILITY,
 	},
-	// Placeholders. Replaced by the screen for each area.
 	{
-		container: NotBuiltYetPage,
+		container: ImportExportPage,
 		path: '/dwps-product-specifications/import-export',
 		breadcrumbs: [ __( 'Import / Export', 'product-specifications' ) ],
 		capability: MIN_CAPABILITY,

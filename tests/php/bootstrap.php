@@ -46,6 +46,47 @@ if (!function_exists('update_option')) {
     }
 }
 
+if (!function_exists('delete_option')) {
+    function delete_option(string $option): bool
+    {
+        unset($GLOBALS['wp_test_options'][$option]);
+
+        return true;
+    }
+}
+
+if (!function_exists('wp_upload_dir')) {
+    /**
+     * @return array<string, string>
+     */
+    function wp_upload_dir(?string $time = null, bool $createDirectory = true): array
+    {
+        return ['basedir' => $GLOBALS['wp_test_upload_dir'] ?? sys_get_temp_dir()];
+    }
+}
+
+if (!function_exists('wp_mkdir_p')) {
+    function wp_mkdir_p(string $target): bool
+    {
+        // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.directory_mkdir -- No WordPress in unit tests.
+        return is_dir($target) || mkdir($target, 0777, true);
+    }
+}
+
+if (!function_exists('wp_generate_password')) {
+    function wp_generate_password(int $length = 12, bool $specialChars = true): string
+    {
+        return bin2hex(random_bytes(intdiv($length, 2)));
+    }
+}
+
+if (!function_exists('wp_delete_file')) {
+    function wp_delete_file(string $file): void
+    {
+        unlink($file);
+    }
+}
+
 $GLOBALS['wp_test_posts'] = [];
 $GLOBALS['wp_test_post_meta'] = [];
 $GLOBALS['wp_test_post_types'] = [];
@@ -318,4 +359,54 @@ if (!class_exists('WC_Product')) {
         }
     }
     // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+if (!function_exists('_n')) {
+    function _n(string $single, string $plural, int $number, string $domain = 'default'): string
+    {
+        return $number === 1 ? $single : $plural;
+    }
+}
+
+if (!function_exists('rest_validate_value_from_schema')) {
+    /**
+     * @param array<string, mixed> $args
+     */
+    function rest_validate_value_from_schema(mixed $value, array $args, string $param = ''): bool
+    {
+        return true;
+    }
+}
+
+if (!function_exists('rest_sanitize_value_from_schema')) {
+    /**
+     * @param array<string, mixed> $args
+     */
+    function rest_sanitize_value_from_schema(mixed $value, array $args, string $param = ''): mixed
+    {
+        return $value;
+    }
+}
+
+$GLOBALS['wp_test_skus'] = [];
+
+if (!function_exists('wc_get_product_id_by_sku')) {
+    function wc_get_product_id_by_sku(string $sku): int
+    {
+        return $GLOBALS['wp_test_skus'][$sku] ?? 0;
+    }
+}
+
+if (!function_exists('wp_json_encode')) {
+    function wp_json_encode(mixed $value, int $flags = 0, int $depth = 512): string|false
+    {
+        return json_encode($value, $flags, $depth);
+    }
+}
+
+if (!function_exists('home_url')) {
+    function home_url(string $path = ''): string
+    {
+        return 'https://store.test' . $path;
+    }
 }

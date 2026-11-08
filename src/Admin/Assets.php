@@ -7,6 +7,8 @@ namespace Amiut\ProductSpecs\Admin;
 use Amiut\ProductSpecs\Assets\AssetHelper;
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Migration\MigrationNotice;
+use Amiut\ProductSpecs\ImportExport\ExportDownload;
+use Amiut\ProductSpecs\ImportExport\Import\ImportRestController;
 use Amiut\ProductSpecs\Migration\MigrationRestController;
 use Amiut\ProductSpecs\Settings\SettingsRestController;
 use Amiut\ProductSpecs\Upgrade\MigrationState;
@@ -20,7 +22,8 @@ final class Assets
         private readonly AssetHelper $assetHelper,
         private readonly Capabilities $capabilities,
         private readonly MigrationState $migration,
-        private readonly MigrationNotice $migrationNotice
+        private readonly MigrationNotice $migrationNotice,
+        private readonly ExportDownload $exportDownload
     ) {
     }
 
@@ -65,6 +68,8 @@ final class Assets
                 'migrationRequired' => $this->migration->requiresMigration(),
                 'migrationEndpoint' => rest_url(MigrationRestController::NAMESPACE . MigrationRestController::ROUTE),
                 'migrationNotice' => $this->migrationNotice->content(),
+                'exportUrl' => $this->exportDownload->url(),
+                'importEndpoint' => rest_url(ImportRestController::NAMESPACE . ImportRestController::ROUTE),
                 'restNonce' => wp_create_nonce('wp_rest'),
             ]
         );

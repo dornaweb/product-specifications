@@ -110,6 +110,7 @@ function bootstrap(): void
             ->addModule(new Attribute\Module())
             ->addModule(new Storefront\Module())
             ->addModule(new Block\Module())
+            ->addModule(new ImportExport\Module())
             ->addModule(new Shortcode\Module())
             ->addModule(new Metabox\Module())
             ->addModule(new EntityUpdater\Module())
