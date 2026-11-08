@@ -4,78 +4,55 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration;
 
+use Amiut\ProductSpecs\Background\BackgroundWorker;
+
 final class BackgroundMigration
 {
     public const HOOK = 'product_specifications_migration_chunk';
-    public const TIME_BUDGET = 20.0;
-    public const OVERDUE_AFTER = 60;
+    public const TIME_BUDGET = BackgroundWorker::TIME_BUDGET;
+    public const OVERDUE_AFTER = BackgroundWorker::OVERDUE_AFTER;
+
+    private readonly BackgroundWorker $worker;
 
     public function __construct(
         private readonly MigrationRunner $runner,
-        private readonly float $timeBudget = self::TIME_BUDGET
+        float $timeBudget = self::TIME_BUDGET
     ) {
+        $this->worker = new BackgroundWorker(
+            self::HOOK,
+            fn (): bool => $this->runner->run()->isRunning(),
+            function (): void {
+                $this->runner->runChunk();
+            },
+            $timeBudget
+        );
     }
 
     public function start(): MigrationRun
     {
-        return $this->scheduled($this->runner->start());
+        $run = $this->runner->start();
+        $this->worker->schedule();
+
+        return $run;
     }
 
     public function resume(): MigrationRun
     {
-        return $this->scheduled($this->runner->resume());
+        $run = $this->runner->resume();
+        $this->worker->schedule();
+
+        return $run;
     }
 
-    /**
-     * The next event is queued before any work, because a request killed mid-chunk by a
-     * memory or time limit never reaches code after it. An event left queued after the
-     * run ends finds nothing to do.
-     */
     public function process(): void
     {
-        $run = $this->scheduled($this->runner->run());
-
-        if (!$run->isRunning()) {
-            return;
-        }
-
-        $deadline = microtime(true) + $this->budget();
-
-        do {
-            $run = $this->runner->runChunk();
-        } while ($run->isRunning() && microtime(true) < $deadline);
+        $this->worker->process();
     }
 
-    /**
-     * Called while someone watches the run. WP-Cron never fires on a site that disables
-     * it without a server cron or blocks loopback requests, so an event long overdue means
-     * nothing will carry the run, and the caller carries one chunk instead.
-     */
     public function nudge(): MigrationRun
     {
-        $run = $this->scheduled($this->runner->run());
-        $next = wp_next_scheduled(self::HOOK);
+        $this->worker->nudge();
 
-        if ($run->isRunning() && is_int($next) && $next < time() - self::OVERDUE_AFTER) {
-            return $this->runner->runChunk();
-        }
-
-        return $run;
-    }
-
-    private function scheduled(MigrationRun $run): MigrationRun
-    {
-        if ($run->isRunning() && wp_next_scheduled(self::HOOK) === false) {
-            wp_schedule_single_event(time(), self::HOOK);
-        }
-
-        return $run;
-    }
-
-    private function budget(): float
-    {
-        $limit = (int) ini_get('max_execution_time');
-
-        return $limit > 0 ? min($this->timeBudget, $limit / 2) : $this->timeBudget;
+        return $this->runner->run();
     }
 }
