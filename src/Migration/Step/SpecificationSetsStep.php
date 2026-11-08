@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration\Step;
 
-use Amiut\ProductSpecs\Content\Taxonomy\LegacyGroupTaxonomy;
 use Amiut\ProductSpecs\Migration\ChunkResult;
 use Amiut\ProductSpecs\Migration\IdBatch;
+use Amiut\ProductSpecs\Migration\LegacyGroupTaxonomy;
 use Amiut\ProductSpecs\Migration\MigrationStep;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;

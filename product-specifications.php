@@ -27,10 +27,6 @@ use Throwable;
 
 defined('ABSPATH') || exit;
 
-if (!defined('DWSPECS_PLUGIN_FILE')) {
-    define('DWSPECS_PLUGIN_FILE', __FILE__);
-}
-
 function handleFailure(Throwable $throwable): void
 {
     add_action(
@@ -54,7 +50,7 @@ function handleFailure(Throwable $throwable): void
 
 function setupAutoLoader(): void
 {
-    if (class_exists(Content\Module::class)) {
+    if (class_exists(Upgrade\Installer::class)) {
         return;
     }
 
@@ -90,8 +86,6 @@ function bootstrap(): void
     try {
         setupAutoLoader();
 
-        App::instance();
-
         plugin()
             ->addModule(new Capability\Module())
             ->addModule(new Upgrade\Module())
@@ -99,24 +93,14 @@ function bootstrap(): void
             ->addModule(new Assets\Module())
             ->addModule(new Specification\Module())
             ->addModule(new SpecificationSet\Module())
-            ->addModule(new Template\Module())
-            ->addModule(new Repository\Module())
-            ->addModule(new Content\Module())
             ->addModule(new Admin\Module())
-            ->addModule(new AttributesListUi\Module())
-            ->addModule(new AttributeGroupsListUi\Module())
             ->addModule(new Settings\Module())
             ->addModule(new Integration\Module())
-            ->addModule(new Attribute\Module())
             ->addModule(new Storefront\Module())
             ->addModule(new Block\Module())
             ->addModule(new ImportExport\Module())
             ->addModule(new Shortcode\Module())
-            ->addModule(new Metabox\Module())
-            ->addModule(new EntityUpdater\Module())
-            ->addModule(new EntityUpdaterUi\Module())
             ->addModule(new ProductValues\Module())
-            ->addModule(new SpecificationsTable\Module())
             ->boot();
     } catch (Throwable $throwable) {
         handleFailure($throwable);

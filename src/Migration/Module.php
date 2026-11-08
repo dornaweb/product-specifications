@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Migration;
 
 use Amiut\ProductSpecs\Capability\Capabilities;
+use Amiut\ProductSpecs\Migration\Soft\LegacySettingsMigration;
 use Amiut\ProductSpecs\Migration\Step\ProductValuesStep;
 use Amiut\ProductSpecs\Migration\Step\SetStructureBuilder;
 use Amiut\ProductSpecs\Migration\Step\SnapshotValueReader;
@@ -49,6 +50,7 @@ final class Module implements ServiceModule, ExecutableModule
             MigrationRunner::class => static fn (ContainerInterface $container) => new MigrationRunner(
                 $container->get(MigrationRunRepository::class),
                 $container->get(DataVersionRepository::class),
+                $container->get(LegacyGroupTaxonomy::class),
                 [
                     $container->get(SpecificationDefinitionsStep::class),
                     $container->get(SpecificationSetsStep::class),
@@ -59,6 +61,8 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(MigrationRunner::class)
             ),
             MigrationScreen::class => static fn () => new MigrationScreen(),
+            LegacySettingsMigration::class => static fn () => new LegacySettingsMigration(),
+            LegacyGroupTaxonomy::class => static fn () => new LegacyGroupTaxonomy(),
             MigrationNotice::class => static fn (ContainerInterface $container) => new MigrationNotice(
                 $container->get(MigrationState::class),
                 $container->get(MigrationRunRepository::class),
@@ -79,6 +83,21 @@ final class Module implements ServiceModule, ExecutableModule
 
     public function run(ContainerInterface $container): bool
     {
+        // Ahead of every other init callback, so nothing reads the data before it is moved.
+        add_action(
+            'init',
+            static function () use ($container): void {
+                if ($container->get(DataVersionRepository::class)->stored()->isMigrated()) {
+                    return;
+                }
+
+                foreach (self::softMigrations($container) as $softMigration) {
+                    $softMigration->migrate();
+                }
+            },
+            -1
+        );
+
         add_action(
             BackgroundMigration::HOOK,
             static function () use ($container): void {
@@ -114,5 +133,15 @@ final class Module implements ServiceModule, ExecutableModule
         }
 
         return true;
+    }
+
+    /**
+     * @return list<SoftMigration>
+     */
+    private static function softMigrations(ContainerInterface $container): array
+    {
+        return [
+            $container->get(LegacySettingsMigration::class),
+        ];
     }
 }

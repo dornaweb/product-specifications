@@ -15,7 +15,6 @@ use Amiut\ProductSpecs\Upgrade\MigrationState;
 
 final class Assets
 {
-    public const HANDLE_ADMIN_SCRIPT = 'product-specifications-admin-general';
     public const HANDLE_ADMIN_INIT_SCRIPT = 'product-specifications-admin-init';
 
     public function __construct(
@@ -29,22 +28,6 @@ final class Assets
 
     public function load(string $hookSuffix): void
     {
-        wp_enqueue_script('jquery-ui-sortable');
-
-        $this->assetHelper->registerScript(self::HANDLE_ADMIN_SCRIPT, 'admin.js');
-        $this->assetHelper->registerStyle(self::HANDLE_ADMIN_SCRIPT, 'admin.css');
-
-        wp_localize_script(
-            self::HANDLE_ADMIN_SCRIPT,
-            'dwspecs_plugin',
-            [
-                'ajaxurl' => admin_url('admin-ajax.php'),
-            ]
-        );
-
-        wp_enqueue_script(self::HANDLE_ADMIN_SCRIPT);
-        wp_enqueue_style(self::HANDLE_ADMIN_SCRIPT);
-
         if ($hookSuffix !== 'woocommerce_page_wc-admin') {
             return;
         }

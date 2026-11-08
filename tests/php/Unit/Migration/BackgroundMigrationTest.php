@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Tests\Unit\Migration;
 
 use Amiut\ProductSpecs\Migration\BackgroundMigration;
+use Amiut\ProductSpecs\Migration\LegacyGroupTaxonomy;
 use Amiut\ProductSpecs\Migration\MigrationRunner;
 use Amiut\ProductSpecs\Migration\MigrationRunRepository;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
@@ -115,7 +116,13 @@ final class BackgroundMigrationTest extends TestCase
     private function background(FakeStep $step, float $budget): BackgroundMigration
     {
         return new BackgroundMigration(
-            new MigrationRunner(new MigrationRunRepository(), new DataVersionRepository(), [$step], 2),
+            new MigrationRunner(
+                new MigrationRunRepository(),
+                new DataVersionRepository(),
+                new LegacyGroupTaxonomy(),
+                [$step],
+                2
+            ),
             $budget
         );
     }

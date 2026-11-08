@@ -16,7 +16,6 @@ const webpackConfig = {
 		// Every src/**/block.json lists its scripts; wp-scripts copies the
 		// block.json and render.php next to them under the same relative path.
 		...getWebpackEntryPoints( 'script' )(),
-		admin: './client/admin/index.js',
 		admininit: './client/admin/init.ts',
 		'product-values': './client/productValues/index.tsx',
 	},

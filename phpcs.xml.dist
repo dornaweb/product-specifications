@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
     <file>./src/</file>
-    <file>./templates/</file>
     <file>./tests/php</file>
     <file>./product-specifications.php</file>
 

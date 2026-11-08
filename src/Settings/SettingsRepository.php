@@ -52,28 +52,9 @@ final class SettingsRepository
      */
     private function storedValues(): array
     {
-        $stored = get_option(self::OPTION_NAME, null);
-        if (is_array($stored)) {
-            /** @var array<string, mixed> $stored */
-            return $stored;
-        }
+        $stored = get_option(self::OPTION_NAME, []);
 
-        $values = [];
-        $tabTitle = get_option('dwps_tab_title', null);
-        if (is_string($tabTitle)) {
-            $values['tab_title'] = $tabTitle;
-        }
-
-        $defaultSpecifications = get_option('dwps_wc_default_specs', null);
-        if (is_string($defaultSpecifications)) {
-            $values['wc_default_specs'] = $defaultSpecifications;
-        }
-
-        $disableDefaultStyles = get_option('dwps_disable_default_styles', null);
-        if ($disableDefaultStyles !== null) {
-            $values['load_default_styles'] = $disableDefaultStyles !== 'on';
-        }
-
-        return $values;
+        /** @var array<string, mixed> */
+        return is_array($stored) ? $stored : [];
     }
 }

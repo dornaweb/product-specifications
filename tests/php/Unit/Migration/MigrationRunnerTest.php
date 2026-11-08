@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Tests\Unit\Migration;
 
+use Amiut\ProductSpecs\Migration\LegacyGroupTaxonomy;
 use Amiut\ProductSpecs\Migration\MigrationRun;
 use Amiut\ProductSpecs\Migration\MigrationRunner;
 use Amiut\ProductSpecs\Migration\MigrationRunRepository;
@@ -117,7 +118,13 @@ final class MigrationRunnerTest extends TestCase
      */
     private function runner(array $steps): MigrationRunner
     {
-        return new MigrationRunner(new MigrationRunRepository(), new DataVersionRepository(), $steps, 2);
+        return new MigrationRunner(
+            new MigrationRunRepository(),
+            new DataVersionRepository(),
+            new LegacyGroupTaxonomy(),
+            $steps,
+            2
+        );
     }
 
     /**

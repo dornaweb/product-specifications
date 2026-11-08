@@ -7,6 +7,7 @@ namespace Amiut\ProductSpecs\Tests\Unit;
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Capability\Module as CapabilityModule;
 use Amiut\ProductSpecs\Migration\BackgroundMigration;
+use Amiut\ProductSpecs\Migration\LegacyGroupTaxonomy;
 use Amiut\ProductSpecs\Migration\MigrationCommand;
 use Amiut\ProductSpecs\Migration\MigrationNotice;
 use Amiut\ProductSpecs\Migration\MigrationRestController;
@@ -14,6 +15,7 @@ use Amiut\ProductSpecs\Migration\MigrationScreen;
 use Amiut\ProductSpecs\Migration\MigrationRunner;
 use Amiut\ProductSpecs\Migration\MigrationRunRepository;
 use Amiut\ProductSpecs\Migration\Module as MigrationModule;
+use Amiut\ProductSpecs\Migration\Soft\LegacySettingsMigration;
 use Amiut\ProductSpecs\Migration\Step\ProductValuesStep;
 use Amiut\ProductSpecs\Migration\Step\SpecificationDefinitionsStep;
 use Amiut\ProductSpecs\Migration\Step\SpecificationSetsStep;
@@ -93,6 +95,8 @@ final class ServiceWiringTest extends TestCase
             MigrationCommand::class => MigrationCommand::class,
             BackgroundMigration::class => BackgroundMigration::class,
             MigrationScreen::class => MigrationScreen::class,
+            LegacyGroupTaxonomy::class => LegacyGroupTaxonomy::class,
+            LegacySettingsMigration::class => LegacySettingsMigration::class,
             MigrationNotice::class => MigrationNotice::class,
             MigrationRestController::class => MigrationRestController::class,
             SpecificationDefinitionsStep::class => SpecificationDefinitionsStep::class,

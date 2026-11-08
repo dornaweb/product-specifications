@@ -20,6 +20,7 @@ final class MigrationRunner
     public function __construct(
         private readonly MigrationRunRepository $runs,
         private readonly DataVersionRepository $versions,
+        private readonly LegacyGroupTaxonomy $groupTaxonomy,
         private readonly array $steps,
         private readonly int $chunkSize = self::CHUNK_SIZE
     ) {
@@ -74,6 +75,8 @@ final class MigrationRunner
         if (!$run->isRunning()) {
             return $run;
         }
+
+        $this->groupTaxonomy->register();
 
         try {
             $index = $this->indexOf($run->step());

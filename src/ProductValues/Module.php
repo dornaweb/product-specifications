@@ -6,7 +6,6 @@ namespace Amiut\ProductSpecs\ProductValues;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
 use Amiut\ProductSpecs\Capability\Capabilities;
-use Amiut\ProductSpecs\Metabox\Metaboxes;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
@@ -64,10 +63,10 @@ final class Module implements ServiceModule, ExecutableModule
     public function run(ContainerInterface $container): bool
     {
         add_action(
-            Metaboxes::ACTION_SETUP,
-            static fn (Metaboxes $metaboxes) => $metaboxes->add(
-                $container->get(ProductValuesMetabox::class)
-            )
+            'add_meta_boxes_product',
+            static function () use ($container): void {
+                $container->get(ProductValuesMetabox::class)->register();
+            }
         );
 
         add_action('admin_enqueue_scripts', [$container->get(Assets::class), 'load']);

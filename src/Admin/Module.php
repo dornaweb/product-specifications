@@ -28,7 +28,6 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(MigrationNotice::class),
                 $container->get(ExportDownload::class)
             ),
-            AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
             PageRegistry::class => static fn () => new WooCommerceAdminPageRegistry(),
         ];
     }
@@ -48,11 +47,6 @@ final class Module implements ServiceModule, ExecutableModule
             }
         );
 
-        add_action(
-            'admin_menu',
-            [$container->get(AdminPageTopMenuModifier::class), 'modify']
-        );
-
         return true;
     }
 
@@ -69,28 +63,6 @@ final class Module implements ServiceModule, ExecutableModule
                 $capability,
                 50
             )
-        );
-
-        add_menu_page(
-            esc_html__('Product specifications table', 'product-specifications'),
-            esc_html__('Specs. tables', 'product-specifications'),
-            $capability,
-            'dw-specs',
-            static function (): void {
-            },
-            'dashicons-welcome-view-site',
-            25
-        );
-
-        // Add tables page
-        add_submenu_page(
-            'dw-specs',
-            esc_html__('Add a new table', 'product-specifications'),
-            esc_html__('New table', 'product-specifications'),
-            $capability,
-            'dw-specs-new',
-            static function (): void {
-            }
         );
     }
 }

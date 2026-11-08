@@ -4,53 +4,38 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ProductValues;
 
-use Amiut\ProductSpecs\Metabox\Metabox;
 use Amiut\ProductSpecs\Upgrade\MigrationState;
 use WP_Post;
 
-final class ProductValuesMetabox implements Metabox
+final class ProductValuesMetabox
 {
+    private const ID = 'product-specifications-values';
+
     public function __construct(private readonly MigrationState $migration)
     {
     }
 
-    public function id(): string
+    /**
+     * @wp-hook add_meta_boxes_product
+     */
+    public function register(): void
     {
-        return 'product-specifications-values';
-    }
-
-    public function title(): string
-    {
-        return __('Product specifications', 'product-specifications');
-    }
-
-    public function context(): string
-    {
-        return self::CONTEXT_NORMAL;
-    }
-
-    public function priority(): string
-    {
-        return self::PRIORITY_HIGH;
-    }
-
-    public function enabled(WP_Post $post): bool
-    {
-        return $post->post_type === 'product';
-    }
-
-    public function render(WP_Post $post): string
-    {
-        return sprintf(
-            '<div id="product-specifications-values-root" data-product-id="%d" data-migration-required="%d"></div>',
-            $post->ID,
-            (int) $this->migration->requiresMigration()
+        add_meta_box(
+            self::ID,
+            __('Product specifications', 'product-specifications'),
+            [$this, 'render'],
+            'product',
+            'normal',
+            'high'
         );
     }
 
-    public function action(WP_Post $post): void
+    public function render(WP_Post $post): void
     {
-        // The React panel writes through ProductValueSaveService over REST
-        // before replaying the native product form submission.
+        printf(
+            '<div id="product-specifications-values-root" data-product-id="%d" data-migration-required="%d"></div>',
+            (int) $post->ID,
+            (int) $this->migration->requiresMigration()
+        );
     }
 }

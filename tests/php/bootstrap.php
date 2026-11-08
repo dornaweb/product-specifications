@@ -157,6 +157,16 @@ if (!function_exists('do_action')) {
     }
 }
 
+if (!function_exists('register_taxonomy')) {
+    /**
+     * @param array<string, mixed> $args
+     */
+    function register_taxonomy(string $taxonomy, string $objectType, array $args = []): void
+    {
+        $GLOBALS['wp_test_taxonomies'][$taxonomy] = $args;
+    }
+}
+
 if (!function_exists('sanitize_key')) {
     function sanitize_key(string $key): string
     {
