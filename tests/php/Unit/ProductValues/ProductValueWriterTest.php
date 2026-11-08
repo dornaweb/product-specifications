@@ -37,18 +37,10 @@ final class ProductValueWriterTest extends TestCase
         $GLOBALS['wp_test_posts_by_id'] = [30 => $set];
     }
 
-    public function testItSanitizesKnownValuesPreservesOrphansAndAnnouncesTheReplace(): void
+    public function testAReplaceKeepsValuesOfAnInactiveTypeAndDropsDeletedSpecifications(): void
     {
-        $term = new WP_Term();
-        $term->term_id = 10;
-        $term->name = 'Screen';
-        $term->slug = 'screen-a1b2c3d4';
-        $GLOBALS['wp_test_terms'][10] = $term;
-        $GLOBALS['wp_test_term_meta'][10] = [
-            'attr_type' => 'text',
-            'attr_values' => [],
-            'attr_default' => '',
-        ];
+        $this->storeSpecification(10, 'screen-a1b2c3d4', 'text');
+        $this->storeSpecification(11, 'old-a1b2c3d4', 'pixels');
 
         $repository = $this->repository(
             ProductValueDocument::fromValues(['old-a1b2c3d4' => ['raw']])
@@ -67,7 +59,7 @@ final class ProductValueWriterTest extends TestCase
             [
                 'screen-a1b2c3d4' => "  <b>15 inch</b>\n",
                 'old-a1b2c3d4' => ['raw'],
-                'empty-a1b2c3d4' => null,
+                'deleted-a1b2c3d4' => 'Red',
             ]
         );
 
@@ -75,7 +67,6 @@ final class ProductValueWriterTest extends TestCase
             [
                 'screen-a1b2c3d4' => '15 inch',
                 'old-a1b2c3d4' => ['raw'],
-                'empty-a1b2c3d4' => null,
             ],
             $saved
         );
@@ -176,19 +167,9 @@ final class ProductValueWriterTest extends TestCase
                 return true;
             }
 
-            public function countContaining(string $specificationKey): int
-            {
-                return 0;
-            }
-
             public function countUsing(string $specificationKey, array $values): int
             {
                 return 0;
-            }
-
-            public function idsContaining(string $specificationKey): array
-            {
-                return [];
             }
         };
         $service = new ProductValueWriter(
@@ -251,31 +232,6 @@ final class ProductValueWriterTest extends TestCase
         $this->writer()->merge(20, null, ['screen-a1b2c3d4' => '13"']);
 
         self::assertSame([], $GLOBALS['wp_test_actions']);
-    }
-
-    public function testRemovingASpecificationKeepsOtherValuesAndAnnouncesEachProduct(): void
-    {
-        $GLOBALS['wp_test_posts'] = [20, 21];
-        $repository = new WordPressProductValueRepository();
-        $repository->replace(
-            20,
-            ProductValueDocument::fromValues(['screen-a1b2c3d4' => '15', 'weight-a1b2c3d4' => '2'])
-        );
-        $repository->replace(21, ProductValueDocument::fromValues(['weight-a1b2c3d4' => '3']));
-
-        self::assertTrue($this->writer()->removeSpecification('screen-a1b2c3d4'));
-
-        self::assertSame(['weight-a1b2c3d4' => '2'], $repository->read(20)->values());
-        self::assertSame(['weight-a1b2c3d4' => '3'], $repository->read(21)->values());
-        self::assertSame(
-            [
-                [
-                    ProductValueWriter::SAVED_ACTION,
-                    [20, ['weight-a1b2c3d4' => '2'], ['screen-a1b2c3d4' => '15', 'weight-a1b2c3d4' => '2']],
-                ],
-            ],
-            $GLOBALS['wp_test_actions']
-        );
     }
 
     private function writer(): ProductValueWriter
@@ -341,19 +297,9 @@ final class ProductValueWriterTest extends TestCase
                 return true;
             }
 
-            public function countContaining(string $specificationKey): int
-            {
-                return 0;
-            }
-
             public function countUsing(string $specificationKey, array $values): int
             {
                 return 0;
-            }
-
-            public function idsContaining(string $specificationKey): array
-            {
-                return [];
             }
         };
     }

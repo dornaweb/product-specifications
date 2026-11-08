@@ -319,10 +319,14 @@ final class ValuesSection implements Section
 
         foreach ($values as $key => $value) {
             $definition = $definitions[$key] ?? null;
-            $type = $definition !== null && $this->types->has($definition->typeId())
-                ? $this->types->get($definition->typeId())
-                : null;
-            $readable = $type === null ? $value : $type->sanitize($value);
+
+            if ($definition === null) {
+                continue;
+            }
+
+            $readable = $this->types->has($definition->typeId())
+                ? $this->types->get($definition->typeId())->sanitize($value)
+                : $value;
 
             if ($readable !== null) {
                 $exported[$key] = $readable;

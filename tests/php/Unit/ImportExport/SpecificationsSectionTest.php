@@ -6,7 +6,7 @@ namespace Amiut\ProductSpecs\Tests\Unit\ImportExport;
 
 use Amiut\ProductSpecs\ImportExport\EntryOutcome;
 use Amiut\ProductSpecs\ImportExport\ImportPlan;
-use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
+use Amiut\ProductSpecs\Tests\Unit\Support\FakeWpdb;
 use PHPUnit\Framework\TestCase;
 
 final class SpecificationsSectionTest extends TestCase
@@ -72,15 +72,10 @@ final class SpecificationsSectionTest extends TestCase
 
     public function testRemovedChoicesThatProductsStillUseAreCounted(): void
     {
-        $GLOBALS['wp_test_posts'] = [1, 2, 3];
-        foreach ([1 => 'Red', 2 => 'Green', 3 => 'Blue'] as $productId => $colour) {
-            $GLOBALS['wp_test_post_meta'][$productId] = [
-                WordPressProductValueRepository::VALUES_META_KEY => [
-                    'schema_version' => 1,
-                    'values' => ['colour' => $colour],
-                ],
-            ];
-        }
+        FakeWpdb::install(array_map(
+            static fn (string $colour): string => serialize(['schema_version' => 1, 'values' => ['colour' => $colour]]),
+            ['Red', 'Green', 'Blue']
+        ));
 
         $outcome = Sections::specifications()->planEntry(
             ['slug' => 'colour', 'name' => 'Colour', 'type' => 'select', 'options' => ['values' => ['Blue', 'Black']]],
@@ -89,5 +84,10 @@ final class SpecificationsSectionTest extends TestCase
 
         self::assertSame(EntryOutcome::UPDATE, $outcome->status());
         self::assertSame(['2 products use choices the file removes: Red, Green.'], $outcome->notes());
+    }
+
+    protected function tearDown(): void
+    {
+        FakeWpdb::uninstall();
     }
 }

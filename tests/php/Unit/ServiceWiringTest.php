@@ -23,7 +23,6 @@ use Amiut\ProductSpecs\ProductValues\Module as ProductValuesModule;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
 use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
-use Amiut\ProductSpecs\Specification\Deletion\DeletionImpactRestController;
 use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
 use Amiut\ProductSpecs\Specification\Module as SpecificationModule;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
@@ -89,7 +88,6 @@ final class ServiceWiringTest extends TestCase
             SpecificationRestField::class => SpecificationRestField::class,
             SpecificationDefinitionMapper::class => SpecificationDefinitionMapper::class,
             SpecificationDefinitionRepository::class => SpecificationDefinitionRepository::class,
-            DeletionImpactRestController::class => DeletionImpactRestController::class,
             SpecificationDeletionService::class => SpecificationDeletionService::class,
             DataVersionRepository::class => DataVersionRepository::class,
             LegacyDataProbe::class => LegacyDataProbe::class,

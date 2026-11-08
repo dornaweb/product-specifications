@@ -233,10 +233,12 @@ queryable as an id.
 
 - Reading a product's table requires the set structure as well as the value map. The
   value map alone does not describe an order or a grouping.
-- **Slugs are reusable and term ids are not.** Deleting a specification frees its slug,
-  and a specification created later with the same name can take it and silently adopt
-  orphaned values left on products. Deleting a specification must therefore purge its
-  values from every product; PS-024 owns that, and it is not optional.
+- **Deleting a specification leaves its values on products.** They are inert like any
+  other value the current model cannot read, and a product drops them when it is next
+  saved. A specification created in the admin always gets a new random slug suffix
+  (ADR 0010), so it never adopts them. Recreating the exact slug, through an import or
+  `wp_insert_term()`, does adopt them; that is accepted rather than paid for with a purge
+  that rewrites every product.
 - A specification's key is frozen at creation. A merchant who dislikes a slug preserved
   from v1 cannot change it, because changing it means rewriting every product that
   holds a value under it. Renaming the label stays free.
@@ -266,8 +268,9 @@ It also claimed a slug key would cost "a term query per row" at runtime. It woul
 The render path batches, and a batched query filtered on `slug` costs the same as one
 filtered on `term_id`.
 
-The one real advantage term ids retain is that they are never reused, which slugs are.
-That is answered by making the value purge in PS-024 mandatory.
+The one real advantage term ids retain is that they are never reused, which slugs can
+be. That is answered by the random slug suffix in ADR 0010: a slug created in the admin
+never repeats one that existed before.
 
 ### Key the map by an immutable plugin-generated uuid on the term
 

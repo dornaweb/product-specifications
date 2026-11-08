@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Specification\Deletion;
 
-use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSet;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 use RuntimeException;
 
+/**
+ * Products keep a deleted specification's values until each is next saved. The storefront
+ * never shows a value whose specification is gone, so products are not rewritten here.
+ */
 final class SpecificationDeletionService
 {
     public function __construct(
         private readonly SpecificationDefinitionRepository $definitions,
-        private readonly SpecificationSetRepository $sets,
-        private readonly ProductValueWriter $values
+        private readonly SpecificationSetRepository $sets
     ) {
     }
 
@@ -30,9 +33,7 @@ final class SpecificationDeletionService
             return;
         }
 
-        $definition = $this->definitions->find((int) $termId);
-
-        if ($definition === null) {
+        if ($this->definitions->find((int) $termId) === null) {
             return;
         }
 
@@ -55,17 +56,10 @@ final class SpecificationDeletionService
 
             $cleanedSets[] = $set;
         }
-
-        if (!$this->values->removeSpecification($definition->key())) {
-            $this->revert($cleanedSets);
-            $this->fail(
-                __('its product values could not be cleaned up', 'product-specifications')
-            );
-        }
     }
 
     /**
-     * @param list<\Amiut\ProductSpecs\SpecificationSet\SpecificationSet> $originalSets
+     * @param list<SpecificationSet> $originalSets
      */
     private function revert(array $originalSets): void
     {

@@ -6,6 +6,7 @@ namespace Amiut\ProductSpecs\Tests\Unit\ProductValues;
 
 use Amiut\ProductSpecs\ProductValues\ProductValueDocument;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
+use Amiut\ProductSpecs\Tests\Unit\Support\FakeWpdb;
 use PHPUnit\Framework\TestCase;
 
 final class WordPressProductValueRepositoryTest extends TestCase
@@ -28,19 +29,36 @@ final class WordPressProductValueRepositoryTest extends TestCase
         self::assertSame($document->toStorage(), $this->repository->read(10)->toStorage());
     }
 
-    public function testOnlyProductsHoldingTheSpecificationAreCounted(): void
+    protected function tearDown(): void
     {
-        $GLOBALS['wp_test_posts'] = [10, 11];
-        $this->repository->replace(
-            10,
-            ProductValueDocument::fromValues(['screen-a1b2c3d4' => '15', 'weight-a1b2c3d4' => '2'])
-        );
-        $this->repository->replace(
-            11,
-            ProductValueDocument::fromValues(['weight-a1b2c3d4' => '17'])
-        );
+        FakeWpdb::uninstall();
+    }
 
-        self::assertSame([10], $this->repository->idsContaining('screen-a1b2c3d4'));
-        self::assertSame(1, $this->repository->countContaining('screen-a1b2c3d4'));
+    public function testOnlyProductsUsingOneOfTheValuesAreCounted(): void
+    {
+        FakeWpdb::install([
+            self::stored(['colour-a1b2c3d4' => 'Red']),
+            self::stored(['colour-a1b2c3d4' => 'Blue']),
+            self::stored(['notes-a1b2c3d4' => 'colour-a1b2c3d4', 'size-a1b2c3d4' => 'Red']),
+        ]);
+
+        self::assertSame(1, $this->repository->countUsing('colour-a1b2c3d4', ['Red']));
+    }
+
+    public function testTheKeyIsMatchedLiterallyInsideItsSerializedForm(): void
+    {
+        $wpdb = FakeWpdb::install();
+
+        $this->repository->countUsing('%d8%b1_a1b2c3d4', ['Red']);
+
+        self::assertContains('%s:15:"\\%d8\\%b1\\_a1b2c3d4";%', $wpdb->preparedArguments);
+    }
+
+    /**
+     * @param array<string, mixed> $values
+     */
+    private static function stored(array $values): string
+    {
+        return serialize(ProductValueDocument::fromValues($values)->toStorage());
     }
 }

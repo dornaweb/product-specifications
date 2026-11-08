@@ -11,9 +11,6 @@ use Amiut\ProductSpecs\Specification\Type\TextAreaType;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
 use Amiut\ProductSpecs\Capability\Capabilities;
-use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
-use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
-use Amiut\ProductSpecs\Specification\Deletion\DeletionImpactRestController;
 use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
 use Amiut\ProductSpecs\Specification\Rest\SetUsageCounter;
 use Amiut\ProductSpecs\Specification\Rest\SlugGuard;
@@ -53,19 +50,11 @@ final class Module implements ServiceModule, ExecutableModule
             OptionsChecker::class => static fn (ContainerInterface $container) => new OptionsChecker(
                 $container->get(SpecificationTypeRegistry::class)
             ),
-            DeletionImpactRestController::class => static fn (
-                ContainerInterface $container
-            ) => new DeletionImpactRestController(
-                $container->get(ProductValueRepository::class),
-                $container->get(SpecificationDefinitionRepository::class),
-                $container->get(Capabilities::class)
-            ),
             SpecificationDeletionService::class => static fn (
                 ContainerInterface $container
             ) => new SpecificationDeletionService(
                 $container->get(SpecificationDefinitionRepository::class),
-                $container->get(SpecificationSetRepository::class),
-                $container->get(ProductValueWriter::class)
+                $container->get(SpecificationSetRepository::class)
             ),
         ];
     }
@@ -111,7 +100,6 @@ final class Module implements ServiceModule, ExecutableModule
             static function () use ($container): void {
                 $container->get(SlugGuard::class)->register();
                 $container->get(SpecificationRestField::class)->register();
-                $container->get(DeletionImpactRestController::class)->registerRoutes();
             }
         );
 

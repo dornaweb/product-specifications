@@ -104,6 +104,15 @@ if (!function_exists('get_posts')) {
     }
 }
 
+if (!function_exists('maybe_unserialize')) {
+    function maybe_unserialize(mixed $data): mixed
+    {
+        return is_string($data) && preg_match('/^(a|s|i|b|d|N):/', $data) === 1
+            ? unserialize($data, ['allowed_classes' => false])
+            : $data;
+    }
+}
+
 if (!function_exists('get_post_meta')) {
     function get_post_meta(int $postId, string $key = '', bool $single = false): mixed
     {
@@ -275,6 +284,17 @@ if (!function_exists('get_term')) {
     }
 }
 
+if (!function_exists('get_terms')) {
+    /**
+     * @param array<string, mixed> $args
+     * @return list<WP_Term>
+     */
+    function get_terms(array $args = []): array
+    {
+        return array_values($GLOBALS['wp_test_terms']);
+    }
+}
+
 if (!function_exists('get_term_by')) {
     function get_term_by(string $field, string|int $value, string $taxonomy = ''): mixed
     {
@@ -285,6 +305,13 @@ if (!function_exists('get_term_by')) {
         }
 
         return false;
+    }
+}
+
+if (!function_exists('get_post')) {
+    function get_post(int $postId): ?WP_Post
+    {
+        return $GLOBALS['wp_test_posts_by_id'][$postId] ?? null;
     }
 }
 

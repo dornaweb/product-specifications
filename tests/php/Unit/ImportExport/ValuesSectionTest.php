@@ -112,6 +112,21 @@ final class ValuesSectionTest extends TestCase
         );
     }
 
+    public function testAnExportLeavesOutValuesWhoseSpecificationIsGone(): void
+    {
+        Sections::storedSpecification(4, 'resolution', 'Resolution', 'pixels');
+        $GLOBALS['wp_test_posts'] = [self::PHONE];
+        $GLOBALS['wp_test_post_meta'][self::PHONE][WordPressProductValueRepository::VALUES_META_KEY]['values']
+            += ['resolution' => ['width' => 1920]];
+
+        $exported = [...$this->section()->export()];
+
+        self::assertSame(
+            ['weight' => '150 g', 'resolution' => ['width' => 1920]],
+            (array) $exported[0]['values']
+        );
+    }
+
     /**
      * @param array<string, string> $identity
      * @return array<string, mixed>

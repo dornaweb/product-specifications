@@ -1,7 +1,6 @@
 import { Button, Modal, Notice, Spinner } from '@wordpress/components';
 import { __, sprintf, _n } from '@wordpress/i18n';
 import { useSetUsage } from '../hooks/useSetUsage';
-import { useProductValueUsage } from '../hooks/useProductValueUsage';
 import type { SpecificationItem } from '../mapRecord';
 
 interface Props {
@@ -11,16 +10,18 @@ interface Props {
 	onCancel: () => void;
 }
 
-const PURGE = __(
-	'Deleting also removes this specification’s value from every product. This cannot be undone, and it is not optional: a deleted slug becomes free, and a specification created later with the same name would silently inherit those values.',
+const VALUES_KEPT = __(
+	'Products that use this specification keep its value in their data. It is no longer shown anywhere, and it is removed when each product is next saved. Deleting cannot be undone.',
+	'product-specifications'
+);
+
+const VALUES_KEPT_PLURAL = __(
+	'Products that use these specifications keep their values in their data. They are no longer shown anywhere, and they are removed when each product is next saved. Deleting cannot be undone.',
 	'product-specifications'
 );
 
 const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 	const usage = useSetUsage( items );
-	const productUsage = useProductValueUsage( items );
-	const isImpactLoading = usage.isLoading || productUsage.isLoading;
-	const hasImpactError = usage.hasError || productUsage.hasError;
 	const isSingle = items.length === 1;
 	const title = isSingle
 		? sprintf(
@@ -36,38 +37,31 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 
 	return (
 		<Modal title={ title } onRequestClose={ onCancel } size="medium">
-			{ isImpactLoading && (
+			{ usage.isLoading && (
 				<p>
 					<Spinner />{ ' ' }
 					{ __(
-						'Checking affected sets and products…',
+						'Checking affected sets…',
 						'product-specifications'
 					) }
 				</p>
 			) }
-			{ ! isImpactLoading && hasImpactError && (
+			{ ! usage.isLoading && usage.hasError && (
 				<Notice status="error" isDismissible={ false }>
 					{ __(
-						'The affected sets or product count could not be loaded. Deletion is unavailable until the impact can be checked.',
+						'The affected sets could not be loaded. Deletion is unavailable until the impact can be checked.',
 						'product-specifications'
 					) }
 				</Notice>
 			) }
-			{ ! isImpactLoading && ! hasImpactError && isSingle && (
+			{ ! usage.isLoading && ! usage.hasError && isSingle && (
 				<SingleImpact
 					item={ items[ 0 ] as SpecificationItem }
 					sets={ usage.bySpecification[ items[ 0 ]?.id ?? 0 ] ?? [] }
-					productCount={
-						productUsage.bySpecification[ items[ 0 ]?.id ?? 0 ] ?? 0
-					}
 				/>
 			) }
-			{ ! isImpactLoading && ! hasImpactError && ! isSingle && (
-				<CombinedImpact
-					items={ items }
-					usage={ usage }
-					productUsage={ productUsage }
-				/>
+			{ ! usage.isLoading && ! usage.hasError && ! isSingle && (
+				<CombinedImpact items={ items } usage={ usage } />
 			) }
 			<div className="ps-modal-actions">
 				<Button variant="tertiary" onClick={ onCancel }>
@@ -77,7 +71,7 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 					variant="primary"
 					isDestructive
 					isBusy={ isDeleting }
-					disabled={ isDeleting || isImpactLoading || hasImpactError }
+					disabled={ isDeleting || usage.isLoading || usage.hasError }
 					onClick={ onConfirm }
 				>
 					{ isSingle
@@ -96,11 +90,9 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 const SingleImpact = ( {
 	item,
 	sets,
-	productCount,
 }: {
 	item: SpecificationItem;
 	sets: string[];
-	productCount: number;
 } ) => {
 	return (
 		<>
@@ -135,22 +127,8 @@ const SingleImpact = ( {
 					) ) }
 				</ul>
 			) }
-			<p>
-				<b>
-					{ sprintf(
-						/* translators: %d: number of products holding this value. */
-						_n(
-							'%d product has a stored value.',
-							'%d products have a stored value.',
-							productCount,
-							'product-specifications'
-						),
-						productCount
-					) }
-				</b>
-			</p>
-			<Notice status="error" isDismissible={ false }>
-				{ PURGE }
+			<Notice status="warning" isDismissible={ false }>
+				{ VALUES_KEPT }
 			</Notice>
 		</>
 	);
@@ -159,11 +137,9 @@ const SingleImpact = ( {
 const CombinedImpact = ( {
 	items,
 	usage,
-	productUsage,
 }: {
 	items: SpecificationItem[];
 	usage: ReturnType< typeof useSetUsage >;
-	productUsage: ReturnType< typeof useProductValueUsage >;
 } ) => (
 	<>
 		<table className="ps-impact-table">
@@ -171,7 +147,6 @@ const CombinedImpact = ( {
 				<tr>
 					<th>{ __( 'Specification', 'product-specifications' ) }</th>
 					<th>{ __( 'Sets', 'product-specifications' ) }</th>
-					<th>{ __( 'Products', 'product-specifications' ) }</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -180,9 +155,6 @@ const CombinedImpact = ( {
 						<td>{ item.name }</td>
 						<td>
 							{ usage.bySpecification[ item.id ]?.length ?? 0 }
-						</td>
-						<td>
-							{ productUsage.bySpecification[ item.id ] ?? 0 }
 						</td>
 					</tr>
 				) ) }
@@ -204,17 +176,11 @@ const CombinedImpact = ( {
 							) }
 						</b>
 					</td>
-					<td>
-						<b>{ productUsage.total }</b>
-					</td>
 				</tr>
 			</tbody>
 		</table>
-		<Notice status="error" isDismissible={ false }>
-			{ __(
-				'Deleting also removes these specifications’ values from every product. This cannot be undone, and it is not optional: a deleted slug becomes free, and a specification created later with the same name would silently inherit those values.',
-				'product-specifications'
-			) }
+		<Notice status="warning" isDismissible={ false }>
+			{ VALUES_KEPT_PLURAL }
 		</Notice>
 	</>
 );

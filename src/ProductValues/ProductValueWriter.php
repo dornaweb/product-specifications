@@ -80,22 +80,6 @@ final class ProductValueWriter
         return $newValues;
     }
 
-    public function removeSpecification(string $specificationKey): bool
-    {
-        foreach ($this->repository->idsContaining($specificationKey) as $postId) {
-            $old = $this->repository->read($postId);
-            $new = $old->without($specificationKey);
-
-            if (!$this->repository->replace($postId, $new)) {
-                return false;
-            }
-
-            do_action(self::SAVED_ACTION, $postId, $new->values(), $old->values());
-        }
-
-        return true;
-    }
-
     /**
      * @param array<string, mixed> $values
      */
@@ -165,11 +149,14 @@ final class ProductValueWriter
                 continue;
             }
 
-            $definition = $this->registeredDefinition($key);
+            $definition = $this->definitions->findByKey($key);
 
-            // Orphans must survive a full replace. They may belong to a type
-            // extension that is temporarily inactive or a previously used set.
             if ($definition === null) {
+                continue;
+            }
+
+            // The type's plugin may only be inactive, and reactivating it restores the value.
+            if (!$this->types->has($definition->typeId())) {
                 $values[$key] = $value;
                 continue;
             }

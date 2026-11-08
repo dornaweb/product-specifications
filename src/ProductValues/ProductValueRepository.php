@@ -16,15 +16,8 @@ interface ProductValueRepository
 
     public function assignSet(int $postId, ?string $setSlug): bool;
 
-    public function countContaining(string $specificationKey): int;
-
     /**
      * @param list<string> $values
      */
     public function countUsing(string $specificationKey, array $values): int;
-
-    /**
-     * @return list<int>
-     */
-    public function idsContaining(string $specificationKey): array;
 }

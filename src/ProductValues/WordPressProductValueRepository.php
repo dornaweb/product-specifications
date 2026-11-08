@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ProductValues;
 
+use wpdb;
+
 final class WordPressProductValueRepository implements ProductValueRepository
 {
     public const VALUES_META_KEY = 'product_specifications_values';
@@ -63,19 +65,20 @@ final class WordPressProductValueRepository implements ProductValueRepository
         return update_post_meta($postId, self::SET_META_KEY, $setSlug) !== false;
     }
 
-    public function countContaining(string $specificationKey): int
-    {
-        return count($this->idsContaining($specificationKey));
-    }
-
+    /**
+     * The query narrows the products to those whose stored map contains the key's
+     * serialized form, which a value can also produce, so each match is confirmed
+     * against the decoded map.
+     */
     public function countUsing(string $specificationKey, array $values): int
     {
         $count = 0;
 
-        foreach ($this->postIdsWithValues() as $postId) {
-            $stored = $this->read($postId)->values()[$specificationKey] ?? null;
+        foreach ($this->storedMapsMentioning($specificationKey) as $stored) {
+            $document = ProductValueDocument::fromStorage(maybe_unserialize($stored));
+            $value = $document->values()[$specificationKey] ?? null;
 
-            if (is_scalar($stored) && in_array((string) $stored, $values, true)) {
+            if (is_scalar($value) && in_array((string) $value, $values, true)) {
                 ++$count;
             }
         }
@@ -83,30 +86,39 @@ final class WordPressProductValueRepository implements ProductValueRepository
         return $count;
     }
 
-    public function idsContaining(string $specificationKey): array
-    {
-        return array_values(array_filter(
-            $this->postIdsWithValues(),
-            fn (int $postId): bool => $this->read($postId)->has($specificationKey)
-        ));
-    }
-
     /**
-     * @return list<int>
+     * @return list<string>
      */
-    private function postIdsWithValues(): array
+    private function storedMapsMentioning(string $specificationKey): array
     {
-        $ids = get_posts(
-            [
-                'post_type' => ['product', 'product_variation'],
-                'post_status' => 'any',
-                'posts_per_page' => -1,
-                'fields' => 'ids',
-                'meta_key' => self::VALUES_META_KEY,
-                'no_found_rows' => true,
-            ]
-        );
+        /** @var wpdb $db */
+        $db = $GLOBALS['wpdb'];
+        $serializedKey = sprintf('s:%d:"%s";', strlen($specificationKey), $specificationKey);
 
-        return array_values(array_map('intval', is_array($ids) ? $ids : []));
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+        $stored = $db->get_col(
+            $db->prepare(
+                'SELECT meta.meta_value
+                 FROM %i AS meta
+                 INNER JOIN %i AS posts ON posts.ID = meta.post_id
+                 WHERE meta.meta_key = %s
+                   AND meta.meta_value LIKE %s
+                   AND posts.post_type IN (%s, %s)
+                   AND posts.post_status NOT IN (%s, %s)',
+                $db->postmeta,
+                $db->posts,
+                self::VALUES_META_KEY,
+                '%' . $db->esc_like($serializedKey) . '%',
+                'product',
+                'product_variation',
+                'trash',
+                'auto-draft'
+            )
+        );
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
+
+        return array_values(array_filter($stored, 'is_string'));
     }
 }

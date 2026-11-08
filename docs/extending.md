@@ -79,6 +79,11 @@ configured in the admin.
 Bulk writes, such as an import or a data upgrade, do not fire it per product; they fire
 `rebuild` once at the end. Anything derived from values listens to both.
 
+Deleting a specification does not touch products. Its values stay in each product's
+stored map until that product is next saved. The storefront, the functions above and
+exports never show them. Anything derived from values ignores a key that has no
+specification.
+
 ## Import and export
 
 | Hook | Type | Arguments |

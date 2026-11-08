@@ -64,14 +64,6 @@ final class ProductValueDocument
         return array_key_exists($key, $this->values);
     }
 
-    public function without(string $key): self
-    {
-        $values = $this->values;
-        unset($values[$key]);
-
-        return new self($values);
-    }
-
     /**
      * @return array{schema_version: int, values: array<string, mixed>}
      */

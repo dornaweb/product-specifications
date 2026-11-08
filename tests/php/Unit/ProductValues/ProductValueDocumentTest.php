@@ -27,12 +27,9 @@ final class ProductValueDocumentTest extends TestCase
         );
     }
 
-    public function testNullIsPresentUntilTheKeyIsRemoved(): void
+    public function testANullValueIsStillPresent(): void
     {
-        $document = ProductValueDocument::fromValues(['warranty-a1b2c3d4' => null]);
-
-        self::assertTrue($document->has('warranty-a1b2c3d4'));
-        self::assertFalse($document->without('warranty-a1b2c3d4')->has('warranty-a1b2c3d4'));
+        self::assertTrue(ProductValueDocument::fromValues(['warranty-a1b2c3d4' => null])->has('warranty-a1b2c3d4'));
     }
 
     /**
