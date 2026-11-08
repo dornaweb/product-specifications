@@ -26,6 +26,11 @@ interface SpecificationType
     public function value(WC_Product $product, mixed $stored): mixed;
 
     /**
+     * The value as unescaped text without markup, for places that cannot take HTML.
+     */
+    public function plainValue(mixed $value, SpecificationOptions $options): string;
+
+    /**
      * Output ready. The type escapes everything it returns.
      */
     public function render(mixed $value, SpecificationOptions $options): string;

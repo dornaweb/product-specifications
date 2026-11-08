@@ -71,11 +71,16 @@ final class YesNoDisplay
         ];
     }
 
-    public function render(bool $value): string
+    public function label(bool $value): string
     {
-        $label = $value
+        return $value
             ? ($this->yesLabel ?? __('Yes', 'product-specifications'))
             : ($this->noLabel ?? __('No', 'product-specifications'));
+    }
+
+    public function render(bool $value): string
+    {
+        $label = $this->label($value);
 
         if ($this->asText) {
             return esc_html($label);

@@ -68,7 +68,9 @@ interface SpecificationType
 
     public function value(WC_Product $product, mixed $stored): mixed;
 
-    public function render(mixed $value): string;
+    public function plainValue(mixed $value, SpecificationOptions $options): string;
+
+    public function render(mixed $value, SpecificationOptions $options): string;
 }
 ```
 
@@ -78,6 +80,7 @@ interface SpecificationType
 | `optionsSchema()` | The REST endpoint, to validate a specification's configuration payload |
 | `sanitize()` | The save lifecycle, on the way into the value map. Returning `null` means an empty value |
 | `value()` | Every read. Returns the value to present. The default implementation returns `$stored` |
+| `plainValue()` | Anything that cannot take markup: comparison exports, structured data, search. Unescaped text, such as "Yes" for a yes-or-no value shown as an icon. Added 2026-11-08 (PS-098) |
 | `render()` | Frontend rendering, to format a value. It does not emit markup around the value |
 
 ### What a type declares on the client

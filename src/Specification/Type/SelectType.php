@@ -45,8 +45,13 @@ final class SelectType implements SpecificationType
         return is_scalar($stored) ? (string) $stored : null;
     }
 
+    public function plainValue(mixed $value, SpecificationOptions $options): string
+    {
+        return is_scalar($value) ? (string) $value : '';
+    }
+
     public function render(mixed $value, SpecificationOptions $options): string
     {
-        return is_scalar($value) ? esc_html((string) $value) : '';
+        return esc_html($this->plainValue($value, $options));
     }
 }

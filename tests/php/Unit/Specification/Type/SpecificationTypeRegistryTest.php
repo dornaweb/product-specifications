@@ -79,6 +79,11 @@ final class SpecificationTypeRegistryTest extends TestCase
                 return $stored;
             }
 
+            public function plainValue(mixed $value, SpecificationOptions $options): string
+            {
+                return '';
+            }
+
             public function render(mixed $value, SpecificationOptions $options): string
             {
                 return '';

@@ -39,6 +39,13 @@ final class TrueFalseType implements SpecificationType
         return $this->asBoolean($stored);
     }
 
+    public function plainValue(mixed $value, SpecificationOptions $options): string
+    {
+        $boolean = $this->asBoolean($value);
+
+        return $boolean === null ? '' : YesNoDisplay::fromOptions($options)->label($boolean);
+    }
+
     public function render(mixed $value, SpecificationOptions $options): string
     {
         $boolean = $this->asBoolean($value);
