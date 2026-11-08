@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Admin;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
-use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Migration\MigrationNotice;
 use Amiut\ProductSpecs\ImportExport\ExportDownload;
 use Amiut\ProductSpecs\ImportExport\Import\ImportRestController;
 use Amiut\ProductSpecs\Migration\MigrationRestController;
-use Amiut\ProductSpecs\Settings\SettingsRestController;
 use Amiut\ProductSpecs\Migration\MigrationState;
 
 final class Assets
@@ -19,7 +17,7 @@ final class Assets
 
     public function __construct(
         private readonly AssetHelper $assetHelper,
-        private readonly Capabilities $capabilities,
+        private readonly AdminScreens $screens,
         private readonly MigrationState $migration,
         private readonly MigrationNotice $migrationNotice,
         private readonly ExportDownload $exportDownload
@@ -43,10 +41,14 @@ final class Assets
             self::HANDLE_ADMIN_INIT_SCRIPT,
             'productSpecificationsAdmin',
             [
-                'capability' => $this->capabilities->manageSpecifications(),
-                'settingsCapability' => current_user_can(SettingsRestController::READ_CAPABILITY)
-                    ? SettingsRestController::READ_CAPABILITY
-                    : $this->capabilities->manageSpecifications(),
+                'pages' => array_map(
+                    static fn (Page $page): array => [
+                        'path' => $page->path(),
+                        'title' => $page->title(),
+                        'capability' => $page->capability(),
+                    ],
+                    $this->screens->pages()
+                ),
                 'settingsEndpoint' => rest_url('product-specifications/v2/settings'),
                 'migrationRequired' => $this->migration->requiresMigration(),
                 'migrationEndpoint' => rest_url(MigrationRestController::NAMESPACE . MigrationRestController::ROUTE),

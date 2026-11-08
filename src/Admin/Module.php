@@ -18,15 +18,16 @@ final class Module implements ServiceModule, ExecutableModule
 {
     use ModuleClassNameIdTrait;
 
-    public const PAGE_ID = 'product-specifications';
-    public const ROOT_PATH = '/product-specifications';
-
     public function services(): array
     {
         return [
+            AdminScreens::class => static fn (ContainerInterface $container) => new AdminScreens(
+                $container->get(Capabilities::class),
+                $container->get(MigrationState::class)
+            ),
             Assets::class => static fn (ContainerInterface $container) => new Assets(
                 $container->get(AssetHelper::class),
-                $container->get(Capabilities::class),
+                $container->get(AdminScreens::class),
                 $container->get(MigrationState::class),
                 $container->get(MigrationNotice::class),
                 $container->get(ExportDownload::class)
@@ -37,10 +38,12 @@ final class Module implements ServiceModule, ExecutableModule
 
     public function run(ContainerInterface $container): bool
     {
+        // Ahead of WooCommerce's admin app (15), so the routes exist when the app first
+        // renders. A route added later renders WooCommerce's "Not allowed" page meanwhile.
         add_action(
             'admin_enqueue_scripts',
             [$container->get(Assets::class), 'load'],
-            30
+            10
         );
 
         add_action(
@@ -55,17 +58,10 @@ final class Module implements ServiceModule, ExecutableModule
 
     private function registerMenuPages(ContainerInterface $container): void
     {
-        $capability = $container->get(Capabilities::class)->manageSpecifications();
+        $registry = $container->get(PageRegistry::class);
 
-        $container->get(PageRegistry::class)->register(
-            new Page(
-                self::PAGE_ID,
-                __('Product Specifications', 'product-specifications'),
-                self::ROOT_PATH,
-                'woocommerce',
-                $capability,
-                50
-            )
-        );
+        foreach ($container->get(AdminScreens::class)->pages() as $page) {
+            $registry->register($page);
+        }
     }
 }

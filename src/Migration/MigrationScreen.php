@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration;
 
-use Amiut\ProductSpecs\Admin\Module as AdminModule;
+use Amiut\ProductSpecs\Admin\AdminScreens;
 
 final class MigrationScreen
 {
-    public const PATH = AdminModule::ROOT_PATH . '/migration';
+    public const PATH = AdminScreens::ROOT_PATH . '/migration';
     private const ADMIN_PAGE = 'wc-admin';
 
     public function url(): string

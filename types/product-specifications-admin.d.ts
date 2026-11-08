@@ -1,8 +1,11 @@
 declare global {
 	interface Window {
 		productSpecificationsAdmin?: {
-			capability: string;
-			settingsCapability: string;
+			pages: {
+				path: string;
+				title: string;
+				capability: string;
+			}[];
 			settingsEndpoint: string;
 			restNonce: string;
 			migrationRequired: boolean;

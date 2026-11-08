@@ -1,5 +1,4 @@
-import { lazy } from 'react';
-import { __ } from '@wordpress/i18n';
+import { lazy, type ComponentType } from 'react';
 import { registerAdminPages } from './shared/platform';
 import {
 	ADMIN_ROOT,
@@ -13,9 +12,6 @@ import {
 } from './shared/paths';
 
 import './shared/ui/styles.scss';
-
-const MIN_CAPABILITY =
-	window.productSpecificationsAdmin?.capability ?? 'manage_woocommerce';
 
 // Page containers registered with the admin shell must be lazy-loaded.
 // Do not statically import page containers.
@@ -55,68 +51,31 @@ const ImportExportPage = lazy(
 	() => import( /* webpackChunkName: "import-export" */ './ImportExport' )
 );
 
-registerAdminPages( [
-	{
-		container: MainPage,
-		path: ADMIN_ROOT,
-		breadcrumbs: [
-			__( 'Product Specifications', 'product-specifications' ),
-		],
-		capability: MIN_CAPABILITY,
-	},
-	{
-		container: SpecificationSetsPage,
-		path: SPECIFICATION_SETS_PATH,
-		breadcrumbs: [ __( 'Specification Sets', 'product-specifications' ) ],
-		capability: MIN_CAPABILITY,
-	},
-	{
-		container: SpecificationSetEditorPage,
-		path: NEW_SPECIFICATION_SET_PATH,
-		breadcrumbs: [
-			__( 'Product Specifications', 'product-specifications' ),
-		],
-		capability: MIN_CAPABILITY,
-	},
-	{
-		container: SpecificationSetEditorPage,
-		path: EDIT_SPECIFICATION_SET_PATH,
-		breadcrumbs: [
-			__( 'Product Specifications', 'product-specifications' ),
-		],
-		capability: MIN_CAPABILITY,
-	},
-	{
-		container: SpecificationsPage,
-		path: SPECIFICATIONS_PATH,
-		breadcrumbs: [ __( 'Specifications', 'product-specifications' ) ],
-		capability: MIN_CAPABILITY,
-	},
-	{
-		container: ImportExportPage,
-		path: IMPORT_EXPORT_PATH,
-		breadcrumbs: [ __( 'Import / Export', 'product-specifications' ) ],
-		capability: MIN_CAPABILITY,
-	},
-	{
-		container: SettingsPage,
-		path: SETTINGS_PATH,
-		breadcrumbs: [ __( 'Settings', 'product-specifications' ) ],
-		capability:
-			window.productSpecificationsAdmin?.settingsCapability ??
-			MIN_CAPABILITY,
-	},
-	// Only while there is a migration to run, so the tab disappears with it.
-	...( window.productSpecificationsAdmin?.migrationRequired
-		? [
-				{
-					container: MigrationPage,
-					path: MIGRATION_PATH,
-					breadcrumbs: [
-						__( 'Migration', 'product-specifications' ),
-					],
-					capability: MIN_CAPABILITY,
-				},
-		  ]
-		: [] ),
-] );
+const containers: Record< string, ComponentType > = {
+	[ ADMIN_ROOT ]: MainPage,
+	[ SPECIFICATION_SETS_PATH ]: SpecificationSetsPage,
+	[ NEW_SPECIFICATION_SET_PATH ]: SpecificationSetEditorPage,
+	[ EDIT_SPECIFICATION_SET_PATH ]: SpecificationSetEditorPage,
+	[ SPECIFICATIONS_PATH ]: SpecificationsPage,
+	[ IMPORT_EXPORT_PATH ]: ImportExportPage,
+	[ SETTINGS_PATH ]: SettingsPage,
+	[ MIGRATION_PATH ]: MigrationPage,
+};
+
+// The server decides which screens exist and who may open them.
+registerAdminPages(
+	( window.productSpecificationsAdmin?.pages ?? [] ).flatMap( ( screen ) => {
+		const container = containers[ screen.path ];
+
+		return container
+			? [
+					{
+						container,
+						path: screen.path,
+						breadcrumbs: [ screen.title ],
+						capability: screen.capability,
+					},
+			  ]
+			: [];
+	} )
+);

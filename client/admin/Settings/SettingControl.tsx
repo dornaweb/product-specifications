@@ -41,6 +41,10 @@ const valueLabel = (
 			.join( ', ' );
 	}
 
+	if ( value === '' ) {
+		return __( 'empty', 'product-specifications' );
+	}
+
 	return field.options.length > 0
 		? optionLabel( field.options, String( value ) )
 		: String( value );

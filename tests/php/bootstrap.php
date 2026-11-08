@@ -157,6 +157,13 @@ if (!function_exists('do_action')) {
     }
 }
 
+if (!function_exists('current_user_can')) {
+    function current_user_can(string $capability, mixed ...$args): bool
+    {
+        return in_array($capability, $GLOBALS['wp_test_user_capabilities'] ?? [], true);
+    }
+}
+
 if (!function_exists('register_taxonomy')) {
     /**
      * @param array<string, mixed> $args
