@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Migration;
 
 use Amiut\ProductSpecs\Capability\Capabilities;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
 
 final class MigrationNotice
 {

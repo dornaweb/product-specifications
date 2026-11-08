@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ImportExport;
 
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use RuntimeException;
 
 /**

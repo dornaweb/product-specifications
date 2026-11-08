@@ -62,6 +62,34 @@ final class SpecificationDefinitionNormalizerTest extends TestCase
         );
     }
 
+    public function testAChoiceListBecomesTheOptionsMap(): void
+    {
+        self::assertSame(
+            ['values' => ['6.1"', 'R&D']],
+            (new SpecificationDefinitionNormalizer())->options([0 => '6.1&quot;', 3 => 'R&amp;D'])
+        );
+    }
+
+    /**
+     * @return array<string, array{mixed}>
+     */
+    public static function storedOptionsKeptAsTheyAre(): array
+    {
+        return [
+            'an options map' => [['values' => ['6.1"']]],
+            'no options' => [''],
+            'an empty list' => [[]],
+        ];
+    }
+
+    /**
+     * @dataProvider storedOptionsKeptAsTheyAre
+     */
+    public function testStoredOptionsThatAreNotAChoiceListAreKept(mixed $stored): void
+    {
+        self::assertSame($stored, (new SpecificationDefinitionNormalizer())->options($stored));
+    }
+
     public function testADefaultEncodedDifferentlyFromItsChoiceStillMatchesIt(): void
     {
         $normalizer = new SpecificationDefinitionNormalizer();

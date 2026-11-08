@@ -1,6 +1,6 @@
 declare global {
 	interface Window {
-		dwspecsAdmin?: {
+		productSpecificationsAdmin?: {
 			capability: string;
 			settingsCapability: string;
 			settingsEndpoint: string;

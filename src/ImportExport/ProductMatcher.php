@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ImportExport;
 
-use Amiut\ProductSpecs\Slug\SlugLookup;
 use WP_Post;
 
 /**
@@ -56,8 +55,36 @@ final class ProductMatcher implements ObjectMatcher
         return $sku !== '' ? sprintf('SKU %s', $sku) : urldecode(Shape::string($object, 'slug'));
     }
 
+    /**
+     * A product slug can hold characters sanitize_title() strips, such as the zero-width
+     * non-joiner common in Persian. get_page_by_path() sanitizes before it looks up, so a
+     * slug like that is looked up as stored when it finds nothing.
+     */
     private function bySlug(string $slug): ?int
     {
-        return SlugLookup::post($slug, self::TYPE)?->ID;
+        $post = get_page_by_path($slug, 'OBJECT', self::TYPE);
+
+        if ($post instanceof WP_Post) {
+            return $post->ID;
+        }
+
+        if (sanitize_title($slug) === $slug) {
+            return null;
+        }
+
+        /** @var \wpdb $wpdb */
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- No WordPress API looks a post up by its slug unsanitized.
+        $postId = $wpdb->get_var(
+            $wpdb->prepare(
+                'SELECT ID FROM %i WHERE post_type = %s AND post_name = %s LIMIT 1',
+                $wpdb->posts,
+                self::TYPE,
+                $slug
+            )
+        );
+
+        return is_numeric($postId) ? (int) $postId : null;
     }
 }

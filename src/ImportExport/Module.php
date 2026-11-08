@@ -14,11 +14,12 @@ use Amiut\ProductSpecs\ImportExport\Section\SetsSection;
 use Amiut\ProductSpecs\ImportExport\Section\SpecificationsSection;
 use Amiut\ProductSpecs\ImportExport\Section\ValuesSection;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -47,6 +48,7 @@ final class Module implements ServiceModule, ExecutableModule
             ),
             ValuesSection::class => static fn (ContainerInterface $container) => new ValuesSection(
                 $container->get(ProductValueRepository::class),
+                $container->get(ProductValueWriter::class),
                 $container->get(SpecificationDefinitionRepository::class),
                 $container->get(SpecificationSetRepository::class),
                 $container->get(SpecificationTypeRegistry::class),

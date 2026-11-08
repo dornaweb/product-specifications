@@ -18,7 +18,6 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -32,6 +31,9 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
+            MigrationState::class => static fn (ContainerInterface $container) => new MigrationState(
+                $container->get(DataVersionRepository::class)
+            ),
             MigrationRunRepository::class => static fn () => new MigrationRunRepository(),
             SpecificationDefinitionsStep::class => static fn () => new SpecificationDefinitionsStep(
                 new SpecificationDefinitionNormalizer()

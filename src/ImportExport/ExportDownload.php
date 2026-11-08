@@ -6,7 +6,7 @@ namespace Amiut\ProductSpecs\ImportExport;
 
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\ImportExport\Section\ValuesSection;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 
 final class ExportDownload
 {

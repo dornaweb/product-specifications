@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\ProductValues;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
-use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -23,9 +22,9 @@ final class Module implements ServiceModule, ExecutableModule
     {
         return [
             ProductValueRepository::class => static fn () => new WordPressProductValueRepository(),
-            ProductValueSaveService::class => static fn (
+            ProductValueWriter::class => static fn (
                 ContainerInterface $container
-            ) => new ProductValueSaveService(
+            ) => new ProductValueWriter(
                 $container->get(ProductValueRepository::class),
                 $container->get(SpecificationDefinitionRepository::class),
                 $container->get(SpecificationTypeRegistry::class),
@@ -35,21 +34,7 @@ final class Module implements ServiceModule, ExecutableModule
                 ContainerInterface $container
             ) => new ProductValuesRestController(
                 $container->get(ProductValueRepository::class),
-                $container->get(ProductValueSaveService::class)
-            ),
-            DeletionImpactRestController::class => static fn (
-                ContainerInterface $container
-            ) => new DeletionImpactRestController(
-                $container->get(ProductValueRepository::class),
-                $container->get(SpecificationDefinitionRepository::class),
-                $container->get(Capabilities::class)
-            ),
-            SpecificationDeletionService::class => static fn (
-                ContainerInterface $container
-            ) => new SpecificationDeletionService(
-                $container->get(SpecificationDefinitionRepository::class),
-                $container->get(SpecificationSetRepository::class),
-                $container->get(ProductValueRepository::class)
+                $container->get(ProductValueWriter::class)
             ),
             ProductValuesMetabox::class => static fn (ContainerInterface $container) => new ProductValuesMetabox(
                 $container->get(MigrationState::class)
@@ -75,11 +60,8 @@ final class Module implements ServiceModule, ExecutableModule
             'rest_api_init',
             static function () use ($container): void {
                 $container->get(ProductValuesRestController::class)->registerRoutes();
-                $container->get(DeletionImpactRestController::class)->registerRoutes();
             }
         );
-
-        $container->get(SpecificationDeletionService::class)->register();
 
         return true;
     }

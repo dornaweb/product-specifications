@@ -13,13 +13,14 @@ import { useSpecificationCount } from '../Specifications/hooks/useSpecificationC
 import { fields, createActions } from './fields';
 import type { SpecificationSetItem } from './fields';
 import DeleteDialog from './components/DeleteDialog';
-
-const CREATE_PATH = '/dwps-product-specifications/specification-set/new';
-const LIBRARY_PATH = '/dwps-product-specifications/specifications';
+import {
+	NEW_SPECIFICATION_SET_PATH,
+	SPECIFICATIONS_PATH,
+} from '../shared/paths';
 
 const goToCreate = ( event: React.MouseEvent ) => {
 	event.preventDefault();
-	goToAdminPath( CREATE_PATH );
+	goToAdminPath( NEW_SPECIFICATION_SET_PATH );
 };
 
 const EmptyCollection = ( {
@@ -94,10 +95,10 @@ const FirstRun = ( { createButton }: { createButton: JSX.Element } ) => (
 				<Button
 					variant="primary"
 					icon={ plus }
-					href={ adminPath( LIBRARY_PATH ) }
+					href={ adminPath( SPECIFICATIONS_PATH ) }
 					onClick={ ( event: React.MouseEvent ) => {
 						event.preventDefault();
-						goToAdminPath( LIBRARY_PATH );
+						goToAdminPath( SPECIFICATIONS_PATH );
 					} }
 				>
 					{ __(
@@ -154,7 +155,7 @@ const SpecificationSetsPage = () => {
 		<Button
 			variant="primary"
 			icon={ plus }
-			href={ adminPath( CREATE_PATH ) }
+			href={ adminPath( NEW_SPECIFICATION_SET_PATH ) }
 			onClick={ goToCreate }
 		>
 			{ __( 'Add set', 'product-specifications' ) }
@@ -182,7 +183,7 @@ const SpecificationSetsPage = () => {
 					createButton={
 						<Button
 							variant="tertiary"
-							href={ adminPath( CREATE_PATH ) }
+							href={ adminPath( NEW_SPECIFICATION_SET_PATH ) }
 							onClick={ goToCreate }
 						>
 							{ __(

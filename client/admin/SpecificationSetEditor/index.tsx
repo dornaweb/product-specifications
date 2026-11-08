@@ -11,8 +11,7 @@ import EditorTabs from './components/EditorTabs';
 import { useSpecificationSetEditor } from './hooks/useSpecificationSetEditor';
 
 import './styles.scss';
-
-const LIST_PATH = '/dwps-product-specifications/specification-sets';
+import { SPECIFICATION_SETS_PATH } from '../shared/paths';
 
 type Editor = ReturnType< typeof useSpecificationSetEditor >;
 
@@ -115,8 +114,9 @@ const SpecificationSetEditor = () => {
 								'Specification sets',
 								'product-specifications'
 							),
-							path: LIST_PATH,
-							onNavigate: () => requestNavigation( LIST_PATH ),
+							path: SPECIFICATION_SETS_PATH,
+							onNavigate: () =>
+								requestNavigation( SPECIFICATION_SETS_PATH ),
 						} }
 						status={
 							editor.hasUnsavedChanges ? (
@@ -134,7 +134,9 @@ const SpecificationSetEditor = () => {
 									variant="tertiary"
 									type="button"
 									onClick={ () =>
-										requestNavigation( LIST_PATH )
+										requestNavigation(
+											SPECIFICATION_SETS_PATH
+										)
 									}
 								>
 									{ __( 'Cancel', 'product-specifications' ) }

@@ -6,7 +6,7 @@ namespace Amiut\ProductSpecs\Block;
 
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
-use Amiut\ProductSpecs\Storefront\SpecificationsTableReader;
+use Amiut\ProductSpecs\Storefront\ProductSpecifications;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -31,7 +31,7 @@ final class Module implements ServiceModule, ExecutableModule
                 );
             },
             ProductSpecificationsBlock::class => static fn (ContainerInterface $container) => new ProductSpecificationsBlock(
-                $container->get(SpecificationsTableReader::class)
+                $container->get(ProductSpecifications::class)
             ),
         ];
     }

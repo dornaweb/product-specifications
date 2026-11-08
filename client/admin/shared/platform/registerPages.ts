@@ -1,5 +1,6 @@
 import { addFilter } from '@wordpress/hooks';
 import type { ComponentType } from 'react';
+import { ADMIN_ROOT } from '../paths';
 
 export interface AdminPage {
 	container: ComponentType;
@@ -15,9 +16,8 @@ interface ShellPage extends AdminPage {
 	wpOpenMenu: string;
 }
 
-const NAMESPACE = 'dwps-product-specifications';
+const NAMESPACE = 'product-specifications';
 const PARENT_MENU = 'toplevel_page_woocommerce';
-const PARENT_PATH = '/dwps-product-specifications';
 
 const registeredPaths = new Set< string >();
 
@@ -37,7 +37,7 @@ export function registerAdminPages( pages: AdminPage[] ): void {
 					...page,
 					isDefault: true,
 					layout: { header: false },
-					navArgs: { parentPath: PARENT_PATH },
+					navArgs: { parentPath: ADMIN_ROOT },
 					wpOpenMenu: PARENT_MENU,
 				} );
 			} );

@@ -29,8 +29,7 @@ import {
 	groupKeyFrom,
 } from '../mapping/specificationSetStructure';
 import { useSpecificationSetEntity } from './useSpecificationSetEntity';
-
-const EDIT_PATH = '/dwps-product-specifications/specification-set/edit';
+import { EDIT_SPECIFICATION_SET_PATH } from '../../shared/paths';
 
 export type SpecificationSetEditorMode = 'create' | 'edit';
 
@@ -188,7 +187,7 @@ function getLoadErrorMessage( error: unknown ): string {
 export function useSpecificationSetEditor(): SpecificationSetEditorData {
 	const query = useAdminQuery();
 	const mode: SpecificationSetEditorMode =
-		currentPath() === EDIT_PATH ? 'edit' : 'create';
+		currentPath() === EDIT_SPECIFICATION_SET_PATH ? 'edit' : 'create';
 	const requestedPostId = mode === 'edit' ? parsePostId( query.id ) : null;
 	const { postId, general, structure, hasUnsavedChanges, isSaving, notice } =
 		useSelect( ( select ) => {
@@ -319,9 +318,12 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 			// navigation has just persisted.
 			if ( mode === 'create' ) {
 				initializedRouteKey.current = `edit:${ savedRecord.id }`;
-				discardUnsavedChangesAndGoToAdminPath( EDIT_PATH, {
-					id: savedRecord.id,
-				} );
+				discardUnsavedChangesAndGoToAdminPath(
+					EDIT_SPECIFICATION_SET_PATH,
+					{
+						id: savedRecord.id,
+					}
+				);
 			}
 		} catch ( error ) {
 			failSave( {

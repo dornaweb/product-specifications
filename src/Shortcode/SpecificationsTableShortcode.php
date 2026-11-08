@@ -6,7 +6,7 @@ namespace Amiut\ProductSpecs\Shortcode;
 
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 
-final class SpecificationsTable
+final class SpecificationsTableShortcode
 {
     public const KEY = 'specs-table';
 

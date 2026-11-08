@@ -84,6 +84,19 @@ final class ImportPlan
         return array_keys($this->outcomes);
     }
 
+    public function writesAnything(): bool
+    {
+        foreach ($this->sectionKeys() as $sectionKey) {
+            foreach ($this->outcomes($sectionKey) as $outcome) {
+                if ($outcome->writes()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public function count(): int
     {
         return array_sum(array_map('count', $this->outcomes));

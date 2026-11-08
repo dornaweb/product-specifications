@@ -48,21 +48,6 @@ final class SpecificationDefinitionMapperTest extends TestCase
         static::assertSame(TextType::ID, $specification->typeId());
     }
 
-    public function testAStoredChoiceListIsWrittenBackAsTheMap(): void
-    {
-        $GLOBALS['wp_test_term_meta'][9] = [
-            'attr_type' => 'select',
-            'attr_values' => ['5.5"', '6.1"'],
-        ];
-
-        $specification = $this->mapper->fromTerm($this->term(9, 'Screen size', 'screen-size-9f3a2b71'));
-
-        static::assertSame(
-            ['values' => ['5.5"', '6.1"']],
-            $this->mapper->termMeta($specification)['attr_values']
-        );
-    }
-
     public function testInsertCarriesTheSlugAndUpdateNeverDoes(): void
     {
         $specification = $this->mapper->fromTerm($this->term(10, 'Screen size', 'screen-size-9f3a2b71'));

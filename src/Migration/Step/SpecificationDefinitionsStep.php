@@ -68,7 +68,7 @@ final class SpecificationDefinitionsStep implements MigrationStep
 
         $normalized = $this->normalized($stored);
 
-        $metaKeys = ['type' => 'attr_type', 'choices' => 'attr_values', 'default' => 'attr_default'];
+        $metaKeys = ['type' => 'attr_type', 'options' => 'attr_values', 'default' => 'attr_default'];
 
         foreach ($metaKeys as $field => $metaKey) {
             if ($normalized[$field] !== $stored[$field]) {
@@ -86,7 +86,7 @@ final class SpecificationDefinitionsStep implements MigrationStep
     }
 
     /**
-     * @return array{type: string, choices: mixed, default: mixed, slug: string}|null
+     * @return array{type: string, options: mixed, default: mixed, slug: string}|null
      */
     private function stored(int $termId): ?array
     {
@@ -100,26 +100,26 @@ final class SpecificationDefinitionsStep implements MigrationStep
 
         return [
             'type' => is_scalar($type) ? (string) $type : '',
-            'choices' => get_term_meta($termId, 'attr_values', true),
+            'options' => get_term_meta($termId, 'attr_values', true),
             'default' => get_term_meta($termId, 'attr_default', true),
             'slug' => $term->slug,
         ];
     }
 
     /**
-     * @param array{type: string, choices: mixed, default: mixed, slug: string} $stored
-     * @return array{type: string, choices: mixed, default: mixed, slug: string}
+     * @param array{type: string, options: mixed, default: mixed, slug: string} $stored
+     * @return array{type: string, options: mixed, default: mixed, slug: string}
      */
     private function normalized(array $stored): array
     {
         $type = $this->normalizer->typeId($stored['type']);
-        $choices = is_array($stored['choices']) ? $this->normalizer->choices($stored['choices']) : $stored['choices'];
-        $options = SpecificationOptions::fromStorage($choices)->choices();
+        $options = $this->normalizer->options($stored['options']);
+        $choices = SpecificationOptions::fromStorage($options)->choices();
 
         return [
             'type' => $type,
-            'choices' => $choices,
-            'default' => $this->normalizer->defaultValue($type, $stored['default'], $options) ?? '',
+            'options' => $options,
+            'default' => $this->normalizer->defaultValue($type, $stored['default'], $choices) ?? '',
             'slug' => $this->normalizer->slug($stored['slug']),
         ];
     }

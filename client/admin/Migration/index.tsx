@@ -15,14 +15,13 @@ import RunProgress from './components/RunProgress';
 import ScopeSummary from './components/ScopeSummary';
 import { useMigration } from './useMigration';
 import './styles.scss';
-
-const SETS_PATH = '/dwps-product-specifications/specification-sets';
+import { SPECIFICATION_SETS_PATH } from '../shared/paths';
 
 // A full load, not a route change: the Migration tab is registered when the
 // page loads, so only a reload takes it away.
 const leaveForSets = () => {
 	const url = new URL( window.location.href );
-	url.searchParams.set( 'path', SETS_PATH );
+	url.searchParams.set( 'path', SPECIFICATION_SETS_PATH );
 	window.location.assign( url.toString() );
 };
 

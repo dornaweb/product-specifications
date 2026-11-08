@@ -8,7 +8,7 @@ use Amiut\ProductSpecs\Assets\AssetHelper;
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Migration\MigrationNotice;
 use Amiut\ProductSpecs\ImportExport\ExportDownload;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
@@ -17,6 +17,9 @@ use Inpsyde\Modularity\Module\ExecutableModule;
 final class Module implements ServiceModule, ExecutableModule
 {
     use ModuleClassNameIdTrait;
+
+    public const PAGE_ID = 'product-specifications';
+    public const ROOT_PATH = '/product-specifications';
 
     public function services(): array
     {
@@ -56,9 +59,9 @@ final class Module implements ServiceModule, ExecutableModule
 
         $container->get(PageRegistry::class)->register(
             new Page(
-                'dwps-product-specifications',
+                self::PAGE_ID,
                 __('Product Specifications', 'product-specifications'),
-                '/dwps-product-specifications',
+                self::ROOT_PATH,
                 'woocommerce',
                 $capability,
                 50

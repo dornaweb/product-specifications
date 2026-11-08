@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration\Step;
 
+use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\SpecificationSlug;
 use Amiut\ProductSpecs\Specification\Type\SelectType;
 
@@ -18,6 +19,19 @@ final class SpecificationDefinitionNormalizer
     public function typeId(string $stored): string
     {
         return $stored === self::MERGED_INTO_SELECT ? SelectType::ID : $stored;
+    }
+
+    /**
+     * Choices are stored as an integer-keyed list, not necessarily gapless. It becomes
+     * the options map, keyed by option name, that every type reads.
+     */
+    public function options(mixed $stored): mixed
+    {
+        if (!is_array($stored) || $stored === [] || !self::isChoiceList($stored)) {
+            return $stored;
+        }
+
+        return [SpecificationOptions::CHOICES_KEY => array_values($this->choices($stored))];
     }
 
     /**
@@ -55,6 +69,20 @@ final class SpecificationDefinitionNormalizer
         $current = sanitize_title($stored);
 
         return SpecificationSlug::preserved($current !== '' ? $current : $stored)->value();
+    }
+
+    /**
+     * @param array<array-key, mixed> $stored
+     */
+    private static function isChoiceList(array $stored): bool
+    {
+        foreach (array_keys($stored) as $key) {
+            if (!is_int($key)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static function decoded(string $value): string

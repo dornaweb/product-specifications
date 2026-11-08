@@ -21,7 +21,10 @@ use Amiut\ProductSpecs\Migration\Step\SpecificationDefinitionsStep;
 use Amiut\ProductSpecs\Migration\Step\SpecificationSetsStep;
 use Amiut\ProductSpecs\ProductValues\Module as ProductValuesModule;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
+use Amiut\ProductSpecs\Specification\Deletion\DeletionImpactRestController;
+use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
 use Amiut\ProductSpecs\Specification\Module as SpecificationModule;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
@@ -39,7 +42,7 @@ use Amiut\ProductSpecs\SpecificationSet\Rest\SpecificationSetRestField;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPostType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
-use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepositoryImpl;
+use Amiut\ProductSpecs\SpecificationSet\WordPressSpecificationSetRepository;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaDefinition;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaRegistrar;
 use Amiut\ProductSpecs\SpecificationSet\StructureSanitizer;
@@ -47,7 +50,7 @@ use Amiut\ProductSpecs\Tests\Unit\Support\StubContainer;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use Amiut\ProductSpecs\Upgrade\Installer;
 use Amiut\ProductSpecs\Upgrade\LegacyDataProbe;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use Amiut\ProductSpecs\Upgrade\Module as UpgradeModule;
 use PHPUnit\Framework\TestCase;
 
@@ -73,7 +76,7 @@ final class ServiceWiringTest extends TestCase
             StructureSanitizer::class => StructureSanitizer::class,
             StructureMetaRegistrar::class => StructureMetaRegistrar::class,
             SpecificationSetMapper::class => SpecificationSetMapper::class,
-            SpecificationSetRepository::class => SpecificationSetRepositoryImpl::class,
+            SpecificationSetRepository::class => WordPressSpecificationSetRepository::class,
             ProductUsageCounter::class => ProductUsageCounter::class,
             DraftSlug::class => DraftSlug::class,
             SpecificationSetRestField::class => SpecificationSetRestField::class,
@@ -86,6 +89,8 @@ final class ServiceWiringTest extends TestCase
             SpecificationRestField::class => SpecificationRestField::class,
             SpecificationDefinitionMapper::class => SpecificationDefinitionMapper::class,
             SpecificationDefinitionRepository::class => SpecificationDefinitionRepository::class,
+            DeletionImpactRestController::class => DeletionImpactRestController::class,
+            SpecificationDeletionService::class => SpecificationDeletionService::class,
             DataVersionRepository::class => DataVersionRepository::class,
             LegacyDataProbe::class => LegacyDataProbe::class,
             Installer::class => Installer::class,
@@ -103,6 +108,7 @@ final class ServiceWiringTest extends TestCase
             SpecificationSetsStep::class => SpecificationSetsStep::class,
             ProductValuesStep::class => ProductValuesStep::class,
             ProductValueRepository::class => WordPressProductValueRepository::class,
+            ProductValueWriter::class => ProductValueWriter::class,
         ];
     }
 
@@ -119,7 +125,7 @@ final class ServiceWiringTest extends TestCase
             (new MigrationModule())->services(),
             array_intersect_key(
                 (new ProductValuesModule())->services(),
-                [ProductValueRepository::class => true]
+                [ProductValueRepository::class => true, ProductValueWriter::class => true]
             )
         );
     }

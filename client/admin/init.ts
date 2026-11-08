@@ -1,11 +1,21 @@
 import { lazy } from 'react';
 import { __ } from '@wordpress/i18n';
-import { MIGRATION_PATH } from './shared/areas';
 import { registerAdminPages } from './shared/platform';
+import {
+	ADMIN_ROOT,
+	EDIT_SPECIFICATION_SET_PATH,
+	IMPORT_EXPORT_PATH,
+	MIGRATION_PATH,
+	NEW_SPECIFICATION_SET_PATH,
+	SETTINGS_PATH,
+	SPECIFICATIONS_PATH,
+	SPECIFICATION_SETS_PATH,
+} from './shared/paths';
 
 import './shared/ui/styles.scss';
 
-const MIN_CAPABILITY = window.dwspecsAdmin?.capability ?? 'manage_woocommerce';
+const MIN_CAPABILITY =
+	window.productSpecificationsAdmin?.capability ?? 'manage_woocommerce';
 
 // Page containers registered with the admin shell must be lazy-loaded.
 // Do not statically import page containers.
@@ -48,7 +58,7 @@ const ImportExportPage = lazy(
 registerAdminPages( [
 	{
 		container: MainPage,
-		path: '/dwps-product-specifications',
+		path: ADMIN_ROOT,
 		breadcrumbs: [
 			__( 'Product Specifications', 'product-specifications' ),
 		],
@@ -56,13 +66,13 @@ registerAdminPages( [
 	},
 	{
 		container: SpecificationSetsPage,
-		path: '/dwps-product-specifications/specification-sets',
+		path: SPECIFICATION_SETS_PATH,
 		breadcrumbs: [ __( 'Specification Sets', 'product-specifications' ) ],
 		capability: MIN_CAPABILITY,
 	},
 	{
 		container: SpecificationSetEditorPage,
-		path: '/dwps-product-specifications/specification-set/new',
+		path: NEW_SPECIFICATION_SET_PATH,
 		breadcrumbs: [
 			__( 'Product Specifications', 'product-specifications' ),
 		],
@@ -70,7 +80,7 @@ registerAdminPages( [
 	},
 	{
 		container: SpecificationSetEditorPage,
-		path: '/dwps-product-specifications/specification-set/edit',
+		path: EDIT_SPECIFICATION_SET_PATH,
 		breadcrumbs: [
 			__( 'Product Specifications', 'product-specifications' ),
 		],
@@ -78,24 +88,26 @@ registerAdminPages( [
 	},
 	{
 		container: SpecificationsPage,
-		path: '/dwps-product-specifications/specifications',
+		path: SPECIFICATIONS_PATH,
 		breadcrumbs: [ __( 'Specifications', 'product-specifications' ) ],
 		capability: MIN_CAPABILITY,
 	},
 	{
 		container: ImportExportPage,
-		path: '/dwps-product-specifications/import-export',
+		path: IMPORT_EXPORT_PATH,
 		breadcrumbs: [ __( 'Import / Export', 'product-specifications' ) ],
 		capability: MIN_CAPABILITY,
 	},
 	{
 		container: SettingsPage,
-		path: '/dwps-product-specifications/settings',
+		path: SETTINGS_PATH,
 		breadcrumbs: [ __( 'Settings', 'product-specifications' ) ],
-		capability: window.dwspecsAdmin?.settingsCapability ?? MIN_CAPABILITY,
+		capability:
+			window.productSpecificationsAdmin?.settingsCapability ??
+			MIN_CAPABILITY,
 	},
 	// Only while there is a migration to run, so the tab disappears with it.
-	...( window.dwspecsAdmin?.migrationRequired
+	...( window.productSpecificationsAdmin?.migrationRequired
 		? [
 				{
 					container: MigrationPage,

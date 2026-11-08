@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration;
 
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\Upgrade\DataVersion;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use RuntimeException;
@@ -12,7 +13,6 @@ use Throwable;
 final class MigrationRunner
 {
     public const CHUNK_SIZE = 100;
-    public const REBUILD_ACTION = 'product_specifications_rebuild';
 
     /**
      * @param list<MigrationStep> $steps In the order they run.
@@ -93,7 +93,7 @@ final class MigrationRunner
         $this->runs->store($run);
 
         if ($run->isComplete()) {
-            do_action(self::REBUILD_ACTION);
+            do_action(ProductValueWriter::REBUILD_ACTION);
         }
 
         return $run;

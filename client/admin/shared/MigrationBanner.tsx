@@ -1,11 +1,11 @@
 import { Notice } from '@wordpress/components';
-import { MIGRATION_PATH } from './areas';
 import { currentPath, goToAdminPath } from './platform';
+import { MIGRATION_PATH } from './paths';
 
 // WooCommerce hides the admin notices WordPress prints on its React pages, so
 // the migration notice is drawn here on every screen of the plugin.
 const MigrationBanner = () => {
-	const notice = window.dwspecsAdmin?.migrationNotice;
+	const notice = window.productSpecificationsAdmin?.migrationNotice;
 
 	if ( ! notice || currentPath() === MIGRATION_PATH ) {
 		return null;

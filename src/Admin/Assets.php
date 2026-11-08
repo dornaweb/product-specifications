@@ -11,7 +11,7 @@ use Amiut\ProductSpecs\ImportExport\ExportDownload;
 use Amiut\ProductSpecs\ImportExport\Import\ImportRestController;
 use Amiut\ProductSpecs\Migration\MigrationRestController;
 use Amiut\ProductSpecs\Settings\SettingsRestController;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 
 final class Assets
 {
@@ -41,7 +41,7 @@ final class Assets
 
         wp_localize_script(
             self::HANDLE_ADMIN_INIT_SCRIPT,
-            'dwspecsAdmin',
+            'productSpecificationsAdmin',
             [
                 'capability' => $this->capabilities->manageSpecifications(),
                 'settingsCapability' => current_user_can(SettingsRestController::READ_CAPABILITY)

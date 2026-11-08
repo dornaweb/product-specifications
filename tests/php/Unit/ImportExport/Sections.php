@@ -57,7 +57,11 @@ final class Sections
         $term->slug = $slug;
         $term->name = $name;
         $GLOBALS['wp_test_terms'][$id] = $term;
-        $GLOBALS['wp_test_term_meta'][$id] = ['attr_type' => $type, 'attr_values' => $choices, 'attr_default' => ''];
+        $GLOBALS['wp_test_term_meta'][$id] = [
+            'attr_type' => $type,
+            'attr_values' => $choices === [] ? [] : ['values' => $choices],
+            'attr_default' => '',
+        ];
     }
 
     private static function definitions(): SpecificationDefinitionRepository

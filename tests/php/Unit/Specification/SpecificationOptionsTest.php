@@ -7,40 +7,26 @@ namespace Amiut\ProductSpecs\Tests\Unit\Specification;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Options are stored as a bare list of choices or as a map, and nothing rewrites
- * a stored value, so both shapes have to keep reading the same. This is the one
- * place that is true.
- */
 final class SpecificationOptionsTest extends TestCase
 {
     /**
      * @return array<string, array{mixed}>
      */
-    public static function equivalentStoredShapes(): array
+    public static function storedChoices(): array
     {
         return [
-            'bare list' => [['5.5"', '6.1"']],
             'map' => [['values' => ['5.5"', '6.1"']]],
-            'list with empty entries' => [['5.5"', '', '6.1"']],
             'map with empty entries' => [['values' => ['5.5"', '', '6.1"']]],
-            'list with gaps in its keys' => [[0 => '5.5"', 2 => '6.1"']],
+            'choices with gaps in their keys' => [['values' => [0 => '5.5"', 2 => '6.1"']]],
         ];
     }
 
     /**
-     * @dataProvider equivalentStoredShapes
+     * @dataProvider storedChoices
      */
-    public function testEveryStoredShapeReadsTheSameChoices(mixed $stored): void
+    public function testStoredChoicesReadAsAGaplessListWithoutEmptyEntries(mixed $stored): void
     {
         static::assertSame(['5.5"', '6.1"'], SpecificationOptions::fromStorage($stored)->choices());
-    }
-
-    public function testAStoredListIsNormalizedToTheMapOnTheWayOut(): void
-    {
-        $options = SpecificationOptions::fromStorage(['5.5"', '6.1"']);
-
-        static::assertSame(['values' => ['5.5"', '6.1"']], $options->toArray());
     }
 
     public function testOptionsBelongingToOtherTypesSurviveUntouched(): void
@@ -60,6 +46,7 @@ final class SpecificationOptionsTest extends TestCase
             'never set' => [''],
             'false' => [false],
             'empty list' => [[]],
+            'list without option names' => [['5.5"', '6.1"']],
         ];
     }
 

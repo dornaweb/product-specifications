@@ -8,7 +8,7 @@ use Amiut\ProductSpecs\Upgrade\DataVersion;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use Amiut\ProductSpecs\Upgrade\Installer;
 use Amiut\ProductSpecs\Upgrade\LegacyDataProbe;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use PHPUnit\Framework\TestCase;
 
 final class InstallerTest extends TestCase

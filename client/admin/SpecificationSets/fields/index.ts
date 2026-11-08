@@ -2,6 +2,7 @@ import { __, sprintf, _n } from '@wordpress/i18n';
 import type { Action, Field, View } from '@wordpress/dataviews';
 import { defaultListView } from '../../shared/ui/listView';
 import { adminPath, goToAdminPath } from '../../shared/platform';
+import { EDIT_SPECIFICATION_SET_PATH } from '../../shared/paths';
 
 export type SpecificationSetStatus = 'publish' | 'draft';
 
@@ -15,8 +16,6 @@ export interface SpecificationSetItem {
 	groups: number;
 	products: number;
 }
-
-const EDIT_PATH = '/dwps-product-specifications/specification-set/edit';
 
 export const STATUS_LABELS: Record< SpecificationSetStatus, string > = {
 	publish: __( 'Published', 'product-specifications' ),
@@ -87,7 +86,7 @@ export const defaultView: View = defaultListView( {
 } );
 
 export function editUrl( id: number ): string {
-	return adminPath( EDIT_PATH, { id } );
+	return adminPath( EDIT_SPECIFICATION_SET_PATH, { id } );
 }
 
 export interface SetActionHandlers {
@@ -111,7 +110,9 @@ export function createActions(
 				const [ item ] = items;
 
 				if ( item ) {
-					goToAdminPath( EDIT_PATH, { id: item.id } );
+					goToAdminPath( EDIT_SPECIFICATION_SET_PATH, {
+						id: item.id,
+					} );
 				}
 			},
 		},

@@ -17,7 +17,7 @@ final class ProductValuesRestController
 
     public function __construct(
         private readonly ProductValueRepository $repository,
-        private readonly ProductValueSaveService $saveService
+        private readonly ProductValueWriter $writer
     ) {
     }
 
@@ -82,7 +82,7 @@ final class ProductValuesRestController
         $setSlug = $set === null ? null : trim($set);
 
         try {
-            $saved = $this->saveService->save($this->requestId($request), $setSlug, $valueMap);
+            $saved = $this->writer->replace($this->requestId($request), $setSlug, $valueMap);
         } catch (RuntimeException $exception) {
             return new WP_Error(
                 'product_specifications_value_save_failed',

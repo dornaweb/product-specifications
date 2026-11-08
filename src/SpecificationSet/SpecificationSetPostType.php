@@ -143,22 +143,6 @@ class SpecificationSetPostType
                 'No Specification Sets found in Trash.',
                 'product-specifications'
             ),
-            'featured_image' => esc_html__(
-                'Specification Set Cover Image',
-                'product-specifications'
-            ),
-            'set_featured_image' => esc_html__(
-                'Set cover image',
-                'product-specifications'
-            ),
-            'remove_featured_image' => esc_html__(
-                'Remove cover image',
-                'product-specifications'
-            ),
-            'use_featured_image' => esc_html__(
-                'Use as cover image',
-                'product-specifications'
-            ),
             'archives' => esc_html__(
                 'Specification Sets archives',
                 'product-specifications'

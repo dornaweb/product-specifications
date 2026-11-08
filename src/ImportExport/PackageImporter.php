@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ImportExport;
 
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
+
 final class PackageImporter
 {
     public function __construct(private readonly SectionRegistry $sections)
@@ -68,6 +70,10 @@ final class PackageImporter
                 );
                 $done++;
             }
+        }
+
+        if ($plan->writesAnything()) {
+            do_action(ProductValueWriter::REBUILD_ACTION);
         }
 
         return null;

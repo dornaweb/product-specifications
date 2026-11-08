@@ -12,7 +12,7 @@ import { addQueryArgs } from '@wordpress/url';
 
 const ExportCard = () => {
 	const [ withValues, setWithValues ] = useState( true );
-	const exportUrl = window.dwspecsAdmin?.exportUrl ?? '';
+	const exportUrl = window.productSpecificationsAdmin?.exportUrl ?? '';
 
 	return (
 		<Card>

@@ -23,26 +23,13 @@ final class SpecificationOptions
         return new self(self::normalizeChoices($map));
     }
 
-    /**
-     * Options are stored either as a bare list of choices or as a map keyed by
-     * the owning type's option names. Both are read; neither is rewritten.
-     */
     public static function fromStorage(mixed $stored): self
     {
         if (!is_array($stored)) {
             return new self([]);
         }
 
-        if ($stored === []) {
-            return new self([]);
-        }
-
-        if (self::isChoiceList($stored)) {
-            return new self([self::CHOICES_KEY => self::stringList($stored)]);
-        }
-
-        /** @var array<string, mixed> $stored */
-        return self::fromMap($stored);
+        return self::fromMap(array_filter($stored, 'is_string', ARRAY_FILTER_USE_KEY));
     }
 
     /**
@@ -64,22 +51,6 @@ final class SpecificationOptions
     public function isEmpty(): bool
     {
         return $this->map === [];
-    }
-
-    /**
-     * A choice list is integer-keyed but not necessarily gapless.
-     *
-     * @param array<array-key, mixed> $stored
-     */
-    private static function isChoiceList(array $stored): bool
-    {
-        foreach (array_keys($stored) as $key) {
-            if (!is_int($key)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

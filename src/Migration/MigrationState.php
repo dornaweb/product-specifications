@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Upgrade;
+namespace Amiut\ProductSpecs\Migration;
+
+use Amiut\ProductSpecs\Upgrade\DataVersion;
+use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 
 final class MigrationState
 {

@@ -14,7 +14,7 @@ final class Settings
             label: 'Specifications tab title',
             description: 'The heading of the specifications tab on a product page. '
                 . 'Leave it empty to use “Specifications”.',
-            default: 'Specifications'
+            default: ''
         )]
         private readonly string $tabTitle,
         #[SettingField(
@@ -48,11 +48,7 @@ final class Settings
 
     public function tabTitle(): string
     {
-        if ($this->tabTitle === '' || $this->tabTitle === 'Specifications') {
-            return __('Specifications', 'product-specifications');
-        }
-
-        return $this->tabTitle;
+        return $this->tabTitle === '' ? __('Specifications', 'product-specifications') : $this->tabTitle;
     }
 
     public function wooCommerceDefaultSpecifications(): string

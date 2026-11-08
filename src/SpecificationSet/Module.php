@@ -32,7 +32,7 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(Capabilities::class)
             ),
             SpecificationSetMapper::class => static fn () => new SpecificationSetMapper(),
-            SpecificationSetRepository::class => static fn (ContainerInterface $container) => new SpecificationSetRepositoryImpl(
+            SpecificationSetRepository::class => static fn (ContainerInterface $container) => new WordPressSpecificationSetRepository(
                 $container->get(SpecificationSetMapper::class)
             ),
             ProductUsageCounter::class => static fn () => new ProductUsageCounter(),

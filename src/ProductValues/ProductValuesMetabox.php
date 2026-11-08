@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ProductValues;
 
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use WP_Post;
 
 final class ProductValuesMetabox

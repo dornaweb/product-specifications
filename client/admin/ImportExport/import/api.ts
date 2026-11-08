@@ -20,7 +20,7 @@ async function request< Payload = ImportPayload >(
 	action = '',
 	body?: FormData
 ): Promise< Payload > {
-	const endpoint = window.dwspecsAdmin?.importEndpoint;
+	const endpoint = window.productSpecificationsAdmin?.importEndpoint;
 
 	if ( ! endpoint ) {
 		throw new ImportRequestError(
@@ -35,7 +35,9 @@ async function request< Payload = ImportPayload >(
 		method,
 		body,
 		credentials: 'same-origin',
-		headers: { 'X-WP-Nonce': window.dwspecsAdmin?.restNonce ?? '' },
+		headers: {
+			'X-WP-Nonce': window.productSpecificationsAdmin?.restNonce ?? '',
+		},
 	} );
 	const payload = ( await response.json() ) as
 		| Payload

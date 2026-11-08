@@ -13,7 +13,7 @@ use Amiut\ProductSpecs\ImportExport\MigrationRequired;
 use Amiut\ProductSpecs\ImportExport\Package;
 use Amiut\ProductSpecs\ImportExport\PackageImporter;
 use Amiut\ProductSpecs\ImportExport\PackageReader;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use RuntimeException;
 use Throwable;
 

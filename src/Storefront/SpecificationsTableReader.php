@@ -9,7 +9,7 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationGroup;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use WC_Product;
 
 final class SpecificationsTableReader

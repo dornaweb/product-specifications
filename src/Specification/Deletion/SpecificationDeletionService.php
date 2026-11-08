@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\ProductValues;
+namespace Amiut\ProductSpecs\Specification\Deletion;
 
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
@@ -14,7 +15,7 @@ final class SpecificationDeletionService
     public function __construct(
         private readonly SpecificationDefinitionRepository $definitions,
         private readonly SpecificationSetRepository $sets,
-        private readonly ProductValueRepository $values
+        private readonly ProductValueWriter $values
     ) {
     }
 
@@ -55,7 +56,7 @@ final class SpecificationDeletionService
             $cleanedSets[] = $set;
         }
 
-        if (!$this->values->purge($definition->key())) {
+        if (!$this->values->removeSpecification($definition->key())) {
             $this->revert($cleanedSets);
             $this->fail(
                 __('its product values could not be cleaned up', 'product-specifications')

@@ -9,7 +9,7 @@ use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;

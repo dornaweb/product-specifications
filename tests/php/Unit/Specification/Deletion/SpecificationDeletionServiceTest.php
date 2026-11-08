@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Tests\Unit\ProductValues;
+namespace Amiut\ProductSpecs\Tests\Unit\Specification\Deletion;
 
 use Amiut\ProductSpecs\ProductValues\ProductValueDocument;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
-use Amiut\ProductSpecs\ProductValues\SpecificationDeletionService;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
+use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
+use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
+use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationGroup;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSet;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetItem;
@@ -102,10 +105,12 @@ final class SpecificationDeletionServiceTest extends TestCase
         SpecificationSetRepository $sets,
         ProductValueRepository $values
     ): SpecificationDeletionService {
+        $definitions = new SpecificationDefinitionRepository(new SpecificationDefinitionMapper());
+
         return new SpecificationDeletionService(
-            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
+            $definitions,
             $sets,
-            $values
+            new ProductValueWriter($values, $definitions, new SpecificationTypeRegistry(new TextType()), $sets)
         );
     }
 
@@ -177,11 +182,18 @@ final class SpecificationDeletionServiceTest extends TestCase
 
             public function read(int $postId): ProductValueDocument
             {
-                return ProductValueDocument::empty();
+                return ProductValueDocument::fromValues(['screen-a1b2c3d4' => '15"', 'weight-a1b2c3d4' => '2 kg']);
             }
 
             public function replace(int $postId, ProductValueDocument $document): bool
             {
+                if (!$this->purgeSucceeds) {
+                    return false;
+                }
+
+                $removed = array_diff_key($this->read($postId)->values(), $document->values());
+                $this->purgedKey = array_key_first($removed);
+
                 return true;
             }
 
@@ -210,15 +222,9 @@ final class SpecificationDeletionServiceTest extends TestCase
                 return 0;
             }
 
-            public function purge(string $specificationKey): bool
+            public function idsContaining(string $specificationKey): array
             {
-                if (!$this->purgeSucceeds) {
-                    return false;
-                }
-
-                $this->purgedKey = $specificationKey;
-
-                return true;
+                return [20];
             }
         };
     }

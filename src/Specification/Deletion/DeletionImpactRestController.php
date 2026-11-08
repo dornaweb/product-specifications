@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\ProductValues;
+namespace Amiut\ProductSpecs\Specification\Deletion;
 
 use Amiut\ProductSpecs\Capability\Capabilities;
+use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\ProductValues\RequestsRouteId;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use WP_Error;
 use WP_REST_Request;

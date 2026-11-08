@@ -9,6 +9,7 @@ use Amiut\ProductSpecs\Migration\MigrationRun;
 use Amiut\ProductSpecs\Migration\MigrationRunner;
 use Amiut\ProductSpecs\Migration\MigrationRunRepository;
 use Amiut\ProductSpecs\Migration\MigrationStep;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -52,7 +53,7 @@ final class MigrationRunnerTest extends TestCase
         self::assertSame([['step' => 'values', 'item' => 3, 'message' => 'broken']], $run->errors());
         self::assertSame(2, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
         self::assertSame(
-            [[MigrationRunner::REBUILD_ACTION, []]],
+            [[ProductValueWriter::REBUILD_ACTION, []]],
             $GLOBALS['wp_test_actions']
         );
     }

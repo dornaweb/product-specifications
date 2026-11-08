@@ -86,7 +86,7 @@ function bootstrap(): void
     try {
         setupAutoLoader();
 
-        plugin()
+        $booted = plugin()
             ->addModule(new Capability\Module())
             ->addModule(new Upgrade\Module())
             ->addModule(new Migration\Module())
@@ -102,6 +102,10 @@ function bootstrap(): void
             ->addModule(new Shortcode\Module())
             ->addModule(new ProductValues\Module())
             ->boot();
+
+        if ($booted) {
+            require_once __DIR__ . '/inc/api.php';
+        }
     } catch (Throwable $throwable) {
         handleFailure($throwable);
     }

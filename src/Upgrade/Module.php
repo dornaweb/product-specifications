@@ -22,9 +22,6 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(DataVersionRepository::class),
                 $container->get(LegacyDataProbe::class)
             ),
-            MigrationState::class => static fn (ContainerInterface $container) => new MigrationState(
-                $container->get(DataVersionRepository::class)
-            ),
         ];
     }
 

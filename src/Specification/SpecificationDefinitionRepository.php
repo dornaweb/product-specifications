@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Specification;
 
-use Amiut\ProductSpecs\Slug\SlugLookup;
 use WP_Error;
 use WP_Term;
 
@@ -27,9 +26,9 @@ final class SpecificationDefinitionRepository
 
     public function findByKey(string $key): ?SpecificationDefinition
     {
-        $term = SlugLookup::term($key, SpecificationTaxonomy::KEY);
+        $term = get_term_by('slug', $key, SpecificationTaxonomy::KEY);
 
-        return $term === null ? null : $this->mapper->fromTerm($term);
+        return $term instanceof WP_Term ? $this->mapper->fromTerm($term) : null;
     }
 
     /**

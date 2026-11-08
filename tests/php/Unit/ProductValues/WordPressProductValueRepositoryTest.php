@@ -28,7 +28,7 @@ final class WordPressProductValueRepositoryTest extends TestCase
         self::assertSame($document->toStorage(), $this->repository->read(10)->toStorage());
     }
 
-    public function testCountAndPurgePreserveUnrelatedValues(): void
+    public function testOnlyProductsHoldingTheSpecificationAreCounted(): void
     {
         $GLOBALS['wp_test_posts'] = [10, 11];
         $this->repository->replace(
@@ -37,12 +37,10 @@ final class WordPressProductValueRepositoryTest extends TestCase
         );
         $this->repository->replace(
             11,
-            ProductValueDocument::fromValues(['screen-a1b2c3d4' => '17'])
+            ProductValueDocument::fromValues(['weight-a1b2c3d4' => '17'])
         );
 
-        self::assertSame(2, $this->repository->countContaining('screen-a1b2c3d4'));
-        self::assertTrue($this->repository->purge('screen-a1b2c3d4'));
-        self::assertSame(['weight-a1b2c3d4' => '2'], $this->repository->read(10)->values());
-        self::assertSame([], $this->repository->read(11)->values());
+        self::assertSame([10], $this->repository->idsContaining('screen-a1b2c3d4'));
+        self::assertSame(1, $this->repository->countContaining('screen-a1b2c3d4'));
     }
 }

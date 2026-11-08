@@ -9,18 +9,18 @@ use Amiut\ProductSpecs\ImportExport\ImportPlan;
 use Amiut\ProductSpecs\ImportExport\ObjectMatcher;
 use Amiut\ProductSpecs\ImportExport\Section;
 use Amiut\ProductSpecs\ImportExport\Shape;
-use Amiut\ProductSpecs\ProductValues\ProductValueDocument;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
+use RuntimeException;
 
 final class ValuesSection implements Section
 {
     public const KEY = 'values';
-    public const SAVED_ACTION = 'product_specifications_values_saved';
 
     private const BATCH = 100;
     private const EXPORTED_STATUSES = ['publish', 'draft', 'pending', 'private', 'future'];
@@ -35,6 +35,7 @@ final class ValuesSection implements Section
      */
     public function __construct(
         private readonly ProductValueRepository $values,
+        private readonly ProductValueWriter $writer,
         private readonly SpecificationDefinitionRepository $definitions,
         private readonly SpecificationSetRepository $sets,
         private readonly SpecificationTypeRegistry $types,
@@ -174,34 +175,18 @@ final class ValuesSection implements Section
             return EntryOutcome::failed($label, __('No product on this store matches it.', 'product-specifications'));
         }
 
-        $old = $this->values->read($objectId)->values();
-        $merged = $old;
-
-        foreach ($this->entryValues($entry) as $key => $value) {
-            $definition = $this->usableDefinition($key, $plan);
-            $sanitized = $definition === null ? null : $this->types->get($definition->typeId())->sanitize($value);
-
-            if ($definition !== null && $sanitized !== null) {
-                $merged[$definition->key()] = $sanitized;
-            }
-        }
-
+        $values = array_filter(
+            $this->entryValues($entry),
+            fn (string $key): bool => $plan->outcomeFor(SpecificationsSection::KEY, $key)?->keepsItem() !== false,
+            ARRAY_FILTER_USE_KEY
+        );
         $requested = $entry['set'] ?? null;
         $set = is_string($requested) ? $this->storedSetSlug($requested) : null;
 
-        if ($set !== null && !$this->values->assignSet($objectId, $set)) {
-            return EntryOutcome::failed($label, __('The product\'s set could not be saved.', 'product-specifications'));
-        }
-
-        if ($merged !== $old) {
-            if (!$this->values->replace($objectId, ProductValueDocument::fromValues($merged))) {
-                return EntryOutcome::failed(
-                    $label,
-                    __('The product\'s values could not be saved.', 'product-specifications')
-                );
-            }
-
-            do_action(self::SAVED_ACTION, $objectId, $merged, $old);
+        try {
+            $this->writer->merge($objectId, $set, $values);
+        } catch (RuntimeException $exception) {
+            return EntryOutcome::failed($label, $exception->getMessage());
         }
 
         return EntryOutcome::update($label);
@@ -290,19 +275,6 @@ final class ValuesSection implements Section
         }
 
         return $changes;
-    }
-
-    private function usableDefinition(string $key, ImportPlan $plan): ?SpecificationDefinition
-    {
-        $outcome = $plan->outcomeFor(SpecificationsSection::KEY, $key);
-
-        if ($outcome !== null && !$outcome->keepsItem()) {
-            return null;
-        }
-
-        $definition = $this->definitions->findByKey($key);
-
-        return $definition !== null && $this->types->has($definition->typeId()) ? $definition : null;
     }
 
     /**

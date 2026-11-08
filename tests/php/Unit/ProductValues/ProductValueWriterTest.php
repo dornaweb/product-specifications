@@ -6,18 +6,20 @@ namespace Amiut\ProductSpecs\Tests\Unit\ProductValues;
 
 use Amiut\ProductSpecs\ProductValues\ProductValueDocument;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
-use Amiut\ProductSpecs\ProductValues\ProductValueSaveService;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
+use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextType;
+use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
-use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepositoryImpl;
+use Amiut\ProductSpecs\SpecificationSet\WordPressSpecificationSetRepository;
 use PHPUnit\Framework\TestCase;
 use WP_Post;
 use WP_Term;
 
-final class ProductValueSaveServiceTest extends TestCase
+final class ProductValueWriterTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -25,6 +27,8 @@ final class ProductValueSaveServiceTest extends TestCase
         $GLOBALS['wp_test_terms'] = [];
         $GLOBALS['wp_test_term_meta'] = [];
         $GLOBALS['wp_test_actions'] = [];
+        $GLOBALS['wp_test_post_meta'] = [];
+        $GLOBALS['wp_test_posts'] = [];
 
         $set = new WP_Post();
         $set->ID = 30;
@@ -50,14 +54,14 @@ final class ProductValueSaveServiceTest extends TestCase
             ProductValueDocument::fromValues(['old-a1b2c3d4' => ['raw']])
         );
         $registry = new SpecificationTypeRegistry(new TextType());
-        $service = new ProductValueSaveService(
+        $service = new ProductValueWriter(
             $repository,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
             $registry,
-            new SpecificationSetRepositoryImpl(new SpecificationSetMapper())
+            new WordPressSpecificationSetRepository(new SpecificationSetMapper())
         );
 
-        $saved = $service->save(
+        $saved = $service->replace(
             20,
             'laptops',
             [
@@ -77,7 +81,7 @@ final class ProductValueSaveServiceTest extends TestCase
         );
         self::assertSame('laptops', $repository->assignedSet(20));
         self::assertSame($saved, $repository->read(20)->values());
-        self::assertSame('product_specifications_values_saved', $GLOBALS['wp_test_actions'][0][0]);
+        self::assertSame(ProductValueWriter::SAVED_ACTION, $GLOBALS['wp_test_actions'][0][0]);
     }
 
     public function testUnassignDeletesTheWholeValueMap(): void
@@ -85,14 +89,14 @@ final class ProductValueSaveServiceTest extends TestCase
         $repository = $this->repository(
             ProductValueDocument::fromValues(['screen-a1b2c3d4' => '15'])
         );
-        $service = new ProductValueSaveService(
+        $service = new ProductValueWriter(
             $repository,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
             new SpecificationTypeRegistry(new TextType()),
-            new SpecificationSetRepositoryImpl(new SpecificationSetMapper())
+            new WordPressSpecificationSetRepository(new SpecificationSetMapper())
         );
 
-        self::assertSame([], $service->save(20, null, ['screen-a1b2c3d4' => '15']));
+        self::assertSame([], $service->replace(20, null, ['screen-a1b2c3d4' => '15']));
         self::assertNull($repository->assignedSet(20));
         self::assertSame([], $repository->read(20)->values());
     }
@@ -116,15 +120,15 @@ final class ProductValueSaveServiceTest extends TestCase
         $registry = new SpecificationTypeRegistry(new TextType());
         $empty = ProductValueDocument::empty();
 
-        $productService = new ProductValueSaveService(
+        $productService = new ProductValueWriter(
             $this->repository($empty),
             $definitions,
             $registry,
             $this->sets()
         );
-        self::assertSame([], $productService->save(20, 'laptops', ['screen-a1b2c3d4' => '   ']));
+        self::assertSame([], $productService->replace(20, 'laptops', ['screen-a1b2c3d4' => '   ']));
 
-        $variationService = new ProductValueSaveService(
+        $variationService = new ProductValueWriter(
             $this->repository($empty),
             $definitions,
             $registry,
@@ -132,7 +136,7 @@ final class ProductValueSaveServiceTest extends TestCase
         );
         self::assertSame(
             ['screen-a1b2c3d4' => null],
-            $variationService->save(21, 'laptops', ['screen-a1b2c3d4' => '   '])
+            $variationService->replace(21, 'laptops', ['screen-a1b2c3d4' => '   '])
         );
     }
 
@@ -182,25 +186,119 @@ final class ProductValueSaveServiceTest extends TestCase
                 return 0;
             }
 
-            public function purge(string $specificationKey): bool
+            public function idsContaining(string $specificationKey): array
             {
-                return true;
+                return [];
             }
         };
-        $service = new ProductValueSaveService(
+        $service = new ProductValueWriter(
             $repository,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
             new SpecificationTypeRegistry(new TextType()),
-            new SpecificationSetRepositoryImpl(new SpecificationSetMapper())
+            new WordPressSpecificationSetRepository(new SpecificationSetMapper())
         );
 
         $this->expectException(\RuntimeException::class);
 
         try {
-            $service->save(20, 'laptops', []);
+            $service->replace(20, 'laptops', []);
         } finally {
             self::assertSame('old-set', $repository->assignedSet(20));
         }
+    }
+
+    public function testAMergeLaysAcceptedValuesOverTheStoredOnesAndAnnouncesTheChange(): void
+    {
+        $this->storeSpecification(10, 'screen-a1b2c3d4', 'text');
+        $this->storeSpecification(11, 'wifi-a1b2c3d4', 'true_false');
+        $GLOBALS['wp_test_post_meta'][20] = [
+            WordPressProductValueRepository::VALUES_META_KEY => [
+                'schema_version' => 1,
+                'values' => ['screen-a1b2c3d4' => '13"', 'colour-a1b2c3d4' => 'Blue'],
+            ],
+        ];
+
+        $merged = $this->writer()->merge(
+            20,
+            'laptops',
+            ['screen-a1b2c3d4' => '16"', 'wifi-a1b2c3d4' => 'maybe', 'ghost-a1b2c3d4' => '1']
+        );
+
+        self::assertSame(['screen-a1b2c3d4' => '16"', 'colour-a1b2c3d4' => 'Blue'], $merged);
+        self::assertSame(
+            'laptops',
+            $GLOBALS['wp_test_post_meta'][20][WordPressProductValueRepository::SET_META_KEY]
+        );
+        self::assertSame(
+            [
+                ProductValueWriter::SAVED_ACTION,
+                [20, $merged, ['screen-a1b2c3d4' => '13"', 'colour-a1b2c3d4' => 'Blue']],
+            ],
+            $GLOBALS['wp_test_actions'][0]
+        );
+    }
+
+    public function testAMergeThatChangesNoValueAnnouncesNothing(): void
+    {
+        $this->storeSpecification(10, 'screen-a1b2c3d4', 'text');
+        $GLOBALS['wp_test_post_meta'][20] = [
+            WordPressProductValueRepository::VALUES_META_KEY => [
+                'schema_version' => 1,
+                'values' => ['screen-a1b2c3d4' => '13"'],
+            ],
+        ];
+
+        $this->writer()->merge(20, null, ['screen-a1b2c3d4' => '13"']);
+
+        self::assertSame([], $GLOBALS['wp_test_actions']);
+    }
+
+    public function testRemovingASpecificationKeepsOtherValuesAndAnnouncesEachProduct(): void
+    {
+        $GLOBALS['wp_test_posts'] = [20, 21];
+        $repository = new WordPressProductValueRepository();
+        $repository->replace(
+            20,
+            ProductValueDocument::fromValues(['screen-a1b2c3d4' => '15', 'weight-a1b2c3d4' => '2'])
+        );
+        $repository->replace(21, ProductValueDocument::fromValues(['weight-a1b2c3d4' => '3']));
+
+        self::assertTrue($this->writer()->removeSpecification('screen-a1b2c3d4'));
+
+        self::assertSame(['weight-a1b2c3d4' => '2'], $repository->read(20)->values());
+        self::assertSame(['weight-a1b2c3d4' => '3'], $repository->read(21)->values());
+        self::assertSame(
+            [
+                [
+                    ProductValueWriter::SAVED_ACTION,
+                    [20, ['weight-a1b2c3d4' => '2'], ['screen-a1b2c3d4' => '15', 'weight-a1b2c3d4' => '2']],
+                ],
+            ],
+            $GLOBALS['wp_test_actions']
+        );
+    }
+
+    private function writer(): ProductValueWriter
+    {
+        $types = new SpecificationTypeRegistry(new TextType());
+        $types->register(new TrueFalseType());
+
+        return new ProductValueWriter(
+            new WordPressProductValueRepository(),
+            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
+            $types,
+            new WordPressSpecificationSetRepository(new SpecificationSetMapper())
+        );
+    }
+
+    private function storeSpecification(int $id, string $slug, string $type): void
+    {
+        $term = new WP_Term();
+        $term->term_id = $id;
+        $term->name = $slug;
+        $term->slug = $slug;
+        $GLOBALS['wp_test_terms'][$id] = $term;
+        $GLOBALS['wp_test_term_meta'][$id] = ['attr_type' => $type, 'attr_values' => [], 'attr_default' => ''];
     }
 
     private function repository(ProductValueDocument $initial): ProductValueRepository
@@ -253,15 +351,15 @@ final class ProductValueSaveServiceTest extends TestCase
                 return 0;
             }
 
-            public function purge(string $specificationKey): bool
+            public function idsContaining(string $specificationKey): array
             {
-                return true;
+                return [];
             }
         };
     }
 
-    private function sets(): SpecificationSetRepositoryImpl
+    private function sets(): WordPressSpecificationSetRepository
     {
-        return new SpecificationSetRepositoryImpl(new SpecificationSetMapper());
+        return new WordPressSpecificationSetRepository(new SpecificationSetMapper());
     }
 }

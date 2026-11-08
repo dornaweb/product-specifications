@@ -24,7 +24,7 @@ async function request(
 	method: 'GET' | 'POST',
 	settings?: Record< string, SettingValue >
 ): Promise< SettingsResponse > {
-	const endpoint = window.dwspecsAdmin?.settingsEndpoint;
+	const endpoint = window.productSpecificationsAdmin?.settingsEndpoint;
 	if ( ! endpoint ) {
 		throw new SettingsApiError( {
 			message: 'The settings endpoint is not available.',
@@ -37,7 +37,7 @@ async function request(
 		credentials: 'same-origin',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-WP-Nonce': window.dwspecsAdmin?.restNonce ?? '',
+			'X-WP-Nonce': window.productSpecificationsAdmin?.restNonce ?? '',
 		},
 		body: settings ? JSON.stringify( { settings } ) : undefined,
 	} );

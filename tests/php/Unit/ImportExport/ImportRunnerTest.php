@@ -18,7 +18,8 @@ use Amiut\ProductSpecs\ImportExport\Section;
 use Amiut\ProductSpecs\ImportExport\SectionRegistry;
 use Amiut\ProductSpecs\Upgrade\DataVersion;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use PHPUnit\Framework\TestCase;
 
 final class ImportRunnerTest extends TestCase
@@ -30,6 +31,7 @@ final class ImportRunnerTest extends TestCase
         $this->uploads = sys_get_temp_dir() . '/ps-import-' . bin2hex(random_bytes(4));
         $GLOBALS['wp_test_upload_dir'] = $this->uploads;
         $GLOBALS['wp_test_options'] = [DataVersionRepository::OPTION => DataVersion::CURRENT_VERSION];
+        $GLOBALS['wp_test_actions'] = [];
     }
 
     // phpcs:disable WordPressVIPMinimum.Functions.RestrictedFunctions.directory_rmdir
@@ -64,6 +66,7 @@ final class ImportRunnerTest extends TestCase
 
         self::assertCount(ImportRunner::CHUNK_SIZE, $section->imported);
         self::assertTrue($runner->isRunning());
+        self::assertSame([], $GLOBALS['wp_test_actions']);
 
         $runner->runChunk();
         $run = $runner->run();
@@ -74,6 +77,7 @@ final class ImportRunnerTest extends TestCase
         self::assertFileDoesNotExist($storedFile);
         self::assertFileDoesNotExist($planned->planFile());
         self::assertCount($entries, $runner->report()[RecordingSection::KEY] ?? []);
+        self::assertSame([[ProductValueWriter::REBUILD_ACTION, []]], $GLOBALS['wp_test_actions']);
     }
 
     public function testAResumedRunStartsAtTheEntryThatFailedWithoutRepeatingTheOnesBeforeIt(): void

@@ -20,7 +20,7 @@ const ImportExportPage = () => (
 		}
 	>
 		<div className="ps-transfer">
-			{ window.dwspecsAdmin?.migrationRequired ? (
+			{ window.productSpecificationsAdmin?.migrationRequired ? (
 				<Card>
 					<CardBody>
 						{ __(

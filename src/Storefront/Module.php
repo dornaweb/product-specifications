@@ -8,7 +8,7 @@ use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
@@ -20,6 +20,13 @@ final class Module implements ServiceModule
     public function services(): array
     {
         return [
+            ProductSpecifications::class => static fn (ContainerInterface $container) => new ProductSpecifications(
+                $container->get(SpecificationsTableReader::class),
+                $container->get(ProductValueRepository::class),
+                $container->get(SpecificationDefinitionRepository::class),
+                $container->get(SpecificationTypeRegistry::class),
+                $container->get(MigrationState::class)
+            ),
             SpecificationsTableReader::class => static fn (ContainerInterface $container) =>
                 new SpecificationsTableReader(
                     $container->get(ProductValueRepository::class),

@@ -20,7 +20,7 @@ use Amiut\ProductSpecs\Storefront\SpecificationsTableReader;
 use Amiut\ProductSpecs\Storefront\TableGroup;
 use Amiut\ProductSpecs\Storefront\TableRow;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use PHPUnit\Framework\TestCase;
 use WC_Product;
 use WP_Term;

@@ -17,7 +17,9 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            SpecificationsTable::class => static fn (ContainerInterface $container) => new SpecificationsTable(
+            SpecificationsTableShortcode::class => static fn (
+                ContainerInterface $container
+            ) => new SpecificationsTableShortcode(
                 $container->get(ProductSpecificationsBlock::class)
             ),
         ];
@@ -25,13 +27,13 @@ final class Module implements ServiceModule, ExecutableModule
 
     public function run(ContainerInterface $container): bool
     {
-        $tableShortcode = $container->get(SpecificationsTable::class);
+        $tableShortcode = $container->get(SpecificationsTableShortcode::class);
 
         add_action(
             'init',
             static function () use ($tableShortcode) {
                 add_shortcode(
-                    SpecificationsTable::KEY,
+                    SpecificationsTableShortcode::KEY,
                     [$tableShortcode, 'render']
                 );
             }

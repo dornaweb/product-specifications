@@ -6,7 +6,7 @@ namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
 use Amiut\ProductSpecs\Settings\SettingsRepository;
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
-use Amiut\ProductSpecs\Upgrade\MigrationState;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use WC_Product;
 
 final class ProductTabs
@@ -40,7 +40,7 @@ final class ProductTabs
         $settings = $this->settingsRepository->current();
 
         if ($hasSpecifications) {
-            $tabs['dwspecs_product_specifications'] = [
+            $tabs['product_specifications'] = [
                 'title' => $settings->tabTitle(),
                 'priority' => 10,
                 'callback' => [$this, 'displayTable'],
@@ -66,7 +66,7 @@ final class ProductTabs
 
         if ($product instanceof WC_Product) {
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The block template escapes its output.
-            echo $this->block->renderFor($product->get_id());
+            echo $this->block->renderFor($product);
         }
     }
 }

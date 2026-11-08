@@ -9,7 +9,7 @@ async function request(
 	method: 'GET' | 'POST',
 	action = ''
 ): Promise< MigrationStatus > {
-	const endpoint = window.dwspecsAdmin?.migrationEndpoint;
+	const endpoint = window.productSpecificationsAdmin?.migrationEndpoint;
 
 	if ( ! endpoint ) {
 		throw new Error(
@@ -23,7 +23,9 @@ async function request(
 	const response = await window.fetch( endpoint + action, {
 		method,
 		credentials: 'same-origin',
-		headers: { 'X-WP-Nonce': window.dwspecsAdmin?.restNonce ?? '' },
+		headers: {
+			'X-WP-Nonce': window.productSpecificationsAdmin?.restNonce ?? '',
+		},
 	} );
 	const payload = ( await response.json() ) as
 		| MigrationStatus

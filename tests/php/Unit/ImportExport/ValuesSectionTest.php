@@ -9,6 +9,7 @@ use Amiut\ProductSpecs\ImportExport\ImportPlan;
 use Amiut\ProductSpecs\ImportExport\ProductMatcher;
 use Amiut\ProductSpecs\ImportExport\Section\SpecificationsSection;
 use Amiut\ProductSpecs\ImportExport\Section\ValuesSection;
+use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
@@ -137,18 +138,23 @@ final class ValuesSectionTest extends TestCase
         $types = new SpecificationTypeRegistry(new TextType());
         $types->register(new TrueFalseType());
 
+        $definitions = new SpecificationDefinitionRepository(new SpecificationDefinitionMapper());
+        $sets = new InMemorySetRepository([
+            'phones' => SpecificationSet::fromStorage(
+                5,
+                'Phones',
+                'publish',
+                SpecificationSetStructure::empty(),
+                'phones'
+            ),
+        ]);
+        $values = new WordPressProductValueRepository();
+
         return new ValuesSection(
-            new WordPressProductValueRepository(),
-            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
-            new InMemorySetRepository([
-                'phones' => SpecificationSet::fromStorage(
-                    5,
-                    'Phones',
-                    'publish',
-                    SpecificationSetStructure::empty(),
-                    'phones'
-                ),
-            ]),
+            $values,
+            new ProductValueWriter($values, $definitions, $types, $sets),
+            $definitions,
+            $sets,
             $types,
             [new ProductMatcher()]
         );

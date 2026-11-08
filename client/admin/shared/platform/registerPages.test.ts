@@ -9,7 +9,7 @@ describe( 'registerAdminPages', () => {
 	it( 'keeps the Product Specifications submenu active on child routes', () => {
 		const page: AdminPage = {
 			container: () => null,
-			path: '/dwps-product-specifications/import-export',
+			path: '/product-specifications/import-export',
 			breadcrumbs: [ 'Import / Export' ],
 			capability: 'manage_woocommerce',
 		};
@@ -24,7 +24,7 @@ describe( 'registerAdminPages', () => {
 				isDefault: true,
 				layout: { header: false },
 				navArgs: {
-					parentPath: '/dwps-product-specifications',
+					parentPath: '/product-specifications',
 				},
 				wpOpenMenu: 'toplevel_page_woocommerce',
 			},

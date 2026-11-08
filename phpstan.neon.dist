@@ -5,6 +5,7 @@ parameters:
     phpVersion: 80100
     paths:
         - src/
+        - inc/
         - product-specifications.php
     stubFiles:
         - .phpstan/psr-container.stub.php

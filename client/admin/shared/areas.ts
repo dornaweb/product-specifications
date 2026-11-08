@@ -1,25 +1,30 @@
 import { __ } from '@wordpress/i18n';
 import type { AreaTab } from './ui/AreaTabs';
-
-export const MIGRATION_PATH = '/dwps-product-specifications/migration';
+import {
+	IMPORT_EXPORT_PATH,
+	MIGRATION_PATH,
+	SETTINGS_PATH,
+	SPECIFICATIONS_PATH,
+	SPECIFICATION_SETS_PATH,
+} from './paths';
 
 // Every area the plugin owns. A tab is drawn only if its path is registered,
 // so an area whose screen has not been built yet simply does not appear.
 export const AREA_TABS: AreaTab[] = [
 	{
-		path: '/dwps-product-specifications/specification-sets',
+		path: SPECIFICATION_SETS_PATH,
 		title: __( 'Specification sets', 'product-specifications' ),
 	},
 	{
-		path: '/dwps-product-specifications/specifications',
+		path: SPECIFICATIONS_PATH,
 		title: __( 'Specifications', 'product-specifications' ),
 	},
 	{
-		path: '/dwps-product-specifications/import-export',
+		path: IMPORT_EXPORT_PATH,
 		title: __( 'Import / Export', 'product-specifications' ),
 	},
 	{
-		path: '/dwps-product-specifications/settings',
+		path: SETTINGS_PATH,
 		title: __( 'Settings', 'product-specifications' ),
 	},
 	{

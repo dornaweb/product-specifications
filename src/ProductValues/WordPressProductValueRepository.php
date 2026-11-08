@@ -65,15 +65,7 @@ final class WordPressProductValueRepository implements ProductValueRepository
 
     public function countContaining(string $specificationKey): int
     {
-        $count = 0;
-
-        foreach ($this->postIdsWithValues() as $postId) {
-            if ($this->read($postId)->has($specificationKey)) {
-                ++$count;
-            }
-        }
-
-        return $count;
+        return count($this->idsContaining($specificationKey));
     }
 
     public function countUsing(string $specificationKey, array $values): int
@@ -91,21 +83,12 @@ final class WordPressProductValueRepository implements ProductValueRepository
         return $count;
     }
 
-    public function purge(string $specificationKey): bool
+    public function idsContaining(string $specificationKey): array
     {
-        foreach ($this->postIdsWithValues() as $postId) {
-            $document = $this->read($postId);
-
-            if (!$document->has($specificationKey)) {
-                continue;
-            }
-
-            if (!$this->replace($postId, $document->without($specificationKey))) {
-                return false;
-            }
-        }
-
-        return true;
+        return array_values(array_filter(
+            $this->postIdsWithValues(),
+            fn (int $postId): bool => $this->read($postId)->has($specificationKey)
+        ));
     }
 
     /**
