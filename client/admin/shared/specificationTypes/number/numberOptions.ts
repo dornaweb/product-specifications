@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import type { Unit } from './catalog';
 
 export const KIND = 'kind';
@@ -7,9 +8,10 @@ export const RANGE = 'range';
 export const DECIMALS = 'decimals';
 export const MIN = 'min';
 export const MAX = 'max';
-export const FALLBACK_DECIMALS = 2;
+export const THOUSANDS = 'thousands';
+export const FALLBACK_DECIMALS = 0;
 
-export interface UnitOptions {
+export interface NumberOptions {
 	kind: string;
 	units: Unit[];
 	defaultUnit: string;
@@ -17,12 +19,15 @@ export interface UnitOptions {
 	decimals: number;
 	min: number | null;
 	max: number | null;
+	thousands: boolean;
 }
 
 const bound = ( value: unknown ) =>
 	typeof value === 'number' && Number.isFinite( value ) ? value : null;
 
-export function unitOptions( options: Record< string, unknown > ): UnitOptions {
+export function numberOptions(
+	options: Record< string, unknown >
+): NumberOptions {
 	const units = Array.isArray( options[ UNITS ] )
 		? ( options[ UNITS ] as unknown[] ).filter(
 				( unit ): unit is Unit =>
@@ -51,5 +56,25 @@ export function unitOptions( options: Record< string, unknown > ): UnitOptions {
 				: FALLBACK_DECIMALS,
 		min: bound( options[ MIN ] ),
 		max: bound( options[ MAX ] ),
+		thousands: options[ THOUSANDS ] !== false,
 	};
+}
+
+export function requiresUnits(
+	options: Record< string, unknown >
+): string | undefined {
+	const units = numberOptions( options );
+
+	if ( units.kind !== '' && units.units.length === 0 ) {
+		return __( 'Choose at least one unit.', 'product-specifications' );
+	}
+
+	if ( units.min !== null && units.max !== null && units.min > units.max ) {
+		return __(
+			'The minimum cannot be larger than the maximum.',
+			'product-specifications'
+		);
+	}
+
+	return undefined;
 }

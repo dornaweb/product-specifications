@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Specification\Type\Number;
 
-final class Measurement
+final class NumberValue
 {
     private const VALUE = 'value';
     private const MIN = 'min';
@@ -77,27 +77,29 @@ final class Measurement
     }
 
     /**
-     * @return array{value: int|float, unit: string}|array{min: int|float, max: int|float, unit: string}
+     * A number without a unit is stored without the key.
+     *
+     * @return array{value: int|float, unit?: string}|array{min: int|float, max: int|float, unit?: string}
      */
     public function toStorage(): array
     {
         if ($this->to === null) {
-            return [self::VALUE => self::stored($this->from), self::UNIT => $this->unit];
+            return $this->unit === ''
+                ? [self::VALUE => self::stored($this->from)]
+                : [self::VALUE => self::stored($this->from), self::UNIT => $this->unit];
         }
 
-        return [
-            self::MIN => self::stored($this->from),
-            self::MAX => self::stored($this->to),
-            self::UNIT => $this->unit,
-        ];
+        $range = [self::MIN => self::stored($this->from), self::MAX => self::stored($this->to)];
+
+        return $this->unit === '' ? $range : [...$range, self::UNIT => $this->unit];
     }
 
-    public function format(int $decimals, string $symbol): string
+    public function format(NumberFormat $format, string $symbol): string
     {
-        $number = DecimalNumber::format($this->from, $decimals);
+        $number = $format->format($this->from);
 
         if ($this->to !== null) {
-            $number .= '–' . DecimalNumber::format($this->to, $decimals);
+            $number .= '–' . $format->format($this->to);
         }
 
         return $symbol === '' ? $number : "{$number} {$symbol}";

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Specification\Type\Number;
 
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 
-final class UnitOptions
+final class NumberOptions
 {
     private const KIND = 'kind';
     private const UNITS = 'units';
@@ -15,8 +15,9 @@ final class UnitOptions
     private const DECIMALS = 'decimals';
     private const MIN = 'min';
     private const MAX = 'max';
+    private const THOUSANDS = 'thousands';
     private const MAX_DECIMALS = 4;
-    private const DEFAULT_DECIMALS = 2;
+    private const DEFAULT_DECIMALS = 0;
 
     /**
      * @param array<string, string> $symbols Keyed by unit id.
@@ -26,7 +27,8 @@ final class UnitOptions
         private readonly string $defaultUnit,
         private readonly bool $range,
         private readonly int $decimals,
-        private readonly Bounds $bounds
+        private readonly Bounds $bounds,
+        private readonly NumberFormat $numberFormat
     ) {
     }
 
@@ -35,14 +37,15 @@ final class UnitOptions
         $map = $options->toArray();
         $symbols = self::symbols($map[self::UNITS] ?? null);
         $default = $map[self::DEFAULT_UNIT] ?? null;
-        $decimals = $map[self::DECIMALS] ?? null;
+        $decimals = is_int($map[self::DECIMALS] ?? null) ? $map[self::DECIMALS] : self::DEFAULT_DECIMALS;
 
         return new self(
             $symbols,
             is_string($default) && isset($symbols[$default]) ? $default : (string) array_key_first($symbols),
             ($map[self::RANGE] ?? false) === true,
-            is_int($decimals) ? $decimals : self::DEFAULT_DECIMALS,
-            Bounds::fromStorage($map[self::MIN] ?? null, $map[self::MAX] ?? null)
+            $decimals,
+            Bounds::fromStorage($map[self::MIN] ?? null, $map[self::MAX] ?? null),
+            new NumberFormat($decimals, ($map[self::THOUSANDS] ?? true) !== false)
         );
     }
 
@@ -54,12 +57,10 @@ final class UnitOptions
         return [
             'type' => 'object',
             'additionalProperties' => false,
-            'required' => [self::UNITS],
             'properties' => [
                 self::KIND => ['type' => 'string'],
                 self::UNITS => [
                     'type' => 'array',
-                    'minItems' => 1,
                     'items' => [
                         'type' => 'object',
                         'additionalProperties' => false,
@@ -75,33 +76,35 @@ final class UnitOptions
                 self::DECIMALS => ['type' => 'integer', 'minimum' => 0, 'maximum' => self::MAX_DECIMALS],
                 self::MIN => ['type' => ['number', 'null']],
                 self::MAX => ['type' => ['number', 'null']],
+                self::THOUSANDS => ['type' => 'boolean'],
             ],
         ];
     }
 
-    public function read(mixed $data): ?Measurement
+    public function read(mixed $data): ?NumberValue
     {
-        return Measurement::fromData($data, $this->defaultUnit)?->rounded($this->decimals);
+        return NumberValue::fromData($data, $this->defaultUnit)?->rounded($this->decimals);
     }
 
-    public function rejection(Measurement $measurement): ?string
+    public function rejection(NumberValue $number): ?string
     {
         $rejection = match (true) {
-            !isset($this->symbols[$measurement->unit()]) => MeasurementRejection::UnitNotAllowed,
-            $measurement->isRange() && !$this->range => MeasurementRejection::RangeNotAllowed,
-            $measurement->isReversed() => MeasurementRejection::ReversedRange,
+            $number->unit() !== '' && !isset($this->symbols[$number->unit()])
+                => NumberRejection::UnitNotAllowed,
+            $number->isRange() && !$this->range => NumberRejection::RangeNotAllowed,
+            $number->isReversed() => NumberRejection::ReversedRange,
             default => null,
         };
 
-        return $rejection?->message() ?? $this->bounds->rejection($measurement, $this->decimals);
+        return $rejection?->message() ?? $this->bounds->rejection($number, $this->numberFormat);
     }
 
     /**
      * A unit not among the options is shown by its id.
      */
-    public function format(Measurement $measurement): string
+    public function format(NumberValue $number): string
     {
-        return $measurement->format($this->decimals, $this->symbols[$measurement->unit()] ?? $measurement->unit());
+        return $number->format($this->numberFormat, $this->symbols[$number->unit()] ?? $number->unit());
     }
 
     /**

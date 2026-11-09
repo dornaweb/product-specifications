@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Specification\Type\Number;
 
-enum MeasurementRejection
+enum NumberRejection
 {
     case NotANumber;
     case UnitNotAllowed;

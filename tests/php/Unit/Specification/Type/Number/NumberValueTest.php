@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Tests\Unit\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Tests\Unit\Specification\Type\Number;
 
-use Amiut\ProductSpecs\Specification\Type\Unit\Measurement;
+use Amiut\ProductSpecs\Specification\Type\Number\NumberValue;
 use PHPUnit\Framework\TestCase;
 
-final class MeasurementTest extends TestCase
+final class NumberValueTest extends TestCase
 {
     /**
      * @return array<string, array{mixed, array<string, mixed>|null}>
@@ -36,18 +36,24 @@ final class MeasurementTest extends TestCase
      */
     public function testInputAndStoredDataAreReadAsANumberAndAUnit(mixed $data, ?array $expected): void
     {
-        self::assertSame($expected, Measurement::fromData($data, 'cm')?->toStorage());
+        self::assertSame($expected, NumberValue::fromData($data, 'cm')?->toStorage());
     }
 
     public function testRoundingKeepsTheAllowedDecimalsAndCanCollapseARange(): void
     {
         self::assertSame(
             ['value' => 6.13, 'unit' => 'in'],
-            Measurement::fromData(['value' => '6.125'], 'in')?->rounded(2)->toStorage()
+            NumberValue::fromData(['value' => '6.125'], 'in')?->rounded(2)->toStorage()
         );
         self::assertSame(
             ['value' => 2, 'unit' => 'kg'],
-            Measurement::fromData(['min' => 1.6, 'max' => 2.4], 'kg')?->rounded(0)->toStorage()
+            NumberValue::fromData(['min' => 1.6, 'max' => 2.4], 'kg')?->rounded(0)->toStorage()
         );
+    }
+
+    public function testANumberWithoutAUnitIsStoredWithoutTheKey(): void
+    {
+        self::assertSame(['value' => 8], NumberValue::fromData(['value' => '8'], '')?->toStorage());
+        self::assertSame(['min' => 2, 'max' => 4], NumberValue::fromData(['min' => 2, 'max' => '4'], '')?->toStorage());
     }
 }

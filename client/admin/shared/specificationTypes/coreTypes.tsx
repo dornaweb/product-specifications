@@ -8,13 +8,13 @@ import {
 	ParagraphDefault,
 	TextDefault,
 	TrueFalseDefault,
-	UnitDefault,
+	NumberDefault,
 } from './defaultControls';
 import type { SpecificationTypes } from './index';
 import YesNoOptionsPanel from './YesNoOptionsPanel';
-import MeasurementInput from './unit/MeasurementInput';
-import UnitOptionsPanel from './unit/UnitOptionsPanel';
-import { unitOptions } from './unit/unitOptions';
+import NumberInput from './number/NumberInput';
+import NumberOptionsPanel from './number/NumberOptionsPanel';
+import { requiresUnits } from './number/numberOptions';
 import ProductDataOptionsPanel from './woocommerce/ProductDataOptionsPanel';
 import ProductDataValue from './woocommerce/ProductDataValue';
 import { requiresProductData } from './woocommerce/productData';
@@ -31,11 +31,6 @@ const requiresChoices = ( options: Record< string, unknown > ) =>
 				'Add at least one option, one per line.',
 				'product-specifications'
 		  )
-		: undefined;
-
-const requiresUnits = ( options: Record< string, unknown > ) =>
-	unitOptions( options ).units.length === 0
-		? __( 'Choose at least one unit.', 'product-specifications' )
 		: undefined;
 
 export const coreSpecificationTypes: SpecificationTypes = {
@@ -76,15 +71,15 @@ export const coreSpecificationTypes: SpecificationTypes = {
 		valueControl: TrueFalseValue,
 	},
 	unit: {
-		label: __( 'Number with unit', 'product-specifications' ),
+		label: __( 'Number', 'product-specifications' ),
 		description: __(
-			'A number, or a range, with a unit such as mm, kg or GB.',
+			'A number or a range, with an optional unit such as mm, kg or GB.',
 			'product-specifications'
 		),
-		options: UnitOptionsPanel,
+		options: NumberOptionsPanel,
 		validateOptions: requiresUnits,
-		defaultControl: UnitDefault,
-		valueControl: MeasurementInput,
+		defaultControl: NumberDefault,
+		valueControl: NumberInput,
 	},
 	woocommerce: {
 		label: __( 'WooCommerce product data', 'product-specifications' ),

@@ -10,7 +10,7 @@ use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextAreaType;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
-use Amiut\ProductSpecs\Specification\Type\Unit\UnitType;
+use Amiut\ProductSpecs\Specification\Type\Number\NumberType;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataSources;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\WooCommerceType;
@@ -79,7 +79,7 @@ final class Module implements ServiceModule, ExecutableModule
                 $registry->register(new TextAreaType());
                 $registry->register(new SelectType());
                 $registry->register(new TrueFalseType());
-                $registry->register(new UnitType());
+                $registry->register(new NumberType());
                 $registry->register(new WooCommerceType($container->get(ProductDataSources::class)));
             },
             0

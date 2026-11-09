@@ -1,6 +1,6 @@
 import { SelectControl, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { unitOptions } from './unitOptions';
+import { numberOptions } from './numberOptions';
 import './styles.scss';
 
 interface Props {
@@ -34,16 +34,17 @@ function entered( value: unknown, defaultUnit: string ): Entered {
 	};
 }
 
-const MeasurementInput = ( {
+const NumberInput = ( {
 	label,
 	value,
 	options,
 	onChange,
 	fieldProps,
 }: Props ) => {
-	const units = unitOptions( options );
-	const current = entered( value, units.defaultUnit );
-	const unitAllowed = units.units.some(
+	const settings = numberOptions( options );
+	const current = entered( value, settings.defaultUnit );
+	const hasUnits = settings.units.length > 0;
+	const unitAllowed = settings.units.some(
 		( unit ) => unit.id === current.unit
 	);
 
@@ -53,11 +54,11 @@ const MeasurementInput = ( {
 			return;
 		}
 
-		onChange(
-			units.range
-				? { min: next.from, max: next.to, unit: next.unit }
-				: { value: next.from, unit: next.unit }
-		);
+		const numbers = settings.range
+			? { min: next.from, max: next.to }
+			: { value: next.from };
+
+		onChange( hasUnits ? { ...numbers, unit: next.unit } : numbers );
 	};
 
 	const numberField = (
@@ -78,9 +79,9 @@ const MeasurementInput = ( {
 	);
 
 	return (
-		<div className="ps-measurement">
+		<div className="ps-number-input">
 			{ numberField( 'from', label, fieldProps ) }
-			{ units.range && (
+			{ settings.range && (
 				<>
 					<span aria-hidden="true">–</span>
 					{ numberField(
@@ -89,7 +90,7 @@ const MeasurementInput = ( {
 					) }
 				</>
 			) }
-			{ units.units.length > 1 || ! unitAllowed ? (
+			{ hasUnits && ( settings.units.length > 1 || ! unitAllowed ) && (
 				<SelectControl
 					__nextHasNoMarginBottom
 					__next40pxDefaultSize
@@ -105,20 +106,21 @@ const MeasurementInput = ( {
 										label: current.unit,
 									},
 							  ] ),
-						...units.units.map( ( unit ) => ( {
+						...settings.units.map( ( unit ) => ( {
 							value: unit.id,
 							label: unit.symbol,
 						} ) ),
 					] }
 					onChange={ ( unit ) => emit( { ...current, unit } ) }
 				/>
-			) : (
-				<span className="ps-measurement__unit">
-					{ units.units[ 0 ]?.symbol ?? '' }
+			) }
+			{ hasUnits && settings.units.length === 1 && unitAllowed && (
+				<span className="ps-number-input__unit">
+					{ settings.units[ 0 ].symbol }
 				</span>
 			) }
 		</div>
 	);
 };
 
-export default MeasurementInput;
+export default NumberInput;

@@ -1,4 +1,4 @@
-import { parseNumber } from './numberInput';
+import { parseNumber } from './parseNumber';
 
 describe( 'parseNumber', () => {
 	it.each( [

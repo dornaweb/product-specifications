@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Tests\Unit\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Tests\Unit\Specification\Type\Number;
 
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
-use Amiut\ProductSpecs\Specification\Type\Unit\UnitType;
+use Amiut\ProductSpecs\Specification\Type\Number\NumberType;
 use PHPUnit\Framework\TestCase;
 use WP_Locale;
 
-final class UnitTypeTest extends TestCase
+final class NumberTypeTest extends TestCase
 {
     protected function tearDown(): void
     {
@@ -44,14 +44,14 @@ final class UnitTypeTest extends TestCase
      */
     public function testAValueIsRejectedForWhatItsOptionsDoNotAllow(mixed $input, ?string $rejection): void
     {
-        self::assertSame($rejection, (new UnitType())->validate($input, $this->voltage(range: true)));
+        self::assertSame($rejection, (new NumberType())->validate($input, $this->voltage(range: true)));
     }
 
     public function testARangeIsRejectedWhereTheSpecificationTakesASingleNumber(): void
     {
         self::assertSame(
             'Enter a single number.',
-            (new UnitType())->validate(['min' => 100, 'max' => 240, 'unit' => 'V'], $this->voltage(range: false))
+            (new NumberType())->validate(['min' => 100, 'max' => 240, 'unit' => 'V'], $this->voltage(range: false))
         );
     }
 
@@ -74,7 +74,7 @@ final class UnitTypeTest extends TestCase
      */
     public function testThePlainValueIsTheNumberAndTheUnitsSymbol(mixed $value, string $expected): void
     {
-        self::assertSame($expected, (new UnitType())->plainValue($value, $this->voltage(range: true)));
+        self::assertSame($expected, (new NumberType())->plainValue($value, $this->voltage(range: true)));
     }
 
     public function testTheStoresLocaleFormatsTheNumber(): void
@@ -86,7 +86,7 @@ final class UnitTypeTest extends TestCase
 
         self::assertSame(
             '1.250,5 V',
-            (new UnitType())->plainValue(['value' => 1250.5, 'unit' => 'V'], $this->voltage(range: true))
+            (new NumberType())->plainValue(['value' => 1250.5, 'unit' => 'V'], $this->voltage(range: true))
         );
     }
 
@@ -99,8 +99,30 @@ final class UnitTypeTest extends TestCase
 
         self::assertSame(
             "1\u{00A0}250,5 V",
-            (new UnitType())->plainValue(['value' => 1250.5, 'unit' => 'V'], $this->voltage(range: true))
+            (new NumberType())->plainValue(['value' => 1250.5, 'unit' => 'V'], $this->voltage(range: true))
         );
+    }
+
+    public function testWithoutSeparatedThousandsTheNumberKeepsItsDecimalPointAndLosesGrouping(): void
+    {
+        $locale = new WP_Locale();
+        $locale->number_format = ['decimal_point' => ',', 'thousands_sep' => '.'];
+        // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The store's locale is a global.
+        $GLOBALS['wp_locale'] = $locale;
+        $options = SpecificationOptions::fromMap(['decimals' => 1, 'thousands' => false]);
+
+        self::assertSame('2026', (new NumberType())->plainValue(['value' => 2026], $options));
+        self::assertSame('1234,5', (new NumberType())->plainValue(['value' => 1234.5], $options));
+    }
+
+    public function testASpecificationWithoutUnitsTakesOnlyANumberWithoutOne(): void
+    {
+        $type = new NumberType();
+        $options = SpecificationOptions::fromMap(['range' => true]);
+
+        self::assertNull($type->validate(['min' => '2', 'max' => '4'], $options));
+        self::assertSame(['min' => 2, 'max' => 4], $type->sanitize(['min' => '2', 'max' => '4'], $options));
+        self::assertSame('Choose one of the units.', $type->validate(['value' => 8, 'unit' => 'kg'], $options));
     }
 
     public function testReversedBoundsAreReadInOrder(): void
@@ -111,7 +133,7 @@ final class UnitTypeTest extends TestCase
             'max' => 100,
         ]);
 
-        self::assertNull((new UnitType())->validate(['value' => 230, 'unit' => 'V'], $options));
+        self::assertNull((new NumberType())->validate(['value' => 230, 'unit' => 'V'], $options));
     }
 
     private function voltage(bool $range): SpecificationOptions

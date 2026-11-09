@@ -10,7 +10,7 @@ import { Field } from '../ui';
 import { choiceSelectOptions, choicesFrom } from './ChoiceOptionsPanel';
 import { asText, fromText } from './textConversion';
 import type { SpecificationTypeDefaultProps } from './index';
-import MeasurementInput from './unit/MeasurementInput';
+import NumberInput from './number/NumberInput';
 
 const DefaultField = ( {
 	children,
@@ -103,14 +103,14 @@ export const TrueFalseDefault = ( {
 	</DefaultField>
 );
 
-export const UnitDefault = ( {
+export const NumberDefault = ( {
 	value,
 	options,
 	onChange,
 }: SpecificationTypeDefaultProps ) => (
 	<DefaultField>
 		{ ( controlProps ) => (
-			<MeasurementInput
+			<NumberInput
 				label={ __( 'Default', 'product-specifications' ) }
 				value={ value }
 				options={ options }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Specification\Type\Number;
 
 final class Bounds
 {
@@ -23,10 +23,10 @@ final class Bounds
         return $min !== null && $max !== null && $min > $max ? new self($max, $min) : new self($min, $max);
     }
 
-    public function rejection(Measurement $measurement, int $decimals): ?string
+    public function rejection(NumberValue $number, NumberFormat $format): ?string
     {
-        $tooLow = $this->min !== null && $measurement->lowest() < $this->min;
-        $tooHigh = $this->max !== null && $measurement->highest() > $this->max;
+        $tooLow = $this->min !== null && $number->lowest() < $this->min;
+        $tooHigh = $this->max !== null && $number->highest() > $this->max;
 
         if (!$tooLow && !$tooHigh) {
             return null;
@@ -36,18 +36,18 @@ final class Bounds
             $this->min !== null && $this->max !== null => sprintf(
                 /* translators: 1: the lowest allowed number, 2: the highest allowed number. */
                 __('Enter a number from %1$s to %2$s.', 'product-specifications'),
-                DecimalNumber::format($this->min, $decimals),
-                DecimalNumber::format($this->max, $decimals)
+                $format->format($this->min),
+                $format->format($this->max)
             ),
             $this->min !== null => sprintf(
                 /* translators: %s: the lowest allowed number. */
                 __('Enter a number of at least %s.', 'product-specifications'),
-                DecimalNumber::format($this->min, $decimals)
+                $format->format($this->min)
             ),
             default => sprintf(
                 /* translators: %s: the highest allowed number. */
                 __('Enter a number of at most %s.', 'product-specifications'),
-                DecimalNumber::format((float) $this->max, $decimals)
+                $format->format((float) $this->max)
             ),
         };
     }

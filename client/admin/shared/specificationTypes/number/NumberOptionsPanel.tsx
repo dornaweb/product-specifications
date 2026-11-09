@@ -1,4 +1,8 @@
-import { SelectControl, ToggleControl } from '@wordpress/components';
+import {
+	SelectControl,
+	TextControl,
+	ToggleControl,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { Field } from '../../ui';
 import type { SpecificationTypeOptionsProps } from '../index';
@@ -12,19 +16,20 @@ import {
 	MAX,
 	MIN,
 	RANGE,
+	THOUSANDS,
 	UNITS,
-	unitOptions,
-} from './unitOptions';
+	numberOptions,
+} from './numberOptions';
 import './styles.scss';
 
-const DECIMAL_CHOICES = [ 0, 1, 2, 3, 4 ];
+const MAX_DECIMALS = 4;
 
-const UnitOptionsPanel = ( {
+const NumberOptionsPanel = ( {
 	options,
 	onChange,
 	error,
 }: SpecificationTypeOptionsProps ) => {
-	const current = unitOptions( options );
+	const current = numberOptions( options );
 	const kinds = unitKinds();
 	const kind = kinds.find( ( item ) => item.id === current.kind );
 
@@ -33,17 +38,13 @@ const UnitOptionsPanel = ( {
 
 		onChange( {
 			...next,
-			[ DEFAULT_UNIT ]: unitOptions( next ).defaultUnit,
+			[ DEFAULT_UNIT ]: numberOptions( next ).defaultUnit,
 		} );
 	};
 
 	return (
 		<>
-			<Field
-				label={ __( 'Measures', 'product-specifications' ) }
-				help={ current.kind === '' ? error : undefined }
-				helpTone="error"
-			>
+			<Field label={ __( 'Unit', 'product-specifications' ) }>
 				{ ( controlProps ) => (
 					<SelectControl
 						{ ...controlProps }
@@ -54,10 +55,9 @@ const UnitOptionsPanel = ( {
 							{
 								value: '',
 								label: __(
-									'Choose what it measures',
+									'No unit, a plain number',
 									'product-specifications'
 								),
-								disabled: true,
 							},
 							...kinds.map( ( item ) => ( {
 								value: item.id,
@@ -110,25 +110,33 @@ const UnitOptionsPanel = ( {
 					) }
 				</Field>
 			) }
-			<Field label={ __( 'Decimal places', 'product-specifications' ) }>
+			<Field
+				label={ __( 'Decimal places', 'product-specifications' ) }
+				help={ __(
+					'0 for whole numbers, up to 4.',
+					'product-specifications'
+				) }
+			>
 				{ ( controlProps ) => (
-					<SelectControl
+					<TextControl
 						{ ...controlProps }
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
+						type="number"
+						min={ 0 }
+						max={ MAX_DECIMALS }
+						step={ 1 }
 						value={ String( current.decimals ) }
-						options={ DECIMAL_CHOICES.map( ( places ) => ( {
-							value: String( places ),
-							label:
-								places === 0
-									? __(
-											'None, whole numbers',
-											'product-specifications'
-									  )
-									: String( places ),
-						} ) ) }
 						onChange={ ( places ) =>
-							update( { [ DECIMALS ]: Number( places ) } )
+							update( {
+								[ DECIMALS ]: Math.min(
+									MAX_DECIMALS,
+									Math.max(
+										0,
+										Math.trunc( Number( places ) ) || 0
+									)
+								),
+							} )
 						}
 					/>
 				) }
@@ -146,13 +154,37 @@ const UnitOptionsPanel = ( {
 					/>
 				) }
 			</Field>
+			<Field
+				label={ __( 'Thousands', 'product-specifications' ) }
+				help={ __(
+					'Turn off for years and codes, such as 2026.',
+					'product-specifications'
+				) }
+				wide
+			>
+				{ () => (
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __(
+							'Separate thousands',
+							'product-specifications'
+						) }
+						checked={ current.thousands }
+						onChange={ ( thousands ) =>
+							update( { [ THOUSANDS ]: thousands } )
+						}
+					/>
+				) }
+			</Field>
 			<BoundField
 				label={ __( 'Minimum', 'product-specifications' ) }
+				hasUnits={ current.units.length > 0 }
 				value={ current.min }
 				onChange={ ( min ) => update( { [ MIN ]: min } ) }
 			/>
 			<BoundField
 				label={ __( 'Maximum', 'product-specifications' ) }
+				hasUnits={ current.units.length > 0 }
 				value={ current.max }
 				onChange={ ( max ) => update( { [ MAX ]: max } ) }
 			/>
@@ -160,4 +192,4 @@ const UnitOptionsPanel = ( {
 	);
 };
 
-export default UnitOptionsPanel;
+export default NumberOptionsPanel;

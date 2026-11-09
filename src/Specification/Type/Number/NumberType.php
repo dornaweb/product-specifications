@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Amiut\ProductSpecs\Specification\Type\Unit;
+namespace Amiut\ProductSpecs\Specification\Type\Number;
 
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\Type\SpecificationType;
 use WC_Product;
 
-final class UnitType implements SpecificationType
+final class NumberType implements SpecificationType
 {
+    /**
+     * Stored as the type of every specification that uses it, so it does not follow the
+     * class name.
+     */
     public const ID = 'unit';
 
     public function id(): string
@@ -19,7 +23,7 @@ final class UnitType implements SpecificationType
 
     public function label(): string
     {
-        return __('Number with unit', 'product-specifications');
+        return __('Number', 'product-specifications');
     }
 
     /**
@@ -27,37 +31,37 @@ final class UnitType implements SpecificationType
      */
     public function optionsSchema(): array
     {
-        return UnitOptions::schema();
+        return NumberOptions::schema();
     }
 
     public function sanitize(mixed $input, SpecificationOptions $options): mixed
     {
-        return UnitOptions::fromOptions($options)->read($input)?->toStorage();
+        return NumberOptions::fromOptions($options)->read($input)?->toStorage();
     }
 
     public function validate(mixed $input, SpecificationOptions $options): ?string
     {
-        if (Measurement::isEmpty($input)) {
+        if (NumberValue::isEmpty($input)) {
             return null;
         }
 
-        $units = UnitOptions::fromOptions($options);
-        $measurement = $units->read($input);
+        $numberOptions = NumberOptions::fromOptions($options);
+        $number = $numberOptions->read($input);
 
-        return $measurement === null ? MeasurementRejection::NotANumber->message() : $units->rejection($measurement);
+        return $number === null ? NumberRejection::NotANumber->message() : $numberOptions->rejection($number);
     }
 
     public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed
     {
-        return Measurement::fromData($stored, '')?->toStorage();
+        return NumberValue::fromData($stored, '')?->toStorage();
     }
 
     public function plainValue(mixed $value, SpecificationOptions $options): string
     {
-        $units = UnitOptions::fromOptions($options);
-        $measurement = $units->read($value);
+        $numberOptions = NumberOptions::fromOptions($options);
+        $number = $numberOptions->read($value);
 
-        return $measurement === null ? '' : $units->format($measurement);
+        return $number === null ? '' : $numberOptions->format($number);
     }
 
     public function render(mixed $value, SpecificationOptions $options): string
