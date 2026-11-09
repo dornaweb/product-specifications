@@ -32,7 +32,7 @@ Two v1 details matter beyond the structure. `dwspecs_chk_none` is v1's "no selec
 marker for select and radio, and it is discarded exactly as an empty value is. And step 1
 means that unassigning a table from a product **deletes every value on it**.
 
-This ticket was written proposing "sanitize, write to the map, run the type's save
+The first proposal was "sanitize, write to the map, run the type's save
 action, fire the public hooks". ADR 0003 removed the type's save action: the interface is
 `sanitize()`, `value()` and `render()`, with no `save()`.
 
@@ -75,8 +75,8 @@ was previously assigned — survive a round trip instead of being silently dropp
 merchant switches sets.
 
 Two concurrent saves still overwrite each other, last write winning. ADR 0002 records
-this as carried over from v1 and unchanged; PS-075 is where a guard gets decided, because
-bulk value entry is what makes it routine rather than rare.
+this as carried over from v1 and unchanged. A guard gets decided with bulk value entry,
+because that is what makes it routine rather than rare.
 
 ### Public actions, and types are ordinary subscribers
 
@@ -133,7 +133,7 @@ projection, and a projection must be fully rebuildable from the map. That is wha
 `product_specifications_rebuild` sufficient after a migration, and what keeps a
 projection's loss recoverable.
 
-PS-077 is where a projection actually gets designed. Note that ADR 0005 already records
+Filtering is where a projection actually gets designed. Note that ADR 0005 already records
 a limit on the invariant: a specification whose value comes from elsewhere has no key in
 the map, so a projection covering it rebuilds from the product, not from the map.
 
@@ -180,7 +180,7 @@ from this plugin — a store-wide change that adds a `wp_posts` row on every pro
 across the whole catalogue and alters behavior for every other plugin on the site. A
 specification plugin should not make that decision for a store.
 
-PS-074 owns this, in the deferred epic. These findings are recorded so it does not have
+Value revisions are deferred. These findings are recorded so that work does not have
 to rediscover them.
 
 ## Rationale
@@ -211,7 +211,7 @@ a real extension point and becomes a core convenience with a public façade.
 ### Negative
 
 - Full replace means concurrent saves lose each other's changes. Unchanged from v1,
-  recorded in ADR 0002, decided in PS-075.
+  recorded in ADR 0002, to be decided with bulk value entry.
 - The whole value map crosses the wire on every product save, including keys the editor
   does not render. On a product with many orphaned values this is larger than it needs
   to be.
@@ -239,7 +239,7 @@ to one.
 ### Full replace with an optimistic version guard
 
 Rejected for now. It closes the concurrency race properly, at the cost of a read on every
-save and a conflict-resolution path in the editor. PS-075 is where bulk entry makes that
+save and a conflict-resolution path in the editor. Bulk value entry is what makes that
 worth building, and it can be added without changing anything decided here.
 
 ### Firing the save hooks from the migration and import

@@ -260,7 +260,7 @@ The CLI is how a site schedules recurring imports.
 
 - We own product matching, background running and reporting, which WooCommerce's CSV
   importer would otherwise provide.
-- Values cannot be edited in a spreadsheet. That stays with PS-076, deferred.
+- Values cannot be edited in a spreadsheet. A CSV import is deferred.
 - Merging cannot propagate deletions: cleared values, and specifications removed from a
   set, stay on the target.
 - A same-type specification whose meaning differs between stores cannot be detected for

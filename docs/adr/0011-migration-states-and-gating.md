@@ -7,9 +7,10 @@ Approved
 ## Context
 
 A site running v1 does not become a v2 site when the plugin files are replaced. It
-becomes a v1 site with v2 code on it, and stays that way until a migration runs. Seven
-tickets each decide a piece of what happens in between — PS-038, PS-039, PS-044, PS-045,
-PS-046, PS-047 and PS-050 — and nothing states the model they are all pieces of.
+becomes a v1 site with v2 code on it, and stays that way until a migration runs. The
+product panel, the migration runner, the progress screen, the frontend gate, the admin
+warning, the overwrite rule and the update warning each decide a piece of what happens in
+between, and nothing states the model they are all pieces of.
 
 What exists today is one option and a boolean:
 
@@ -31,7 +32,7 @@ stored, using `Upgrade\LegacyDataProbe` to tell a fresh install from a legacy on
 `Upgrade\MigrationState` wraps the option with `isMigrated()` and `requiresMigration()`.
 
 Two states. The lifecycle has six, and the two it cannot express — a run in progress and
-a run that stopped — are exactly the two PS-039 requires, since it is specified as
+a run that stopped — are exactly the two the migration runner requires, since it is specified as
 "chunked, resumable, idempotent… stores its own progress and can be retried".
 
 ### The keys do not collide
@@ -76,12 +77,12 @@ errors         what failed, and where
 skipped        products that already held v2 data
 ```
 
-PS-039 needs this for resumability and PS-044 needs it for the progress screen, so it is
+The runner needs this for resumability and the progress screen needs it, so it is
 not a structure invented for this ADR. Keeping it out of the data version stops one value
 from conflating "what shape is the data" with "what is the runner doing", and gives
 progress somewhere to live.
 
-The record's exact shape is PS-039's to design.
+The record's exact shape is the runner's to design.
 
 ### The frontend renders nothing until the data version reports migrated
 
@@ -95,20 +96,20 @@ every store that upgrades, and a v2 codebase whose behavior depends on legacy da
 being present.
 
 The consequence is real and is accepted: **shoppers see no specification tables for as
-long as the merchant leaves the migration unrun.** That makes PS-050's update warning
+long as the merchant leaves the migration unrun.** That makes the update warning
 essential rather than a nicety.
 
 ### Nothing in the admin is blocked
 
 An admin-wide warning banner while the state is `pending`, `running` or `failed`
-(PS-046), linking to the migration screen. That is the entire mechanism. No screen is
+linking to the migration screen. That is the entire mechanism. No screen is
 replaced, no panel is disabled, no save is refused.
 
-This changes PS-038, which is written as "replace the panel with a clear notice until the
-data version reports migrated". The panel is shown, with a warning.
+The product panel is not replaced with a notice until the data version reports
+migrated. The panel is shown, with a warning.
 
-The reasoning is that the risk PS-038 guards against does not exist as stated. Its
-problem says "saving would risk data loss" — but the keys do not collide, so a product
+The reasoning is that the risk a notice would guard against does not exist. Saving
+early was thought to risk data loss — but the keys do not collide, so a product
 saved early keeps its v1 values untouched. What actually happens is that the migration
 skips that product and lists it in the report, and its v1 values remain on disk until
 cleanup.
@@ -130,13 +131,13 @@ report says what happened.
 ### The migration never overwrites existing v2 data
 
 When the runner meets a product, a set or a specification that already holds v2 data, it
-skips it and lists it in the result. This settles PS-047's stated rule and is what makes
+skips it and lists it in the result. This is what makes
 an unblocked admin safe: early v2 edits survive the migration rather than being
 overwritten by it.
 
 ### Rollback and downgrade
 
-v1 data is untouched until PS-048's cleanup step, which is a separate, explicit action.
+v1 data is untouched until the cleanup step, which is a separate, explicit action.
 Until it is run:
 
 - **Rollback** is setting the data version back to `1`. The v2 renderer stops, the
@@ -147,7 +148,7 @@ Cleanup is the point of no return, and it should say so.
 
 ## Rationale
 
-The six states are not a new mechanism; they are the states the seven tickets already
+The six states are not a new mechanism; they are the states those seven pieces already
 imply, written down once so they stop being decided seven times.
 
 Splitting the run record from the data version follows from what each is for. The data
@@ -164,7 +165,7 @@ about. That is not worth disabling a screen for.
 
 ### Positive
 
-- One model, stated once, that seven tickets implement rather than each inventing.
+- One model, stated once, that seven pieces implement rather than each inventing.
 - `DataVersion` keeps its single, stable meaning.
 - Rollback and downgrade both work until cleanup, so a failed upgrade is recoverable.
 - No screen is disabled, so a merchant can explore v2 before committing to a migration.
@@ -200,7 +201,7 @@ both renderers active simultaneously, for a window that a merchant controls the 
 
 ### Block the value panel until migration completes
 
-Rejected. It is PS-038 as originally written, and it guards against a data loss that
+Rejected. It guards against a data loss that
 cannot occur because the meta keys do not collide.
 
 ### Block the whole v2 admin until migration completes

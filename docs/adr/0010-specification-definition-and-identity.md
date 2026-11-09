@@ -118,7 +118,7 @@ keys and that breaks both `json_decode` round trips and the variation merge in A
 different sets.
 
 The migration reads `attr_group` to build structures and then never reads it again;
-PS-048 removes it with the rest of the v1 data. This settles PS-023.
+the cleanup step removes it with the rest of the v1 data.
 
 A specification also carries no intrinsic order. The `attributes` ordering list on the
 group term goes the same way.
@@ -158,10 +158,9 @@ register_rest_field( 'spec-attr', 'specification', [
 ```
 
 Four admin screens consume this and nothing on the frontend does, because the shortcode
-and the product tab render server-side in PHP: the specifications list (PS-020), the
-specification editor (PS-021), the set editor's picker and inline creation (PS-026,
-PS-027), and the product value panel, which needs each specification's type and options
-to draw the right input (PS-034, PS-035).
+and the product tab render server-side in PHP: the specifications list, the
+specification editor, the set editor's picker and inline creation, and the product value
+panel, which needs each specification's type and options to draw the right input.
 
 Two properties matter more than the shape:
 
@@ -182,7 +181,7 @@ so no custom client data store is needed.
 
 Two things to verify by hand rather than assume: `spec-attr` is `public: false`, so
 WordPress's own permission rules for a non-public taxonomy apply once `show_in_rest` is
-on, and they must line up with the capability model PS-005 established. And `usage_count`
+on, and they must line up with the plugin's capability model. And `usage_count`
 is the expensive member of that payload — `_fields` trims the response but does not stop
 the callback running, so it needs its own guard.
 

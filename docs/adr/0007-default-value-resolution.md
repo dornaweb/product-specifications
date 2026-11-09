@@ -24,7 +24,7 @@ and a product that was never saved holds nothing.
 There is no set-level default in v1. A `Warranty` specification has one default
 everywhere it is used.
 
-This ticket was written proposing two levels, a set item default winning over the
+The first proposal was two levels, a set item default winning over the
 specification default, with the value "written to the product the first time the editor
 opens the field". Both parts are rejected below.
 
@@ -55,7 +55,7 @@ A prefilled field is submitted like any other field, sanitized like any other va
 stored like any other value. There is no separate write path and no special marker
 distinguishing a stored default from a typed value.
 
-The ticket's original proposal — writing the value "the first time the editor opens the
+The original proposal — writing the value "the first time the editor opens the
 field" — is rejected. A read that mutates data is wrong on its own terms, and here it
 would mean that opening a product edit screen and navigating away had silently written
 values to that product.
@@ -131,20 +131,19 @@ v1's behavior is the safe one, and nothing in the v2 feature set depends on more
 - A default is applied only where the client applies it. A product created through the
   REST API or WP-CLI, with no editor involved, gets no defaults.
 
-## Effects on other tickets
+## Effects on per-item set options
 
-- **PS-029, per-item set options**, is currently scoped as "per-item visible and
-  switch, and the set-level default value". The second item does not exist.
-  `visible` is already a member of the structure schema, so what remains
-  is interface work.
-- **PS-029's dependency on this ticket disappears.** It depended on PS-017 only for the
-  set-level default.
+- **Per-item set options** were scoped as "per-item visible and switch, and the
+  set-level default value". The second item does not exist. `visible` is already a
+  member of the structure schema, so what remains is interface work.
+- **Per-item set options no longer depend on default resolution.** They depended on it
+  only for the set-level default.
 
 ## Alternatives Considered
 
 ### A set item default winning over the specification default
 
-Rejected. It is the ticket's original proposal. It puts a value into the composition
+Rejected. It is the original proposal. It puts a value into the composition
 document, adds a precedence rule, and delivers a result indistinguishable from the
 one-level model once the product has been saved.
 

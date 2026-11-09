@@ -225,7 +225,7 @@ queryable as an id.
   concept.
 - Values, set structures and set assignments survive a native WordPress export and
   import. Moving a site no longer requires a plugin-specific tool.
-- Import and export (PS-057) reverts to being a merchant-facing packaging feature
+- Import and export reverts to being a merchant-facing packaging feature
   rather than a cross-environment id resolver.
 - The migration has an unambiguous target.
 
@@ -247,8 +247,8 @@ queryable as an id.
 - Concurrent writes to one product overwrite each other. The document is written whole,
   so a product edit, a REST call and a bulk job racing on the same product will lose
   one another's changes, last write winning. v1 behaves identically, so this is not a
-  regression, and no ticket depends on it. PS-075 makes it routine rather than rare and
-  is where a read-modify-write guard should be decided.
+  regression, and nothing depends on it. Bulk value entry across products would make it
+  routine rather than rare, and is where a read-modify-write guard should be decided.
 
 ## Alternatives Considered
 
@@ -324,8 +324,8 @@ who picked the wrong type with no way forward.
 ## Consequences for the ADRs that follow
 
 - **Derived values.** A specification whose value comes from elsewhere has no key in
-  the map. ADR 0003 makes that a behavior rather than a flag, so PS-015 describes a
-  pattern rather than a mechanism.
+  the map. ADR 0003 makes that a behavior rather than a flag, so it is a pattern
+  rather than a mechanism.
 - **Variation overrides.** A variation stores a sparse document in this same shape, and
   an absent key inherits. The question this ADR deferred — how a variation overrides a
   parent value *to empty*, when removing the key is what inheritance means — is answered

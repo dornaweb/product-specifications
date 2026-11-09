@@ -102,7 +102,7 @@ same unit, the same linked terms. A store that switches its weight unit from kil
 pounds updates every specification table at once, with nothing stored and nothing
 migrated.
 
-This also keeps PS-060's unit type independent. That type exists for hand-entered
+This also keeps the unit type independent. That type exists for hand-entered
 numbers with a unit. A derived weight never touches it.
 
 ### The source tests emptiness itself
@@ -181,9 +181,9 @@ restores every product's value. Deleting them on the type change would make that
 a data-loss event.
 
 They cost meta space until the merchant deletes the specification, at which point
-PS-024's mandatory value purge removes them.
+the mandatory value purge removes them.
 
-`Upgrade`'s cleanup step (PS-048) does not do this. It is the migration's second phase —
+`Upgrade`'s cleanup step does not do this. It is the migration's second phase —
 one explicit action after a successful migration — not an ongoing collector, and it runs
 once.
 
@@ -246,14 +246,13 @@ type is always reversible.**
 - A type owning its own escaping means a badly written third-party type can introduce an
   XSS. The contract has to be documented for third parties, not just followed by core.
 
-## Constraints recorded for later tickets
+## Constraints recorded for later work
 
-- **PS-077's invariant does not cover derived values.** "Any projection must be
+- **The projection invariant does not cover derived values.** "Any projection must be
   rebuildable from the map" is false for a derived specification, whose value is
   rebuildable from the *product*. Filtering on a derived specification needs a different
-  mechanism from filtering on a stored one, and PS-077 must account for both.
-- **PS-061** implements the type this ADR describes. Reading a variation's own
-  WooCommerce attribute stays out of scope there and here (PS-078).
+  mechanism from filtering on a stored one, and filtering must account for both.
+- **Reading a variation's own WooCommerce attribute** stays out of scope.
 - **MPN and country of origin** have getters in WooCommerce's development branch,
   `get_mpn()` and `get_customs_country_of_origin()`, and are not in a release as of 11.2.
   Each becomes a source once the WooCommerce floor reaches the release that ships it.
@@ -294,7 +293,7 @@ Rejected. It would duplicate WooCommerce's unit, decimal and currency handling, 
 diverge from it in some locale eventually. The store's own output is the correct output
 by definition.
 
-### Compose derived weights with the unit type from PS-060
+### Compose derived weights with the unit type
 
 Rejected. It gives the plugin one rendering path for every unit, at the cost of coupling
 two types and reimplementing what `wc_format_weight()` already does.

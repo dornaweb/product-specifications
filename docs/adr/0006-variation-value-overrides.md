@@ -98,8 +98,8 @@ There is no `variable` flag on the structure's set item. A merchant does not dec
 set-definition time which specifications may vary.
 
 The scale problem this creates — a forty-row set on a product with twenty variations —
-is solved in the interface rather than in the schema. PS-037 renders the parent's table
-grayed out per variation, and the merchant clicks a row to override it and edits in
+is solved in the interface rather than in the schema. The editor renders the parent's
+table grayed out per variation, and the merchant clicks a row to override it and edits in
 place. Overriding is opt-in per row per variation, at the moment of editing, and the
 sparse document is the natural record of what was clicked.
 
@@ -147,20 +147,20 @@ while composing a set months earlier.
   nothing in the language enforces it.
 - Two documents must be read to render one variation's table, and three counting the set
   structure.
-- Storage permits overriding any specification, so PS-037's interface is the only thing
+- Storage permits overriding any specification, so the override interface is the only thing
   standing between a merchant and eight hundred input fields. If that interface is not
   built well, the feature is unusable.
 - A `null` stored against a specification later changed to a type that cannot represent
   emptiness is inert, like any other orphan ADR 0002 keeps.
 
-## Constraints recorded for later tickets
+## Constraints recorded for later work
 
-- **PS-056, variation-aware frontend table.** The table renders once, server-side, for
+- **Variation-aware frontend table.** The table renders once, server-side, for
   the parent. Showing variation-specific values means either rendering every variation's
   table into the DOM and switching on WooCommerce's `found_variation` event, or fetching
   on variation change. This ADR forces neither. Rendering all of them costs N variations
   × M rows in the page.
-- **PS-037, variation override editing.** The grayed-out inherited table with per-row
+- **Variation override editing.** The grayed-out inherited table with per-row
   opt-in is the agreed interaction, and the storage supports it with no schema flag.
 - A variation may hold a key its parent lacks; the merge handles it and it renders.
 - A variation key naming a specification not in the assigned set is ignored, exactly as

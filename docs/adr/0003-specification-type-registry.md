@@ -80,8 +80,8 @@ interface SpecificationType
 | `id()`, `label()` | Everything. The id is what `attr_type` already stores |
 | `optionsSchema()` | The REST endpoint, to validate a specification's configuration payload |
 | `sanitize()` | The save lifecycle, on the way into the value map. Returning `null` means an empty value |
-| `value()` | Every read. Returns the value to present. The default implementation returns `$stored`. Receives the options because a derived type needs to know what to read. Added 2026-11-08 (PS-061) |
-| `plainValue()` | Anything that cannot take markup: exports, structured data, search. Unescaped text, such as "Yes" for a yes-or-no value shown as an icon. Added 2026-11-08 (PS-098) |
+| `value()` | Every read. Returns the value to present. The default implementation returns `$stored`. Receives the options because a derived type needs to know what to read. Added 2026-11-08 |
+| `plainValue()` | Anything that cannot take markup: exports, structured data, search. Unescaped text, such as "Yes" for a yes-or-no value shown as an icon. Added 2026-11-08 |
 | `render()` | Frontend rendering, to format a value. It does not emit markup around the value |
 
 ### What a type declares on the client
@@ -150,7 +150,7 @@ Two ordinary behaviors replace a flag and a second method:
 Nothing is stored because nothing is ever submitted. The `edit` component only says where
 the value comes from, so the specification's key never appears in the payload and
 `sanitize()` is never called for it. A type with no `edit` component at all is shown as
-unavailable, with its raw stored value. Amended 2026-11-08 (PS-061). `sanitize()` is not how a type declines to store, and `null` returned from it means
+unavailable, with its raw stored value. Amended 2026-11-08. `sanitize()` is not how a type declines to store, and `null` returned from it means
 an empty value — see ADR 0006, where a stored `null` on a variation means that variation
 has no value.
 
@@ -186,8 +186,8 @@ shape.
 ### The type formats the value, the template owns the markup
 
 `render()` returns the presentable value. The template owns the row, the cell and
-the table around it, and stays theme-overridable, which is what PS-054 needs to have
-anything left to override.
+the table around it, and stays theme-overridable, which is what gives a template
+override anything left to override.
 
 In v1 this boundary does not exist: `templates/shortcodes/specifications-table.php`
 branches on the `'yes'` and `'no'` literals and emits the check and cross SVGs inline.
