@@ -1,3 +1,4 @@
+import { specificationType } from '../admin/shared/specificationTypes';
 import type { SpecificationRecord } from './types';
 
 export interface SuggestedDefaultsResult {
@@ -17,8 +18,12 @@ export function mergeSuggestedDefaults(
 
 	for ( const record of records ) {
 		const defaultValue = record.specification?.default;
+		const isReadOnly = specificationType(
+			record.specification?.type ?? 'text'
+		).readOnly;
 
 		if (
+			! isReadOnly &&
 			! Object.prototype.hasOwnProperty.call( values, record.slug ) &&
 			defaultValue !== null &&
 			defaultValue !== undefined &&

@@ -7,6 +7,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 defined('OBJECT') || define('OBJECT', 'OBJECT');
+defined('WC_DELIMITER') || define('WC_DELIMITER', '|');
 
 /**
  * Stand-ins for the WordPress functions the unit suite reaches. An integration
@@ -457,6 +458,127 @@ if (!class_exists('WC_Product')) {
         }
     }
     // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+if (!class_exists('WC_Product_Variation')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WooCommerce owns this name.
+    class WC_Product_Variation extends WC_Product
+    {
+        public function __construct(int $id = 0, private readonly int $parentId = 0)
+        {
+            parent::__construct($id);
+        }
+
+        public function get_parent_id(): int
+        {
+            return $this->parentId;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+$GLOBALS['wc_test_products'] = [];
+
+if (!function_exists('wc_get_product')) {
+    function wc_get_product(int $productId): ?WC_Product
+    {
+        return $GLOBALS['wc_test_products'][$productId] ?? null;
+    }
+}
+
+if (!function_exists('wc_format_weight')) {
+    function wc_format_weight(string $weight): string
+    {
+        return $weight === '' ? 'N/A' : $weight . ' kg';
+    }
+}
+
+if (!function_exists('wc_format_dimensions')) {
+    /**
+     * @param array<string> $dimensions
+     */
+    function wc_format_dimensions(array $dimensions): string
+    {
+        $string = implode(' &times; ', array_filter($dimensions));
+
+        return $string === '' ? 'N/A' : $string . ' cm';
+    }
+}
+
+$GLOBALS['wp_test_object_terms'] = [];
+
+if (!function_exists('get_the_terms')) {
+    function get_the_terms(int $postId, string $taxonomy): mixed
+    {
+        return $GLOBALS['wp_test_object_terms'][$postId][$taxonomy] ?? false;
+    }
+}
+
+if (!function_exists('get_term_link')) {
+    function get_term_link(WP_Term $term): string
+    {
+        return 'https://example.test/term/' . $term->slug;
+    }
+}
+
+if (!function_exists('esc_url')) {
+    function esc_url(string $url): string
+    {
+        return htmlspecialchars($url, ENT_QUOTES);
+    }
+}
+
+if (!class_exists('WP_Taxonomy')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Taxonomy
+    {
+        public object $labels;
+
+        public function __construct(public string $name, public bool $show_ui, string $label = '')
+        {
+            $this->labels = (object) ['name' => $label];
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses
+}
+
+$GLOBALS['wp_test_product_taxonomies'] = [];
+$GLOBALS['wc_test_attribute_taxonomies'] = [];
+
+if (!function_exists('get_object_taxonomies')) {
+    /**
+     * @return array<string, WP_Taxonomy>
+     */
+    function get_object_taxonomies(string $objectType, string $output = 'names'): array
+    {
+        return $GLOBALS['wp_test_product_taxonomies'];
+    }
+}
+
+if (!function_exists('taxonomy_is_product_attribute')) {
+    function taxonomy_is_product_attribute(string $name): bool
+    {
+        return str_starts_with($name, 'pa_');
+    }
+}
+
+if (!function_exists('wc_get_attribute_taxonomies')) {
+    /**
+     * @return array<string, object>
+     */
+    function wc_get_attribute_taxonomies(): array
+    {
+        return $GLOBALS['wc_test_attribute_taxonomies'];
+    }
+}
+
+if (!function_exists('wc_attribute_taxonomy_name')) {
+    function wc_attribute_taxonomy_name(string $attributeName): string
+    {
+        return 'pa_' . $attributeName;
+    }
 }
 
 if (!function_exists('_n')) {

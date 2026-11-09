@@ -9,6 +9,7 @@ use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Migration\MigrationNotice;
 use Amiut\ProductSpecs\ImportExport\ExportDownload;
 use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
@@ -30,7 +31,8 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(AdminScreens::class),
                 $container->get(MigrationState::class),
                 $container->get(MigrationNotice::class),
-                $container->get(ExportDownload::class)
+                $container->get(ExportDownload::class),
+                $container->get(ProductDataChoicesScript::class)
             ),
             PageRegistry::class => static fn () => new WooCommerceAdminPageRegistry(),
         ];

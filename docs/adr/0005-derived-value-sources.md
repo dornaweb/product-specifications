@@ -63,7 +63,7 @@ and emptiness test, which is what the rejected one-type shape lacked.
 | `length`, `width`, `height` | — | `get_length()`, … | `wc_format_dimensions()` with one value | the value is empty, or the product is virtual |
 | `sku` | — | `get_sku()` | escaped as text | empty string |
 | `global_unique_id` | — | `get_global_unique_id()` | escaped as text | empty string |
-| `taxonomy` | `name`: the taxonomy | the product's terms | `get_the_term_list()` | no terms |
+| `taxonomy` | `name`: the taxonomy | `get_the_terms()` | links, as `get_the_term_list()` | no terms |
 | `attribute` | `name`: the attribute | `WC_Product::get_attribute()` | escaped as text | empty string |
 
 `global_unique_id` is WooCommerce's GTIN, UPC, EAN or ISBN field, added in 9.2. The
@@ -78,9 +78,11 @@ in code, and so does a taxonomy another plugin registers for products. WooCommer
 internal taxonomies, product type, visibility and shipping class, have no admin screen
 and drop out.
 
-Terms are output by `get_the_term_list()`, linked to their archive. That is what
-`wc_get_product_category_list()` and `wc_get_product_tag_list()` call, so categories and
-tags render exactly as they do elsewhere in the store.
+Terms are read with `get_the_terms()` and rendered linked to their archive, in the markup
+`get_the_term_list()` produces. That is what `wc_get_product_category_list()` and
+`wc_get_product_tag_list()` call, so categories and tags render exactly as they do
+elsewhere in the store. The value itself is the list of term names and links, so a plain
+consumer gets the names without parsing markup.
 
 ### Attributes ignore WooCommerce's visibility checkbox
 

@@ -10,6 +10,7 @@ use Amiut\ProductSpecs\ImportExport\ExportDownload;
 use Amiut\ProductSpecs\ImportExport\Import\ImportRestController;
 use Amiut\ProductSpecs\Migration\MigrationRestController;
 use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 
 final class Assets
 {
@@ -20,7 +21,8 @@ final class Assets
         private readonly AdminScreens $screens,
         private readonly MigrationState $migration,
         private readonly MigrationNotice $migrationNotice,
-        private readonly ExportDownload $exportDownload
+        private readonly ExportDownload $exportDownload,
+        private readonly ProductDataChoicesScript $productDataChoices
     ) {
     }
 
@@ -58,6 +60,8 @@ final class Assets
                 'restNonce' => wp_create_nonce('wp_rest'),
             ]
         );
+
+        $this->productDataChoices->attachTo(self::HANDLE_ADMIN_INIT_SCRIPT);
 
         wp_enqueue_script(self::HANDLE_ADMIN_INIT_SCRIPT);
         wp_enqueue_style(self::HANDLE_ADMIN_INIT_SCRIPT);

@@ -9,6 +9,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 import { __, sprintf, _n } from '@wordpress/i18n';
 import { specificationType } from '../admin/shared/specificationTypes';
+import { groupProgress } from './groupProgress';
 import {
 	readProductValues,
 	readSets,
@@ -391,13 +392,11 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 							aria-orientation="vertical"
 						>
 							{ groups.map( ( group ) => {
-								const filled = group.items.filter(
-									( item ) =>
-										Object.prototype.hasOwnProperty.call(
-											values,
-											item.slug
-										) && values[ item.slug ] !== null
-								).length;
+								const { filled, total } = groupProgress(
+									group,
+									values,
+									specifications
+								);
 								return (
 									<button
 										key={ group.key }
@@ -416,7 +415,9 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 										}
 									>
 										<span>{ group.label }</span>
-										<small>{ `${ filled }/${ group.items.length }` }</small>
+										{ total > 0 && (
+											<small>{ `${ filled }/${ total }` }</small>
+										) }
 									</button>
 								);
 							} ) }

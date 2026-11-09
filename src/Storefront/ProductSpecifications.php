@@ -65,7 +65,7 @@ final class ProductSpecifications
 
         $stored = $this->values->read($product->get_id())->values()[$definition->key()] ?? null;
 
-        return $this->types->get($definition->typeId())->value($product, $stored);
+        return $this->types->get($definition->typeId())->value($product, $stored, $definition->options());
     }
 
     private function product(int|WC_Product $product): ?WC_Product

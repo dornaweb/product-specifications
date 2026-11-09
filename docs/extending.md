@@ -68,6 +68,10 @@ configured in the admin.
 
 `render()` returns output-ready HTML, and the type escapes everything inside it.
 
+`value($product, $stored, $options)` is the value to present, computed on every read. A type
+that reads it from the product ignores `$stored`, and registers a read-only value control on
+the client so nothing is submitted for it.
+
 `sanitize($input, $options)` turns input into the stored value, and `null` means empty.
 `validate($input, $options)` returns the message for input the type rejects, or `null`.
 Both receive the specification's options. `validate()` sees raw input, and only for a

@@ -19,6 +19,14 @@ declare global {
 				url: string;
 			} | null;
 		};
+		productSpecificationsProductData?: {
+			choices: {
+				source: string;
+				name: string;
+				label: string;
+				group: string;
+			}[];
+		};
 	}
 }
 

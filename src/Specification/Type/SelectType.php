@@ -51,7 +51,7 @@ final class SelectType implements SpecificationType
         return __('Choose one of the options.', 'product-specifications');
     }
 
-    public function value(WC_Product $product, mixed $stored): mixed
+    public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed
     {
         return is_scalar($stored) ? (string) $stored : null;
     }

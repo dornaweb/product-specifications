@@ -26,6 +26,7 @@ describe( 'specificationType', () => {
 			'select',
 			'true_false',
 			'unit',
+			'woocommerce',
 		] );
 	} );
 

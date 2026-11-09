@@ -50,7 +50,7 @@ final class TextType implements SpecificationType
         return null;
     }
 
-    public function value(WC_Product $product, mixed $stored): mixed
+    public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed
     {
         return is_scalar($stored) ? (string) $stored : null;
     }

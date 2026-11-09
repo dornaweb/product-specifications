@@ -76,7 +76,7 @@ final class SpecificationsTableReader
             }
 
             $type = $this->types->get($definition->typeId());
-            $value = $type->value($product, $values[$definition->key()] ?? null);
+            $value = $type->value($product, $values[$definition->key()] ?? null, $definition->options());
 
             if ($value === null || $value === '') {
                 continue;

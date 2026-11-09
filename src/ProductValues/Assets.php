@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\ProductValues;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 
 final class Assets
 {
     public const HANDLE = 'product-specifications-product-values';
 
-    public function __construct(private readonly AssetHelper $assets)
-    {
+    public function __construct(
+        private readonly AssetHelper $assets,
+        private readonly ProductDataChoicesScript $productDataChoices
+    ) {
     }
 
     public function load(string $hookSuffix): void
@@ -28,6 +31,8 @@ final class Assets
 
         $this->assets->registerScript(self::HANDLE, 'product-values.js');
         $this->assets->registerStyle(self::HANDLE, 'product-values.css', ['wp-components']);
+
+        $this->productDataChoices->attachTo(self::HANDLE);
 
         wp_enqueue_script(self::HANDLE);
         wp_enqueue_style(self::HANDLE);

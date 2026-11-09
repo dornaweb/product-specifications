@@ -34,6 +34,8 @@ use Amiut\ProductSpecs\Specification\Rest\SpecificationCollectionQuery;
 use Amiut\ProductSpecs\Specification\Rest\SpecificationRestField;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataSources;
 use Amiut\ProductSpecs\SpecificationSet\DraftSlug;
 use Amiut\ProductSpecs\SpecificationSet\Module as SpecificationSetModule;
 use Amiut\ProductSpecs\SpecificationSet\Rest\ProductUsageCounter;
@@ -82,6 +84,8 @@ final class ServiceWiringTest extends TestCase
             SpecificationTaxonomy::class => SpecificationTaxonomy::class,
             SpecificationTypeRegistry::class => SpecificationTypeRegistry::class,
             OptionsChecker::class => OptionsChecker::class,
+            ProductDataSources::class => ProductDataSources::class,
+            ProductDataChoicesScript::class => ProductDataChoicesScript::class,
             SetUsageCounter::class => SetUsageCounter::class,
             SlugGuard::class => SlugGuard::class,
             SpecificationCollectionQuery::class => SpecificationCollectionQuery::class,

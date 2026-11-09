@@ -11,6 +11,9 @@ use Amiut\ProductSpecs\Specification\Type\TextAreaType;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
 use Amiut\ProductSpecs\Specification\Type\Unit\UnitType;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataSources;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\WooCommerceType;
 use Amiut\ProductSpecs\Capability\Capabilities;
 use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
 use Amiut\ProductSpecs\Specification\Rest\SetUsageCounter;
@@ -34,6 +37,10 @@ final class Module implements ServiceModule, ExecutableModule
             SpecificationTaxonomy::class => static fn () => new SpecificationTaxonomy(),
             SpecificationTypeRegistry::class => static fn () => new SpecificationTypeRegistry(new TextType()),
             SpecificationDefinitionMapper::class => static fn () => new SpecificationDefinitionMapper(),
+            ProductDataSources::class => static fn () => new ProductDataSources(),
+            ProductDataChoicesScript::class => static fn (
+                ContainerInterface $container
+            ) => new ProductDataChoicesScript($container->get(ProductDataSources::class)),
             SpecificationDefinitionRepository::class => static fn (ContainerInterface $container) => new SpecificationDefinitionRepository(
                 $container->get(SpecificationDefinitionMapper::class)
             ),
@@ -67,12 +74,13 @@ final class Module implements ServiceModule, ExecutableModule
 
         add_action(
             SpecificationTypeRegistry::REGISTER_ACTION,
-            static function (SpecificationTypeRegistry $registry): void {
+            static function (SpecificationTypeRegistry $registry) use ($container): void {
                 $registry->register(new TextType());
                 $registry->register(new TextAreaType());
                 $registry->register(new SelectType());
                 $registry->register(new TrueFalseType());
                 $registry->register(new UnitType());
+                $registry->register(new WooCommerceType($container->get(ProductDataSources::class)));
             },
             0
         );

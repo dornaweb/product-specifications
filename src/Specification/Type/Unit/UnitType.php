@@ -47,7 +47,7 @@ final class UnitType implements SpecificationType
         return $measurement === null ? MeasurementRejection::NotANumber->message() : $units->rejection($measurement);
     }
 
-    public function value(WC_Product $product, mixed $stored): mixed
+    public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed
     {
         return Measurement::fromData($stored, '')?->toStorage();
     }

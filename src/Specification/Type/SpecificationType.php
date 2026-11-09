@@ -29,7 +29,7 @@ interface SpecificationType
      */
     public function validate(mixed $input, SpecificationOptions $options): ?string;
 
-    public function value(WC_Product $product, mixed $stored): mixed;
+    public function value(WC_Product $product, mixed $stored, SpecificationOptions $options): mixed;
 
     /**
      * The value as unescaped text without markup, for places that cannot take HTML.

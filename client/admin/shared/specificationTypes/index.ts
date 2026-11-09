@@ -35,6 +35,10 @@ export interface SpecificationTypeDefinition {
 	// Product values have their own explicit empty state. Resolution still
 	// happens through this registry so extensions use the same seam as core.
 	valueControl?: ComponentType< SpecificationTypeValueProps >;
+	// The value is read from the product rather than entered. The product
+	// screen shows valueControl as information only, suggests no default, and
+	// does not count the specification as one left to fill.
+	readOnly?: boolean;
 	// Returns the message to show on the options field, or undefined when the
 	// configuration is complete. The server rejects an incomplete one, and a
 	// rejection that arrives after the save has left the field is not the

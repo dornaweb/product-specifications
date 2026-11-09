@@ -46,4 +46,16 @@ describe( 'mergeSuggestedDefaults', () => {
 		expect( result.values ).toEqual( {} );
 		expect( result.added ).toEqual( [] );
 	} );
+
+	it( 'suggests nothing for a type whose value is read from the product', () => {
+		const result = mergeSuggestedDefaults( {}, [
+			{
+				...record( 'weight', '2 kg' ),
+				specification: { type: 'woocommerce', default: '2 kg' },
+			},
+		] );
+
+		expect( result.values ).toEqual( {} );
+		expect( result.added ).toEqual( [] );
+	} );
 } );

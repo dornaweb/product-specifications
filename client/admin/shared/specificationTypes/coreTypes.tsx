@@ -15,6 +15,9 @@ import YesNoOptionsPanel from './YesNoOptionsPanel';
 import MeasurementInput from './unit/MeasurementInput';
 import UnitOptionsPanel from './unit/UnitOptionsPanel';
 import { unitOptions } from './unit/unitOptions';
+import ProductDataOptionsPanel from './woocommerce/ProductDataOptionsPanel';
+import ProductDataValue from './woocommerce/ProductDataValue';
+import { requiresProductData } from './woocommerce/productData';
 import {
 	ChoiceValue,
 	ParagraphValue,
@@ -82,5 +85,16 @@ export const coreSpecificationTypes: SpecificationTypes = {
 		validateOptions: requiresUnits,
 		defaultControl: UnitDefault,
 		valueControl: MeasurementInput,
+	},
+	woocommerce: {
+		label: __( 'WooCommerce product data', 'product-specifications' ),
+		description: __(
+			'Read from the product, such as its weight, SKU or brand. Nothing is entered by hand.',
+			'product-specifications'
+		),
+		options: ProductDataOptionsPanel,
+		validateOptions: requiresProductData,
+		valueControl: ProductDataValue,
+		readOnly: true,
 	},
 };
