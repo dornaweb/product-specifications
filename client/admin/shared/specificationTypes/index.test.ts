@@ -27,6 +27,9 @@ describe( 'specificationType', () => {
 			'true_false',
 			'unit',
 			'woocommerce',
+			'document',
+			'link',
+			'date',
 		] );
 	} );
 

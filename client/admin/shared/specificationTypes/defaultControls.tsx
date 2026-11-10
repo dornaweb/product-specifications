@@ -8,6 +8,7 @@ import { __ } from '@wordpress/i18n';
 import { Field } from '../ui';
 import { choiceSelectOptions, choicesFrom } from './ChoiceOptionsPanel';
 import { asText, fromText } from './textConversion';
+import DateInput from './date/DateInput';
 import type { SpecificationTypeDefaultProps } from './index';
 import NumberInput from './number/NumberInput';
 
@@ -92,6 +93,24 @@ export const NumberDefault = ( {
 	<DefaultField>
 		{ ( controlProps ) => (
 			<NumberInput
+				label={ __( 'Default', 'product-specifications' ) }
+				value={ value }
+				options={ options }
+				onChange={ onChange }
+				fieldProps={ controlProps }
+			/>
+		) }
+	</DefaultField>
+);
+
+export const DateDefault = ( {
+	value,
+	options,
+	onChange,
+}: SpecificationTypeDefaultProps ) => (
+	<DefaultField>
+		{ ( controlProps ) => (
+			<DateInput
 				label={ __( 'Default', 'product-specifications' ) }
 				value={ value }
 				options={ options }

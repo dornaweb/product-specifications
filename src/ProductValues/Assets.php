@@ -34,6 +34,7 @@ final class Assets
 
         $this->productDataChoices->attachTo(self::HANDLE);
 
+        wp_enqueue_media();
         wp_enqueue_script(self::HANDLE);
         wp_enqueue_style(self::HANDLE);
     }

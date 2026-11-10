@@ -208,6 +208,21 @@ if (!function_exists('absint')) {
     }
 }
 
+if (!function_exists('size_format')) {
+    function size_format(int|string $bytes, int $decimals = 0): string|false
+    {
+        $units = ['MB' => 1048576, 'KB' => 1024, 'B' => 1];
+
+        foreach ($units as $unit => $size) {
+            if ((int) $bytes >= $size) {
+                return number_format((int) $bytes / $size, $decimals) . ' ' . $unit;
+            }
+        }
+
+        return '0 B';
+    }
+}
+
 if (!function_exists('esc_html__')) {
     function esc_html__(string $text, string $domain = 'default'): string
     {
@@ -628,5 +643,20 @@ if (!function_exists('home_url')) {
     function home_url(string $path = ''): string
     {
         return 'https://store.test' . $path;
+    }
+}
+
+if (!function_exists('esc_url_raw')) {
+    function esc_url_raw(string $url, ?array $protocols = null): string
+    {
+        return str_replace(' ', '%20', $url);
+    }
+}
+
+if (!function_exists('wp_parse_url')) {
+    function wp_parse_url(string $url, int $component = -1): mixed
+    {
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- This is the WordPress wrapper.
+        return parse_url($url, $component);
     }
 }

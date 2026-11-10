@@ -14,6 +14,7 @@ use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
+use Amiut\ProductSpecs\Specification\Type\PortableValue;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 use RuntimeException;
@@ -184,7 +185,7 @@ final class ValuesSection implements Section
         $set = is_string($requested) ? $this->storedSetSlug($requested) : null;
 
         try {
-            $this->writer->merge($objectId, $set, $values);
+            $this->writer->merge($objectId, $set, $this->storedForms($values));
         } catch (RuntimeException $exception) {
             return EntryOutcome::failed($label, $exception->getMessage());
         }
@@ -257,7 +258,10 @@ final class ValuesSection implements Section
             }
 
             $sanitized = $this->types->has($definition->typeId())
-                ? $this->types->get($definition->typeId())->sanitize($value, $definition->options())
+                ? $this->types->get($definition->typeId())->sanitize(
+                    $this->storedForm($definition, $value),
+                    $definition->options()
+                )
                 : null;
 
             if ($sanitized === null) {
@@ -324,9 +328,12 @@ final class ValuesSection implements Section
                 continue;
             }
 
-            $readable = $this->types->has($definition->typeId())
-                ? $this->types->get($definition->typeId())->sanitize($value, $definition->options())
-                : $value;
+            $type = $this->types->has($definition->typeId()) ? $this->types->get($definition->typeId()) : null;
+            $readable = $type === null ? $value : $type->sanitize($value, $definition->options());
+
+            if ($type instanceof PortableValue) {
+                $readable = $type->exportValue($readable, $definition->options());
+            }
 
             if ($readable !== null) {
                 $exported[$key] = $readable;
@@ -447,6 +454,29 @@ final class ValuesSection implements Section
         $object = is_array($entry['object'] ?? null) ? $entry['object'] : [];
 
         return $object;
+    }
+
+    /**
+     * @param array<string, mixed> $values
+     * @return array<string, mixed>
+     */
+    private function storedForms(array $values): array
+    {
+        $stored = [];
+
+        foreach ($values as $key => $value) {
+            $definition = $this->definitions->findByKey($key);
+            $stored[$key] = $definition === null ? $value : $this->storedForm($definition, $value);
+        }
+
+        return $stored;
+    }
+
+    private function storedForm(SpecificationDefinition $definition, mixed $value): mixed
+    {
+        $type = $this->types->has($definition->typeId()) ? $this->types->get($definition->typeId()) : null;
+
+        return $type instanceof PortableValue ? $type->importValue($value, $definition->options()) : $value;
     }
 
     /**

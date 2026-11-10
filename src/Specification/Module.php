@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Specification;
 
+use Amiut\ProductSpecs\Specification\Type\Document\Attachments;
+use Amiut\ProductSpecs\Specification\Type\Document\DocumentType;
+use Amiut\ProductSpecs\Specification\Type\Document\WordPressAttachments;
 use Amiut\ProductSpecs\Specification\Type\SelectType;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextAreaType;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
+use Amiut\ProductSpecs\Specification\Type\Link\LinkType;
 use Amiut\ProductSpecs\Specification\Type\Number\NumberType;
+use Amiut\ProductSpecs\Specification\Type\Date\DateType;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataSources;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\WooCommerceType;
@@ -38,6 +43,7 @@ final class Module implements ServiceModule, ExecutableModule
             SpecificationTypeRegistry::class => static fn () => new SpecificationTypeRegistry(new TextType()),
             SpecificationDefinitionMapper::class => static fn () => new SpecificationDefinitionMapper(),
             ProductDataSources::class => static fn () => new ProductDataSources(),
+            Attachments::class => static fn () => new WordPressAttachments(),
             ProductDataChoicesScript::class => static fn (
                 ContainerInterface $container
             ) => new ProductDataChoicesScript($container->get(ProductDataSources::class)),
@@ -81,6 +87,9 @@ final class Module implements ServiceModule, ExecutableModule
                 $registry->register(new TrueFalseType());
                 $registry->register(new NumberType());
                 $registry->register(new WooCommerceType($container->get(ProductDataSources::class)));
+                $registry->register(new DocumentType($container->get(Attachments::class)));
+                $registry->register(new LinkType());
+                $registry->register(new DateType());
             },
             0
         );

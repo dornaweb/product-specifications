@@ -8,9 +8,14 @@ import {
 	ParagraphDefault,
 	TrueFalseDefault,
 	NumberDefault,
+	DateDefault,
 } from './defaultControls';
 import type { SpecificationTypes } from './index';
+import DateInput from './date/DateInput';
+import DateOptionsPanel from './date/DateOptionsPanel';
 import YesNoOptionsPanel from './YesNoOptionsPanel';
+import DocumentValue from './document/DocumentValue';
+import LinkInput from './link/LinkInput';
 import NumberInput from './number/NumberInput';
 import NumberOptionsPanel from './number/NumberOptionsPanel';
 import { requiresUnits } from './number/numberOptions';
@@ -90,5 +95,31 @@ export const coreSpecificationTypes: SpecificationTypes = {
 		validateOptions: requiresProductData,
 		valueControl: ProductDataValue,
 		readOnly: true,
+	},
+	document: {
+		label: __( 'Document', 'product-specifications' ),
+		description: __(
+			'Files from the media library, such as datasheets, manuals or certificates.',
+			'product-specifications'
+		),
+		valueControl: DocumentValue,
+	},
+	link: {
+		label: __( 'Link', 'product-specifications' ),
+		description: __(
+			'A web address, email address or phone number, with an optional label.',
+			'product-specifications'
+		),
+		valueControl: LinkInput,
+	},
+	date: {
+		label: __( 'Date', 'product-specifications' ),
+		description: __(
+			'A day, a month or a year, such as a release date.',
+			'product-specifications'
+		),
+		options: DateOptionsPanel,
+		defaultControl: DateDefault,
+		valueControl: DateInput,
 	},
 };

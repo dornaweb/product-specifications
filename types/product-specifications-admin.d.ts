@@ -1,5 +1,26 @@
 declare global {
+	interface PickedAttachment {
+		id: number;
+		title: string;
+		url: string;
+	}
+
+	interface MediaFrame {
+		on( event: 'select', callback: () => void ): void;
+		open(): void;
+		state(): {
+			get( key: 'selection' ): { toJSON(): PickedAttachment[] };
+		};
+	}
+
 	interface Window {
+		wp?: {
+			media?: ( options: {
+				title: string;
+				button: { text: string };
+				multiple: boolean;
+			} ) => MediaFrame;
+		};
 		productSpecificationsAdmin?: {
 			pages: {
 				path: string;

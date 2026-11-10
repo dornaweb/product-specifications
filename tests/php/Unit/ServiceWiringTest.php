@@ -32,6 +32,8 @@ use Amiut\ProductSpecs\Specification\Rest\SetUsageCounter;
 use Amiut\ProductSpecs\Specification\Rest\SlugGuard;
 use Amiut\ProductSpecs\Specification\Rest\SpecificationCollectionQuery;
 use Amiut\ProductSpecs\Specification\Rest\SpecificationRestField;
+use Amiut\ProductSpecs\Specification\Type\Document\Attachments;
+use Amiut\ProductSpecs\Specification\Type\Document\WordPressAttachments;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
@@ -89,6 +91,7 @@ final class ServiceWiringTest extends TestCase
             SpecificationTypeRegistry::class => SpecificationTypeRegistry::class,
             OptionsChecker::class => OptionsChecker::class,
             ProductDataSources::class => ProductDataSources::class,
+            Attachments::class => WordPressAttachments::class,
             ProductDataChoicesScript::class => ProductDataChoicesScript::class,
             SetUsageCounter::class => SetUsageCounter::class,
             SlugGuard::class => SlugGuard::class,

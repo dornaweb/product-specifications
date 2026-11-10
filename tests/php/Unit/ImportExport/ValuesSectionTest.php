@@ -13,11 +13,14 @@ use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
+use Amiut\ProductSpecs\Specification\Type\Document\Attachment;
+use Amiut\ProductSpecs\Specification\Type\Document\DocumentType;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\Specification\Type\TextType;
 use Amiut\ProductSpecs\Specification\Type\TrueFalseType;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSet;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetStructure;
+use Amiut\ProductSpecs\Tests\Unit\Specification\Type\Document\InMemoryAttachments;
 use PHPUnit\Framework\TestCase;
 use WP_Post;
 
@@ -127,6 +130,35 @@ final class ValuesSectionTest extends TestCase
         );
     }
 
+    public function testAFileIsExportedAsItsPathAndImportedAsTheAttachmentAtThatPath(): void
+    {
+        Sections::storedSpecification(6, 'manuals', 'Manuals', 'document');
+        $GLOBALS['wp_test_posts'] = [self::PHONE];
+        $GLOBALS['wp_test_post_meta'][self::PHONE][WordPressProductValueRepository::VALUES_META_KEY]['values']
+            = ['manuals' => [['id' => 482, 'label' => 'Datasheet']]];
+
+        $exported = [...$this->section()->export()];
+
+        self::assertSame(
+            ['manuals' => [['file' => '2026/11/x1.pdf', 'label' => 'Datasheet']]],
+            (array) $exported[0]['values']
+        );
+
+        $GLOBALS['wp_test_post_meta'][self::PHONE][WordPressProductValueRepository::VALUES_META_KEY]['values'] = [];
+        $this->section()->importEntry(
+            [
+                'object' => ['type' => 'product', 'sku' => 'PH-100'],
+                'values' => ['manuals' => [['file' => '2026/11/x1.pdf', 'label' => 'Datasheet']]],
+            ],
+            new ImportPlan()
+        );
+
+        self::assertSame(
+            ['manuals' => [['id' => 482, 'label' => 'Datasheet']]],
+            $GLOBALS['wp_test_post_meta'][self::PHONE][WordPressProductValueRepository::VALUES_META_KEY]['values']
+        );
+    }
+
     /**
      * @param array<string, string> $identity
      * @return array<string, mixed>
@@ -152,6 +184,9 @@ final class ValuesSectionTest extends TestCase
     {
         $types = new SpecificationTypeRegistry(new TextType());
         $types->register(new TrueFalseType());
+        $types->register(new DocumentType((new InMemoryAttachments())->with(
+            new Attachment(482, 'Datasheet X1', 'https://shop.test/uploads/2026/11/x1.pdf', '2026/11/x1.pdf', null)
+        )));
 
         $definitions = new SpecificationDefinitionRepository(new SpecificationDefinitionMapper());
         $sets = new InMemorySetRepository([

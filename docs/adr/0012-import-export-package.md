@@ -118,9 +118,11 @@ A specification's options and stored values pass through its type:
   API does, and passes every value through the type's `sanitize()`.
 
 So a new type takes part with no change to the importer. A type whose stored value
-refers to something local to the site, such as an attachment id, implements an optional
-interface that turns the value into something portable and back. No core type needs it
-today.
+refers to something local to the site, such as an attachment id, implements the optional
+`PortableValue` interface, which turns the value into something portable and back. Export
+applies it after `sanitize()`, import before. The Document type carries each file as its
+path inside the uploads folder and, on import, links the attachment holding that path; a
+file this store does not hold is skipped.
 
 ### Import never deletes, and a type mismatch is a conflict
 
