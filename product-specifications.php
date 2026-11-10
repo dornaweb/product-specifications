@@ -101,6 +101,7 @@ function bootstrap(): void
             ->addModule(new ImportExport\Module())
             ->addModule(new Shortcode\Module())
             ->addModule(new ProductValues\Module())
+            ->addModule(new Suggestion\Module())
             ->boot();
 
         if ($booted) {

@@ -47,6 +47,10 @@ use Amiut\ProductSpecs\SpecificationSet\WordPressSpecificationSetRepository;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaDefinition;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaRegistrar;
 use Amiut\ProductSpecs\SpecificationSet\StructureSanitizer;
+use Amiut\ProductSpecs\Suggestion\Module as SuggestionModule;
+use Amiut\ProductSpecs\Suggestion\SuggestionsRestField;
+use Amiut\ProductSpecs\Suggestion\ValueUsageProjection;
+use Amiut\ProductSpecs\Suggestion\ValueUsageRepository;
 use Amiut\ProductSpecs\Tests\Unit\Support\StubContainer;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use Amiut\ProductSpecs\Upgrade\Installer;
@@ -111,6 +115,9 @@ final class ServiceWiringTest extends TestCase
             ProductValuesStep::class => ProductValuesStep::class,
             ProductValueRepository::class => WordPressProductValueRepository::class,
             ProductValueWriter::class => ProductValueWriter::class,
+            ValueUsageRepository::class => ValueUsageRepository::class,
+            ValueUsageProjection::class => ValueUsageProjection::class,
+            SuggestionsRestField::class => SuggestionsRestField::class,
         ];
     }
 
@@ -125,6 +132,7 @@ final class ServiceWiringTest extends TestCase
             (new SpecificationModule())->services(),
             (new UpgradeModule())->services(),
             (new MigrationModule())->services(),
+            (new SuggestionModule())->services(),
             array_intersect_key(
                 (new ProductValuesModule())->services(),
                 [ProductValueRepository::class => true, ProductValueWriter::class => true]

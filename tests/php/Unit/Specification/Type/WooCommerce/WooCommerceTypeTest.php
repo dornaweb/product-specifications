@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class WooCommerceTypeTest extends TestCase
 {
-    public function testAValueStoredUnderAnEarlierTypeSurvivesAProductSave(): void
+    public function testAStoredValueIsKeptUnchanged(): void
     {
         $type = new WooCommerceType(new ProductDataSources());
         $options = SpecificationOptions::fromMap(['source' => 'weight']);

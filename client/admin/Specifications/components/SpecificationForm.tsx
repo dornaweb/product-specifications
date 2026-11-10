@@ -13,6 +13,7 @@ import { Field, FieldGrid, InlineForm, Shortcut } from '../../shared/ui';
 import {
 	specificationType,
 	specificationTypes,
+	type Suggestion,
 } from '../../shared/specificationTypes';
 import type { SpecificationItem } from '../mapRecord';
 
@@ -22,10 +23,18 @@ export interface SpecificationDraft {
 	type: string;
 	options: Record< string, unknown >;
 	defaultValue: unknown;
+	suggestions: Suggestion[];
 }
 
 export function emptyDraft( type = '' ): SpecificationDraft {
-	return { name: '', description: '', type, options: {}, defaultValue: null };
+	return {
+		name: '',
+		description: '',
+		type,
+		options: {},
+		defaultValue: null,
+		suggestions: [],
+	};
 }
 
 export function draftFrom( item: SpecificationItem ): SpecificationDraft {
@@ -35,6 +44,7 @@ export function draftFrom( item: SpecificationItem ): SpecificationDraft {
 		type: item.type,
 		options: item.options,
 		defaultValue: item.defaultValue,
+		suggestions: item.suggestions,
 	};
 }
 
@@ -415,6 +425,7 @@ const SpecificationForm = ( {
 							{ OptionsPanel && (
 								<OptionsPanel
 									options={ draft.options }
+									suggestions={ draft.suggestions }
 									error={ optionsError }
 									onChange={ ( options ) => {
 										setOptionsError( undefined );
@@ -426,6 +437,7 @@ const SpecificationForm = ( {
 								<DefaultControl
 									value={ draft.defaultValue }
 									options={ draft.options }
+									suggestions={ draft.suggestions }
 									onChange={ ( defaultValue ) =>
 										onChange( { ...draft, defaultValue } )
 									}

@@ -1,3 +1,5 @@
+import type { Suggestion } from '../admin/shared/specificationTypes';
+
 export interface ValueDocument {
 	schema_version: number;
 	values: Record< string, unknown >;
@@ -39,6 +41,7 @@ export interface SpecificationRecord {
 	name: string;
 	slug: string;
 	description?: string;
+	suggestions?: Suggestion[];
 	specification?: {
 		type?: string;
 		options?: Record< string, unknown >;

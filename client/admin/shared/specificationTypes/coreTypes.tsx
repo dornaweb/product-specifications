@@ -6,7 +6,6 @@ import ChoiceOptionsPanel, {
 import {
 	ChoiceDefault,
 	ParagraphDefault,
-	TextDefault,
 	TrueFalseDefault,
 	NumberDefault,
 } from './defaultControls';
@@ -18,12 +17,10 @@ import { requiresUnits } from './number/numberOptions';
 import ProductDataOptionsPanel from './woocommerce/ProductDataOptionsPanel';
 import ProductDataValue from './woocommerce/ProductDataValue';
 import { requiresProductData } from './woocommerce/productData';
-import {
-	ChoiceValue,
-	ParagraphValue,
-	TextValue,
-	TrueFalseValue,
-} from './valueControls';
+import TextOptionsPanel from './text/TextOptionsPanel';
+import { TextDefault, TextValue } from './text/textControls';
+import { requiresSuggestions } from './text/textOptions';
+import { ChoiceValue, ParagraphValue, TrueFalseValue } from './valueControls';
 
 const requiresChoices = ( options: Record< string, unknown > ) =>
 	parseChoices( choicesText( options ) ).length === 0
@@ -37,9 +34,11 @@ export const coreSpecificationTypes: SpecificationTypes = {
 	text: {
 		label: __( 'Text', 'product-specifications' ),
 		description: __(
-			'A short free-form answer.',
+			'A short free-form answer, optionally with suggestions or several values.',
 			'product-specifications'
 		),
+		options: TextOptionsPanel,
+		validateOptions: requiresSuggestions,
 		defaultControl: TextDefault,
 		valueControl: TextValue,
 	},

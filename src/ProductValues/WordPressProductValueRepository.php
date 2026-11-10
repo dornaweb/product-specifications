@@ -65,18 +65,12 @@ final class WordPressProductValueRepository implements ProductValueRepository
         return update_post_meta($postId, self::SET_META_KEY, $setSlug) !== false;
     }
 
-    /**
-     * The query narrows the products to those whose stored map contains the key's
-     * serialized form, which a value can also produce, so each match is confirmed
-     * against the decoded map.
-     */
     public function countUsing(string $specificationKey, array $values): int
     {
         $count = 0;
 
-        foreach ($this->storedMapsMentioning($specificationKey) as $stored) {
-            $document = ProductValueDocument::fromStorage(maybe_unserialize($stored));
-            $value = $document->values()[$specificationKey] ?? null;
+        foreach ($this->valueMapsWith($specificationKey) as $map) {
+            $value = $map[$specificationKey];
 
             if (is_scalar($value) && in_array((string) $value, $values, true)) {
                 ++$count;
@@ -84,6 +78,26 @@ final class WordPressProductValueRepository implements ProductValueRepository
         }
 
         return $count;
+    }
+
+    /**
+     * The query narrows the products to those whose stored map contains the key's
+     * serialized form, which a value can also produce, so each match is confirmed
+     * against the decoded map.
+     */
+    public function valueMapsWith(string $specificationKey): array
+    {
+        $maps = [];
+
+        foreach ($this->storedMapsMentioning($specificationKey) as $stored) {
+            $values = ProductValueDocument::fromStorage(maybe_unserialize($stored))->values();
+
+            if (array_key_exists($specificationKey, $values)) {
+                $maps[] = $values;
+            }
+        }
+
+        return $maps;
     }
 
     /**

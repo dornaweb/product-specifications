@@ -5,9 +5,17 @@ import { coreSpecificationTypes } from './coreTypes';
 
 export const TYPES_FILTER = 'product_specifications.types';
 
+// A value offered while typing, ranked by the server: the most used first.
+export interface Suggestion {
+	value: string;
+	count: number;
+	learned: boolean;
+}
+
 export interface SpecificationTypeDefaultProps {
 	value: unknown;
 	options: Record< string, unknown >;
+	suggestions?: Suggestion[];
 	onChange: ( value: unknown ) => void;
 }
 
@@ -15,11 +23,14 @@ export interface SpecificationTypeValueProps {
 	label: string;
 	value: unknown;
 	options: Record< string, unknown >;
+	suggestions?: Suggestion[];
 	onChange: ( value: unknown ) => void;
 }
 
 export interface SpecificationTypeOptionsProps {
 	options: Record< string, unknown >;
+	// The saved specification's suggestions, as they were when the form opened.
+	suggestions?: Suggestion[];
 	onChange: ( options: Record< string, unknown > ) => void;
 	error?: string;
 }

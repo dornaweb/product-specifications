@@ -173,6 +173,11 @@ final class ProductValueWriterTest extends TestCase
             {
                 return 0;
             }
+
+            public function valueMapsWith(string $specificationKey): array
+            {
+                return [];
+            }
         };
         $service = new ProductValueWriter(
             $repository,
@@ -363,6 +368,11 @@ final class ProductValueWriterTest extends TestCase
             public function countUsing(string $specificationKey, array $values): int
             {
                 return 0;
+            }
+
+            public function valueMapsWith(string $specificationKey): array
+            {
+                return [];
             }
         };
     }

@@ -1,27 +1,8 @@
-import {
-	SelectControl,
-	TextControl,
-	TextareaControl,
-} from '@wordpress/components';
+import { SelectControl, TextareaControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { choiceSelectOptions, choicesFrom } from './ChoiceOptionsPanel';
 import { asText, fromText } from './textConversion';
 import type { SpecificationTypeValueProps } from './index';
-
-export const TextValue = ( {
-	label,
-	value,
-	onChange,
-}: SpecificationTypeValueProps ) => (
-	<TextControl
-		__nextHasNoMarginBottom
-		__next40pxDefaultSize
-		label={ label }
-		hideLabelFromVision
-		value={ asText( value ) }
-		onChange={ ( next ) => onChange( fromText( next ) ) }
-	/>
-);
 
 export const ParagraphValue = ( {
 	label,

@@ -20,4 +20,12 @@ interface ProductValueRepository
      * @param list<string> $values
      */
     public function countUsing(string $specificationKey, array $values): int;
+
+    /**
+     * The value maps of every product and variation outside the trash that hold a value
+     * for the specification.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function valueMapsWith(string $specificationKey): array;
 }

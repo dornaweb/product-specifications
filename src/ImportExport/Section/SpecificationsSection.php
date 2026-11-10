@@ -13,6 +13,7 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
+use Amiut\ProductSpecs\Specification\Type\SelectType;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use WP_Error;
 
@@ -225,7 +226,9 @@ final class SpecificationsSection implements Section
             );
         }
 
-        $removed = array_values(array_diff($existing->options()->choices(), $incoming->options()->choices()));
+        $removed = $existing->typeId() === SelectType::ID
+            ? array_values(array_diff($existing->options()->choices(), $incoming->options()->choices()))
+            : [];
         $affected = $removed === [] ? 0 : $this->values->countUsing($existing->key(), $removed);
 
         if ($affected > 0) {

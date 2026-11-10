@@ -84,13 +84,19 @@ The index is a projection, maintained the way ADR 0008 prescribes:
 | `product_specifications_values_saved` | For each changed key of a suggesting specification, subtract the old value's items and add the new ones |
 | A product or variation is trashed, or deleted without being trashed first | Subtract its stored values |
 | A product or variation is restored from the trash | Add its stored values |
-| `product_specifications_rebuild` | Rebuild every suggesting specification's index in one pass over the value maps |
-| Suggestions are turned on for a specification | Build that specification's index |
+| `product_specifications_rebuild` | Rebuild every suggesting specification's index from the value maps |
+| A specification's type or options change | Build its index when it suggests and has none; delete it when it no longer suggests |
+
+An index that is missing when it is read or updated is built from the value maps first,
+so suggestions turned on for a specification, or a specification an import created,
+never needs a separate step.
 
 ### Read with the specification
 
-The specification REST field returns the ranked suggestions, so the product screen gets
-them from the request it already makes. Ranking is by product count, the typed list first
+A `suggestions` field on the specification's REST response returns them ranked, so the
+product screen gets them from the request it already makes. It is a field of its own,
+next to `specification`, so the index depends on specifications and products and
+neither depends on it. Ranking is by product count, the typed list first
 on a tie, then typed order, then alphabetical. Learned values are included only while
 **Learn new values** is on, and at most 500 of them.
 
@@ -159,6 +165,6 @@ uninstall for a count that only ranks suggestions.
 
 One non-autoloaded option per suggesting specification holds value counts by normalized
 form and spelling. It is maintained from the save lifecycle and post lifecycle hooks,
-rebuilt on `product_specifications_rebuild` and when suggestions are turned on, and read
-through the specification REST field. Learned values are derived from it, not stored, and
+rebuilt on `product_specifications_rebuild`, built whenever it is missing, and read
+through a `suggestions` field on the specification's REST response. Learned values are derived from it, not stored, and
 leave the suggestions only when no product carries them.

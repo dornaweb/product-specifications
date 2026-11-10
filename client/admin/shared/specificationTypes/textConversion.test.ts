@@ -18,6 +18,16 @@ describe( 'asText', () => {
 	);
 } );
 
+describe( 'asText with a list', () => {
+	it( 'joins a list of strings the way the storefront shows it', () => {
+		expect( asText( [ 'USB-C', 'HDMI' ] ) ).toBe( 'USB-C, HDMI' );
+	} );
+
+	it( 'renders a list holding anything but strings as an empty control', () => {
+		expect( asText( [ '6.1', 2 ] ) ).toBe( '' );
+	} );
+} );
+
 describe( 'fromText', () => {
 	it( 'reads an empty control as no value', () => {
 		expect( fromText( '' ) ).toBeNull();

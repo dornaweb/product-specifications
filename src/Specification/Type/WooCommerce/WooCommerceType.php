@@ -35,8 +35,8 @@ final class WooCommerceType implements SpecificationType
     }
 
     /**
-     * Nothing is entered for this type, so what arrives was stored under an earlier type.
-     * It is kept, so that changing the type back restores it.
+     * Nothing is entered for this type. A stored value is kept unchanged, so a type that
+     * can read it still finds it.
      */
     public function sanitize(mixed $input, SpecificationOptions $options): mixed
     {

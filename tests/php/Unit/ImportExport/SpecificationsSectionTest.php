@@ -86,6 +86,19 @@ final class SpecificationsSectionTest extends TestCase
         self::assertSame(['2 products use choices the file removes: Red, Green.'], $outcome->notes());
     }
 
+    public function testRemovedTextSuggestionsAreNotReportedAsRemovedChoices(): void
+    {
+        Sections::storedSpecification(12, 'finish', 'Finish', 'text', ['Matte', 'Glossy']);
+        FakeWpdb::install([serialize(['schema_version' => 1, 'values' => ['finish' => 'Glossy']])]);
+
+        $outcome = Sections::specifications()->planEntry(
+            ['slug' => 'finish', 'name' => 'Finish', 'type' => 'text', 'options' => ['values' => ['Matte']]],
+            new ImportPlan()
+        );
+
+        self::assertSame([], $outcome->notes());
+    }
+
     protected function tearDown(): void
     {
         FakeWpdb::uninstall();

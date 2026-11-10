@@ -574,6 +574,7 @@ const ValueField = ( {
 						label={ specification.name }
 						value={ value }
 						options={ definition.options ?? {} }
+						suggestions={ specification.suggestions }
 						onChange={ onChange }
 					/>
 				) : (

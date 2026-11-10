@@ -165,7 +165,10 @@ final class SpecificationRestField
                 'type' => ['type' => 'string'],
                 'type_label' => ['type' => 'string', 'readonly' => true],
                 'options' => ['type' => 'object', 'additionalProperties' => true],
-                'default' => ['type' => ['string', 'number', 'boolean', 'null']],
+                'default' => [
+                    'type' => ['string', 'number', 'boolean', 'null', 'array'],
+                    'items' => ['type' => 'string'],
+                ],
                 'usage_count' => ['type' => ['integer', 'null'], 'readonly' => true],
             ],
         ];

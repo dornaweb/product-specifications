@@ -45,7 +45,7 @@ export const readSpecifications = ( ids: number[] ) => {
 			apiFetch< SpecificationRecord[] >( {
 				path: `/wp/v2/specifications?context=edit&per_page=${ PER_PAGE }&include=${ batch.join(
 					','
-				) }&_fields=id,name,slug,description,specification`,
+				) }&_fields=id,name,slug,description,specification,suggestions`,
 			} )
 		)
 	).then( ( results ) => results.flat() );

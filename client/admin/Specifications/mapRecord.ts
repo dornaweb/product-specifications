@@ -1,3 +1,5 @@
+import type { Suggestion } from '../shared/specificationTypes';
+
 export interface SpecificationDefinitionPayload {
 	type?: string;
 	type_label?: string;
@@ -12,6 +14,7 @@ export interface SpecificationRecord {
 	slug?: string;
 	description?: string;
 	specification?: SpecificationDefinitionPayload;
+	suggestions?: Suggestion[];
 }
 
 export interface SpecificationItem {
@@ -24,6 +27,7 @@ export interface SpecificationItem {
 	options: Record< string, unknown >;
 	defaultValue: unknown;
 	usageCount: number;
+	suggestions: Suggestion[];
 	// Set on a specification saved in this sitting: it is pinned above the list
 	// so the editor sees what they just made without the list reordering under
 	// them.
@@ -43,5 +47,6 @@ export function mapRecord( record: SpecificationRecord ): SpecificationItem {
 		options: definition.options ?? {},
 		defaultValue: definition.default ?? null,
 		usageCount: definition.usage_count ?? 0,
+		suggestions: record.suggestions ?? [],
 	};
 }

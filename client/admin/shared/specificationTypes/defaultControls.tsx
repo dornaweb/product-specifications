@@ -1,7 +1,6 @@
 import {
 	CheckboxControl,
 	SelectControl,
-	TextControl,
 	TextareaControl,
 } from '@wordpress/components';
 import type { ReactNode } from 'react';
@@ -12,7 +11,7 @@ import { asText, fromText } from './textConversion';
 import type { SpecificationTypeDefaultProps } from './index';
 import NumberInput from './number/NumberInput';
 
-const DefaultField = ( {
+export const DefaultField = ( {
 	children,
 }: {
 	children: ( controlProps: Record< string, unknown > ) => ReactNode;
@@ -26,24 +25,6 @@ const DefaultField = ( {
 	>
 		{ children }
 	</Field>
-);
-
-export const TextDefault = ( {
-	value,
-	onChange,
-}: SpecificationTypeDefaultProps ) => (
-	<DefaultField>
-		{ ( controlProps ) => (
-			<TextControl
-				{ ...controlProps }
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-				value={ asText( value ) }
-				placeholder={ __( 'None', 'product-specifications' ) }
-				onChange={ ( text ) => onChange( fromText( text ) ) }
-			/>
-		) }
-	</DefaultField>
 );
 
 export const ParagraphDefault = ( {
