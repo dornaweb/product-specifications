@@ -1,0 +1,77 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Amiut\ProductSpecs\ProductValues;
+
+use Amiut\ProductSpecs\Assets\AssetHelper;
+use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
+use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
+use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
+use Inpsyde\Modularity\Module\ExecutableModule;
+use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Inpsyde\Modularity\Module\ServiceModule;
+use Psr\Container\ContainerInterface;
+
+final class Module implements ServiceModule, ExecutableModule
+{
+    use ModuleClassNameIdTrait;
+
+    public function services(): array
+    {
+        return [
+            ProductValueRepository::class => static fn () => new WordPressProductValueRepository(),
+            ProductValueWriter::class => static fn (
+                ContainerInterface $container
+            ) => new ProductValueWriter(
+                $container->get(ProductValueRepository::class),
+                $container->get(SpecificationDefinitionRepository::class),
+                $container->get(SpecificationTypeRegistry::class),
+                $container->get(SpecificationSetRepository::class)
+            ),
+            SpecificationsUpdater::class => static fn (
+                ContainerInterface $container
+            ) => new SpecificationsUpdater(
+                $container->get(ProductValueWriter::class),
+                $container->get(ProductValueRepository::class),
+                $container->get(MigrationState::class)
+            ),
+            ProductValuesRestController::class => static fn (
+                ContainerInterface $container
+            ) => new ProductValuesRestController(
+                $container->get(ProductValueRepository::class),
+                $container->get(ProductValueWriter::class)
+            ),
+            ProductValuesMetabox::class => static fn (ContainerInterface $container) => new ProductValuesMetabox(
+                $container->get(MigrationState::class)
+            ),
+            Assets::class => static fn (ContainerInterface $container) => new Assets(
+                $container->get(AssetHelper::class),
+                $container->get(ProductDataChoicesScript::class)
+            ),
+        ];
+    }
+
+    public function run(ContainerInterface $container): bool
+    {
+        add_action(
+            'add_meta_boxes_product',
+            static function () use ($container): void {
+                $container->get(ProductValuesMetabox::class)->register();
+            }
+        );
+
+        add_action('admin_enqueue_scripts', [$container->get(Assets::class), 'load']);
+
+        add_action(
+            'rest_api_init',
+            static function () use ($container): void {
+                $container->get(ProductValuesRestController::class)->registerRoutes();
+            }
+        );
+
+        return true;
+    }
+}

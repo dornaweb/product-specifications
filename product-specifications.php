@@ -9,10 +9,10 @@
  * Author URI: https://amin.nz
  * License: GPL-2.0+
  * Requires Plugins: woocommerce
- * Requires PHP: 7.4
- * Requires at least: 5.9
+ * Requires PHP: 8.1
+ * Requires at least: 7.0
  * WC tested up to: 10.8.1
- * WC requires at least: 8.0.0
+ * WC requires at least: 9.2.0
  */
 
 declare(strict_types=1);
@@ -26,10 +26,6 @@ use Inpsyde\Modularity\Properties\PluginProperties;
 use Throwable;
 
 defined('ABSPATH') || exit;
-
-if (!defined('DWSPECS_PLUGIN_FILE')) {
-    define('DWSPECS_PLUGIN_FILE', __FILE__);
-}
 
 function handleFailure(Throwable $throwable): void
 {
@@ -54,7 +50,7 @@ function handleFailure(Throwable $throwable): void
 
 function setupAutoLoader(): void
 {
-    if (class_exists(Content\Module::class)) {
+    if (class_exists(Upgrade\Installer::class)) {
         return;
     }
 
@@ -63,39 +59,60 @@ function setupAutoLoader(): void
     }
 }
 
+function install(): void
+{
+    try {
+        setupAutoLoader();
+
+        (new Upgrade\Installer(
+            new Upgrade\DataVersionRepository(),
+            new Upgrade\LegacyDataProbe()
+        ))->install();
+    } catch (Throwable $throwable) {
+        handleFailure($throwable);
+    }
+}
+
+function plugin(): Package
+{
+    /** @var Package|null $package */
+    static $package = null;
+
+    return $package ??= Package::new(PluginProperties::new(__FILE__));
+}
+
 function bootstrap(): void
 {
     try {
         setupAutoLoader();
 
-        $plugin = Package::new(
-            PluginProperties::new(__FILE__)
-        );
-
-        App::instance();
-
-        $plugin
+        $booted = plugin()
+            ->addModule(new Capability\Module())
+            ->addModule(new Upgrade\Module())
+            ->addModule(new Migration\Module())
             ->addModule(new Assets\Module())
-            ->addModule(new Template\Module())
-            ->addModule(new Repository\Module())
-            ->addModule(new Content\Module())
+            ->addModule(new Specification\Module())
+            ->addModule(new SpecificationSet\Module())
             ->addModule(new Admin\Module())
-            ->addModule(new AttributesListUi\Module())
-            ->addModule(new AttributeGroupsListUi\Module())
-            ->addModule(new ImportExport\Module())
             ->addModule(new Settings\Module())
             ->addModule(new Integration\Module())
-            ->addModule(new Attribute\Module())
+            ->addModule(new Storefront\Module())
+            ->addModule(new Block\Module())
+            ->addModule(new ImportExport\Module())
             ->addModule(new Shortcode\Module())
-            ->addModule(new Metabox\Module())
-            ->addModule(new EntityUpdater\Module())
-            ->addModule(new EntityUpdaterUi\Module())
-            ->addModule(new ProductSpecifications\Module())
-            ->addModule(new SpecificationsTable\Module())
+            ->addModule(new ProductValues\Module())
+            ->addModule(new Suggestion\Module())
             ->boot();
+
+        if ($booted) {
+            require_once __DIR__ . '/inc/api.php';
+            do_action('product_specifications_loaded');
+        }
     } catch (Throwable $throwable) {
         handleFailure($throwable);
     }
 }
+
+register_activation_hook(__FILE__, __NAMESPACE__ . '\\install');
 
 add_action('plugins_loaded', __NAMESPACE__ . '\\bootstrap');

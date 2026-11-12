@@ -1,0 +1,9 @@
+.ps-link-input {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+
+	.components-base-control {
+		flex: 1 1 200px;
+	}
+}

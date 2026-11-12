@@ -1,0 +1,44 @@
+name: 🧹 PHP coding standards
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**/*.php"
+      - "inc/**"
+      - "tests/php/**"
+      - "product-specifications.php"
+      - "composer.json"
+      - "composer.lock"
+      - "phpcs.xml.dist"
+      - ".github/actions/**"
+      - ".github/workflows/php-coding-standards.yml"
+  pull_request:
+    paths:
+      - "src/**/*.php"
+      - "inc/**"
+      - "tests/php/**"
+      - "product-specifications.php"
+      - "composer.json"
+      - "composer.lock"
+      - "phpcs.xml.dist"
+      - ".github/actions/**"
+      - ".github/workflows/php-coding-standards.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/php-dependencies
+
+      - run: vendor/bin/phpcs

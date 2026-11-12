@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Settings;
 
-use Amiut\ProductSpecs\Template\TemplateRenderer;
+use Amiut\ProductSpecs\Capability\Capabilities;
 use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
@@ -17,39 +17,33 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            SettingsPage::class => static fn (ContainerInterface $container) => new SettingsPage(
-                $container->get(TemplateRenderer::class),
+            SettingsSchema::class => static fn () => new SettingsSchema(),
+            SettingsRepository::class => static fn (ContainerInterface $container) => new SettingsRepository(
+                $container->get(SettingsSchema::class)
             ),
-            SettingsRegistrar::class => static fn (ContainerInterface $container) => new SettingsRegistrar(),
+            Settings::class => static fn (ContainerInterface $container) => $container
+                ->get(SettingsRepository::class)
+                ->current(),
+            SettingsRestController::class => static fn (ContainerInterface $container) => new SettingsRestController(
+                $container->get(SettingsRepository::class),
+                $container->get(Capabilities::class)
+            ),
         ];
     }
 
     public function run(ContainerInterface $container): bool
     {
         add_action(
-            'admin_menu',
-            function () use ($container) {
-                $this->registerAdminMenuPage($container);
-            }
+            'rest_api_init',
+            [$container->get(SettingsRestController::class), 'registerRoutes']
         );
 
         add_action(
-            'admin_init',
-            [$container->get(SettingsRegistrar::class), 'register']
+            'init',
+            static fn () => $container->get(Settings::class),
+            0
         );
 
         return true;
-    }
-
-    public function registerAdminMenuPage(ContainerInterface $container): void
-    {
-        add_submenu_page(
-            'dw-specs',
-            __('Product specifications settings', 'product-specifications'),
-            __('Settings', 'product-specifications'),
-            'manage_options',
-            'dw-specs-settings',
-            [$container->get(SettingsPage::class), 'render']
-        );
     }
 }

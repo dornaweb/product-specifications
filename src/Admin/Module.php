@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Admin;
 
 use Amiut\ProductSpecs\Assets\AssetHelper;
+use Amiut\ProductSpecs\Capability\Capabilities;
+use Amiut\ProductSpecs\Migration\MigrationNotice;
+use Amiut\ProductSpecs\ImportExport\ExportDownload;
+use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Psr\Container\ContainerInterface;
@@ -17,18 +22,30 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            Assets::class => static fn (ContainerInterface $container) => new Assets(
-                $container->get(AssetHelper::class)
+            AdminScreens::class => static fn (ContainerInterface $container) => new AdminScreens(
+                $container->get(Capabilities::class),
+                $container->get(MigrationState::class)
             ),
-            AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
+            Assets::class => static fn (ContainerInterface $container) => new Assets(
+                $container->get(AssetHelper::class),
+                $container->get(AdminScreens::class),
+                $container->get(MigrationState::class),
+                $container->get(MigrationNotice::class),
+                $container->get(ExportDownload::class),
+                $container->get(ProductDataChoicesScript::class)
+            ),
+            PageRegistry::class => static fn () => new WooCommerceAdminPageRegistry(),
         ];
     }
 
     public function run(ContainerInterface $container): bool
     {
+        // Ahead of WooCommerce's admin app (15), so the routes exist when the app first
+        // renders. A route added later renders WooCommerce's "Not allowed" page meanwhile.
         add_action(
             'admin_enqueue_scripts',
-            [$container->get(Assets::class), 'load']
+            [$container->get(Assets::class), 'load'],
+            10
         );
 
         add_action(
@@ -38,36 +55,15 @@ final class Module implements ServiceModule, ExecutableModule
             }
         );
 
-        add_action(
-            'admin_menu',
-            [$container->get(AdminPageTopMenuModifier::class), 'modify']
-        );
-
         return true;
     }
 
     private function registerMenuPages(ContainerInterface $container): void
     {
-        add_menu_page(
-            esc_html__('Product specifications table', 'product-specifications'),
-            esc_html__('Specs. tables', 'product-specifications'),
-            'edit_pages',
-            'dw-specs',
-            static function (): void {
-            },
-            'dashicons-welcome-view-site',
-            25
-        );
+        $registry = $container->get(PageRegistry::class);
 
-        // Add tables page
-        add_submenu_page(
-            'dw-specs',
-            esc_html__('Add a new table', 'product-specifications'),
-            esc_html__('New table', 'product-specifications'),
-            'edit_pages',
-            'dw-specs-new',
-            static function (): void {
-            }
-        );
+        foreach ($container->get(AdminScreens::class)->pages() as $page) {
+            $registry->register($page);
+        }
     }
 }

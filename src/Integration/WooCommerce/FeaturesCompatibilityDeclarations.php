@@ -16,7 +16,7 @@ class FeaturesCompatibilityDeclarations
         $this->pluginProperties = $pluginProperties;
     }
 
-    public function __invoke()
+    public function __invoke(): void
     {
         $this->declareHposCompatibility();
     }

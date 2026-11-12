@@ -1,0 +1,86 @@
+@use "sass:math";
+@use "@wordpress/base-styles/colors" as wp-colors;
+@use "@wordpress/base-styles/variables" as wp-variables;
+
+// Tokens are CSS custom properties, not Sass variables, because the WordPress
+// admin colour scheme is chosen by the user and applied at runtime through
+// body.admin-color-*. A compiled-away Sass variable cannot follow that; a custom
+// property can.
+//
+// Order of preference for every value below:
+//   1. a WordPress runtime variable, consumed as-is
+//   2. a @wordpress/base-styles value, interpolated at build time
+//   3. our own — only where WordPress has no equivalent
+//
+// We never redefine --wp-admin-theme-color or --wp-components-color-*. Those
+// belong to WordPress and following them is the point.
+
+:root {
+	// 1. WordPress runtime, with a base-styles fallback for contexts that do not
+	//    set the scheme (a metabox rendered before common.css, tests, Storybook).
+	--ps-accent: var(--wp-components-color-accent, var(--wp-admin-theme-color, #{wp-colors.$gray-900}));
+	--ps-accent-darker-10: var(--wp-admin-theme-color-darker-10, var(--ps-accent));
+	--ps-accent-darker-20: var(--wp-admin-theme-color-darker-20, var(--ps-accent));
+	--ps-accent-rgb: var(--wp-admin-theme-color--rgb, 30, 30, 30);
+	--ps-focus-width: var(--wp-admin-border-width-focus, 2px);
+
+	--ps-fg: var(--wp-components-color-foreground, #{wp-colors.$gray-900});
+	--ps-fg-inverted: var(--wp-components-color-foreground-inverted, #{wp-colors.$white});
+	--ps-bg: var(--wp-components-color-background, #{wp-colors.$white});
+
+	// 2. base-styles greys. Consumed through WordPress's component variables
+	//    where those exist, so a themed build follows them too.
+	--ps-gray-900: #{wp-colors.$gray-900};
+	--ps-gray-800: var(--wp-components-color-gray-800, #{wp-colors.$gray-800});
+	--ps-gray-700: var(--wp-components-color-gray-700, #{wp-colors.$gray-700});
+	--ps-gray-600: var(--wp-components-color-gray-600, #{wp-colors.$gray-600});
+	--ps-gray-400: var(--wp-components-color-gray-400, #{wp-colors.$gray-400});
+	--ps-gray-300: var(--wp-components-color-gray-300, #{wp-colors.$gray-300});
+	--ps-gray-100: var(--wp-components-color-gray-100, #{wp-colors.$gray-100});
+
+	--ps-alert-red: #{wp-colors.$alert-red};
+	--ps-alert-yellow: #{wp-colors.$alert-yellow};
+	--ps-alert-green: #{wp-colors.$alert-green};
+
+	// 3. Ours. base-styles ships the three alert colours with no tints, and the
+	//    designs need a readable foreground and a surface for each state, plus a
+	//    fourth state — "no value" — that WordPress has no colour for at all.
+	--ps-warning-fg: #8a6116;
+	--ps-warning-bg: #fcf9e8;
+	--ps-error-fg: #{wp-colors.$alert-red};
+	--ps-error-bg: #f7ebeb;
+	--ps-success-fg: #1a6b32;
+	--ps-success-bg: #e6f5ea;
+	--ps-override-fg: #2145e6;
+	--ps-override-bg: #e8ecfd;
+	--ps-novalue-fg: #6b3fa0;
+	--ps-novalue-bg: #f4eefb;
+
+	// Spacing — base-styles $grid-unit is 8px.
+	--ps-space-half: #{math.div(wp-variables.$grid-unit, 2)};
+	--ps-space: #{wp-variables.$grid-unit};
+	--ps-space-2: #{wp-variables.$grid-unit * 2};
+	--ps-space-3: #{wp-variables.$grid-unit * 3};
+	--ps-space-4: #{wp-variables.$grid-unit * 4};
+	--ps-space-5: #{wp-variables.$grid-unit * 5};
+
+	// Type — base-styles' scale.
+	--ps-font-family: #{wp-variables.$font-family-body};
+	--ps-font-mono: #{wp-variables.$font-family-mono};
+	--ps-size-x-small: #{wp-variables.$font-size-x-small};
+	--ps-size-small: #{wp-variables.$font-size-small};
+	--ps-size-medium: #{wp-variables.$font-size-medium};
+	--ps-size-large: #{wp-variables.$font-size-large};
+	--ps-size-x-large: #{wp-variables.$font-size-x-large};
+	--ps-line-small: #{wp-variables.$font-line-height-small};
+	--ps-line-medium: #{wp-variables.$font-line-height-medium};
+	--ps-weight-regular: #{wp-variables.$font-weight-regular};
+	--ps-weight-medium: #{wp-variables.$font-weight-medium};
+
+	--ps-radius: #{wp-variables.$radius-small};
+	--ps-surface-muted: #f6f6f6;
+	--ps-admin-bg: #f0f0f1;
+	--ps-radius-large: #{wp-variables.$radius-medium};
+	--ps-elevation-popover: 0 4px 16px rgba(0, 0, 0, 0.15);
+	--ps-elevation-modal: 0 8px 32px rgba(0, 0, 0, 0.25);
+}

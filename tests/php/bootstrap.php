@@ -1,0 +1,662 @@
+<?php
+
+declare(strict_types=1);
+
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
+require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
+
+defined('OBJECT') || define('OBJECT', 'OBJECT');
+defined('WC_DELIMITER') || define('WC_DELIMITER', '|');
+
+/**
+ * Stand-ins for the WordPress functions the unit suite reaches. An integration
+ * harness will replace this file; until then a missing shim must fail loudly
+ * rather than be guessed at, so only add what a test actually calls.
+ */
+
+if (!function_exists('esc_html')) {
+    function esc_html(string $text): string
+    {
+        return htmlspecialchars($text, ENT_QUOTES);
+    }
+}
+
+if (!function_exists('__')) {
+    function __(string $text, string $domain = 'default'): string
+    {
+        return $text;
+    }
+}
+
+$GLOBALS['wp_test_options'] = [];
+
+if (!function_exists('get_option')) {
+    function get_option(string $option, mixed $default = false): mixed
+    {
+        return $GLOBALS['wp_test_options'][$option] ?? $default;
+    }
+}
+
+if (!function_exists('update_option')) {
+    function update_option(string $option, mixed $value, bool $autoload = true): bool
+    {
+        $GLOBALS['wp_test_options'][$option] = $value;
+
+        return true;
+    }
+}
+
+if (!function_exists('delete_option')) {
+    function delete_option(string $option): bool
+    {
+        unset($GLOBALS['wp_test_options'][$option]);
+
+        return true;
+    }
+}
+
+if (!function_exists('wp_upload_dir')) {
+    /**
+     * @return array<string, string>
+     */
+    function wp_upload_dir(?string $time = null, bool $createDirectory = true): array
+    {
+        return ['basedir' => $GLOBALS['wp_test_upload_dir'] ?? sys_get_temp_dir()];
+    }
+}
+
+if (!function_exists('wp_mkdir_p')) {
+    function wp_mkdir_p(string $target): bool
+    {
+        // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.directory_mkdir -- No WordPress in unit tests.
+        return is_dir($target) || mkdir($target, 0777, true);
+    }
+}
+
+if (!function_exists('wp_generate_password')) {
+    function wp_generate_password(int $length = 12, bool $specialChars = true): string
+    {
+        return bin2hex(random_bytes(intdiv($length, 2)));
+    }
+}
+
+if (!function_exists('wp_delete_file')) {
+    function wp_delete_file(string $file): void
+    {
+        unlink($file);
+    }
+}
+
+$GLOBALS['wp_test_posts'] = [];
+$GLOBALS['wp_test_post_meta'] = [];
+$GLOBALS['wp_test_post_types'] = [];
+$GLOBALS['wp_test_terms'] = [];
+$GLOBALS['wp_test_actions'] = [];
+
+if (!function_exists('get_posts')) {
+    /**
+     * @param array<string, mixed> $args
+     * @return array<int>
+     */
+    function get_posts(array $args = []): array
+    {
+        return $GLOBALS['wp_test_posts'];
+    }
+}
+
+if (!function_exists('maybe_unserialize')) {
+    function maybe_unserialize(mixed $data): mixed
+    {
+        return is_string($data) && preg_match('/^(a|s|i|b|d|N):/', $data) === 1
+            ? unserialize($data, ['allowed_classes' => false])
+            : $data;
+    }
+}
+
+if (!function_exists('get_post_meta')) {
+    function get_post_meta(int $postId, string $key = '', bool $single = false): mixed
+    {
+        $value = $GLOBALS['wp_test_post_meta'][$postId][$key] ?? '';
+
+        return $single ? $value : [$value];
+    }
+}
+
+if (!function_exists('update_post_meta')) {
+    function update_post_meta(int $postId, string $key, mixed $value): int|bool
+    {
+        $current = $GLOBALS['wp_test_post_meta'][$postId][$key] ?? null;
+        if ($current === $value) {
+            return false;
+        }
+
+        $GLOBALS['wp_test_post_meta'][$postId][$key] = $value;
+
+        return 1;
+    }
+}
+
+if (!function_exists('delete_post_meta')) {
+    function delete_post_meta(int $postId, string $key): bool
+    {
+        unset($GLOBALS['wp_test_post_meta'][$postId][$key]);
+
+        return true;
+    }
+}
+
+if (!function_exists('metadata_exists')) {
+    function metadata_exists(string $type, int $postId, string $key): bool
+    {
+        return array_key_exists($key, $GLOBALS['wp_test_post_meta'][$postId] ?? []);
+    }
+}
+
+if (!function_exists('get_post_type')) {
+    function get_post_type(int $postId): string|false
+    {
+        return $GLOBALS['wp_test_post_types'][$postId] ?? false;
+    }
+}
+
+if (!function_exists('do_action')) {
+    function do_action(string $hookName, mixed ...$args): void
+    {
+        $GLOBALS['wp_test_actions'][] = [$hookName, $args];
+    }
+}
+
+if (!function_exists('current_user_can')) {
+    function current_user_can(string $capability, mixed ...$args): bool
+    {
+        return in_array($capability, $GLOBALS['wp_test_user_capabilities'] ?? [], true);
+    }
+}
+
+if (!function_exists('register_taxonomy')) {
+    /**
+     * @param array<string, mixed> $args
+     */
+    function register_taxonomy(string $taxonomy, string $objectType, array $args = []): void
+    {
+        $GLOBALS['wp_test_taxonomies'][$taxonomy] = $args;
+    }
+}
+
+if (!function_exists('sanitize_key')) {
+    function sanitize_key(string $key): string
+    {
+        return (string) preg_replace('/[^a-z0-9_\-]/', '', strtolower($key));
+    }
+}
+
+if (!function_exists('sanitize_text_field')) {
+    function sanitize_text_field(string $text): string
+    {
+        $stripped = (string) preg_replace('@<(script|style)[^>]*?>.*?</\\1>@si', '', $text);
+        $stripped = (string) preg_replace('/<[^>]*>/', '', $stripped);
+
+        return trim((string) preg_replace('/[\r\n\t ]+/', ' ', $stripped));
+    }
+}
+
+if (!function_exists('absint')) {
+    function absint(mixed $value): int
+    {
+        return abs((int) $value);
+    }
+}
+
+if (!function_exists('size_format')) {
+    function size_format(int|string $bytes, int $decimals = 0): string|false
+    {
+        $units = ['MB' => 1048576, 'KB' => 1024, 'B' => 1];
+
+        foreach ($units as $unit => $size) {
+            if ((int) $bytes >= $size) {
+                return number_format((int) $bytes / $size, $decimals) . ' ' . $unit;
+            }
+        }
+
+        return '0 B';
+    }
+}
+
+if (!function_exists('esc_html__')) {
+    function esc_html__(string $text, string $domain = 'default'): string
+    {
+        return htmlspecialchars($text, ENT_QUOTES);
+    }
+}
+
+$GLOBALS['wp_test_filters'] = [];
+
+if (!function_exists('apply_filters')) {
+    function apply_filters(string $hookName, mixed $value, mixed ...$args): mixed
+    {
+        $callback = $GLOBALS['wp_test_filters'][$hookName] ?? null;
+
+        return is_callable($callback) ? $callback($value, ...$args) : $value;
+    }
+}
+
+if (!function_exists('_x')) {
+    function _x(string $text, string $context, string $domain = 'default'): string
+    {
+        return $text;
+    }
+}
+
+$GLOBALS['wp_test_term_meta'] = [];
+
+if (!function_exists('get_term_meta')) {
+    function get_term_meta(int $termId, string $key = '', bool $single = false): mixed
+    {
+        $value = $GLOBALS['wp_test_term_meta'][$termId][$key] ?? '';
+
+        return $single ? $value : [$value];
+    }
+}
+
+if (!class_exists('WP_Term')) {
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Term
+    {
+        public int $term_id = 0;
+
+        public string $name = '';
+
+        public string $slug = '';
+
+        public string $description = '';
+    }
+}
+
+if (!class_exists('WP_Post')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Post
+    {
+        public int $ID = 0;
+
+        public string $post_type = '';
+
+        public string $post_name = '';
+
+        public string $post_title = '';
+
+        public string $post_status = 'publish';
+
+        public string $post_content = '';
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses
+}
+
+if (!function_exists('get_term')) {
+    function get_term(int $termId, string $taxonomy = ''): mixed
+    {
+        return $GLOBALS['wp_test_terms'][$termId] ?? false;
+    }
+}
+
+if (!function_exists('get_terms')) {
+    /**
+     * @param array<string, mixed> $args
+     * @return list<WP_Term>
+     */
+    function get_terms(array $args = []): array
+    {
+        return array_values($GLOBALS['wp_test_terms']);
+    }
+}
+
+if (!function_exists('get_term_by')) {
+    function get_term_by(string $field, string|int $value, string $taxonomy = ''): mixed
+    {
+        foreach ($GLOBALS['wp_test_terms'] as $term) {
+            if ($term instanceof WP_Term && $field === 'slug' && $term->slug === $value) {
+                return $term;
+            }
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('get_post')) {
+    function get_post(int $postId): ?WP_Post
+    {
+        return $GLOBALS['wp_test_posts_by_id'][$postId] ?? null;
+    }
+}
+
+if (!function_exists('get_page_by_path')) {
+    function get_page_by_path(string $slug, string $output = OBJECT, string $postType = 'page'): mixed
+    {
+        foreach ($GLOBALS['wp_test_posts_by_id'] ?? [] as $post) {
+            if ($post instanceof WP_Post && $post->post_name === $slug && $post->post_type === $postType) {
+                return $post;
+            }
+        }
+
+        return null;
+    }
+}
+
+if (!class_exists('WP_Error')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Error
+    {
+        public function __construct(
+            private readonly string $code = '',
+            private readonly string $message = '',
+            private readonly mixed $data = null
+        ) {
+        }
+
+        public function get_error_code(): string
+        {
+            return $this->code;
+        }
+
+        public function get_error_message(): string
+        {
+            return $this->message;
+        }
+
+        public function get_error_data(): mixed
+        {
+            return $this->data;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+if (!class_exists('WP_Locale')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Locale
+    {
+        /** @var array{decimal_point: string, thousands_sep: string} */
+        public array $number_format = ['decimal_point' => '.', 'thousands_sep' => ','];
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses
+}
+
+if (!function_exists('number_format_i18n')) {
+    function number_format_i18n(float $number, int $decimals = 0): string
+    {
+        $format = ($GLOBALS['wp_locale'] ?? new WP_Locale())->number_format;
+
+        return number_format($number, $decimals, $format['decimal_point'], $format['thousands_sep']);
+    }
+}
+
+if (!class_exists('WP_REST_Request')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_REST_Request
+    {
+        /**
+         * @param array<string, mixed> $params
+         */
+        public function __construct(private readonly array $params = [])
+        {
+        }
+
+        public function get_param(string $key): mixed
+        {
+            return $this->params[$key] ?? null;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+if (!function_exists('sanitize_title')) {
+    function sanitize_title(string $title): string
+    {
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $title) ?? ''));
+
+        return trim($slug, '-');
+    }
+}
+
+$GLOBALS['wp_test_scheduled'] = [];
+
+if (!function_exists('wp_next_scheduled')) {
+    function wp_next_scheduled(string $hook, array $args = []): int|false
+    {
+        return $GLOBALS['wp_test_scheduled'][$hook] ?? false;
+    }
+}
+
+if (!function_exists('wp_schedule_single_event')) {
+    function wp_schedule_single_event(int $timestamp, string $hook, array $args = [], bool $wpError = false): bool
+    {
+        $GLOBALS['wp_test_scheduled'][$hook] = $timestamp;
+
+        return true;
+    }
+}
+
+if (!function_exists('get_post_stati')) {
+    /**
+     * @return array<string, string>
+     */
+    function get_post_stati(): array
+    {
+        return ['publish' => 'publish', 'trash' => 'trash'];
+    }
+}
+
+if (!function_exists('esc_attr')) {
+    function esc_attr(string $text): string
+    {
+        return htmlspecialchars($text, ENT_QUOTES);
+    }
+}
+
+if (!class_exists('WC_Product')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WooCommerce owns this name.
+    class WC_Product
+    {
+        public function __construct(private readonly int $id = 0)
+        {
+        }
+
+        public function get_id(): int
+        {
+            return $this->id;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+if (!class_exists('WC_Product_Variation')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WooCommerce owns this name.
+    class WC_Product_Variation extends WC_Product
+    {
+        public function __construct(int $id = 0, private readonly int $parentId = 0)
+        {
+            parent::__construct($id);
+        }
+
+        public function get_parent_id(): int
+        {
+            return $this->parentId;
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+}
+
+$GLOBALS['wc_test_products'] = [];
+
+if (!function_exists('wc_get_product')) {
+    function wc_get_product(int $productId): ?WC_Product
+    {
+        return $GLOBALS['wc_test_products'][$productId] ?? null;
+    }
+}
+
+if (!function_exists('wc_format_weight')) {
+    function wc_format_weight(string $weight): string
+    {
+        return $weight === '' ? 'N/A' : $weight . ' kg';
+    }
+}
+
+if (!function_exists('wc_format_dimensions')) {
+    /**
+     * @param array<string> $dimensions
+     */
+    function wc_format_dimensions(array $dimensions): string
+    {
+        $string = implode(' &times; ', array_filter($dimensions));
+
+        return $string === '' ? 'N/A' : $string . ' cm';
+    }
+}
+
+$GLOBALS['wp_test_object_terms'] = [];
+
+if (!function_exists('get_the_terms')) {
+    function get_the_terms(int $postId, string $taxonomy): mixed
+    {
+        return $GLOBALS['wp_test_object_terms'][$postId][$taxonomy] ?? false;
+    }
+}
+
+if (!function_exists('get_term_link')) {
+    function get_term_link(WP_Term $term): string
+    {
+        return 'https://example.test/term/' . $term->slug;
+    }
+}
+
+if (!function_exists('esc_url')) {
+    function esc_url(string $url): string
+    {
+        return htmlspecialchars($url, ENT_QUOTES);
+    }
+}
+
+if (!class_exists('WP_Taxonomy')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+    // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
+    class WP_Taxonomy
+    {
+        public object $labels;
+
+        public function __construct(public string $name, public bool $show_ui, string $label = '')
+        {
+            $this->labels = (object) ['name' => $label];
+        }
+    }
+    // phpcs:enable PSR1.Classes.ClassDeclaration.MultipleClasses
+}
+
+$GLOBALS['wp_test_product_taxonomies'] = [];
+$GLOBALS['wc_test_attribute_taxonomies'] = [];
+
+if (!function_exists('get_object_taxonomies')) {
+    /**
+     * @return array<string, WP_Taxonomy>
+     */
+    function get_object_taxonomies(string $objectType, string $output = 'names'): array
+    {
+        return $GLOBALS['wp_test_product_taxonomies'];
+    }
+}
+
+if (!function_exists('taxonomy_is_product_attribute')) {
+    function taxonomy_is_product_attribute(string $name): bool
+    {
+        return str_starts_with($name, 'pa_');
+    }
+}
+
+if (!function_exists('wc_get_attribute_taxonomies')) {
+    /**
+     * @return array<string, object>
+     */
+    function wc_get_attribute_taxonomies(): array
+    {
+        return $GLOBALS['wc_test_attribute_taxonomies'];
+    }
+}
+
+if (!function_exists('wc_attribute_taxonomy_name')) {
+    function wc_attribute_taxonomy_name(string $attributeName): string
+    {
+        return 'pa_' . $attributeName;
+    }
+}
+
+if (!function_exists('_n')) {
+    function _n(string $single, string $plural, int $number, string $domain = 'default'): string
+    {
+        return $number === 1 ? $single : $plural;
+    }
+}
+
+if (!function_exists('rest_validate_value_from_schema')) {
+    /**
+     * @param array<string, mixed> $args
+     */
+    function rest_validate_value_from_schema(mixed $value, array $args, string $param = ''): bool
+    {
+        return true;
+    }
+}
+
+if (!function_exists('rest_sanitize_value_from_schema')) {
+    /**
+     * @param array<string, mixed> $args
+     */
+    function rest_sanitize_value_from_schema(mixed $value, array $args, string $param = ''): mixed
+    {
+        return $value;
+    }
+}
+
+$GLOBALS['wp_test_skus'] = [];
+
+if (!function_exists('wc_get_product_id_by_sku')) {
+    function wc_get_product_id_by_sku(string $sku): int
+    {
+        return $GLOBALS['wp_test_skus'][$sku] ?? 0;
+    }
+}
+
+if (!function_exists('wp_json_encode')) {
+    function wp_json_encode(mixed $value, int $flags = 0, int $depth = 512): string|false
+    {
+        return json_encode($value, $flags, $depth);
+    }
+}
+
+if (!function_exists('home_url')) {
+    function home_url(string $path = ''): string
+    {
+        return 'https://store.test' . $path;
+    }
+}
+
+if (!function_exists('esc_url_raw')) {
+    function esc_url_raw(string $url, ?array $protocols = null): string
+    {
+        return str_replace(' ', '%20', $url);
+    }
+}
+
+if (!function_exists('wp_parse_url')) {
+    function wp_parse_url(string $url, int $component = -1): mixed
+    {
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- This is the WordPress wrapper.
+        return parse_url($url, $component);
+    }
+}

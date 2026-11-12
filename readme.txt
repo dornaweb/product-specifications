@@ -2,10 +2,10 @@
 
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
-Requires at least: 5.9
-Tested up to: 7.0
+Requires at least: 7.0
+Tested up to: 7.1
 Stable tag: 0.8.10
-Requires PHP: 7.4
+Requires PHP: 8.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 Donate link: https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA
@@ -54,6 +54,11 @@ Yes, You can use `[specs-table]` shortcode.
 5. Product specs with tabs on the left
 6. Right-to-left languages support
 
+
+== Upgrade Notice ==
+
+= 2.0.0 =
+2.0.0 changes how specifications are stored. After updating, specification tables disappear from your store until you run the migration under WooCommerce > Product Specifications. Take a backup before you update.
 
 == Changelog ==
 

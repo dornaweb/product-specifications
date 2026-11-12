@@ -5,6 +5,8 @@
 *.md
 *.zip
 /bin/
+/types/
+/client/
 /build/
 /node_modules/
 /tests/
@@ -16,3 +18,4 @@ README.md
 psalm.xml*
 phpsalm-baseline.xml
 config/scoper.php
+/docs/

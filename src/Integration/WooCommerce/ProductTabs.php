@@ -4,42 +4,55 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration\WooCommerce;
 
-use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
+use Amiut\ProductSpecs\Settings\SettingsRepository;
+use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
+use Amiut\ProductSpecs\Migration\MigrationState;
 use WC_Product;
 
-class ProductTabs
+final class ProductTabs
 {
-    private SpecificationsTableRepository $repository;
-
-    public function __construct(SpecificationsTableRepository $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        private readonly ProductSpecificationsBlock $block,
+        private readonly SettingsRepository $settingsRepository,
+        private readonly MigrationState $migration
+    ) {
     }
 
     /**
      * @wp-hook woocommerce_product_tabs
+     *
+     * @param array<string, mixed> $tabs
+     * @return array<string, mixed>
      */
     public function addProductSpecificationsTab(array $tabs): array
     {
+        if ($this->migration->requiresMigration()) {
+            return $tabs;
+        }
+
         $product = wc_get_product();
 
         if (!$product instanceof WC_Product) {
             return $tabs;
         }
 
-        $hasSpecsTable = $this->repository->productHasSpecsTable($product->get_id());
+        $hasSpecifications = $this->block->hasTableFor($product);
+        $settings = $this->settingsRepository->current();
 
-        if ($hasSpecsTable) {
-            $tabs['dwspecs_product_specifications'] = [
-                'title' => get_option('dwps_tab_title') ?: esc_html__('Product Specifications', 'product-specifications'),
+        if ($hasSpecifications) {
+            $tabs['product_specifications'] = [
+                'title' => $settings->tabTitle(),
                 'priority' => 10,
                 'callback' => [$this, 'displayTable'],
             ];
         }
 
         if (
-            get_option('dwps_wc_default_specs') === 'remove'
-            || ($hasSpecsTable && get_option('dwps_wc_default_specs') === 'remove_if_specs_not_empty')
+            $settings->wooCommerceDefaultSpecifications() === 'remove'
+            || (
+                $hasSpecifications
+                && $settings->wooCommerceDefaultSpecifications() === 'remove_if_specs_not_empty'
+            )
         ) {
             unset($tabs['additional_information']);
         }
@@ -49,6 +62,11 @@ class ProductTabs
 
     public function displayTable(): void
     {
-        echo do_shortcode('[specs-table]');
+        $product = wc_get_product();
+
+        if ($product instanceof WC_Product) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The block template escapes its output.
+            echo $this->block->renderFor($product);
+        }
     }
 }
