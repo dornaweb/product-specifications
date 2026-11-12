@@ -1,0 +1,48 @@
+name: 🧹 JS lint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - "src/Block/**"
+      - "types/**"
+      - "tests/js/**"
+      - "package.json"
+      - "package-lock.json"
+      - "eslint.config.mjs"
+      - ".prettierrc"
+      - ".prettierignore"
+      - ".github/actions/**"
+      - ".github/workflows/js-lint.yml"
+  pull_request:
+    paths:
+      - "client/**"
+      - "src/Block/**"
+      - "types/**"
+      - "tests/js/**"
+      - "package.json"
+      - "package-lock.json"
+      - "eslint.config.mjs"
+      - ".prettierrc"
+      - ".prettierignore"
+      - ".github/actions/**"
+      - ".github/workflows/js-lint.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/node-dependencies
+
+      - run: npm run lint:js

@@ -1,0 +1,48 @@
+name: 🔍 PHP static analysis
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**/*.php"
+      - "inc/**"
+      - "tests/php/**"
+      - "product-specifications.php"
+      - "composer.json"
+      - "composer.lock"
+      - "phpstan.neon.dist"
+      - "phpstan-baseline.neon"
+      - ".phpstan/**"
+      - ".github/actions/**"
+      - ".github/workflows/php-static-analysis.yml"
+  pull_request:
+    paths:
+      - "src/**/*.php"
+      - "inc/**"
+      - "tests/php/**"
+      - "product-specifications.php"
+      - "composer.json"
+      - "composer.lock"
+      - "phpstan.neon.dist"
+      - "phpstan-baseline.neon"
+      - ".phpstan/**"
+      - ".github/actions/**"
+      - ".github/workflows/php-static-analysis.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/php-dependencies
+
+      - run: composer phpstan -- --no-progress

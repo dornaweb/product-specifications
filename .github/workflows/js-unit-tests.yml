@@ -1,0 +1,44 @@
+name: 🧪 JS unit tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - "src/Block/**"
+      - "types/**"
+      - "tests/js/**"
+      - "package.json"
+      - "package-lock.json"
+      - "jest.config.js"
+      - ".github/actions/**"
+      - ".github/workflows/js-unit-tests.yml"
+  pull_request:
+    paths:
+      - "client/**"
+      - "src/Block/**"
+      - "types/**"
+      - "tests/js/**"
+      - "package.json"
+      - "package-lock.json"
+      - "jest.config.js"
+      - ".github/actions/**"
+      - ".github/workflows/js-unit-tests.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  jest:
+    name: Jest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/node-dependencies
+
+      - run: npm run test:js

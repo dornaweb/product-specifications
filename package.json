@@ -50,6 +50,7 @@
 		"lint:js": "eslint 'client/**/*.{ts,tsx}' 'src/Block/**/*.{ts,tsx}'",
 		"lint:js-fix": "eslint --fix 'client/**/*.{ts,tsx}' 'src/Block/**/*.{ts,tsx}'",
 		"test:js": "wp-scripts test-unit-js",
+		"typecheck": "tsc --noEmit",
 		"format": "wp-scripts format",
 		"packages-update": "wp-scripts packages-update",
 		"docs:dev": "npm --prefix docs/site run dev",
