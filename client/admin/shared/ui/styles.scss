@@ -73,15 +73,10 @@
 }
 
 .ps-product-label__mark {
-	display: grid;
-	place-items: center;
+	display: block;
+	flex: none;
 	width: 30px;
 	height: 30px;
-	border-radius: var(--ps-radius-large);
-	background: var(--ps-accent);
-	box-shadow: inset 0 0 0 1px
-		color-mix(in srgb, var(--ps-fg-inverted) 18%, transparent);
-	color: var(--ps-fg-inverted);
 }
 
 .ps-page-header__main {
