@@ -51,7 +51,9 @@
 		"lint:js-fix": "eslint --fix 'client/**/*.{ts,tsx}' 'src/Block/**/*.{ts,tsx}'",
 		"test:js": "wp-scripts test-unit-js",
 		"format": "wp-scripts format",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"docs:dev": "npm --prefix docs/site run dev",
+		"docs:build": "npm --prefix docs/site run build"
 	},
 	"dependencies": {
 		"@woocommerce/navigation": "^9.0.0",

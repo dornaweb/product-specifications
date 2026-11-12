@@ -4,3 +4,5 @@ assets
 build
 dist
 coverage
+docs/site/.vitepress/cache
+docs/site/.vitepress/dist

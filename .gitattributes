@@ -19,3 +19,4 @@ README.md          export-ignore
 renovate.json      export-ignore
 tests              export-ignore
 types              export-ignore
+docs               export-ignore

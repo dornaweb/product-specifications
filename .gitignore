@@ -39,3 +39,7 @@ Thumbs.db
 # AI
 .claude/settings.json
 .playwright-mcp/
+
+# Documentation site
+/docs/site/.vitepress/cache/
+/docs/site/.vitepress/dist/
