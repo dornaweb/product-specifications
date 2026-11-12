@@ -3,8 +3,8 @@
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
 Requires at least: 5.9
-Tested up to: 7.0
-Stable tag: 0.8.10
+Tested up to: 7.1
+Stable tag: 0.8.11
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -13,6 +13,8 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA
 This plugin adds a product specifications table to your woocommerce single-product page.
 
 == Description ==
+
+**The next major version, 2.0.0, is a breaking change. It changes how specifications are stored, and after updating, specification tables disappear from your store until you run its migration. Take a backup before you update to 2.0.0.**
 
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
@@ -57,6 +59,11 @@ Yes, You can use `[specs-table]` shortcode.
 
 == Changelog ==
 
+= 0.8.11 - 2026-11-12 =
+- **Important: The next major version, 2.0.0, is a breaking change. It changes how specifications are stored, and after updating, specification tables disappear from your store until you run its migration. Take a backup before you update to 2.0.0.**
+- Maintenance: Warn on the plugin update row that version 2.0.0 changes how specifications are stored.
+- Maintenance: Test and bump compatibility versions with latest WooCommerce and WordPress versions.
+
 = 0.8.10 - 2026-06-20 =
 - Fix: security issue in attribute/group CRUD.
 - Fix: Possible PHP notice.
@@ -86,3 +93,8 @@ Yes, You can use `[specs-table]` shortcode.
 - Fix broken "select" and "radio" field types.
 
 [See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
+
+== Upgrade Notice ==
+
+= 0.8.11 =
+The next major version, 2.0.0, is a breaking change. It changes how specifications are stored, and after updating, specification tables disappear from your store until you run its migration. Take a backup before you update to 2.0.0.

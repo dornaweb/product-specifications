@@ -21,6 +21,7 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(AssetHelper::class)
             ),
             AdminPageTopMenuModifier::class => static fn () => new AdminPageTopMenuModifier(),
+            MajorUpdateWarning::class => static fn () => new MajorUpdateWarning(),
         ];
     }
 
@@ -41,6 +42,13 @@ final class Module implements ServiceModule, ExecutableModule
         add_action(
             'admin_menu',
             [$container->get(AdminPageTopMenuModifier::class), 'modify']
+        );
+
+        add_action(
+            'in_plugin_update_message-' . plugin_basename(DWSPECS_PLUGIN_FILE),
+            [$container->get(MajorUpdateWarning::class), 'print'],
+            10,
+            2
         );
 
         return true;
