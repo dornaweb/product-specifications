@@ -31,6 +31,13 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(SpecificationTypeRegistry::class),
                 $container->get(SpecificationSetRepository::class)
             ),
+            SpecificationsUpdater::class => static fn (
+                ContainerInterface $container
+            ) => new SpecificationsUpdater(
+                $container->get(ProductValueWriter::class),
+                $container->get(ProductValueRepository::class),
+                $container->get(MigrationState::class)
+            ),
             ProductValuesRestController::class => static fn (
                 ContainerInterface $container
             ) => new ProductValuesRestController(

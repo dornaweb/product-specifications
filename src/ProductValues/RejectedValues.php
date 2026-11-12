@@ -6,6 +6,11 @@ namespace Amiut\ProductSpecs\ProductValues;
 
 use RuntimeException;
 
+/**
+ * Thrown when saving specification values, such as through
+ * `\Amiut\ProductSpecs\saveSpecifications()`, and a specification's type rejects a value.
+ * Nothing is written when it is thrown.
+ */
 final class RejectedValues extends RuntimeException
 {
     /**
@@ -17,7 +22,11 @@ final class RejectedValues extends RuntimeException
     }
 
     /**
-     * @return array<string, string>
+     * Why each rejected value was rejected.
+     *
+     * @return array<string, string> Each key is the key of a specification whose value was
+     *                               rejected; each value is its type's translated message,
+     *                               such as "Choose one of the options."
      */
     public function messages(): array
     {
