@@ -26,6 +26,7 @@
 		"automattic/vipwpcs": "^3.0",
 		"php-stubs/woocommerce-stubs": "^10.7",
 		"php-stubs/wordpress-stubs": "^6.9",
+		"phpcompatibility/php-compatibility": "^10.0@alpha",
 		"phpstan/phpstan": "^2.1",
 		"phpstan/phpstan-deprecation-rules": "^2.0.3",
 		"phpunit/phpunit": "^9.6"
@@ -40,9 +41,6 @@
 			"Amiut\\ProductSpecs\\Tests\\Unit\\": "tests/php/Unit/"
 		}
 	},
-	"scripts": {
-		"phpstan": "phpstan analyse --memory-limit=1G"
-	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
@@ -51,5 +49,8 @@
 		"platform": {
 			"php": "8.1"
 		}
+	},
+	"scripts": {
+		"phpstan": "phpstan analyse --memory-limit=1G"
 	}
 }

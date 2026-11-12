@@ -14,6 +14,7 @@ use Inpsyde\Modularity\Module\ExecutableModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Inpsyde\Modularity\Package;
+use Inpsyde\Modularity\Properties\PluginProperties;
 use Psr\Container\ContainerInterface;
 
 final class Module implements ServiceModule, ExecutableModule
@@ -30,10 +31,14 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(SettingsRepository::class),
                 $container->get(MigrationState::class)
             ),
-            FeaturesCompatibilityDeclarations::class => static fn (ContainerInterface $container) =>
-                new FeaturesCompatibilityDeclarations(
-                    $container->get(Package::PROPERTIES)
-                ),
+            FeaturesCompatibilityDeclarations::class => static function (
+                ContainerInterface $container
+            ): FeaturesCompatibilityDeclarations {
+                /** @var PluginProperties $properties */
+                $properties = $container->get(Package::PROPERTIES);
+
+                return new FeaturesCompatibilityDeclarations($properties);
+            },
         ];
     }
 
