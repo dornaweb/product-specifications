@@ -296,6 +296,8 @@ if (!class_exists('WP_Post')) {
 if (!function_exists('get_term')) {
     function get_term(int $termId, string $taxonomy = ''): mixed
     {
+        $GLOBALS['wp_test_get_term_calls'] = ($GLOBALS['wp_test_get_term_calls'] ?? 0) + 1;
+
         return $GLOBALS['wp_test_terms'][$termId] ?? false;
     }
 }
@@ -307,6 +309,8 @@ if (!function_exists('get_terms')) {
      */
     function get_terms(array $args = []): array
     {
+        $GLOBALS['wp_test_get_terms_calls'][] = $args;
+
         return array_values($GLOBALS['wp_test_terms']);
     }
 }

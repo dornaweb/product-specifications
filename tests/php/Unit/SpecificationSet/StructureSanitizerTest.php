@@ -31,7 +31,7 @@ final class StructureSanitizerTest extends TestCase
                     'key' => 'display',
                     'label' => 'Display',
                     'items' => [
-                        ['term_id' => 123, 'slug' => 'screen_size'],
+                        ['slug' => 'screen_size'],
                     ],
                 ],
             ],
@@ -52,7 +52,7 @@ final class StructureSanitizerTest extends TestCase
                     'key' => 'display',
                     'label' => 'Display',
                     'items' => [
-                        ['term_id' => 123, 'slug' => '%d8%b1%d9%86%da%af'],
+                        ['slug' => '%d8%b1%d9%86%da%af'],
                     ],
                 ],
             ],
@@ -70,7 +70,7 @@ final class StructureSanitizerTest extends TestCase
                     'label' => 'Display',
                     'visible' => false,
                     'items' => [
-                        ['term_id' => 123, 'slug' => 'screen_size', 'visible' => false],
+                        ['slug' => 'screen_size', 'visible' => false],
                     ],
                 ],
             ],
@@ -106,7 +106,7 @@ final class StructureSanitizerTest extends TestCase
             array_keys($sanitized['groups'][0])
         );
         static::assertSame(
-            ['term_id', 'slug', 'visible'],
+            ['slug', 'visible'],
             array_keys($sanitized['groups'][0]['items'][0])
         );
     }
@@ -125,16 +125,15 @@ final class StructureSanitizerTest extends TestCase
     {
         return [
             'not an array' => ['screen_size'],
-            'term id below one' => [['term_id' => 0, 'slug' => 'screen_size']],
-            'term id missing' => [['slug' => 'screen_size']],
-            'slug empty' => [['term_id' => 123, 'slug' => '']],
-            'slug missing' => [['term_id' => 123]],
+            'slug empty' => [['slug' => '']],
+            'slug of stripped characters only' => [['slug' => '!!!']],
+            'slug missing' => [['term_id' => 123, 'visible' => true]],
         ];
     }
 
     /**
      * A direct update_post_meta() call never passes through the REST schema, so
-     * an item with no resolvable term still has to be stopped here.
+     * an item with no slug still has to be stopped here.
      *
      * @dataProvider unusableItemProvider
      */

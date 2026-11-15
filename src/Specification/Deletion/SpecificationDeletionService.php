@@ -48,7 +48,7 @@ final class SpecificationDeletionService
             return;
         }
 
-        $this->cleanSets((int) $termId);
+        $this->cleanSets($definition->key());
 
         $progress = $this->purge->purge($definition->key(), 0, self::SYNC_LIMIT);
 
@@ -65,13 +65,13 @@ final class SpecificationDeletionService
         $this->background->schedule();
     }
 
-    private function cleanSets(int $termId): void
+    private function cleanSets(string $key): void
     {
         $cleanedSets = [];
 
         foreach ($this->sets->all() as $set) {
             $structure = $set->structure();
-            $cleaned = $structure->withoutItemEverywhere($termId);
+            $cleaned = $structure->withoutItemEverywhere($key);
 
             if ($cleaned->groups() === $structure->groups()) {
                 continue;

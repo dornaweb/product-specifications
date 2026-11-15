@@ -1,4 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
+import { inBatches } from '../admin/shared/contracts/structure';
 import type {
 	ProductValuesResponse,
 	SetRecord,
@@ -26,27 +28,19 @@ export const readSets = () =>
 		path: '/wp/v2/specification-sets?context=edit&per_page=100&_fields=id,title,slug,meta',
 	} );
 
-const PER_PAGE = 100;
-
-// The terms endpoint caps per_page at 100, so a set referencing more
-// specifications than that is fetched in batches and merged.
-export const readSpecifications = ( ids: number[] ) => {
-	if ( ids.length === 0 ) {
-		return Promise.resolve( [] as SpecificationRecord[] );
-	}
-
-	const batches: number[][] = [];
-	for ( let start = 0; start < ids.length; start += PER_PAGE ) {
-		batches.push( ids.slice( start, start + PER_PAGE ) );
-	}
-
-	return Promise.all(
-		batches.map( ( batch ) =>
+// A set references its specifications by slug, and the terms endpoint answers at
+// most a page of them at a time, so a large set is fetched in batches.
+export const readSpecifications = ( slugs: string[] ) =>
+	Promise.all(
+		inBatches( slugs ).map( ( batch ) =>
 			apiFetch< SpecificationRecord[] >( {
-				path: `/wp/v2/specifications?context=edit&per_page=${ PER_PAGE }&include=${ batch.join(
-					','
-				) }&_fields=id,name,slug,description,specification,suggestions`,
+				path: addQueryArgs( '/wp/v2/specifications', {
+					context: 'edit',
+					per_page: batch.length,
+					slug: batch,
+					_fields:
+						'id,name,slug,description,specification,suggestions',
+				} ),
 			} )
 		)
 	).then( ( results ) => results.flat() );
-};

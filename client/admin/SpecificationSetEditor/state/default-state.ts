@@ -1,4 +1,4 @@
-import { emptyStructure } from '../mapping/specificationSetStructure';
+import { emptyStructure } from '../../shared/contracts/structure';
 import type {
 	SpecificationSetEditorFormState,
 	SpecificationSetEditorState,

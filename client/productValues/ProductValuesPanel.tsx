@@ -9,6 +9,12 @@ import {
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 import { __, sprintf, _n } from '@wordpress/i18n';
 import { specificationType } from '../admin/shared/specificationTypes';
+import {
+	readStructure,
+	STRUCTURE_META_KEY,
+	STRUCTURE_SCHEMA_VERSION,
+	structureSlugs,
+} from '../admin/shared/contracts/structure';
 import { groupProgress } from './groupProgress';
 import {
 	readProductValues,
@@ -31,7 +37,7 @@ const titleOf = ( set: SetRecord ) =>
 		: set.title?.raw ?? set.title?.rendered ?? set.slug;
 
 const groupsOf = ( set: SetRecord | undefined ): StructureGroup[] =>
-	set?.meta?.specification_set_structure?.groups ?? [];
+	readStructure( set?.meta?.[ STRUCTURE_META_KEY ] ).groups;
 
 const errorMessage = ( error: unknown ) =>
 	error instanceof Error
@@ -46,7 +52,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 	const [ setSlug, setSetSlug ] = useState< string | null >( null );
 	const [ values, setValues ] = useState< Record< string, unknown > >( {} );
 	const [ specifications, setSpecifications ] = useState<
-		Record< number, SpecificationRecord >
+		Record< string, SpecificationRecord >
 	>( {} );
 	const [ loadedDefinitionsKey, setLoadedDefinitionsKey ] = useState( '' );
 	const [ suggested, setSuggested ] = useState< Set< string > >( new Set() );
@@ -65,18 +71,15 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 
 	const selectedSet = sets.find( ( item ) => item.slug === setSlug );
 	const groups = useMemo( () => groupsOf( selectedSet ), [ selectedSet ] );
-	const specificationIds = useMemo(
+	const specificationSlugs = useMemo(
 		() =>
-			Array.from(
-				new Set(
-					groups.flatMap( ( group ) =>
-						group.items.map( ( item ) => item.term_id )
-					)
-				)
-			),
+			structureSlugs( {
+				schema_version: STRUCTURE_SCHEMA_VERSION,
+				groups,
+			} ),
 		[ groups ]
 	);
-	const definitionsKey = specificationIds.join( ',' );
+	const definitionsKey = specificationSlugs.join( ',' );
 
 	useEffect( () => {
 		Promise.all( [ readProductValues( productId ), readSets() ] )
@@ -99,7 +102,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 	useEffect( () => {
 		let cancelled = false;
 
-		readSpecifications( specificationIds )
+		readSpecifications( specificationSlugs )
 			.then( ( records ) => {
 				if ( cancelled ) {
 					return;
@@ -107,7 +110,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 
 				setSpecifications(
 					Object.fromEntries(
-						records.map( ( item ) => [ item.id, item ] )
+						records.map( ( item ) => [ item.slug, item ] )
 					)
 				);
 
@@ -139,7 +142,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 		return () => {
 			cancelled = true;
 		};
-	}, [ definitionsKey, specificationIds ] );
+	}, [ definitionsKey, specificationSlugs ] );
 
 	const latestSave = useRef( { dirty, isSaving, setSlug, values, groups } );
 	useEffect( () => {
@@ -430,7 +433,7 @@ const ProductValuesPanel = ( { productId, migrationRequired }: Props ) => {
 								.find( ( group ) => group.key === activeGroup )
 								?.items.map( ( item ) => {
 									const specification =
-										specifications[ item.term_id ];
+										specifications[ item.slug ];
 									if ( ! specification ) {
 										return (
 											<Notice

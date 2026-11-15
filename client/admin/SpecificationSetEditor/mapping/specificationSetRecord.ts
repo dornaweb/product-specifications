@@ -4,7 +4,10 @@ import type {
 	SpecificationSetStatus,
 	SpecificationSetStructure,
 } from '../state';
-import { readStructure, STRUCTURE_META_KEY } from './specificationSetStructure';
+import {
+	readStructure,
+	STRUCTURE_META_KEY,
+} from '../../shared/contracts/structure';
 
 export interface SpecificationSetPostRecord {
 	id?: number;

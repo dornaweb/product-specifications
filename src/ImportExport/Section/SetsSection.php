@@ -307,9 +307,8 @@ final class SetsSection implements Section
                     ? $this->definitions->findByKey($specification)
                     : null;
 
-                if ($definition !== null && $definition->id() !== null) {
+                if ($definition !== null) {
                     $items[] = SpecificationSetItem::create(
-                        $definition->id(),
                         $definition->key(),
                         ($item['visible'] ?? true) !== false
                     );

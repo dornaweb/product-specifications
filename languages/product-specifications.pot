@@ -1,0 +1,3054 @@
+# Copyright (C) 2026 Amin Abdolrezapoor
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Product Specifications for WooCommerce 0.8.11\n"
+"Report-Msgid-Bugs-To: https://github.com/dornaweb/product-specifications\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-15T18:29:18+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: product-specifications\n"
+
+#. Plugin Name of the plugin
+#: product-specifications.php
+msgid "Product Specifications for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: product-specifications.php
+msgid "https://github.com/dornaweb/product-specifications/"
+msgstr ""
+
+#. Description of the plugin
+#: product-specifications.php
+msgid "This plugin adds a product specifications table to your woocommerce products."
+msgstr ""
+
+#. Author of the plugin
+#: product-specifications.php
+msgid "Amin Abdolrezapoor"
+msgstr ""
+
+#. Author URI of the plugin
+#: product-specifications.php
+msgid "https://amin.nz"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:40
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/not-built-yet.js:2
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:30
+msgid "Product Specifications"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:46
+#: assets/chunks/import-export.js:1
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-set-editor.js:13
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:22
+msgid "Specification sets"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:47
+#: src/Admin/AdminScreens.php:48
+#: assets/product-values.js:10
+#: assets/product-values.js:11
+msgid "Specification set"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:49
+#: src/Settings/Settings.php:51
+#: assets/chunks/import-export.js:1
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-set-editor.js:13
+#: assets/chunks/specification-sets.js:1
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:22
+msgid "Specifications"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:50
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:22
+msgid "Import / Export"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:51
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:22
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/AdminScreens.php:55
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:8
+#: assets/chunks/migration.js:10
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:22
+msgid "Migration"
+msgstr ""
+
+#: src/ImportExport/ExportDownload.php:60
+msgid "You are not allowed to export specifications."
+msgstr ""
+
+#: src/ImportExport/Import/ImportRestController.php:78
+msgid "Choose a package file to import."
+msgstr ""
+
+#: src/ImportExport/Import/ImportRestController.php:92
+#: src/ImportExport/PackageCommand.php:113
+msgid "The file cannot be imported."
+msgstr ""
+
+#: src/ImportExport/Import/ImportRestController.php:139
+msgid "There is no finished import to report on."
+msgstr ""
+
+#: src/ImportExport/Import/ImportRunner.php:60
+msgid "An import is already running."
+msgstr ""
+
+#: src/ImportExport/Import/ImportStorage.php:24
+msgid "The file could not be stored for importing."
+msgstr ""
+
+#: src/ImportExport/Import/ImportStorage.php:34
+#: src/ImportExport/Import/ImportStorage.php:42
+msgid "The import could not write its files."
+msgstr ""
+
+#: src/ImportExport/Import/ImportStorage.php:53
+msgid "The uploaded file is no longer available. Upload it again."
+msgstr ""
+
+#: src/ImportExport/MigrationRequired.php:20
+#: assets/chunks/import-export.js:5
+msgid "Import and export are available once the migration is complete."
+msgstr ""
+
+#. translators: %s: a file path.
+#: src/ImportExport/PackageCommand.php:49
+#, php-format
+msgid "Cannot write to %s."
+msgstr ""
+
+#. translators: %s: a file path.
+#: src/ImportExport/PackageCommand.php:71
+#, php-format
+msgid "Exported to %s."
+msgstr ""
+
+#. translators: %s: a file path.
+#: src/ImportExport/PackageCommand.php:101
+#, php-format
+msgid "Cannot read %s."
+msgstr ""
+
+#. translators: %s: a section key.
+#: src/ImportExport/PackageCommand.php:121
+#, php-format
+msgid "Section \"%s\" is not known to this site and is left out."
+msgstr ""
+
+#: src/ImportExport/PackageCommand.php:128
+msgid "Dry run: nothing was changed."
+msgstr ""
+
+#: src/ImportExport/PackageCommand.php:143
+msgid "Imported."
+msgstr ""
+
+#: src/ImportExport/PackageReader.php:55
+msgid "The file is not valid JSON."
+msgstr ""
+
+#: src/ImportExport/PackageReader.php:60
+msgid "The file is not a Product Specifications package."
+msgstr ""
+
+#: src/ImportExport/PackageReader.php:73
+#: src/ImportExport/Section/SetsSection.php:50
+#: src/ImportExport/Section/SetsSection.php:221
+#: src/ImportExport/Section/SetsSection.php:251
+#: src/ImportExport/Section/SpecificationsSection.php:53
+#: src/ImportExport/Section/SpecificationsSection.php:65
+#: src/ImportExport/Section/ValuesSection.php:69
+#: src/ImportExport/Section/ValuesSection.php:390
+#: src/ImportExport/Section/ValuesSection.php:415
+msgid "must be an object"
+msgstr ""
+
+#: src/ImportExport/PackageReader.php:81
+#: src/ImportExport/Shape.php:107
+msgid "must be a list"
+msgstr ""
+
+#: src/ImportExport/PackageReader.php:119
+msgid "must be a positive whole number"
+msgstr ""
+
+#. translators: 1: the file's schema version, 2: the newest schema version this site reads.
+#: src/ImportExport/PackageReader.php:125
+#, php-format
+msgid "The file uses package schema %1$d, made by a newer version of Product Specifications. This site reads up to schema %2$d. Update the plugin and try again."
+msgstr ""
+
+#. translators: %s: comma-separated list of allowed statuses.
+#: src/ImportExport/Section/SetsSection.php:66
+#, php-format
+msgid "must be one of: %s"
+msgstr ""
+
+#. translators: 1: a specification slug, 2: why it cannot be placed.
+#: src/ImportExport/Section/SetsSection.php:137
+#, php-format
+msgid "Leaves out \"%1$s\": %2$s"
+msgstr ""
+
+#: src/ImportExport/Section/SetsSection.php:178
+#: src/Migration/Step/SpecificationSetsStep.php:75
+#: src/ProductValues/ProductValueWriter.php:110
+msgid "The specification set could not be saved."
+msgstr ""
+
+#: src/ImportExport/Section/SetsSection.php:341
+msgid "the file's specification was not imported."
+msgstr ""
+
+#: src/ImportExport/Section/SetsSection.php:345
+msgid "no specification has that slug in the file or on this store."
+msgstr ""
+
+#: src/ImportExport/Section/SpecificationsSection.php:117
+msgid "The values of a deleted specification with this key are still being removed. Import again once that has finished."
+msgstr ""
+
+#. translators: 1: the specification's type on this store, 2: its type in the file.
+#: src/ImportExport/Section/SpecificationsSection.php:133
+#, php-format
+msgid "On this store it is a \"%1$s\" specification, and the file has \"%2$s\". It is left as it is, and the file's set items and values for it are skipped."
+msgstr ""
+
+#: src/ImportExport/Section/SpecificationsSection.php:173
+msgid "The specification could not be saved."
+msgstr ""
+
+#. translators: %s: a specification type id.
+#: src/ImportExport/Section/SpecificationsSection.php:190
+#, php-format
+msgid "The type \"%s\" is not available on this store."
+msgstr ""
+
+#. translators: %s: why the options were rejected.
+#: src/ImportExport/Section/SpecificationsSection.php:200
+#, php-format
+msgid "Its options are not valid: %s"
+msgstr ""
+
+#. translators: 1: the name on this store, 2: the name in the file.
+#: src/ImportExport/Section/SpecificationsSection.php:235
+#, php-format
+msgid "Renamed from \"%1$s\" to \"%2$s\"."
+msgstr ""
+
+#. translators: 1: number of products, 2: comma-separated choices.
+#: src/ImportExport/Section/SpecificationsSection.php:249
+#, php-format
+msgid "%1$d product uses a choice the file removes: %2$s."
+msgid_plural "%1$d products use choices the file removes: %2$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: an object type, such as "product".
+#: src/ImportExport/Section/ValuesSection.php:144
+#, php-format
+msgid "Values for objects of type \"%s\" cannot be imported on this store."
+msgstr ""
+
+#: src/ImportExport/Section/ValuesSection.php:154
+#: src/ImportExport/Section/ValuesSection.php:176
+msgid "No product on this store matches it."
+msgstr ""
+
+#. translators: %s: a set slug.
+#: src/ImportExport/Section/ValuesSection.php:213
+#, php-format
+msgid "The set \"%s\" is not in the file or on this store, so the product keeps its set."
+msgstr ""
+
+#. translators: %s: a specification slug.
+#: src/ImportExport/Section/ValuesSection.php:238
+#, php-format
+msgid "Skips the value for \"%s\": the file's specification is not imported."
+msgstr ""
+
+#. translators: %s: a specification slug.
+#: src/ImportExport/Section/ValuesSection.php:250
+#, php-format
+msgid "Skips the value for \"%s\": no specification has that slug."
+msgstr ""
+
+#. translators: %s: a specification slug.
+#: src/ImportExport/Section/ValuesSection.php:270
+#, php-format
+msgid "Skips the value for \"%s\": the specification's type does not accept it."
+msgstr ""
+
+#: src/ImportExport/Section/ValuesSection.php:400
+msgid "needs a sku or a slug"
+msgstr ""
+
+#: src/ImportExport/Section/ValuesSection.php:424
+msgid "is not a specification slug"
+msgstr ""
+
+#: src/ImportExport/Shape.php:21
+#: src/ImportExport/Shape.php:103
+msgid "is required"
+msgstr ""
+
+#: src/ImportExport/Shape.php:25
+msgid "must be text"
+msgstr ""
+
+#: src/ImportExport/Shape.php:29
+msgid "must not be empty"
+msgstr ""
+
+#: src/ImportExport/Shape.php:46
+msgid "may contain only lowercase letters, digits, dashes and underscores"
+msgstr ""
+
+#: src/ImportExport/Shape.php:71
+msgid "must not be a whole number"
+msgstr ""
+
+#: src/ImportExport/Shape.php:76
+msgid "is not a key as the plugin stores it"
+msgstr ""
+
+#: src/ImportExport/Shape.php:93
+msgid "must be true or false"
+msgstr ""
+
+#: src/ImportExport/Shape.php:128
+msgid "is a duplicate"
+msgstr ""
+
+#: src/Integration/WooCommerce/WooCommerceNotInstalledNoticeHandler.php:31
+msgid "This plugin needs \"WooCommerce\" to run, please install \"WooCommerce\" first."
+msgstr ""
+
+#: src/Migration/MigrationCommand.php:30
+msgid "There is nothing to migrate."
+msgstr ""
+
+#. translators: %s: why the migration stopped.
+#: src/Migration/MigrationCommand.php:45
+#: assets/chunks/migration.js:9
+#, php-format,js-format
+msgid "The migration stopped: %s"
+msgstr ""
+
+#: src/Migration/MigrationCommand.php:51
+msgid "The migration is complete."
+msgstr ""
+
+#. translators: %s: the migration status, such as running or failed.
+#: src/Migration/MigrationCommand.php:64
+#, php-format
+msgid "Status: %s"
+msgstr ""
+
+#. translators: %s: why the migration stopped.
+#: src/Migration/MigrationCommand.php:74
+#, php-format
+msgid "Stopped: %s"
+msgstr ""
+
+#. translators: 1: items processed, 2: items in total.
+#: src/Migration/MigrationCommand.php:87
+#, php-format
+msgid "Processed %1$d of %2$d."
+msgstr ""
+
+#. translators: 1: a migration step, 2: an item id.
+#: src/Migration/MigrationCommand.php:99
+#, php-format
+msgid "Skipped %1$s %2$d: it already holds data in the current format."
+msgstr ""
+
+#: src/Migration/MigrationNotice.php:59
+msgid "Product Specifications is migrating your data. Specification tables return to your store when it finishes."
+msgstr ""
+
+#: src/Migration/MigrationNotice.php:63
+msgid "View progress"
+msgstr ""
+
+#: src/Migration/MigrationNotice.php:70
+msgid "The Product Specifications migration stopped before it finished. Your store shows no specification tables until it completes."
+msgstr ""
+
+#: src/Migration/MigrationNotice.php:74
+msgid "Review and resume"
+msgstr ""
+
+#: src/Migration/MigrationNotice.php:80
+msgid "Product Specifications needs to migrate your data. Until it does, your store shows no specification tables, the product editor shows them empty, and any product you edit is skipped by the migration."
+msgstr ""
+
+#: src/Migration/MigrationNotice.php:84
+msgid "Start the migration"
+msgstr ""
+
+#. translators: %s: the key of a migration step.
+#: src/Migration/MigrationRunner.php:151
+#, php-format
+msgid "The migration step \"%s\" is not available."
+msgstr ""
+
+#: src/Migration/Step/ProductValuesStep.php:89
+msgid "The product specifications could not be saved."
+msgstr ""
+
+#. translators: %s: comma-separated names of specifications.
+#: src/Migration/Step/ProductValuesStep.php:97
+#, php-format
+msgid "These specifications could not be migrated: %s"
+msgstr ""
+
+#: src/Migration/Step/SpecificationDefinitionsStep.php:47
+msgid "The specification could not be updated."
+msgstr ""
+
+#: src/Migration/Step/SpecificationSetsStep.php:80
+msgid "The specification set could not be updated."
+msgstr ""
+
+#: src/ProductValues/ProductValuesMetabox.php:25
+msgid "Product specifications"
+msgstr ""
+
+#: src/ProductValues/ProductValuesRestController.php:66
+msgid "The specification set must be a slug or null."
+msgstr ""
+
+#: src/ProductValues/ProductValuesRestController.php:70
+msgid "Send the complete specification value map."
+msgstr ""
+
+#: src/ProductValues/ProductValuesRestController.php:76
+msgid "Every specification value needs a string key."
+msgstr ""
+
+#: src/ProductValues/ProductValueWriter.php:103
+msgid "The specification values could not be saved."
+msgstr ""
+
+#: src/ProductValues/ProductValueWriter.php:119
+msgid "Specification values require a product."
+msgstr ""
+
+#: src/ProductValues/ProductValueWriter.php:130
+msgid "The selected specification set does not exist."
+msgstr ""
+
+#: src/ProductValues/RejectedValues.php:21
+msgid "Some specification values could not be saved."
+msgstr ""
+
+#: src/ProductValues/SpecificationsUpdater.php:29
+msgid "Specification values can be saved once the migration is complete."
+msgstr ""
+
+#: src/ProductValues/SpecificationsUpdater.php:38
+msgid "Specification values require a specification set."
+msgstr ""
+
+#. translators: %s: comma-separated specification keys.
+#: src/ProductValues/SpecificationsUpdater.php:48
+#, php-format
+msgid "No specification has the key %s."
+msgstr ""
+
+#. translators: %s: setting label.
+#: src/Settings/SettingField.php:105
+#, php-format
+msgid "Choose an available value for %s."
+msgstr ""
+
+#. translators: %s: setting label.
+#: src/Settings/SettingField.php:131
+#, php-format
+msgid "Choose only available values for %s."
+msgstr ""
+
+#. translators: %s: setting label.
+#: src/Settings/SettingField.php:156
+#, php-format
+msgid "Enter a valid hexadecimal color for %s."
+msgstr ""
+
+#. translators: %s: setting label.
+#: src/Settings/SettingField.php:176
+#, php-format
+msgid "The value for %s has the wrong type."
+msgstr ""
+
+#: src/Settings/SettingsRestController.php:64
+msgid "Send the complete settings object."
+msgstr ""
+
+#: src/Settings/SettingsRestController.php:74
+msgid "Every setting must have a string key."
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:75
+msgid "This stored value is no longer available."
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:95
+msgid "The request contains unknown settings."
+msgstr ""
+
+#. translators: %s: setting label.
+#: src/Settings/SettingsSchema.php:103
+#, php-format
+msgid "A value is required for %s."
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:112
+msgid "This value is invalid."
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:184
+msgid "Display"
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:185
+msgid "How specifications appear on the storefront and the product page."
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:192
+msgid "Integration"
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:193
+#: assets/chunks/settings.js:5
+msgid "How the plugin sits inside WooCommerce and your theme."
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:197
+msgid "Advanced"
+msgstr ""
+
+#: src/Settings/SettingsSchema.php:198
+msgid "Developer-facing and destructive settings."
+msgstr ""
+
+#: src/Settings/SettingsValidationException.php:16
+msgid "Some settings could not be saved."
+msgstr ""
+
+#: src/Specification/Deletion/DeletionImpactRestController.php:50
+#: src/Specification/Rest/SpecificationRestField.php:86
+msgid "Specification not found."
+msgstr ""
+
+#: src/Specification/Deletion/PurgeCommand.php:29
+msgid "There is nothing to remove."
+msgstr ""
+
+#. translators: %s: a specification key.
+#: src/Specification/Deletion/PurgeCommand.php:39
+#, php-format
+msgid "Removing values of \"%s\"."
+msgstr ""
+
+#: src/Specification/Deletion/PurgeCommand.php:48
+msgid "Some values could not be removed."
+msgstr ""
+
+#: src/Specification/Deletion/PurgeCommand.php:51
+msgid "Every queued key has been removed from products."
+msgstr ""
+
+#: src/Specification/Deletion/PurgeCommand.php:60
+msgid "No key is being removed."
+msgstr ""
+
+#. translators: 1: a specification key, 2: a product id.
+#: src/Specification/Deletion/PurgeCommand.php:77
+#, php-format
+msgid "%1$s: removed up to product %2$d."
+msgstr ""
+
+#: src/Specification/Deletion/SpecificationDeletionService.php:83
+msgid "its specification sets could not be updated"
+msgstr ""
+
+#: src/Specification/Deletion/SpecificationDeletionService.php:105
+#, php-format
+msgid "The specification was not deleted because %s."
+msgstr ""
+
+#. translators: 1: a specification key, 2: a product id.
+#: src/Specification/Deletion/ValuePurge.php:37
+#, php-format
+msgid "The value of \"%1$s\" could not be removed from product %2$d."
+msgstr ""
+
+#: src/Specification/Rest/SlugGuard.php:87
+msgid "Enter a key made of letters, digits, dashes and underscores that is not a whole number."
+msgstr ""
+
+#. translators: %s: a specification key.
+#: src/Specification/Rest/SlugGuard.php:103
+#, php-format
+msgid "\"%s\" is already the key of another specification."
+msgstr ""
+
+#: src/Specification/Rest/SpecificationCollectionQuery.php:26
+msgid "Limit results to one specification type."
+msgstr ""
+
+#: src/Specification/Rest/SpecificationRestField.php:161
+msgid "The specification definition."
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:69
+msgctxt "taxonomy general name"
+msgid "Specifications"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:70
+msgctxt "taxonomy singular name"
+msgid "Specification"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:71
+#: assets/chunks/specifications.js:20
+msgid "Search specifications"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:72
+msgid "All specifications"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:73
+msgid "Parent specification"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:74
+msgid "Parent specification:"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:75
+msgid "Edit specification"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:76
+msgid "Update specification"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:77
+msgid "Add a new specification"
+msgstr ""
+
+#: src/Specification/SpecificationTaxonomy.php:78
+#: assets/chunks/specification-set-editor.js:5
+#: assets/chunks/specification-set-editor.js:10
+#: assets/chunks/specifications.js:18
+msgid "New specification"
+msgstr ""
+
+#: src/Specification/Type/Date/DatePrecision.php:57
+msgctxt "date format for a month and year"
+msgid "F Y"
+msgstr ""
+
+#: src/Specification/Type/Date/DatePrecision.php:65
+msgid "Enter a year with four digits."
+msgstr ""
+
+#: src/Specification/Type/Date/DatePrecision.php:66
+msgid "Choose a month and enter a year."
+msgstr ""
+
+#: src/Specification/Type/Date/DatePrecision.php:67
+msgid "Enter a date."
+msgstr ""
+
+#: src/Specification/Type/Date/DateType.php:22
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "Date"
+msgstr ""
+
+#: src/Specification/Type/Document/DocumentType.php:37
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:7
+msgid "Document"
+msgstr ""
+
+#: src/Specification/Type/Link/LinkType.php:23
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "Link"
+msgstr ""
+
+#: src/Specification/Type/Link/LinkType.php:45
+msgid "Enter a URL that starts with https://, http://, mailto: or tel:."
+msgstr ""
+
+#. translators: 1: the lowest allowed number, 2: the highest allowed number.
+#: src/Specification/Type/Number/Bounds.php:38
+#, php-format
+msgid "Enter a number from %1$s to %2$s."
+msgstr ""
+
+#. translators: %s: the lowest allowed number.
+#: src/Specification/Type/Number/Bounds.php:44
+#, php-format
+msgid "Enter a number of at least %s."
+msgstr ""
+
+#. translators: %s: the highest allowed number.
+#: src/Specification/Type/Number/Bounds.php:49
+#, php-format
+msgid "Enter a number of at most %s."
+msgstr ""
+
+#: src/Specification/Type/Number/NumberRejection.php:17
+msgid "Enter a number."
+msgstr ""
+
+#: src/Specification/Type/Number/NumberRejection.php:18
+msgid "Choose one of the units."
+msgstr ""
+
+#: src/Specification/Type/Number/NumberRejection.php:19
+msgid "Enter a single number."
+msgstr ""
+
+#: src/Specification/Type/Number/NumberRejection.php:20
+msgid "The first number cannot be larger than the second."
+msgstr ""
+
+#: src/Specification/Type/Number/NumberType.php:26
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Number"
+msgstr ""
+
+#: src/Specification/Type/SelectType.php:21
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Single select"
+msgstr ""
+
+#: src/Specification/Type/SelectType.php:51
+msgid "Choose one of the options."
+msgstr ""
+
+#: src/Specification/Type/TextAreaType.php:21
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Paragraph"
+msgstr ""
+
+#: src/Specification/Type/TextType.php:23
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Text"
+msgstr ""
+
+#: src/Specification/Type/TrueFalseType.php:21
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Yes or no"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:70
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Weight"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:75
+msgid "Dimensions (L × W × H)"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:80
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Length"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:85
+msgid "Width"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:90
+msgid "Height"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:95
+msgid "SKU"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/ProductDataSources.php:100
+msgid "GTIN, UPC, EAN or ISBN"
+msgstr ""
+
+#: src/Specification/Type/WooCommerce/WooCommerceType.php:26
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "WooCommerce product data"
+msgstr ""
+
+#: src/Specification/Type/YesNoDisplay.php:77
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Yes"
+msgstr ""
+
+#: src/Specification/Type/YesNoDisplay.php:78
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "No"
+msgstr ""
+
+#: src/SpecificationSet/Rest/SpecificationSetRestField.php:30
+msgid "How many products this set is assigned to."
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:90
+#: src/SpecificationSet/SpecificationSetPostType.php:98
+#: src/SpecificationSet/SpecificationSetPostType.php:102
+msgid "Specifications Sets"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:94
+msgid "Specifications Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:106
+msgid "Add New"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:110
+msgid "Add New Specification Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:114
+msgid "New Specification Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:118
+msgid "Edit Specification Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:122
+msgid "View Specification Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:126
+msgid "Specification Sets"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:130
+msgid "Search Specification Sets"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:134
+msgid "Parent Specification Sets:"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:138
+msgid "No Specification Sets found."
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:142
+msgid "No Specification Sets found in Trash."
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:146
+msgid "Specification Sets archives"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:150
+msgid "Insert into Specification Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:154
+msgid "Uploaded to this Specification Set"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:158
+msgid "Filter Specification Sets list"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:162
+msgid "Specification Sets list navigation"
+msgstr ""
+
+#: src/SpecificationSet/SpecificationSetPostType.php:166
+msgid "Specification Sets list"
+msgstr ""
+
+#: src/Suggestion/SuggestionsRestField.php:50
+msgid "Values offered while typing, the most used first."
+msgstr ""
+
+#: assets/admininit.js:1
+msgid "Changes you made may not be saved."
+msgstr ""
+
+#: assets/Block/ProductSpecifications/index.js:1
+msgid "Product"
+msgstr ""
+
+#: assets/Block/ProductSpecifications/index.js:1
+msgid "Leave empty to show the product being viewed."
+msgstr ""
+
+#: assets/Block/ProductSpecifications/index.js:1
+msgid "This product has no specifications to show."
+msgstr ""
+
+#: assets/Block/ProductSpecifications/index.js:1
+msgid "Shows the specifications of the product being viewed. To preview a product here, choose it in the block settings."
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Export"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Download every specification and specification set as one file, to import into another store or keep as a backup."
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Include product values"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Each product is identified by its SKU and slug, so its values can be matched on another store."
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Download export"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "The import endpoint is not available."
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "The import request failed."
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Product values"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "New"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Updated"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Unchanged"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Type conflict"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Skipped"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Failed"
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "The file holds nothing to import."
+msgstr ""
+
+#: assets/chunks/import-export.js:1
+msgid "Section"
+msgstr ""
+
+#. translators: %s: number of entries.
+#: assets/chunks/import-export.js:2
+#, js-format
+msgid "Entries to look at (%s)"
+msgstr ""
+
+#. translators: 1: entries listed, 2: entries in total.
+#: assets/chunks/import-export.js:3
+#, js-format
+msgid "Showing the first %1$s of %2$s."
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Preview import"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Discard"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Resume import"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Start import"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Download report"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+#: assets/chunks/migration.js:10
+msgid "Done"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Import"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Bring in a file made by the export. You see what it will change before anything is written."
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Package file"
+msgstr ""
+
+#: assets/chunks/import-export.js:3
+msgid "Nothing has been changed yet. This is what the import will do:"
+msgstr ""
+
+#. translators: %s: comma-separated section keys.
+#: assets/chunks/import-export.js:4
+#, js-format
+msgid "This site does not know these sections, so they are left out: %s"
+msgstr ""
+
+#. translators: 1: entries imported, 2: entries in total.
+#: assets/chunks/import-export.js:5
+#, js-format
+msgid "%1$s of %2$s entries imported"
+msgstr ""
+
+#: assets/chunks/import-export.js:5
+msgid "The import is complete."
+msgstr ""
+
+#: assets/chunks/import-export.js:5
+msgid "Move specifications, sets and product values between stores."
+msgstr ""
+
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/not-built-yet.js:2
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:30
+msgid "Areas"
+msgstr ""
+
+#: assets/chunks/import-export.js:5
+#: assets/chunks/migration.js:10
+#: assets/chunks/not-built-yet.js:2
+#: assets/chunks/settings.js:5
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:30
+msgid "Action required"
+msgstr ""
+
+#: assets/chunks/main.js:1
+msgid "Redirecting to specification sets…"
+msgstr ""
+
+#: assets/chunks/migration.js:1
+msgid "Converting specifications"
+msgstr ""
+
+#: assets/chunks/migration.js:1
+msgid "Converting tables into specification sets"
+msgstr ""
+
+#: assets/chunks/migration.js:1
+msgid "Migrating product values"
+msgstr ""
+
+#: assets/chunks/migration.js:1
+msgid "specification"
+msgid_plural "specifications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/migration.js:1
+msgid "specification table"
+msgid_plural "specification tables"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/migration.js:1
+msgid "product with values"
+msgid_plural "products with values"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: a specification's id.
+#: assets/chunks/migration.js:2
+#, js-format
+msgid "Specification #%d"
+msgstr ""
+
+#. translators: %d: a specification set's id.
+#: assets/chunks/migration.js:4
+#, js-format
+msgid "Set #%d"
+msgstr ""
+
+#. translators: %d: a product's id.
+#: assets/chunks/migration.js:5
+#, js-format
+msgid "Product #%d"
+msgstr ""
+
+#. translators: %d: how many more entries are not listed.
+#: assets/chunks/migration.js:6
+#, js-format
+msgid "And %d more."
+msgid_plural "And %d more."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/migration.js:6
+msgid "Not migrated"
+msgstr ""
+
+#: assets/chunks/migration.js:6
+msgid "Left as they are"
+msgstr ""
+
+#: assets/chunks/migration.js:6
+msgid "These already held data in the new format, so the migration did not change them."
+msgstr ""
+
+#. translators: 1: the current step's number, 2: the number of steps.
+#: assets/chunks/migration.js:7
+#, js-format
+msgid "Step %1$d of %2$d"
+msgstr ""
+
+#. translators: 1: items processed, 2: items in total.
+#: assets/chunks/migration.js:8
+#, js-format
+msgid "%1$s of %2$s processed"
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "The migration endpoint is not available."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "The migration request failed."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "Move your specifications to the new format."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+#: assets/chunks/settings.js:5
+msgid "Try again"
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "Back up your site before you start."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "The migration changes data in place, and a backup is the only way back."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "Ready to migrate"
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "This data is still in the version 1 format. Once it is migrated, your specification tables appear on your storefront again."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "The migration never starts on its own."
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "Start migration"
+msgstr ""
+
+#: assets/chunks/migration.js:8
+msgid "You can leave this page. The migration keeps running, and you can come back any time to see where it is."
+msgstr ""
+
+#: assets/chunks/migration.js:9
+msgid "Nothing was lost. Resuming continues from where it stopped."
+msgstr ""
+
+#: assets/chunks/migration.js:9
+msgid "Resume migration"
+msgstr ""
+
+#: assets/chunks/migration.js:9
+msgid "The migration finished, but some items could not be migrated. They are listed below; enter their specifications by hand."
+msgstr ""
+
+#: assets/chunks/migration.js:9
+msgid "Your specification tables are live on your storefront again."
+msgstr ""
+
+#: assets/chunks/migration.js:9
+msgid "Migration complete"
+msgstr ""
+
+#. translators: %s: how many items were migrated.
+#: assets/chunks/migration.js:10
+#, js-format
+msgid "%s item was migrated."
+msgid_plural "%s items were migrated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/migration.js:10
+msgid "The version 1 data is kept, unused."
+msgstr ""
+
+#: assets/chunks/migration.js:10
+msgid "This summary is shown once. After you continue, the Migration tab is removed."
+msgstr ""
+
+#: assets/chunks/not-built-yet.js:1
+msgid "Not built yet"
+msgstr ""
+
+#: assets/chunks/not-built-yet.js:1
+msgid "This area has not been built yet."
+msgstr ""
+
+#. translators: %s: the name of the admin area.
+#: assets/chunks/not-built-yet.js:2
+#, js-format
+msgid "%s is not built yet"
+msgstr ""
+
+#: assets/chunks/not-built-yet.js:2
+msgid "This page exists so the navigation can be reviewed before the screen behind it is built. It will be replaced by the real screen."
+msgstr ""
+
+#: assets/chunks/settings.js:1
+msgid "On"
+msgstr ""
+
+#: assets/chunks/settings.js:1
+msgid "Off"
+msgstr ""
+
+#: assets/chunks/settings.js:1
+msgid "empty"
+msgstr ""
+
+#. translators: %s: invalid stored setting value.
+#: assets/chunks/settings.js:2
+#, js-format
+msgid "%s — no longer available"
+msgstr ""
+
+#: assets/chunks/settings.js:2
+msgid "Choose a value to replace it."
+msgstr ""
+
+#. translators: %s: default setting value.
+#: assets/chunks/settings.js:3
+#, js-format
+msgid "Default: %s"
+msgstr ""
+
+#. translators: %s: default setting value.
+#: assets/chunks/settings.js:4
+#, js-format
+msgid "Changed from the default (%s)"
+msgstr ""
+
+#: assets/chunks/settings.js:4
+msgid "Reset to default"
+msgstr ""
+
+#: assets/chunks/settings.js:4
+msgid "The settings could not be loaded."
+msgstr ""
+
+#: assets/chunks/settings.js:4
+msgid "Settings saved."
+msgstr ""
+
+#: assets/chunks/settings.js:4
+msgid "The settings could not be saved."
+msgstr ""
+
+#. translators: %d: number of unsaved settings.
+#: assets/chunks/settings.js:5
+#, js-format
+msgid "%d unsaved change"
+msgid_plural "%d unsaved changes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/settings.js:5
+msgid "No changes"
+msgstr ""
+
+#: assets/chunks/settings.js:5
+msgid "Saving…"
+msgstr ""
+
+#: assets/chunks/settings.js:5
+msgid "Save settings"
+msgstr ""
+
+#: assets/chunks/settings.js:5
+msgid "You can see these settings but not change them. Changing plugin settings requires additional permission."
+msgstr ""
+
+#: assets/chunks/settings.js:5
+msgid "Loading settings…"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+msgid "Title"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+msgid "Display name for this specification set."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+msgid "Key / Slug"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+msgid "Machine-readable identifier using lowercase letters, numbers, underscores, or hyphens."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Description"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+#: assets/chunks/specification-sets.js:1
+msgid "Status"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+#: assets/chunks/specification-sets.js:9
+msgid "Publish"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:1
+#: assets/chunks/specification-sets.js:1
+msgid "Draft"
+msgstr ""
+
+#. translators: 1: how many specifications the column shows. 2: how many the search hides.
+#: assets/chunks/specification-set-editor.js:2
+#, js-format
+msgid "%1$d shown · %2$d hidden by search"
+msgstr ""
+
+#. translators: 1: how many specifications the column shows. 2: how many the filters hide.
+#: assets/chunks/specification-set-editor.js:3
+#, js-format
+msgid "%1$d shown · %2$d hidden by filters"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:3
+msgid "Specification library"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:3
+msgid "Drag a specification into a group, or use its menu to move it"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:3
+msgid "Find a specification"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:3
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+#: assets/chunks/specifications.js:19
+msgid "Type"
+msgstr ""
+
+#. translators: %s: the type the column is filtered by.
+#: assets/chunks/specification-set-editor.js:4
+#, js-format
+msgid "Type: %s ✕"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:4
+msgid "Hide ones already used"
+msgstr ""
+
+#. translators: 1: how many specifications exist. 2: how many are in this set.
+#: assets/chunks/specification-set-editor.js:5
+#, js-format
+msgid "%1$d available · %2$d in this set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:5
+msgid "In this set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:5
+msgid "Add to a group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:5
+msgid "Add to"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:5
+#: assets/chunks/specification-set-editor.js:6
+msgid "New group…"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:5
+msgid "Nothing matches. Clear the search, or create one below."
+msgstr ""
+
+#. translators: %s: the specification being moved.
+#: assets/chunks/specification-set-editor.js:6
+#, js-format
+msgid "Move %s"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Options"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
+#: assets/product-values.js:8
+msgid "Remove"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Item actions"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+#: assets/chunks/specification-set-editor.js:7
+msgid "Move up"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+#: assets/chunks/specification-set-editor.js:7
+msgid "Move down"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Move to group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Remove from set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Visible on the storefront"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "These apply to this set only. The same specification can be visible in one set and hidden in another."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Looking for a default value? It lives on the specification itself, so it is the same everywhere."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Expand group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Collapse group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:6
+msgid "Empty group"
+msgstr ""
+
+#. translators: %d: number of specifications in the group.
+#. translators: %d: number of specifications.
+#: assets/chunks/specification-set-editor.js:7
+#: assets/chunks/specification-set-editor.js:10
+#: assets/chunks/specification-set-editor.js:13
+#, js-format
+msgid "%d specification"
+msgid_plural "%d specifications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Group actions"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:18
+msgid "Edit"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Hide on the storefront"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Show on the storefront"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+#: assets/chunks/specification-sets.js:6
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:15
+#: assets/chunks/specifications.js:18
+msgid "Delete"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Drop specifications here"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Name this group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Edit group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Group label"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Shown as the heading above these specifications on the storefront."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+#: assets/chunks/specification-set-editor.js:10
+#: assets/chunks/specification-set-editor.js:13
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specification-sets.js:6
+#: assets/chunks/specifications.js:4
+#: assets/chunks/specifications.js:15
+#: assets/product-values.js:11
+#: assets/product-values.js:13
+msgid "Cancel"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+msgid "Create group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:7
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+msgid "Save"
+msgstr ""
+
+#. translators: %s: the group being deleted.
+#: assets/chunks/specification-set-editor.js:8
+#, js-format
+msgid "Delete the group “%s”?"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:8
+msgid "It is empty, so nothing goes with it."
+msgstr ""
+
+#. translators: %s: how many specifications the group holds.
+#: assets/chunks/specification-set-editor.js:9
+#, js-format
+msgid "It holds %s. What should happen to them?"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Move them to another group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Destination group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Remove them from this set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "The specifications themselves are not deleted, and no product loses a value."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Delete group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Specification could not be created."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Create and add"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "New group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "Set structure"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:10
+msgid "No groups yet"
+msgstr ""
+
+#. translators: 1: number of groups. 2: number of specifications.
+#: assets/chunks/specification-set-editor.js:11
+#, js-format
+msgid "%1$s · %2$s"
+msgstr ""
+
+#. translators: %d: number of groups.
+#: assets/chunks/specification-set-editor.js:12
+#, js-format
+msgid "%d group"
+msgid_plural "%d groups"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Drag a specification here to create your first group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Or use Add group to make an empty one"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Drop here to create a group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Add group"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "General"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Specification set could not be saved."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "WordPress did not return a saved specification set id."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Specification set saved."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Specification set could not be loaded."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Specification set was not found."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Invalid specification set id."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Loading specification set…"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Edit specification set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "New specification set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Leave without saving?"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "You have unsaved changes to this specification set. Leaving now discards them."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Leave and discard"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Stay and keep editing"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Arrange reusable specifications into the groups customers see on product pages."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Unsaved changes"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+msgid "Save set"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+#: assets/chunks/specifications.js:1
+msgid "Used in exports, templates and integrations. Edit it until the first save; afterward it is permanent and never follows a rename."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:13
+#: assets/chunks/specifications.js:1
+msgid "A key cannot be a whole number."
+msgstr ""
+
+#. translators: 1: the key being typed, 2: the specification that already holds it.
+#: assets/chunks/specification-set-editor.js:14
+#: assets/chunks/specifications.js:2
+#, js-format
+msgid "“%1$s” is already the key of “%2$s”."
+msgstr ""
+
+#. translators: %s: a free key offered instead of a taken one.
+#: assets/chunks/specification-set-editor.js:15
+#: assets/chunks/specifications.js:3
+#, js-format
+msgid "Use “%s”"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:15
+#: assets/chunks/specifications.js:3
+msgid "Change type"
+msgstr ""
+
+#. translators: %s: the label of the type the specification is saved with.
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+#, js-format
+msgid "Keep %s"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+msgid "Save and add another"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+msgid "Save and close"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+msgid "Carried over from the last one you added."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+msgid "What kind of answer this records. It decides the input on the product screen and how the value renders."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
+msgid "Choose a type…"
+msgstr ""
+
+#. translators: 1: the type the specification is saved with. 2: the type it would change to.
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
+#, js-format
+msgid "Changing the type may make existing values unreadable. This is a %1$s today, and values that %2$s cannot read stay stored and appear as unreadable on the product screen. Nothing is deleted, and changing the type back restores them."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
+msgid "Name"
+msgstr ""
+
+#. translators: %s: the name of the existing specification.
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+#, js-format
+msgid "A specification called “%s” already exists. This is allowed, because the key is the identity, but it is usually a mistake."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Open the existing one"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Renaming later changes the label everywhere and touches no stored data."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Ready to type"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Key"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Follows the name"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Permanent. It is the identity used in exports, templates and integrations, and never follows a rename."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
+msgid "Optional"
+msgstr ""
+
+#. translators: %s: a stored value no longer present in the choices.
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:2
+#, js-format
+msgid "%s — no longer an option"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "One per line."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Show on the store as"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Check and cross icons"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Wording"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "The words for yes and no, separated by |. Leave empty to use the translated Yes and No."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Yes|No"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "A short free-form answer, optionally with suggestions or several values."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Several lines of free-form text."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "One answer from a fixed list you define."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Add at least one option, one per line."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "A single yes or no."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "A number or a range, with an optional unit such as mm, kg or GB."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:4
+msgid "Read from the product, such as its weight, SKU or brand. Nothing is entered by hand."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:7
+msgid "Files from the media library, such as datasheets, manuals or certificates."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "A web address, email address or phone number, with an optional label."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "A day, a month or a year, such as a release date."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:2
+#: assets/product-values.js:8
+msgid "Year"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:2
+#: assets/product-values.js:8
+msgid "Month"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "Precision"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "Choose a month or a year when the day is not known, such as a release in March 2026."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:8
+msgid "Day"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:2
+#: assets/product-values.js:4
+#: assets/product-values.js:8
+msgid "Default"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:2
+msgid "Offered as a suggestion when a product has no value yet. Never stored until the product is saved, and never shown on your storefront on its own."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "None"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:23
+#: assets/product-values.js:7
+msgid "No longer in the media library"
+msgstr ""
+
+#. translators: %s: the specification name.
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
+#: assets/product-values.js:8
+#, js-format
+msgid "Label shown for this file in %s"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
+#: assets/product-values.js:8
+msgid "Label"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
+#: assets/product-values.js:8
+msgid "Add files"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
+#: assets/product-values.js:8
+msgid "Add documents"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
+#: assets/product-values.js:8
+msgid "Add"
+msgstr ""
+
+#. translators: %s: the unregistered specification type id.
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:9
+#, js-format
+msgid "Unregistered type: %s"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:8
+msgid "https://…, mailto:… or tel:…"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:8
+msgid "Link label"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:8
+msgid "Label (optional)"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Optional. Applies to the number, whatever unit is chosen."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Optional."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Up to (optional)"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+#: assets/product-values.js:4
+msgid "Unit"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "No unit, a plain number"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Something else"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Default unit"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Decimal places"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "0 for whole numbers, up to 4."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Range"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Allow a range, such as 100–240 V"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Thousands"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Turn off for years and codes, such as 2026."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Separate thousands"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Minimum"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Maximum"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "The units a product can be given. Values are shown as entered, never converted."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "One per line, as it should appear after the number."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Units"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Volume"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Area"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Temperature"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Data size"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Data rate"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Frequency"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Power"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Voltage"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Current"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Battery"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Energy"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Duration"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgctxt "unit symbol"
+msgid "days"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgctxt "unit symbol"
+msgid "months"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgctxt "unit symbol"
+msgid "years"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Speed"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Light"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Sound"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "Choose at least one unit."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:4
+msgid "The minimum cannot be larger than the maximum."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Learned values"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Typed on products and suggested while any product carries them. Promote a value to keep suggesting it."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
+#: assets/product-values.js:2
+msgid "Search learned values"
+msgstr ""
+
+#. translators: %d: how many products carry the value.
+#. translators: %d: number of products the set is assigned to.
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specification-sets.js:2
+#: assets/chunks/specifications.js:26
+#: assets/product-values.js:3
+#, js-format
+msgid "%d product"
+msgid_plural "%d products"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: a learned value.
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+#, js-format
+msgid "Promote “%s” to a suggestion"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Promote"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Suggestions"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Suggest values while typing"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "The most used values come first. Any other value can still be typed."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Suggested values"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Learn new values"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Also suggest values typed on products"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Several values"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Allow several values per product"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Entered as tags and shown on your storefront separated by commas."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Add at least one suggestion, or let new values be learned."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "No value"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:2
+msgid "Shipping"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:2
+msgid "Identifiers"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:2
+msgid "Categories, tags and other taxonomies"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:2
+msgid "Attributes"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Read from the product on every page view. Nothing is entered on the product screen."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "This product data is not available on this site, so the row stays empty. It returns when the plugin that provides it is active again."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Product data"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:23
+#: assets/chunks/specifications.js:27
+#: assets/product-values.js:4
+msgid "Choose product data"
+msgstr ""
+
+#. translators: %s: the taxonomy or source id that is no longer available.
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
+#: assets/product-values.js:5
+#, js-format
+msgid "Unavailable: %s"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
+#: assets/product-values.js:5
+msgid "Custom attribute…"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
+#: assets/product-values.js:5
+msgid "Attribute name"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
+#: assets/product-values.js:5
+msgid "As it is named on the product."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
+#: assets/product-values.js:6
+msgid "The product data this specification reads is no longer available on this site."
+msgstr ""
+
+#. translators: %s: the product data a specification reads, such as Weight or Brands.
+#: assets/chunks/specification-set-editor.js:25
+#: assets/chunks/specifications.js:29
+#: assets/product-values.js:7
+#, js-format
+msgid "Read from the product’s %s."
+msgstr ""
+
+#. translators: %s: the name of a custom product attribute.
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specifications.js:30
+#: assets/product-values.js:6
+#, js-format
+msgid "%s attribute"
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specifications.js:30
+#: assets/product-values.js:5
+msgid "Choose which product data to show."
+msgstr ""
+
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specifications.js:30
+#: assets/product-values.js:5
+msgid "Enter the name of the custom attribute."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:1
+msgid "Published"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:1
+msgid "Set name"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:1
+msgid "Groups"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:1
+#: assets/chunks/specifications.js:11
+msgid "Products"
+msgstr ""
+
+#. translators: %s: the set being deleted.
+#. translators: %s: the specification being deleted.
+#: assets/chunks/specification-sets.js:3
+#: assets/chunks/specifications.js:14
+#, js-format
+msgid "Delete “%s”?"
+msgstr ""
+
+#. translators: %d: number of sets being deleted.
+#: assets/chunks/specification-sets.js:4
+#, js-format
+msgid "Delete %d sets?"
+msgstr ""
+
+#. translators: %s: how many products the selection is assigned to.
+#: assets/chunks/specification-sets.js:5
+#, js-format
+msgid "%s assigned to it, and will show no specifications table until another set is assigned."
+msgstr ""
+
+#. translators: %d: number of products.
+#: assets/chunks/specification-sets.js:6
+#, js-format
+msgid "%d product is"
+msgid_plural "%d products are"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/specification-sets.js:6
+msgid "No product is assigned to it."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:6
+msgid "The values stored on those products are kept. They belong to the specifications themselves, not to this set, so assigning another set shows them again."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:6
+msgid "No specification sets yet"
+msgstr ""
+
+#. translators: %s: how many specifications the library holds.
+#: assets/chunks/specification-sets.js:7
+#, js-format
+msgid "A set decides which specifications a kind of product has, and how they are grouped on the storefront. %s ready to use."
+msgstr ""
+
+#. translators: %d: number of specifications.
+#: assets/chunks/specification-sets.js:8
+#, js-format
+msgid "You have %d specification"
+msgid_plural "You have %d specifications"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Start with the details customers compare"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "A specification is one reusable fact about a product — like screen size, material, or warranty. Define those facts first, then group them into a set for each product family."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Define specifications"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Choose each fact and its value format."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Create a set"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Organize related facts into clear groups."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Fill product values"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Assign the set and enter product-specific data."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+msgid "Define your first specification"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:8
+#: assets/chunks/specifications.js:18
+msgid "Something went wrong."
+msgstr ""
+
+#. translators: %s: the name of the set being copied.
+#: assets/chunks/specification-sets.js:9
+#, js-format
+msgid "%s (copy)"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Specification set duplicated."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Specification sets deleted."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Status updated."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Duplicate"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Switch to draft"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Add set"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Search sets"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Create an empty set instead"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Specification sets could not be loaded"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Your sets are still intact. Check the connection and try again."
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+#: assets/chunks/specifications.js:22
+msgid "Retry"
+msgstr ""
+
+#: assets/chunks/specification-sets.js:9
+msgid "Group the specifications that belong to each kind of product."
+msgstr ""
+
+#. translators: %s: specifications that could not be deleted.
+#: assets/chunks/specifications.js:7
+#, js-format
+msgid "Nothing was deleted. Not deleted: %s."
+msgstr ""
+
+#. translators: 1: deleted specifications. 2: specifications that could not be deleted.
+#: assets/chunks/specifications.js:8
+#, js-format
+msgid "Deleted: %1$s. Not deleted: %2$s."
+msgstr ""
+
+#. translators: %d: number of products holding a value.
+#: assets/chunks/specifications.js:9
+#, js-format
+msgid "Deleting removes its value from all %d products. That many are removed in the background, and the key stays reserved until it has finished. Deleting cannot be undone."
+msgstr ""
+
+#: assets/chunks/specifications.js:9
+msgid "Deleting removes its value from every product that has one. Deleting cannot be undone."
+msgstr ""
+
+#: assets/chunks/specifications.js:9
+msgid "No set uses this specification."
+msgstr ""
+
+#. translators: %d: number of sets that use the specification.
+#: assets/chunks/specifications.js:10
+#, js-format
+msgid "%d set uses this specification."
+msgid_plural "%d sets use this specification."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/specifications.js:10
+msgid "No product holds a value for it."
+msgstr ""
+
+#. translators: %d: number of products holding a value.
+#: assets/chunks/specifications.js:11
+#, js-format
+msgid "%d product holds a value for it."
+msgid_plural "%d products hold a value for it."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/chunks/specifications.js:11
+#: assets/chunks/specifications.js:19
+msgid "Specification"
+msgstr ""
+
+#: assets/chunks/specifications.js:11
+#: assets/chunks/specifications.js:19
+msgid "Sets"
+msgstr ""
+
+#: assets/chunks/specifications.js:11
+msgid "Total"
+msgstr ""
+
+#. translators: %d: number of distinct sets across the selection.
+#. translators: %d: number of sets using this specification.
+#: assets/chunks/specifications.js:12
+#: assets/chunks/specifications.js:20
+#, js-format
+msgid "%d set"
+msgid_plural "%d sets"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of product values across the selection.
+#: assets/chunks/specifications.js:13
+#, js-format
+msgid "%d value"
+msgid_plural "%d values"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of specifications being deleted.
+#: assets/chunks/specifications.js:15
+#, js-format
+msgid "Delete %d specifications?"
+msgstr ""
+
+#: assets/chunks/specifications.js:15
+msgid "Checking affected sets and products…"
+msgstr ""
+
+#: assets/chunks/specifications.js:15
+msgid "The affected sets and products could not be loaded. Deletion is unavailable until the impact can be checked."
+msgstr ""
+
+#. translators: %d: number of specifications being deleted.
+#: assets/chunks/specifications.js:16
+#, js-format
+msgid "Delete %d"
+msgstr ""
+
+#. translators: %d: number of deleted specifications whose values are still being removed.
+#: assets/chunks/specifications.js:17
+#, js-format
+msgid "Removing the values of %d deleted specification from products…"
+msgid_plural "Removing the values of %d deleted specifications from products…"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: a specification key, 2: why its values could not be removed.
+#: assets/chunks/specifications.js:18
+#, js-format
+msgid "The values of “%1$s” could not be removed from every product: %2$s Run “wp product-specifications purge run” to retry."
+msgstr ""
+
+#: assets/chunks/specifications.js:18
+msgid "Specification created."
+msgstr ""
+
+#: assets/chunks/specifications.js:18
+msgid "Specification saved."
+msgstr ""
+
+#: assets/chunks/specifications.js:18
+msgid "Specifications deleted."
+msgstr ""
+
+#: assets/chunks/specifications.js:18
+msgid "Add specification"
+msgstr ""
+
+#. translators: %d: how many specifications were added in this sitting.
+#: assets/chunks/specifications.js:19
+#, js-format
+msgid "New specification · %d added"
+msgstr ""
+
+#: assets/chunks/specifications.js:19
+msgid "just added"
+msgstr ""
+
+#: assets/chunks/specifications.js:19
+msgid "Not used in any set"
+msgstr ""
+
+#. translators: %s: the search term that matched nothing.
+#: assets/chunks/specifications.js:21
+#, js-format
+msgid "Nothing matches “%s”"
+msgstr ""
+
+#: assets/chunks/specifications.js:21
+msgid "Nothing matches these filters"
+msgstr ""
+
+#: assets/chunks/specifications.js:21
+msgid "No specification has that name or slug. A search that finds nothing is usually the name of the thing you are about to add."
+msgstr ""
+
+#: assets/chunks/specifications.js:21
+msgid "No specification of this type exists yet."
+msgstr ""
+
+#. translators: %s: the search term that matched nothing.
+#: assets/chunks/specifications.js:22
+#, js-format
+msgid "Create “%s”"
+msgstr ""
+
+#: assets/chunks/specifications.js:22
+msgid "Clear search"
+msgstr ""
+
+#: assets/chunks/specifications.js:22
+msgid "No specifications yet"
+msgstr ""
+
+#: assets/chunks/specifications.js:22
+msgid "A specification is one row of a product table — a screen size, a weight, a material. Define it once and use it in any set."
+msgstr ""
+
+#: assets/chunks/specifications.js:22
+msgid "Specifications could not be loaded"
+msgstr ""
+
+#: assets/chunks/specifications.js:22
+msgid "Your specifications are still intact. Check the connection and try again."
+msgstr ""
+
+#: assets/chunks/specifications.js:22
+msgid "Define each specification once, then use it in any set."
+msgstr ""
+
+#: assets/product-values.js:9
+msgid "The request failed. Please try again."
+msgstr ""
+
+#: assets/product-values.js:9
+msgid "Suggested"
+msgstr ""
+
+#. translators: %s: unavailable specification type id.
+#: assets/product-values.js:10
+#, js-format
+msgid "The “%s” value type is unavailable. Its raw stored value is preserved until you replace it."
+msgstr ""
+
+#: assets/product-values.js:10
+msgid "Raw stored value"
+msgstr ""
+
+#: assets/product-values.js:10
+msgid "This product’s specifications appear here once the Product Specifications migration has run. If you save specifications for it before then, the migration skips this product and keeps what you saved."
+msgstr ""
+
+#: assets/product-values.js:10
+msgid "Your entered values are still here."
+msgstr ""
+
+#: assets/product-values.js:10
+msgid "Saving product specifications…"
+msgstr ""
+
+#: assets/product-values.js:10
+msgid "Change"
+msgstr ""
+
+#. translators: 1: number of specifications, 2: number of groups.
+#: assets/product-values.js:11
+#, js-format
+msgid "%1$d specifications in %2$d groups"
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "No specifications apply until a specification set is chosen."
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "No specification set"
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "Choose a set"
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "Continue"
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "Assign a specification set"
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "The assigned specification set is missing. Choose another set before saving."
+msgstr ""
+
+#: assets/product-values.js:11
+msgid "This set has no specification groups yet."
+msgstr ""
+
+#. translators: %s: slug of a missing specification.
+#: assets/product-values.js:12
+#, js-format
+msgid "Missing specification: %s"
+msgstr ""
+
+#: assets/product-values.js:12
+msgid "Specification values are saved with the product’s Update button."
+msgstr ""
+
+#: assets/product-values.js:12
+msgid "Remove specification set?"
+msgstr ""
+
+#: assets/product-values.js:12
+msgid "Change specification set?"
+msgstr ""
+
+#. translators: %d: number of stored values to delete.
+#: assets/product-values.js:13
+#, js-format
+msgid "%d stored value will be deleted when the product is saved."
+msgid_plural "%d stored values will be deleted when the product is saved."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/product-values.js:13
+msgid "Values shared by both sets stay in place. Values used only by the old set are kept and return if you switch back."
+msgstr ""
+
+#: assets/product-values.js:13
+msgid "Remove on save"
+msgstr ""
+
+#: assets/product-values.js:13
+msgid "Change set"
+msgstr ""
+
+#: assets/Block/ProductSpecifications/block.json
+#: src/Block/ProductSpecifications/block.json
+msgctxt "block title"
+msgid "Product Specifications"
+msgstr ""
+
+#: assets/Block/ProductSpecifications/block.json
+#: src/Block/ProductSpecifications/block.json
+msgctxt "block description"
+msgid "The specifications table of a product."
+msgstr ""

@@ -14,7 +14,6 @@ const group: StructureGroup = {
 	description: '',
 	visible: true,
 	items: [ 1, 2, 3 ].map( ( id ) => ( {
-		term_id: id,
 		slug: `spec-${ id }`,
 		visible: true,
 	} ) ),
@@ -26,9 +25,9 @@ describe( 'groupProgress', () => {
 			group,
 			{ 'spec-1': 'Cotton' },
 			{
-				1: specification( 1, 'text' ),
-				2: specification( 2, 'woocommerce' ),
-				3: specification( 3, 'woocommerce' ),
+				'spec-1': specification( 1, 'text' ),
+				'spec-2': specification( 2, 'woocommerce' ),
+				'spec-3': specification( 3, 'woocommerce' ),
 			}
 		);
 

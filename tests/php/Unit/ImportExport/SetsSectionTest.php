@@ -27,7 +27,7 @@ final class SetsSectionTest extends TestCase
                     'publish',
                     new SpecificationSetStructure(1, [
                         new SpecificationGroup('general', 'General', '', false, [
-                            SpecificationSetItem::create(10, '%d9%88%d8%b2%d9%86', false, true),
+                            SpecificationSetItem::create('%d9%88%d8%b2%d9%86', false),
                         ]),
                     ]),
                     'phones',

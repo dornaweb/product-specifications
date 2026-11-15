@@ -114,11 +114,11 @@ final class SpecificationSetMapper
                 continue;
             }
 
-            $mapped[] = SpecificationSetItem::create(
-                $this->intValue($item['term_id'] ?? null),
-                $this->stringValue($item['slug'] ?? null),
-                (bool) ($item['visible'] ?? true)
-            );
+            $slug = $this->stringValue($item['slug'] ?? null);
+
+            if ($slug !== '') {
+                $mapped[] = SpecificationSetItem::create($slug, (bool) ($item['visible'] ?? true));
+            }
         }
 
         return $mapped;
@@ -142,12 +142,11 @@ final class SpecificationSetMapper
     }
 
     /**
-     * @return array{term_id: int, slug: string, visible: bool}
+     * @return array{slug: string, visible: bool}
      */
     private function itemToArray(SpecificationSetItem $item): array
     {
         return [
-            'term_id' => $item->termId(),
             'slug' => $item->slug(),
             'visible' => $item->visible(),
         ];

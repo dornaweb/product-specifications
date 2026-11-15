@@ -35,7 +35,6 @@ interface PendingGroup {
 }
 
 const itemFrom = ( entry: LibraryEntry ): StructureItem => ( {
-	term_id: entry.id,
 	slug: entry.slug,
 	visible: true,
 } );
@@ -61,8 +60,7 @@ const StructureTab = ( { editor }: { editor: SpecificationSetEditorData } ) => {
 		[ groups ]
 	);
 	const library = useSpecificationLibrary(
-		useMemo( () => held.map( ( item ) => item.slug ), [ held ] ),
-		useMemo( () => held.map( ( item ) => item.term_id ), [ held ] )
+		useMemo( () => held.map( ( item ) => item.slug ), [ held ] )
 	);
 
 	const specificationCount = held.length;

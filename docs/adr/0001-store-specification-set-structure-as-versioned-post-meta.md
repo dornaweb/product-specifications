@@ -14,7 +14,9 @@ and never editable afterward (ADR 0010). A set item therefore no longer carries 
 ```
 
 Term ids are resolved from slugs at runtime and are never stored. `schema_version`
-stays at 1, because schema 1 never shipped.
+stays at 1, because schema 1 never shipped. Documents saved by development builds
+before this amendment still carry `term_id`; the schema keeps the member declared so
+they keep validating on read, and the sanitizer drops it on the next write.
 
 ADR 0009 settles how `schema_version` is declared and maintained across every stored
 document in the plugin. For this one that means it is declared as a plain integer with

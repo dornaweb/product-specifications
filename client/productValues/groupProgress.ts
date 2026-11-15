@@ -9,12 +9,12 @@ export interface GroupProgress {
 export function groupProgress(
 	group: StructureGroup,
 	values: Record< string, unknown >,
-	specifications: Record< number, SpecificationRecord >
+	specifications: Record< string, SpecificationRecord >
 ): GroupProgress {
 	const entered = group.items.filter(
 		( item ) =>
 			! specificationType(
-				specifications[ item.term_id ]?.specification?.type ?? 'text'
+				specifications[ item.slug ]?.specification?.type ?? 'text'
 			).readOnly
 	);
 

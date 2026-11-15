@@ -62,17 +62,17 @@ final class SpecificationsTableReaderTest extends TestCase
     {
         $table = $this->reader($this->set('publish', [
             new SpecificationGroup('general', 'General', '', true, [
-                SpecificationSetItem::create(4, 'colour', false),
-                SpecificationSetItem::create(2, 'wifi'),
-                SpecificationSetItem::create(1, 'weight'),
-                SpecificationSetItem::create(3, 'notes'),
-                SpecificationSetItem::create(99, 'deleted'),
+                SpecificationSetItem::create('colour', false),
+                SpecificationSetItem::create('wifi'),
+                SpecificationSetItem::create('weight'),
+                SpecificationSetItem::create('notes'),
+                SpecificationSetItem::create('deleted'),
             ]),
             new SpecificationGroup('power', 'Power', '', false, [
-                SpecificationSetItem::create(5, 'battery'),
+                SpecificationSetItem::create('battery'),
             ]),
             new SpecificationGroup('empty', 'Nothing filled', '', true, [
-                SpecificationSetItem::create(3, 'notes'),
+                SpecificationSetItem::create('notes'),
             ]),
         ]))->forProduct(new WC_Product(self::PRODUCT));
 
@@ -84,13 +84,37 @@ final class SpecificationsTableReaderTest extends TestCase
     }
 
     /**
+     * A product page resolves its whole set at once; a lookup per row costs a term query
+     * and its meta for every specification on the page.
+     */
+    public function testTheSetIsResolvedInOneQueryForItsVisibleSpecifications(): void
+    {
+        $GLOBALS['wp_test_get_terms_calls'] = [];
+        $GLOBALS['wp_test_get_term_calls'] = 0;
+
+        $this->reader($this->set('publish', [
+            new SpecificationGroup('general', 'General', '', true, [
+                SpecificationSetItem::create('colour', false),
+                SpecificationSetItem::create('wifi'),
+                SpecificationSetItem::create('weight'),
+            ]),
+            new SpecificationGroup('power', 'Power', '', false, [SpecificationSetItem::create('battery')]),
+            new SpecificationGroup('more', 'More', '', true, [SpecificationSetItem::create('weight')]),
+        ]))->forProduct(new WC_Product(self::PRODUCT));
+
+        self::assertCount(1, $GLOBALS['wp_test_get_terms_calls']);
+        self::assertSame(['wifi', 'weight'], $GLOBALS['wp_test_get_terms_calls'][0]['slug']);
+        self::assertSame(0, $GLOBALS['wp_test_get_term_calls']);
+    }
+
+    /**
      * @dataProvider unrenderedCases
      */
     public function testNothingRendersForAnUnpublishedSetNoSetOrAPendingMigration(string $status, int $version): void
     {
         $GLOBALS['wp_test_options'][DataVersionRepository::OPTION] = $version;
         $set = $this->set($status, [
-            new SpecificationGroup('general', 'General', '', true, [SpecificationSetItem::create(1, 'weight')]),
+            new SpecificationGroup('general', 'General', '', true, [SpecificationSetItem::create('weight')]),
         ]);
 
         self::assertTrue($this->reader($set)->forProduct(new WC_Product(self::PRODUCT))->isEmpty());

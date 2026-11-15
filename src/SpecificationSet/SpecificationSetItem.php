@@ -7,23 +7,14 @@ namespace Amiut\ProductSpecs\SpecificationSet;
 final class SpecificationSetItem
 {
     private function __construct(
-        private readonly int $termId,
         private readonly string $slug,
         private readonly bool $visible
     ) {
     }
 
-    public static function create(
-        int $termId,
-        string $slug,
-        bool $visible = true
-    ): self {
-        return new self($termId, $slug, $visible);
-    }
-
-    public function termId(): int
+    public static function create(string $slug, bool $visible = true): self
     {
-        return $this->termId;
+        return new self($slug, $visible);
     }
 
     public function slug(): string

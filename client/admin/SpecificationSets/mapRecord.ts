@@ -1,8 +1,8 @@
 import type { SpecificationSetItem } from './fields';
-
-interface Structure {
-	groups?: Array< { items?: unknown[] } >;
-}
+import {
+	readStructure,
+	STRUCTURE_META_KEY,
+} from '../shared/contracts/structure';
 
 export interface SpecificationSetRecord {
 	id: number;
@@ -10,7 +10,7 @@ export interface SpecificationSetRecord {
 	status?: string;
 	content?: { raw?: string } | string;
 	// register_post_meta with show_in_rest exposes the structure under `meta`.
-	meta?: { specification_set_structure?: Structure };
+	meta?: Record< string, unknown >;
 	product_count?: number | null;
 }
 
@@ -20,17 +20,19 @@ export interface SpecificationSetRecord {
 export function mapRecord(
 	record: SpecificationSetRecord
 ): SpecificationSetItem {
-	const groups = record.meta?.specification_set_structure?.groups ?? [];
+	const stored = record.meta?.[ STRUCTURE_META_KEY ];
+	const structure = readStructure( stored );
+	const { groups } = structure;
 
 	return {
 		id: record.id,
 		title: readText( record.title ),
 		status: record.status === 'publish' ? 'publish' : 'draft',
 		description: readText( record.content ),
-		structure: record.meta?.specification_set_structure ?? null,
+		structure: stored ? structure : null,
 		groups: groups.length,
 		specifications: groups.reduce(
-			( total, group ) => total + ( group.items?.length ?? 0 ),
+			( total, group ) => total + group.items.length,
 			0
 		),
 		products: record.product_count ?? 0,

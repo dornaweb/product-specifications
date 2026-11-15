@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Storefront;
 
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationGroup;
@@ -47,10 +48,11 @@ final class SpecificationsTableReader
         }
 
         $values = $this->values->read($product->get_id())->values();
+        $definitions = $this->definitions->findByKeys($this->visibleKeys($set->structure()->groups()));
         $groups = [];
 
         foreach ($set->structure()->groups() as $group) {
-            $rows = $group->visible() ? $this->rows($group, $product, $values) : [];
+            $rows = $group->visible() ? $this->rows($group, $product, $values, $definitions) : [];
 
             if ($rows !== []) {
                 $groups[] = new TableGroup($group->key(), $group->label(), $rows);
@@ -61,15 +63,39 @@ final class SpecificationsTableReader
     }
 
     /**
+     * @param list<SpecificationGroup> $groups
+     * @return list<string>
+     */
+    private function visibleKeys(array $groups): array
+    {
+        $keys = [];
+
+        foreach ($groups as $group) {
+            if (!$group->visible()) {
+                continue;
+            }
+
+            foreach ($group->items() as $item) {
+                if ($item->visible()) {
+                    $keys[] = $item->slug();
+                }
+            }
+        }
+
+        return array_values(array_unique($keys));
+    }
+
+    /**
      * @param array<string, mixed> $values
+     * @param array<string, SpecificationDefinition> $definitions
      * @return list<TableRow>
      */
-    private function rows(SpecificationGroup $group, WC_Product $product, array $values): array
+    private function rows(SpecificationGroup $group, WC_Product $product, array $values, array $definitions): array
     {
         $rows = [];
 
         foreach ($group->items() as $item) {
-            $definition = $item->visible() ? $this->definitions->find($item->termId()) : null;
+            $definition = $item->visible() ? ($definitions[$item->slug()] ?? null) : null;
 
             if ($definition === null || !$this->types->has($definition->typeId())) {
                 continue;

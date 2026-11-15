@@ -56,10 +56,10 @@ final class SpecificationSetStructure
         return $this->withGroups([...$this->groups, $group]);
     }
 
-    public function containsItem(int $termId): bool
+    public function containsItem(string $slug): bool
     {
         foreach ($this->groups as $group) {
-            if ($group->hasItem($termId)) {
+            if ($group->hasItem($slug)) {
                 return true;
             }
         }
@@ -83,7 +83,7 @@ final class SpecificationSetStructure
                 );
 
             foreach ($group->items() as $item) {
-                if (!$merged->containsItem($item->termId())) {
+                if (!$merged->containsItem($item->slug())) {
                     $merged = $merged->withItem($group->key(), $item);
                 }
             }
@@ -135,7 +135,7 @@ final class SpecificationSetStructure
      */
     public function withItemMovedTo(
         string $fromGroupKey,
-        int $termId,
+        string $slug,
         string $toGroupKey,
         int $position
     ): self {
@@ -143,35 +143,35 @@ final class SpecificationSetStructure
 
         if ($fromGroupKey === $toGroupKey) {
             $groups = $this->groups;
-            $groups[$from] = $groups[$from]->withItemMovedTo($termId, $position);
+            $groups[$from] = $groups[$from]->withItemMovedTo($slug, $position);
 
             return $this->withGroups($groups);
         }
 
         $to = $this->guardGroup($toGroupKey);
-        $item = $this->groups[$from]->item($termId);
+        $item = $this->groups[$from]->item($slug);
 
         $groups = $this->groups;
-        $groups[$from] = $groups[$from]->withoutItem($termId);
+        $groups[$from] = $groups[$from]->withoutItem($slug);
         $groups[$to] = $groups[$to]->withItemAt($item, $position);
 
         return $this->withGroups($groups);
     }
 
-    public function withoutItem(string $groupKey, int $termId): self
+    public function withoutItem(string $groupKey, string $slug): self
     {
         $position = $this->guardGroup($groupKey);
         $groups = $this->groups;
-        $groups[$position] = $groups[$position]->withoutItem($termId);
+        $groups[$position] = $groups[$position]->withoutItem($slug);
 
         return $this->withGroups($groups);
     }
 
-    public function withoutItemEverywhere(int $termId): self
+    public function withoutItemEverywhere(string $slug): self
     {
         $groups = array_map(
-            static fn (SpecificationGroup $group): SpecificationGroup => $group->hasItem($termId)
-                ? $group->withoutItem($termId)
+            static fn (SpecificationGroup $group): SpecificationGroup => $group->hasItem($slug)
+                ? $group->withoutItem($slug)
                 : $group,
             $this->groups
         );

@@ -66,7 +66,7 @@ final class StructureSanitizer
     }
 
     /**
-     * @return list<array<string, bool|int|string>>
+     * @return list<array<string, bool|string>>
      */
     private function sanitizeItems(mixed $items): array
     {
@@ -81,15 +81,13 @@ final class StructureSanitizer
                 continue;
             }
 
-            $termId = $this->intValue($item['term_id'] ?? null);
             $slug = $this->slugValue($item['slug'] ?? null);
 
-            if ($termId < 1 || $slug === '') {
+            if ($slug === '') {
                 continue;
             }
 
             $sanitized[] = [
-                'term_id' => $termId,
                 'slug' => $slug,
                 'visible' => $this->boolValue($item['visible'] ?? null, true),
             ];
@@ -114,14 +112,5 @@ final class StructureSanitizer
     private function stringValue(mixed $value): string
     {
         return is_scalar($value) ? (string) $value : '';
-    }
-
-    private function intValue(mixed $value): int
-    {
-        if (is_int($value)) {
-            return $value;
-        }
-
-        return is_numeric($value) ? absint($value) : 0;
     }
 }

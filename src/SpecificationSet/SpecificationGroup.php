@@ -46,17 +46,17 @@ final class SpecificationGroup
         return $this->items;
     }
 
-    public function hasItem(int $termId): bool
+    public function hasItem(string $slug): bool
     {
-        return $this->positionOf($termId) !== null;
+        return $this->positionOf($slug) !== null;
     }
 
-    public function item(int $termId): SpecificationSetItem
+    public function item(string $slug): SpecificationSetItem
     {
-        $position = $this->positionOf($termId);
+        $position = $this->positionOf($slug);
 
         if ($position === null) {
-            throw InvalidStructureOperationException::unknownItem($this->key, $termId);
+            throw InvalidStructureOperationException::unknownItem($this->key, $slug);
         }
 
         return $this->items[$position];
@@ -86,10 +86,10 @@ final class SpecificationGroup
 
     public function withItem(SpecificationSetItem $item): self
     {
-        if ($this->hasItem($item->termId())) {
+        if ($this->hasItem($item->slug())) {
             throw InvalidStructureOperationException::duplicateItem(
                 $this->key,
-                $item->termId()
+                $item->slug()
             );
         }
 
@@ -98,10 +98,10 @@ final class SpecificationGroup
 
     public function withItemAt(SpecificationSetItem $item, int $position): self
     {
-        if ($this->hasItem($item->termId())) {
+        if ($this->hasItem($item->slug())) {
             throw InvalidStructureOperationException::duplicateItem(
                 $this->key,
-                $item->termId()
+                $item->slug()
             );
         }
 
@@ -111,12 +111,12 @@ final class SpecificationGroup
         return $this->withItems($items);
     }
 
-    public function withItemMovedTo(int $termId, int $position): self
+    public function withItemMovedTo(string $slug, int $position): self
     {
-        $from = $this->positionOf($termId);
+        $from = $this->positionOf($slug);
 
         if ($from === null) {
-            throw InvalidStructureOperationException::unknownItem($this->key, $termId);
+            throw InvalidStructureOperationException::unknownItem($this->key, $slug);
         }
 
         $items = $this->items;
@@ -126,12 +126,12 @@ final class SpecificationGroup
         return $this->withItems($items);
     }
 
-    public function withoutItem(int $termId): self
+    public function withoutItem(string $slug): self
     {
-        $position = $this->positionOf($termId);
+        $position = $this->positionOf($slug);
 
         if ($position === null) {
-            throw InvalidStructureOperationException::unknownItem($this->key, $termId);
+            throw InvalidStructureOperationException::unknownItem($this->key, $slug);
         }
 
         $items = $this->items;
@@ -154,10 +154,10 @@ final class SpecificationGroup
         );
     }
 
-    private function positionOf(int $termId): ?int
+    private function positionOf(string $slug): ?int
     {
         foreach ($this->items as $position => $item) {
-            if ($item->termId() === $termId) {
+            if ($item->slug() === $slug) {
                 return $position;
             }
         }

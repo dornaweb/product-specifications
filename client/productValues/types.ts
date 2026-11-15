@@ -1,5 +1,10 @@
 import type { Suggestion } from '../admin/shared/specificationTypes';
 
+export type {
+	StructureGroup,
+	StructureItem,
+} from '../admin/shared/contracts/structure';
+
 export interface ValueDocument {
 	schema_version: number;
 	values: Record< string, unknown >;
@@ -10,30 +15,11 @@ export interface ProductValuesResponse {
 	values: ValueDocument;
 }
 
-export interface StructureItem {
-	term_id: number;
-	slug: string;
-	visible: boolean;
-}
-
-export interface StructureGroup {
-	key: string;
-	label: string;
-	description: string;
-	visible: boolean;
-	items: StructureItem[];
-}
-
 export interface SetRecord {
 	id: number;
 	title?: { raw?: string; rendered?: string } | string;
 	slug: string;
-	meta?: {
-		specification_set_structure?: {
-			schema_version?: number;
-			groups?: StructureGroup[];
-		};
-	};
+	meta?: Record< string, unknown >;
 }
 
 export interface SpecificationRecord {

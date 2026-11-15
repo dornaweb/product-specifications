@@ -35,8 +35,6 @@ final class StructureMetaDefinition
             'properties' => [
                 'schema_version' => [
                     'type' => 'integer',
-                    'minimum' => self::CURRENT_VERSION,
-                    'maximum' => self::CURRENT_VERSION,
                 ],
                 'groups' => [
                     'type' => 'array',
@@ -86,6 +84,10 @@ final class StructureMetaDefinition
     }
 
     /**
+     * Core validates a stored document on every REST read and answers null when it fails,
+     * so a member that older documents carry stays declared. The sanitizer drops it on
+     * the next write.
+     *
      * @return array<string, mixed>
      */
     private function itemSchema(): array
@@ -94,13 +96,11 @@ final class StructureMetaDefinition
             'type' => 'object',
             'additionalProperties' => false,
             'required' => [
-                'term_id',
                 'slug',
             ],
             'properties' => [
                 'term_id' => [
                     'type' => 'integer',
-                    'minimum' => 1,
                 ],
                 'slug' => [
                     'type' => 'string',

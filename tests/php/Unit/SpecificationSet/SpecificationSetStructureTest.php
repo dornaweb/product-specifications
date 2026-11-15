@@ -90,7 +90,7 @@ final class SpecificationSetStructureTest extends TestCase
     public function testWithoutGroupRemovesTheGroupAndItsItems(): void
     {
         $structure = self::structure('display', 'battery')
-            ->withItem('display', SpecificationSetItem::create(101, 'width'));
+            ->withItem('display', SpecificationSetItem::create('width'));
 
         $changed = $structure->withoutGroup('display');
 
@@ -111,15 +111,15 @@ final class SpecificationSetStructureTest extends TestCase
             'add item' => [
                 static fn (SpecificationSetStructure $s) => $s->withItem(
                     'nope',
-                    SpecificationSetItem::create(101, 'width')
+                    SpecificationSetItem::create('width')
                 ),
             ],
-            'remove item' => [static fn (SpecificationSetStructure $s) => $s->withoutItem('nope', 101)],
+            'remove item' => [static fn (SpecificationSetStructure $s) => $s->withoutItem('nope', 'width')],
             'move item out of' => [
-                static fn (SpecificationSetStructure $s) => $s->withItemMovedTo('nope', 101, 'display', 0),
+                static fn (SpecificationSetStructure $s) => $s->withItemMovedTo('nope', 'width', 'display', 0),
             ],
             'move item into' => [
-                static fn (SpecificationSetStructure $s) => $s->withItemMovedTo('display', 101, 'nope', 0),
+                static fn (SpecificationSetStructure $s) => $s->withItemMovedTo('display', 'width', 'nope', 0),
             ],
         ];
     }
@@ -133,82 +133,82 @@ final class SpecificationSetStructureTest extends TestCase
         $this->expectException(InvalidStructureOperationException::class);
 
         $operation(
-            self::structure('display')->withItem('display', SpecificationSetItem::create(101, 'width'))
+            self::structure('display')->withItem('display', SpecificationSetItem::create('width'))
         );
     }
 
     public function testTheSameSpecificationMayAppearInTwoGroups(): void
     {
         $structure = self::structure('display', 'battery')
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItem('battery', SpecificationSetItem::create(101, 'width'));
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItem('battery', SpecificationSetItem::create('width'));
 
-        static::assertSame([101], self::termIds($structure, 'display'));
-        static::assertSame([101], self::termIds($structure, 'battery'));
+        static::assertSame(['width'], self::slugs($structure, 'display'));
+        static::assertSame(['width'], self::slugs($structure, 'battery'));
     }
 
     public function testWithItemMovedToTransfersBetweenGroupsAtTheGivenPosition(): void
     {
         $structure = self::structure('display', 'battery')
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItem('battery', SpecificationSetItem::create(201, 'capacity'))
-            ->withItem('battery', SpecificationSetItem::create(202, 'life'));
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItem('battery', SpecificationSetItem::create('capacity'))
+            ->withItem('battery', SpecificationSetItem::create('life'));
 
-        $changed = $structure->withItemMovedTo('display', 101, 'battery', 1);
+        $changed = $structure->withItemMovedTo('display', 'width', 'battery', 1);
 
-        static::assertSame([], self::termIds($changed, 'display'));
-        static::assertSame([201, 101, 202], self::termIds($changed, 'battery'));
+        static::assertSame([], self::slugs($changed, 'display'));
+        static::assertSame(['capacity', 'width', 'life'], self::slugs($changed, 'battery'));
     }
 
     public function testWithItemMovedToAcceptsAppendingToTheDestination(): void
     {
         $structure = self::structure('display', 'battery')
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItem('battery', SpecificationSetItem::create(201, 'capacity'));
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItem('battery', SpecificationSetItem::create('capacity'));
 
-        $changed = $structure->withItemMovedTo('display', 101, 'battery', 1);
+        $changed = $structure->withItemMovedTo('display', 'width', 'battery', 1);
 
-        static::assertSame([201, 101], self::termIds($changed, 'battery'));
+        static::assertSame(['capacity', 'width'], self::slugs($changed, 'battery'));
     }
 
     public function testWithItemMovedToWithinOneGroupIsAReorder(): void
     {
         $structure = self::structure('display')
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItem('display', SpecificationSetItem::create(102, 'height'));
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItem('display', SpecificationSetItem::create('height'));
 
-        $changed = $structure->withItemMovedTo('display', 102, 'display', 0);
+        $changed = $structure->withItemMovedTo('display', 'height', 'display', 0);
 
-        static::assertSame([102, 101], self::termIds($changed, 'display'));
+        static::assertSame(['height', 'width'], self::slugs($changed, 'display'));
     }
 
-    public function testWithItemMovedToRefusesATermMissingFromTheSourceGroup(): void
+    public function testWithItemMovedToRefusesASpecificationMissingFromTheSourceGroup(): void
     {
         $this->expectException(InvalidStructureOperationException::class);
 
-        self::structure('display', 'battery')->withItemMovedTo('display', 999, 'battery', 0);
+        self::structure('display', 'battery')->withItemMovedTo('display', 'missing', 'battery', 0);
     }
 
-    public function testWithItemMovedToRefusesATermAlreadyInTheDestination(): void
+    public function testWithItemMovedToRefusesASpecificationAlreadyInTheDestination(): void
     {
         $structure = self::structure('display', 'battery')
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItem('battery', SpecificationSetItem::create(101, 'width'));
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItem('battery', SpecificationSetItem::create('width'));
 
         $this->expectException(InvalidStructureOperationException::class);
 
-        $structure->withItemMovedTo('display', 101, 'battery', 0);
+        $structure->withItemMovedTo('display', 'width', 'battery', 0);
     }
 
     public function testSchemaVersionSurvivesEveryOperation(): void
     {
         $structure = self::structure('display')
             ->withGroup(self::group('battery'))
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItemMovedTo('display', 101, 'battery', 0)
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItemMovedTo('display', 'width', 'battery', 0)
             ->withGroupLabel('battery', 'Power')
             ->withGroupMovedTo('battery', 0)
-            ->withoutItem('battery', 101)
+            ->withoutItem('battery', 'width')
             ->withoutGroup('display');
 
         static::assertSame(StructureMetaDefinition::CURRENT_VERSION, $structure->schemaVersion());
@@ -222,9 +222,9 @@ final class SpecificationSetStructureTest extends TestCase
     {
         $structure = self::structure('display')
             ->withGroup(self::group('battery'))
-            ->withItem('display', SpecificationSetItem::create(101, 'width'))
-            ->withItem('display', SpecificationSetItem::create(102, 'height'))
-            ->withItemMovedTo('display', 101, 'battery', 0)
+            ->withItem('display', SpecificationSetItem::create('width'))
+            ->withItem('display', SpecificationSetItem::create('height'))
+            ->withItemMovedTo('display', 'width', 'battery', 0)
             ->withGroupMovedTo('battery', 0);
 
         static::assertSame(
@@ -237,7 +237,7 @@ final class SpecificationSetStructureTest extends TestCase
                         'description' => '',
                         'visible' => true,
                         'items' => [
-                            ['term_id' => 101, 'slug' => 'width', 'visible' => true],
+                            ['slug' => 'width', 'visible' => true],
                         ],
                     ],
                     [
@@ -246,7 +246,7 @@ final class SpecificationSetStructureTest extends TestCase
                         'description' => '',
                         'visible' => true,
                         'items' => [
-                            ['term_id' => 102, 'slug' => 'height', 'visible' => true],
+                            ['slug' => 'height', 'visible' => true],
                         ],
                     ],
                 ],
@@ -280,12 +280,12 @@ final class SpecificationSetStructureTest extends TestCase
     }
 
     /**
-     * @return list<int>
+     * @return list<string>
      */
-    private static function termIds(SpecificationSetStructure $structure, string $groupKey): array
+    private static function slugs(SpecificationSetStructure $structure, string $groupKey): array
     {
         return array_map(
-            static fn (SpecificationSetItem $item): int => $item->termId(),
+            static fn (SpecificationSetItem $item): string => $item->slug(),
             $structure->group($groupKey)->items()
         );
     }
@@ -294,16 +294,16 @@ final class SpecificationSetStructureTest extends TestCase
     {
         $current = new SpecificationSetStructure(1, [
             new SpecificationGroup('general', 'General', '', true, [
-                SpecificationSetItem::create(1, 'weight'),
-                SpecificationSetItem::create(2, 'colour'),
+                SpecificationSetItem::create('weight'),
+                SpecificationSetItem::create('colour'),
             ]),
-            new SpecificationGroup('power', 'Power', '', true, [SpecificationSetItem::create(3, 'battery')]),
+            new SpecificationGroup('power', 'Power', '', true, [SpecificationSetItem::create('battery')]),
         ]);
         $incoming = new SpecificationSetStructure(1, [
-            new SpecificationGroup('display', 'Display', '', true, [SpecificationSetItem::create(4, 'screen')]),
+            new SpecificationGroup('display', 'Display', '', true, [SpecificationSetItem::create('screen')]),
             new SpecificationGroup('general', 'Overview', 'Basics', true, [
-                SpecificationSetItem::create(3, 'battery'),
-                SpecificationSetItem::create(5, 'material'),
+                SpecificationSetItem::create('battery'),
+                SpecificationSetItem::create('material'),
             ]),
         ]);
 
@@ -311,9 +311,9 @@ final class SpecificationSetStructureTest extends TestCase
 
         self::assertSame(
             [
-                'general' => ['Overview', 'Basics', [1, 2, 5]],
-                'power' => ['Power', '', [3]],
-                'display' => ['Display', '', [4]],
+                'general' => ['Overview', 'Basics', ['weight', 'colour', 'material']],
+                'power' => ['Power', '', ['battery']],
+                'display' => ['Display', '', ['screen']],
             ],
             array_combine(
                 array_map(static fn (SpecificationGroup $group): string => $group->key(), $merged->groups()),
@@ -321,7 +321,7 @@ final class SpecificationSetStructureTest extends TestCase
                     static fn (SpecificationGroup $group): array => [
                         $group->label(),
                         $group->description(),
-                        array_map(static fn (SpecificationSetItem $item): int => $item->termId(), $group->items()),
+                        array_map(static fn (SpecificationSetItem $item): string => $item->slug(), $group->items()),
                     ],
                     $merged->groups()
                 )

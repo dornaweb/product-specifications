@@ -159,7 +159,7 @@ final class SpecificationDeletionServiceTest extends TestCase
             'publish',
             new SpecificationSetStructure(1, [
                 new SpecificationGroup('group', 'Group', '', true, [
-                    SpecificationSetItem::create(self::TERM_ID, self::SLUG),
+                    SpecificationSetItem::create(self::SLUG),
                 ]),
             ])
         );

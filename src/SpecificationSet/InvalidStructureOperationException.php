@@ -22,24 +22,24 @@ final class InvalidStructureOperationException extends RuntimeException
         );
     }
 
-    public static function duplicateItem(string $groupKey, int $termId): self
+    public static function duplicateItem(string $groupKey, string $slug): self
     {
         return new self(
             sprintf(
-                'The specification %d is already in the group "%s".',
-                $termId,
+                'The specification "%s" is already in the group "%s".',
+                $slug,
                 $groupKey
             )
         );
     }
 
-    public static function unknownItem(string $groupKey, int $termId): self
+    public static function unknownItem(string $groupKey, string $slug): self
     {
         return new self(
             sprintf(
-                'The group "%s" has no specification %d.',
+                'The group "%s" has no specification "%s".',
                 $groupKey,
-                $termId
+                $slug
             )
         );
     }

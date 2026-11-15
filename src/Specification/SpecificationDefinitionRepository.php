@@ -32,6 +32,37 @@ final class SpecificationDefinitionRepository
     }
 
     /**
+     * One term query and one term meta query, whatever the number of keys.
+     *
+     * @param list<string> $keys
+     * @return array<string, SpecificationDefinition> Keyed by key; a key with no
+     *                                                specification is absent.
+     */
+    public function findByKeys(array $keys): array
+    {
+        if ($keys === []) {
+            return [];
+        }
+
+        $terms = get_terms([
+            'taxonomy' => SpecificationTaxonomy::KEY,
+            'slug' => $keys,
+            'hide_empty' => false,
+            'update_term_meta_cache' => true,
+        ]);
+
+        $definitions = [];
+
+        foreach (is_array($terms) ? $terms : [] as $term) {
+            if ($term instanceof WP_Term && in_array($term->slug, $keys, true)) {
+                $definitions[$term->slug] = $this->mapper->fromTerm($term);
+            }
+        }
+
+        return $definitions;
+    }
+
+    /**
      * @param array<string, mixed> $args
      * @return list<SpecificationDefinition>
      */

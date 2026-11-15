@@ -26,8 +26,8 @@ final class SetStructureBuilderTest extends TestCase
         );
 
         self::assertSame(
-            [30, 10, 40, 20],
-            array_map(static fn (SpecificationSetItem $item): int => $item->termId(), $group->items())
+            ['panel', 'size', 'brightness', 'refresh'],
+            array_map(static fn (SpecificationSetItem $item): string => $item->slug(), $group->items())
         );
     }
 

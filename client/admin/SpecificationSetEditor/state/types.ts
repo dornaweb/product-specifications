@@ -3,7 +3,7 @@ import type {
 	SpecificationSetStructure,
 	StructureGroup,
 	StructureItem,
-} from '../mapping/specificationSetStructure';
+} from '../../shared/contracts/structure';
 
 export type { NoticeState };
 

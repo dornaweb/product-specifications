@@ -13,44 +13,44 @@ final class SpecificationGroupTest extends TestCase
 {
     public function testWithItemAppendsAndLeavesTheReceiverAlone(): void
     {
-        $group = self::group(101, 102);
+        $group = self::group('a', 'b');
 
-        $changed = $group->withItem(SpecificationSetItem::create(103, 'depth'));
+        $changed = $group->withItem(SpecificationSetItem::create('c'));
 
-        static::assertSame([101, 102, 103], self::termIds($changed));
-        static::assertSame([101, 102], self::termIds($group));
+        static::assertSame(['a', 'b', 'c'], self::slugs($changed));
+        static::assertSame(['a', 'b'], self::slugs($group));
     }
 
-    public function testWithItemRefusesATermAlreadyInTheGroup(): void
+    public function testWithItemRefusesASpecificationAlreadyInTheGroup(): void
     {
         $this->expectException(InvalidStructureOperationException::class);
 
-        self::group(101)->withItem(SpecificationSetItem::create(101, 'width'));
+        self::group('a')->withItem(SpecificationSetItem::create('a'));
     }
 
     /**
-     * @return array<string, array{int, list<int>}>
+     * @return array<string, array{int, list<string>}>
      */
     public static function itemPositionProvider(): array
     {
         return [
-            'to the front' => [0, [103, 101, 102]],
-            'to the middle' => [1, [101, 103, 102]],
-            'to the back' => [2, [101, 102, 103]],
+            'to the front' => [0, ['c', 'a', 'b']],
+            'to the middle' => [1, ['a', 'c', 'b']],
+            'to the back' => [2, ['a', 'b', 'c']],
         ];
     }
 
     /**
-     * @param list<int> $expected
+     * @param list<string> $expected
      * @dataProvider itemPositionProvider
      */
     public function testWithItemMovedToPlacesTheItemAndKeepsTheRestInOrder(
         int $position,
         array $expected
     ): void {
-        $group = self::group(101, 102, 103);
+        $group = self::group('a', 'b', 'c');
 
-        static::assertSame($expected, self::termIds($group->withItemMovedTo(103, $position)));
+        static::assertSame($expected, self::slugs($group->withItemMovedTo('c', $position)));
     }
 
     /**
@@ -71,67 +71,58 @@ final class SpecificationGroupTest extends TestCase
     {
         $this->expectException(InvalidStructureOperationException::class);
 
-        self::group(101, 102, 103)->withItemMovedTo(101, $position);
+        self::group('a', 'b', 'c')->withItemMovedTo('a', $position);
     }
 
-    public function testWithItemMovedToRefusesATermThatIsNotInTheGroup(): void
+    public function testWithItemMovedToRefusesASpecificationThatIsNotInTheGroup(): void
     {
         $this->expectException(InvalidStructureOperationException::class);
 
-        self::group(101)->withItemMovedTo(999, 0);
+        self::group('a')->withItemMovedTo('missing', 0);
     }
 
     public function testWithoutItemRemovesOnlyThatItem(): void
     {
-        $group = self::group(101, 102, 103);
+        $group = self::group('a', 'b', 'c');
 
-        static::assertSame([101, 103], self::termIds($group->withoutItem(102)));
-        static::assertSame([101, 102, 103], self::termIds($group));
+        static::assertSame(['a', 'c'], self::slugs($group->withoutItem('b')));
+        static::assertSame(['a', 'b', 'c'], self::slugs($group));
     }
 
-    public function testWithoutItemRefusesATermThatIsNotInTheGroup(): void
+    public function testWithoutItemRefusesASpecificationThatIsNotInTheGroup(): void
     {
         $this->expectException(InvalidStructureOperationException::class);
 
-        self::group(101)->withoutItem(999);
+        self::group('a')->withoutItem('missing');
     }
 
     public function testWithLabelChangesNothingElse(): void
     {
-        $changed = self::group(101)->withLabel('Physical');
+        $changed = self::group('a')->withLabel('Physical');
 
         static::assertSame('Physical', $changed->label());
         static::assertSame('display', $changed->key());
         static::assertSame('Screen and panel', $changed->description());
         static::assertTrue($changed->visible());
-        static::assertSame([101], self::termIds($changed));
+        static::assertSame(['a'], self::slugs($changed));
     }
 
-    private static function group(int ...$termIds): SpecificationGroup
+    private static function group(string ...$slugs): SpecificationGroup
     {
         return new SpecificationGroup(
             'display',
             'Display',
             'Screen and panel',
             true,
-            array_map(
-                static fn (int $termId): SpecificationSetItem => SpecificationSetItem::create(
-                    $termId,
-                    'spec_' . $termId
-                ),
-                $termIds
-            )
+            array_map(static fn (string $slug): SpecificationSetItem => SpecificationSetItem::create($slug), $slugs)
         );
     }
 
     /**
-     * @return list<int>
+     * @return list<string>
      */
-    private static function termIds(SpecificationGroup $group): array
+    private static function slugs(SpecificationGroup $group): array
     {
-        return array_map(
-            static fn (SpecificationSetItem $item): int => $item->termId(),
-            $group->items()
-        );
+        return array_map(static fn (SpecificationSetItem $item): string => $item->slug(), $group->items());
     }
 }

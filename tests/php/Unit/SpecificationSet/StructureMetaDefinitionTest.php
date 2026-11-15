@@ -24,9 +24,29 @@ final class StructureMetaDefinitionTest extends TestCase
 
     public function testAnItemRequiresOnlyWhatCannotBeDefaulted(): void
     {
+        static::assertSame(['slug'], $this->itemSchema()['required']);
+    }
+
+    /**
+     * Core answers null for a stored document that fails the schema on read, so a set
+     * saved while items still carried a term id must keep validating until it is saved.
+     */
+    public function testAStoredTermIdIsAcceptedButNeverRequired(): void
+    {
+        static::assertSame(['type' => 'integer'], $this->itemSchema()['properties']['term_id']);
+        static::assertNotContains('term_id', $this->itemSchema()['required']);
+        static::assertFalse($this->itemSchema()['additionalProperties']);
+    }
+
+    /**
+     * A document written by an earlier release must still validate, so the version is
+     * declared and never bounded.
+     */
+    public function testTheSchemaVersionIsDeclaredWithoutBounds(): void
+    {
         static::assertSame(
-            ['term_id', 'slug'],
-            $this->itemSchema()['required']
+            ['type' => 'integer'],
+            (new StructureMetaDefinition())->schema()['properties']['schema_version']
         );
     }
 

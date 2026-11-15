@@ -8,6 +8,7 @@ import type {
 	SpecificationRecord,
 } from '../../Specifications/mapRecord';
 import type { ResolutionSelectors } from '../../shared/storeResolution';
+import { inBatches } from '../../shared/contracts/structure';
 
 const PER_PAGE = 100;
 
@@ -44,11 +45,9 @@ export interface SpecificationLibrary {
  * The specification catalog as the set editor needs it: a searchable column of
  * what can be added, and the names behind the slugs the structure stores.
  * @param usedSlugs
- * @param usedTermIds
  */
 export function useSpecificationLibrary(
-	usedSlugs: string[],
-	usedTermIds: number[]
+	usedSlugs: string[]
 ): SpecificationLibrary {
 	const [ search, setSearch ] = useState( '' );
 	const [ type, setType ] = useState( '' );
@@ -59,14 +58,14 @@ export function useSpecificationLibrary(
 		[ search ]
 	);
 
-	// The structure holds term ids and slugs, not names. Asking for exactly the
-	// ones in the set keeps the canvas readable whatever the column is showing.
-	const heldQuery = useMemo(
-		() => ( {
-			...BASE_QUERY,
-			include: [ ...usedTermIds ].sort( ( a, b ) => a - b ),
-		} ),
-		[ usedTermIds ]
+	// The structure holds slugs, not names. Asking for exactly the ones in the
+	// set keeps the canvas readable whatever the column is showing.
+	const heldQueries = useMemo(
+		() =>
+			inBatches( Array.from( new Set( usedSlugs ) ).sort() ).map(
+				( slug ) => ( { ...BASE_QUERY, slug } )
+			),
+		[ usedSlugs ]
 	);
 
 	const { records, total, held, isLoading } = useSelect(
@@ -87,20 +86,21 @@ export function useSpecificationLibrary(
 						SPECIFICATION_TAXONOMY,
 						BASE_QUERY
 					) ?? 0,
-				held: ( ( heldQuery.include.length > 0
-					? store.getEntityRecords(
+				held: heldQueries.flatMap(
+					( query ) =>
+						( store.getEntityRecords(
 							'taxonomy',
 							SPECIFICATION_TAXONOMY,
-							heldQuery
-					  )
-					: [] ) ?? [] ) as SpecificationRecord[],
+							query
+						) ?? [] ) as SpecificationRecord[]
+				),
 				isLoading: ! resolution.hasFinishedResolution(
 					'getEntityRecords',
 					args
 				),
 			};
 		},
-		[ listQuery, heldQuery ]
+		[ listQuery, heldQueries ]
 	);
 
 	const used = useMemo( () => new Set( usedSlugs ), [ usedSlugs ] );

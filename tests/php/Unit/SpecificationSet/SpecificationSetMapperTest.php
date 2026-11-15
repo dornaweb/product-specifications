@@ -32,8 +32,8 @@ final class SpecificationSetMapperTest extends TestCase
                     'description' => 'Screen and panel',
                     'visible' => true,
                     'items' => [
-                        ['term_id' => 123, 'slug' => 'screen_size', 'visible' => true],
-                        ['term_id' => 124, 'slug' => 'resolution', 'visible' => false],
+                        ['slug' => 'screen_size', 'visible' => true],
+                        ['slug' => 'resolution', 'visible' => false],
                     ],
                 ],
                 [
@@ -61,7 +61,7 @@ final class SpecificationSetMapperTest extends TestCase
                     'key' => 'display',
                     'label' => 'Display',
                     'items' => [
-                        ['term_id' => 123, 'slug' => 'screen_size'],
+                        ['slug' => 'screen_size'],
                     ],
                 ],
             ],
@@ -77,12 +77,38 @@ final class SpecificationSetMapperTest extends TestCase
                         'description' => '',
                         'visible' => true,
                         'items' => [
-                            ['term_id' => 123, 'slug' => 'screen_size', 'visible' => true],
+                            ['slug' => 'screen_size', 'visible' => true],
                         ],
                     ],
                 ],
             ],
             $this->mapper->structureToArray($structure)
+        );
+    }
+
+    /**
+     * Structures stored before items were keyed by slug alone still carry a term id. They
+     * load as they are, and the next save writes them without it.
+     */
+    public function testAStoredItemWithATermIdIsReadAndWrittenBackWithoutIt(): void
+    {
+        $structure = $this->mapper->structureFromArray([
+            'schema_version' => 1,
+            'groups' => [
+                [
+                    'key' => 'display',
+                    'label' => 'Display',
+                    'items' => [
+                        ['term_id' => 123, 'slug' => 'screen_size', 'visible' => false],
+                        ['term_id' => 124],
+                    ],
+                ],
+            ],
+        ]);
+
+        static::assertSame(
+            [['slug' => 'screen_size', 'visible' => false]],
+            $this->mapper->structureToArray($structure)['groups'][0]['items']
         );
     }
 

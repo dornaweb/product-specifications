@@ -4,7 +4,6 @@ export type DragPayload =
 	| {
 			kind: 'specification';
 			slug: string;
-			termId: number;
 			fromGroupKey: string | null;
 	  }
 	| { kind: 'group'; groupKey: string };

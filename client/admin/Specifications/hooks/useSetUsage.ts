@@ -4,15 +4,16 @@ import { store as coreStore } from '@wordpress/core-data';
 import { SPECIFICATION_SET_POST_TYPE } from '../../constants';
 import type { ResolutionSelectors } from '../../shared/storeResolution';
 import type { SpecificationItem } from '../mapRecord';
+import {
+	readStructure,
+	STRUCTURE_META_KEY,
+	structureSlugs,
+} from '../../shared/contracts/structure';
 
 interface SetRecord {
 	id: number;
 	title?: { rendered?: string; raw?: string } | string;
-	meta?: {
-		specification_set_structure?: {
-			groups?: Array< { items?: Array< { slug?: string } > } >;
-		};
-	};
+	meta?: Record< string, unknown >;
 }
 
 export interface SetUsage {
@@ -68,9 +69,8 @@ export function useSetUsage( items: SpecificationItem[] | null ): SetUsage {
 
 		for ( const set of sets ) {
 			const slugs = new Set(
-				( set.meta?.specification_set_structure?.groups ?? [] ).flatMap(
-					( group ) =>
-						( group.items ?? [] ).map( ( entry ) => entry.slug )
+				structureSlugs(
+					readStructure( set.meta?.[ STRUCTURE_META_KEY ] )
 				)
 			);
 

@@ -51,10 +51,7 @@ final class SetStructureBuilder
             $description,
             true,
             array_map(
-                static fn (array $member): SpecificationSetItem => SpecificationSetItem::create(
-                    $member['id'],
-                    $member['slug']
-                ),
+                static fn (array $member): SpecificationSetItem => SpecificationSetItem::create($member['slug']),
                 $members
             )
         );

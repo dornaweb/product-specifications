@@ -24,10 +24,8 @@ import {
 	createSpecificationSetGeneralStateFromPostRecord,
 	createSpecificationSetStructureFromPostRecord,
 } from '../mapping/specificationSetRecord';
-import {
-	emptyStructure,
-	groupKeyFrom,
-} from '../mapping/specificationSetStructure';
+import { emptyStructure } from '../../shared/contracts/structure';
+import { groupKeyFrom } from '../mapping/specificationSetStructure';
 import { useSpecificationSetEntity } from './useSpecificationSetEntity';
 import { EDIT_SPECIFICATION_SET_PATH } from '../../shared/paths';
 
