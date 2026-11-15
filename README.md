@@ -1,8 +1,5 @@
 # Product Specifications for Woocommerce
 
-> [!WARNING]
-> **The next major version, 2.0.0, is a breaking change. It changes how specifications are stored, and after updating, specification tables disappear from your store until you run its migration. Take a backup before you update to 2.0.0.**
-
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
 

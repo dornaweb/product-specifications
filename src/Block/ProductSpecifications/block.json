@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "product-specifications/product-specifications",
+	"title": "Product Specifications",
+	"category": "woocommerce",
+	"description": "The specifications table of a product.",
+	"textdomain": "product-specifications",
+	"attributes": {
+		"productId": {
+			"type": "number"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.tsx",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

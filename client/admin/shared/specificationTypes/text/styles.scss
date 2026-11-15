@@ -1,0 +1,33 @@
+.ps-several-values.is-label-hidden .components-form-token-field__label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.ps-learned-values__list {
+	max-height: 320px;
+	margin: 8px 0 0;
+	overflow-y: auto;
+}
+
+.ps-learned-values__item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+	padding: 4px 0;
+}
+
+.ps-learned-values__value {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.ps-learned-values__count {
+	color: #50575e;
+	white-space: nowrap;
+}

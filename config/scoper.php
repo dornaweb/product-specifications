@@ -83,19 +83,7 @@ return [
     // heart contents.
     //
     // For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#patchers
-    'patchers' => [
-        static function (string $filePath, string $prefix, string $contents): string {
-            // Remove empty namespaces created by PHP-Scoper
-            if (! str_contains($filePath, 'templates/')) {
-                return $contents;
-            }
-
-            $contents = str_replace('namespace {', "/* namespace { PHP-SCOPER: Namespace removed intentionally */", $contents);
-            $contents = preg_replace('/}$/', '/* } PHP-SCOPER: Namespace removed intentionally */', trim($contents));
-
-            return $contents;
-        },
-    ],
+    'patchers' => [],
 
     // List of symbols to consider internal i.e. to leave untouched.
     //

@@ -1,0 +1,19 @@
+.ps-number-input {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	.components-base-control {
+		flex: 0 1 140px;
+	}
+}
+
+.ps-number-input__unit {
+	color: #50575e;
+}
+
+.ps-unit-choices {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 20px;
+}

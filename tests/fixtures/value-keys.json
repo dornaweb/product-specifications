@@ -1,0 +1,11 @@
+[
+	{ "label": "letter case", "value": "Blue", "key": "blue" },
+	{ "label": "leading and trailing spaces", "value": "  Blue ", "key": "blue" },
+	{ "label": "inner runs of spaces", "value": "Navy   blue", "key": "navy blue" },
+	{ "label": "tabs and line breaks", "value": "Navy\t\nblue", "key": "navy blue" },
+	{ "label": "non-ASCII letters", "value": "GRÖSSE Ä", "key": "grösse ä" },
+	{ "label": "accents kept apart", "value": "Café", "key": "café" },
+	{ "label": "commas kept", "value": "Black, Matte", "key": "black, matte" },
+	{ "label": "non-breaking spaces", "value": "Navy\u00a0blue\u00a0", "key": "navy blue" },
+	{ "label": "only whitespace", "value": " \t ", "key": "" }
+]

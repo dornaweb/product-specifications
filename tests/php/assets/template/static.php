@@ -1,3 +1,0 @@
-<div>
-    foobar
-</div>

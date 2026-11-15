@@ -1,0 +1,123 @@
+.ps-settings {
+	display: flex;
+	flex-direction: column;
+	gap: var(--ps-space-3);
+	max-width: 1080px;
+}
+
+.ps-settings__clean {
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+.ps-settings__loading,
+.ps-settings__failed {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--ps-space);
+	min-height: 240px;
+	background: var(--ps-bg);
+}
+
+.ps-settings-section {
+	background: var(--ps-bg);
+	border: 1px solid var(--ps-gray-300);
+	border-radius: var(--ps-radius);
+}
+
+.ps-settings-section__header {
+	padding: var(--ps-space-2) var(--ps-space-3);
+	border-bottom: 1px solid var(--ps-gray-300);
+
+	h2 {
+		margin: 0;
+		font-size: var(--ps-size-large);
+		font-weight: var(--ps-weight-medium);
+	}
+
+	p {
+		margin: var(--ps-space-half) 0 0;
+		color: var(--ps-gray-700);
+	}
+}
+
+.ps-setting {
+	display: grid;
+	grid-template-columns: minmax(240px, 1fr) minmax(300px, 1fr);
+	gap: var(--ps-space-3);
+	padding: var(--ps-space-3);
+
+	& + & {
+		border-top: 1px solid var(--ps-gray-300);
+	}
+}
+
+.ps-setting__label {
+	strong {
+		display: block;
+		font-weight: var(--ps-weight-medium);
+	}
+
+	p {
+		margin: var(--ps-space-half) 0 0;
+		color: var(--ps-gray-700);
+		line-height: var(--ps-line-small);
+	}
+}
+
+.ps-setting__control {
+	min-width: 0;
+}
+
+.ps-setting__default {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--ps-space);
+	margin-top: var(--ps-space);
+	color: var(--ps-gray-700);
+	font-size: var(--ps-size-small);
+}
+
+.ps-setting__error {
+	margin: var(--ps-space) 0 0;
+	color: var(--ps-warning-fg);
+	font-size: var(--ps-size-small);
+	line-height: var(--ps-line-small);
+}
+
+.ps-setting__readonly {
+	display: block;
+	padding: 10px 12px;
+	border-radius: var(--ps-radius);
+	background: var(--ps-gray-100);
+	color: var(--ps-fg);
+}
+
+.ps-setting__checkboxes {
+	display: flex;
+	flex-direction: column;
+	gap: var(--ps-space);
+}
+
+.ps-setting__color {
+	width: 64px;
+	height: 40px;
+	padding: var(--ps-space-half);
+	border: 1px solid var(--ps-gray-400);
+	border-radius: var(--ps-radius);
+	background: var(--ps-bg);
+}
+
+@media (max-width: 782px) {
+	.ps-setting {
+		grid-template-columns: 1fr;
+		gap: var(--ps-space-2);
+	}
+
+	.ps-setting__default {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}

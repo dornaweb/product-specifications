@@ -4,35 +4,51 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration;
 
-use Amiut\ProductSpecs\Assets\AssetHelper;
-use Amiut\ProductSpecs\Integration\WooCommerce\Assets;
 use Amiut\ProductSpecs\Integration\WooCommerce\FeaturesCompatibilityDeclarations;
 use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
-use Amiut\ProductSpecs\Repository\SpecificationsTableRepository;
+use Amiut\ProductSpecs\Settings\SettingsRepository;
+use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
+use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\Settings\SettingsProviders;
+use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabSettings;
 use Inpsyde\Modularity\Module\ExecutableModule;
+use Inpsyde\Modularity\Module\ExtendingModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Inpsyde\Modularity\Package;
+use Inpsyde\Modularity\Properties\PluginProperties;
 use Psr\Container\ContainerInterface;
 
-final class Module implements ServiceModule, ExecutableModule
+final class Module implements ServiceModule, ExtendingModule, ExecutableModule
 {
     use ModuleClassNameIdTrait;
 
     public function services(): array
     {
         return [
-            Assets::class => static fn (ContainerInterface $container) => new Assets(
-                $container->get(AssetHelper::class)
-            ),
-            WooCommerceNotInstalledNoticeHandler::class => static fn () => new WooCommerceNotInstalledNoticeHandler(),
+            WooCommerceNotInstalledNoticeHandler::class => static fn () =>
+                new WooCommerceNotInstalledNoticeHandler(),
             ProductTabs::class => static fn (ContainerInterface $container) => new ProductTabs(
-                $container->get(SpecificationsTableRepository::class)
+                $container->get(ProductSpecificationsBlock::class),
+                $container->get(SettingsRepository::class),
+                $container->get(MigrationState::class)
             ),
-            FeaturesCompatibilityDeclarations::class => static fn (ContainerInterface $container) => new FeaturesCompatibilityDeclarations(
-                $container->get(Package::PROPERTIES)
-            ),
+            FeaturesCompatibilityDeclarations::class => static function (
+                ContainerInterface $container
+            ): FeaturesCompatibilityDeclarations {
+                /** @var PluginProperties $properties */
+                $properties = $container->get(Package::PROPERTIES);
+
+                return new FeaturesCompatibilityDeclarations($properties);
+            },
+        ];
+    }
+
+    public function extensions(): array
+    {
+        return [
+            SettingsProviders::class => SettingsProviders::adding(new ProductTabSettings()),
         ];
     }
 
@@ -46,11 +62,6 @@ final class Module implements ServiceModule, ExecutableModule
         add_filter(
             'woocommerce_product_tabs',
             [$container->get(ProductTabs::class), 'addProductSpecificationsTab']
-        );
-
-        add_action(
-            'wp_enqueue_scripts',
-            [$container->get(Assets::class), 'load']
         );
 
         add_action(

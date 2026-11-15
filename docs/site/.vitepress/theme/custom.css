@@ -1,0 +1,4 @@
+.vp-doc img {
+	border: 1px solid var( --vp-c-divider );
+	border-radius: 8px;
+}

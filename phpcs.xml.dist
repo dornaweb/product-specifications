@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
     <file>./src/</file>
-    <file>./templates/</file>
+    <file>./inc/</file>
     <file>./tests/php</file>
     <file>./product-specifications.php</file>
 
     <arg value="sp"/>
     <arg name="colors"/>
-    <config name="testVersion" value="7.4-"/>
-    <config name="text_domain" value="product-specifications"/>
+    <config name="testVersion" value="8.1-"/>
     <config name="ignore_warnings_on_exit" value="1"/>
 
-    <rule ref="Inpsyde">
-        <exclude name="Inpsyde.CodeQuality.VariablesName.SnakeCaseVariable"/>
-    </rule>
-
-    <rule ref="InpsydeTemplates">
-        <include-pattern>*/templates/*</include-pattern>
-    </rule>
-
-    <rule ref="Inpsyde.CodeQuality.Psr4">
-        <properties>
-            <property
-                    name="psr4"
-                    type="array"
-                    value="Amiut\ProductSpecs=>src,Amiut\ProductSpecs\Tests\Unit=>tests/php/Unit"
-            />
-        </properties>
-    </rule>
-
     <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/tests/php/assets/*</exclude-pattern>
 
-    <rule ref="Inpsyde.CodeQuality.NoElse.ElseFound">
-        <exclude-pattern>*/templates/*</exclude-pattern>
+    <rule ref="PSR12"/>
+
+    <rule ref="PHPCompatibility">
+        <type>error</type>
     </rule>
 
-    <rule ref="VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable">
-        <exclude-pattern>*/templates/*</exclude-pattern>
-    </rule>
+    <rule ref="WordPress-VIP-Go"/>
 
+    <!--
+        Exception messages are never printed raw. The one place a message reaches
+        the page, handleFailure() in the bootstrap, runs it through wp_kses_post.
+        Requiring esc_html() at every throw site would put escaping into domain
+        code that has no HTML context. Output escaping itself stays enforced.
+    -->
     <rule ref="WordPress.Security.EscapeOutput">
-        <properties>
-            <property name="customAutoEscapedFunctions" value="paginate_links" type="array" />
-        </properties>
+        <exclude name="WordPress.Security.EscapeOutput.ExceptionNotEscaped"/>
     </rule>
+
+    <!-- Strip out conflicting WP sniffs -->
+    <exclude name="WordPress.Files.FileName"/>
+    <exclude name="WordPress.Files.FileHeader"/>
+    <exclude name="WordPress.Files.LineEndings"/>
+    <exclude name="WordPress.WhiteSpace.*"/>
+    <exclude name="WordPress.NamingConventions.*"/>
+    <exclude name="WordPress.Commenting.*"/>
+    <exclude name="PEAR.Commenting.*"/>
+    <exclude name="Squiz.Commenting.*"/>
+    <exclude name="Generic.Commenting.*"/>
 </ruleset>

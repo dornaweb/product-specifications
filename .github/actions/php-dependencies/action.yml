@@ -1,0 +1,19 @@
+name: PHP dependencies
+description: Set up PHP and install Composer dependencies.
+
+inputs:
+  php-version:
+    description: PHP version to install.
+    required: false
+    default: '8.1'
+
+runs:
+  using: composite
+  steps:
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+        coverage: none
+        tools: composer
+
+    - uses: ramsey/composer-install@v3

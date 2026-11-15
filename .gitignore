@@ -5,11 +5,10 @@
 
 # Node
 node_modules/
+.pnpm-store
 
-# OS X metadata
+# OS metadata
 .DS_Store
-
-# Windows junk
 Thumbs.db
 
 # Composer
@@ -23,8 +22,24 @@ Thumbs.db
 /build/
 
 # Assets
-/assets/*.map
+/assets/
 
 # WP-env
 .wp-env.override.json
 .wp-env.local.yml
+
+# ENV
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.backup
+
+# AI
+.claude/settings.json
+.playwright-mcp/
+
+# Documentation site
+/docs/site/.vitepress/cache/
+/docs/site/.vitepress/dist/

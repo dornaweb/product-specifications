@@ -1,0 +1,21 @@
+.ps-documents__list {
+	margin: 0 0 8px;
+}
+
+.ps-documents__file {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 12px;
+	margin: 0 0 8px;
+
+	.components-base-control {
+		flex: 1 1 200px;
+	}
+}
+
+.ps-documents__name {
+	flex: 1 1 180px;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}

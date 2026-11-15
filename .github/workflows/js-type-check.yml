@@ -1,0 +1,44 @@
+name: 🔍 JS type check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - "src/Block/**"
+      - "types/**"
+      - "tests/js/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/actions/**"
+      - ".github/workflows/js-type-check.yml"
+  pull_request:
+    paths:
+      - "client/**"
+      - "src/Block/**"
+      - "types/**"
+      - "tests/js/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/actions/**"
+      - ".github/workflows/js-type-check.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typescript:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/node-dependencies
+
+      - run: npm run typecheck
