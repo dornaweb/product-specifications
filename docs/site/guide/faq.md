@@ -13,7 +13,7 @@ Check, in order:
 - The set is published, not a draft.
 - At least one specification in the set has a value for this product. Rows without a
   value are left out, and a table with no rows is not shown.
-- On a store upgraded from 0.x, the [migration](./upgrading) has completed.
+- On a store upgraded from 0.x, the [migration](./upgrading.md) has completed.
 
 ## Can one specification be used in several sets?
 
@@ -22,7 +22,7 @@ product's value for it is the same whichever of those sets the product uses.
 
 ## Do values from WooCommerce, such as weight, need to be typed again?
 
-No. Use the [WooCommerce product data](./types#woocommerce-product-data) type. It reads
+No. Use the [WooCommerce product data](./types.md#woocommerce-product-data) type. It reads
 the value from the product each time the table is shown.
 
 ## Does the plugin work with variable products?
@@ -33,12 +33,12 @@ variation are not supported.
 ## Can I show the table somewhere other than the product tab?
 
 Yes, with the **Product Specifications** block or the `[specs-table]` shortcode. See
-[On your storefront](./storefront).
+[On your storefront](./storefront.md).
 
 ## How do I move specifications to another store?
 
 Export them under **Import / Export**, with or without product values, and import the
-file on the other store. See [Import and export](./import-export).
+file on the other store. See [Import and export](./import-export.md).
 
 ## Who can manage specifications?
 

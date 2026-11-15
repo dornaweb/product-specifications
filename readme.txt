@@ -16,7 +16,16 @@ Add a specifications table to your WooCommerce products: define specifications o
 
 Product Specifications adds a specifications table to your WooCommerce product pages. Define each specification once, arrange specifications into sets for each kind of product, and fill in the values on the product screen.
 
-**Upgrading from 0.x?** Version 2.0.0 stores specifications differently, and your tables are hidden until you run the migration. Read the [migration guide](https://docs.product-specifications.com/guide/upgrading) before you update.
+= Upgrading from 0.x =
+Version 2.0.0 stores specifications differently. Your tables are hidden from the storefront until you run the migration.
+
+1. Check that your site runs WordPress 7.0, WooCommerce 9.2 and PHP 8.1 or newer.
+2. Take a backup of your database. The migration changes data in place.
+3. Update the plugin at a quiet time.
+4. Go to WooCommerce > Product Specifications > Migration and click Start migration.
+5. The migration runs in the background. You can leave the screen and come back later to see what it converted.
+
+The full [migration guide](https://github.com/dornaweb/product-specifications/blob/2.0.0/docs/site/guide/upgrading.md) explains what changes and how to update custom code.
 
 = Features =
 
@@ -29,7 +38,7 @@ Product Specifications adds a specifications table to your WooCommerce product p
 * A PHP API, hooks and custom specification types for developers.
 
 = Documentation =
-The user guide and developer documentation are at [docs.product-specifications.com](https://docs.product-specifications.com/).
+The user guide and developer documentation are in the [GitHub repository](https://github.com/dornaweb/product-specifications/blob/2.0.0/docs/site/README.md).
 
 = Translation =
 To contribute in translating this plugin please visit: [WordPress Translation Repository](https://translate.wordpress.org/projects/wp-plugins/product-specifications/)
@@ -50,7 +59,7 @@ Product specifications development takes place under its [GitHub Repository](htt
 * Edit a product, choose the set in the Product specifications panel, fill in the values and update the product.
 
 = I updated from 0.x and my tables are gone. =
-Run the migration under WooCommerce > Product Specifications. Tables are hidden until it finishes. See the [migration guide](https://docs.product-specifications.com/guide/upgrading).
+Run the migration under WooCommerce > Product Specifications. Tables are hidden until it finishes. See the [migration guide](https://github.com/dornaweb/product-specifications/blob/2.0.0/docs/site/guide/upgrading.md).
 
 = How can I customize the styles of the table? =
 Turn off the plugin stylesheet under WooCommerce > Product Specifications > Settings and style the table in your theme. The table's classes start with `ps-product-specifications`.
@@ -71,7 +80,7 @@ Yes, use `[specs-table]`, or `[specs-table post_id="123"]` for another product. 
 == Upgrade Notice ==
 
 = 2.0.0 =
-2.0.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide at docs.product-specifications.com/guide/upgrading first.
+2.0.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
 
 == Changelog ==
 

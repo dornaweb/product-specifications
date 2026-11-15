@@ -3,7 +3,7 @@
 You fill in a product's specifications on its edit screen, in the **Product
 specifications** panel.
 
-![The Product specifications panel](/images/admin-product-panel.png)
+![The Product specifications panel](./images/admin-product-panel.png)
 
 ## Assign a set
 
@@ -13,12 +13,12 @@ selected group on the right.
 
 ## Enter values
 
-Each specification gets the input its [type](./types) needs: a text field, a list of
+Each specification gets the input its [type](./types.md) needs: a text field, a list of
 options, a number with a unit, a date picker, a media picker for documents, and so on.
 
 - A specification with a **default** offers it as a suggestion. It is stored only once you
   save the product.
-- A [WooCommerce product data](./types#woocommerce-product-data) specification has no
+- A [WooCommerce product data](./types.md#woocommerce-product-data) specification has no
   input. It shows where its value is read from, such as *Read from the product's Weight*.
 - Values are checked against the specification's settings. A value that does not fit,
   such as a number above its maximum, stops the product from saving and shows why under

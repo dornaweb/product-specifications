@@ -6,10 +6,10 @@ listed here are internal and can change in any release.
 
 | Page | Covers |
 | --- | --- |
-| [PHP API](./php-api) | Reading and writing a product's specifications |
-| [Hooks](./hooks) | Changing what the storefront shows, and reacting to saved values |
-| [Custom specification types](./types) | Adding a type of your own |
-| [Import and export sections](./import-export) | Carrying your own data in export packages |
+| [PHP API](./php-api.md) | Reading and writing a product's specifications |
+| [Hooks](./hooks.md) | Changing what the storefront shows, and reacting to saved values |
+| [Custom specification types](./types.md) | Adding a type of your own |
+| [Import and export sections](./import-export.md) | Carrying your own data in export packages |
 
 ## Booting
 

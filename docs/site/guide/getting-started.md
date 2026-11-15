@@ -4,7 +4,7 @@ Product Specifications adds a specifications table to your WooCommerce products.
 define your specifications once, arrange them into sets, and fill in the values on each
 product.
 
-![The specifications table on a product page](/images/storefront-table.png)
+![The specifications table on a product page](./images/storefront-table.png)
 
 ## Requirements
 
@@ -20,10 +20,10 @@ product.
 
 Everything the plugin adds lives under **WooCommerce → Product Specifications**.
 
-::: tip Upgrading from version 0.x?
-Version 2.0.0 stores specifications differently, and your tables are hidden until you
-migrate them. Read [Upgrading from 0.x](./upgrading) before you update.
-:::
+> [!TIP]
+> **Upgrading from version 0.x?** Version 2.0.0 stores specifications differently, and
+> your tables are hidden until you migrate them. Read [Upgrading from 0.x](./upgrading.md)
+> before you update.
 
 ## Your first table
 
@@ -39,21 +39,21 @@ The model has three parts:
 
 Go to **WooCommerce → Product Specifications → Specifications** and click **Add
 specification**. Choose a type, give it a name, and save. Use **Save and add another**
-to add several in a row. See [Specifications](./specifications) and
-[Specification types](./types).
+to add several in a row. See [Specifications](./specifications.md) and
+[Specification types](./types.md).
 
 ### 2. Build a set
 
 Go to **Specification sets** and click **Add set**. Give it a title, then open the
 **Specifications** tab and drag specifications from the library into groups. Save the
-set. See [Specification sets](./sets).
+set. See [Specification sets](./sets.md).
 
 ### 3. Fill in a product
 
 Edit a product. In the **Product specifications** panel, choose the set, enter the values
-and click the product's **Update** button. See [Product values](./products).
+and click the product's **Update** button. See [Product values](./products.md).
 
 ### 4. See it on your store
 
 Open the product page. The table appears in a **Specifications** tab. You can also place
-it anywhere with the block or the shortcode. See [On your storefront](./storefront).
+it anywhere with the block or the shortcode. See [On your storefront](./storefront.md).

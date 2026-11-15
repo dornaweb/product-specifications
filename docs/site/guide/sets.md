@@ -6,7 +6,7 @@ groups customers see on the product page. A laptop store might have a *Laptops* 
 
 Sets live under **WooCommerce → Product Specifications → Specification sets**.
 
-![The Specification sets screen](/images/admin-sets.png)
+![The Specification sets screen](./images/admin-sets.png)
 
 The list shows each set's status, how many specifications and groups it has, and how
 many products use it.
@@ -26,7 +26,7 @@ Click **Add set**. The **General** tab holds:
 
 Open the **Specifications** tab.
 
-![The set editor](/images/admin-set-editor.png)
+![The set editor](./images/admin-set-editor.png)
 
 - The **Specification library** on the left lists every specification. Search it,
   filter by type, and hide the ones already in the set.

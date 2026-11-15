@@ -63,6 +63,6 @@ Keys are the specification keys shown in the admin, such as `weight`. A key that
 no specification is refused by name rather than ignored, so a typo in an integration
 cannot silently drop a value.
 
-A save fires [`product_specifications_values_saved`](./hooks#product-values), as a save in
+A save fires [`product_specifications_values_saved`](./hooks.md#product-values), as a save in
 the product editor does. The function checks no capability; the calling code decides who
 may write.

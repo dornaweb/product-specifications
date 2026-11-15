@@ -6,6 +6,7 @@ export default defineConfig( {
 	description:
 		'Specification tables for WooCommerce products: define specifications once, group them into sets, and show them on every product page.',
 	cleanUrls: true,
+	srcExclude: [ 'README.md' ],
 	themeConfig: {
 		nav: [
 			{ text: 'Guide', link: '/guide/getting-started' },

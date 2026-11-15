@@ -4,7 +4,7 @@ A product with a published set and at least one value shows a specifications tab
 table has one heading per group and one row per specification that has a value. Rows
 without a value, and groups or specifications hidden in the set, are left out.
 
-![The specifications table on a product page](/images/storefront-table.png)
+![The specifications table on a product page](./images/storefront-table.png)
 
 The product tab, the block and the shortcode all render the same table.
 
@@ -33,7 +33,7 @@ Shows the current product's table. To show another product's table, pass its ID:
 
 ## Settings
 
-![The Settings screen](/images/admin-settings.png)
+![The Settings screen](./images/admin-settings.png)
 
 | Setting | What it does |
 | --- | --- |
@@ -55,4 +55,4 @@ The table is wrapped in `.ps-product-specifications`. Its parts:
 | `.ps-product-specifications__value` | A specification's value |
 
 Developers can change what the table holds before it renders. See
-[Hooks](../developers/hooks).
+[Hooks](../developers/hooks.md).

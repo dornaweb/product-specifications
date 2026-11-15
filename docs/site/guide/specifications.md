@@ -2,11 +2,11 @@
 
 A specification is one thing you describe about a product, such as *Processor*,
 *Screen size* or *Warranty*. You define it once and use it in as many
-[sets](./sets) as you like.
+[sets](./sets.md) as you like.
 
 Specifications live under **WooCommerce → Product Specifications → Specifications**.
 
-![The Specifications screen](/images/admin-specifications.png)
+![The Specifications screen](./images/admin-specifications.png)
 
 The list shows each specification's type and how many sets use it. Search by name, and
 filter by type.
@@ -15,11 +15,11 @@ filter by type.
 
 Click **Add specification**, or press <kbd>N</kbd>.
 
-![Adding a Number specification](/images/admin-specification-form.png)
+![Adding a Number specification](./images/admin-specification-form.png)
 
 | Field | What it does |
 | --- | --- |
-| **Type** | What kind of answer this records. It decides the input on the product screen and how the value renders. See [Specification types](./types). |
+| **Type** | What kind of answer this records. It decides the input on the product screen and how the value renders. See [Specification types](./types.md). |
 | **Name** | The label shown in the admin and on your storefront. Renaming later changes the label everywhere and touches no stored data. |
 | **Default** | Offered as a suggestion when a product has no value yet. It is never stored until the product is saved, and never shown on your storefront on its own. |
 | **Description** | Optional, for your own reference. |

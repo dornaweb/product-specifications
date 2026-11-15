@@ -3,7 +3,7 @@
 Move specifications, sets and product values between stores, or keep them as a backup.
 Go to **WooCommerce → Product Specifications → Import / Export**.
 
-![The Import / Export screen](/images/admin-import-export.png)
+![The Import / Export screen](./images/admin-import-export.png)
 
 ## Export
 
@@ -44,9 +44,8 @@ Variations are not matched.
 | **Skipped** | Left out, with the reason, such as *No product on this store matches it*. |
 | **Failed** | Could not be saved. |
 
-::: info
-Import and export are available once the [migration](./upgrading) is complete.
-:::
+> [!NOTE]
+> Import and export are available once the [migration](./upgrading.md) is complete.
 
 ## From the command line
 

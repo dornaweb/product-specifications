@@ -1,10 +1,5 @@
 name: 📚 Documentation site
 on:
-  push:
-    branches: [develop, refactor/release-2]
-    paths:
-      - 'docs/site/**'
-      - '.github/workflows/docs.yml'
   workflow_dispatch:
 
 permissions:

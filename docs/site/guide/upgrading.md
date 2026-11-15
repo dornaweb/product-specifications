@@ -71,12 +71,12 @@ wp product-specifications migration status
 
 | In 0.x | In 2.0.0 |
 | --- | --- |
-| Attributes | **Specifications**, each with a [type](./types) |
+| Attributes | **Specifications**, each with a [type](./types.md) |
 | Groups, shared by every table | Groups that live inside each set |
-| Tables | **[Specification sets](./sets)** |
+| Tables | **[Specification sets](./sets.md)** |
 | Select and Radio | One type, **Single select** |
 | Admin screens under *Specs. tables* | Everything under **WooCommerce → Product Specifications** |
-| CSS class `.dwspecs-product-table` | `.ps-product-specifications` (see [Styling the table](./storefront#styling-the-table)) |
+| CSS class `.dwspecs-product-table` | `.ps-product-specifications` (see [Styling the table](./storefront.md#styling-the-table)) |
 
 The `[specs-table]` shortcode keeps working.
 
@@ -84,6 +84,6 @@ The `[specs-table]` shortcode keeps working.
 
 The `dwspecs_*` helper functions and the `dwspecs_table_value_output` and
 `dw_specs_table_shortcode_output` filters are gone. Read specifications with the
-[PHP API](../developers/php-api), and change the table with the
-[`product_specifications_table`](../developers/hooks#changing-what-the-storefront-shows)
+[PHP API](../developers/php-api.md), and change the table with the
+[`product_specifications_table`](../developers/hooks.md#changing-what-the-storefront-shows)
 filter.

@@ -19,4 +19,4 @@ A section implements `ImportExport\Section` and carries its own data in the pack
 A section the importing store does not know is left out, and the preview names it.
 
 For a specification type whose values refer to something on the site, see
-[Values that refer to the site](./types#values-that-refer-to-the-site).
+[Values that refer to the site](./types.md#values-that-refer-to-the-site).
