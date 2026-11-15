@@ -1,5 +1,11 @@
 # Product Specifications for Woocommerce
 
+> [!IMPORTANT]
+> **Upgrading from 0.x to 2.0.0?** Version 2.0.0 stores specifications in a new format.
+> Your specification tables are hidden from the storefront until you run the migration
+> under **WooCommerce → Product Specifications → Migration**. Back up your database first
+> and read the [migration guide](docs/site/guide/upgrading.md) before you update.
+
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
 
@@ -53,4 +59,4 @@ Donations are happily appreciated, if you find this work useful, you can donate 
 <a href="https://www.buymeacoffee.com/amiut" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## Changelog
-[See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
+[See changelog for all versions](changelog.txt).

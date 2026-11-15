@@ -84,11 +84,20 @@ Yes, use `[specs-table]`, or `[specs-table post_id="123"]` for another product. 
 
 == Changelog ==
 
-= 2.0.0 =
-- Rebuilt plugin: a specification library, specification sets with groups, and a new product panel.
-- New specification types: number, document, link, date and WooCommerce product data.
-- New Product Specifications block, import and export, WP-CLI commands and a PHP API.
-- Requires PHP 8.1. Existing data is converted by a migration you start after updating.
+= 2.0.0 - 2026-11-16 =
+Version 2.0.0 is a rewrite. Existing data is converted by a migration you start after updating. See "Upgrading from 0.x" above.
+
+- Requirement: PHP 8.1, WordPress 7.0 and WooCommerce 9.2 or newer.
+- New: A reusable library of specifications, each usable in any number of sets, with a readable key.
+- New: Specification types Number, Document, Link, Date and WooCommerce product data. Text specifications can suggest values and hold several values.
+- New: A drag-and-drop editor for specification sets and their groups.
+- New: A Product specifications panel on the product screen, with values checked before the product is saved.
+- New: A Product Specifications block.
+- New: Import and export of specifications, sets and product values between stores.
+- New: A guided migration from 0.x that runs in the background.
+- New: A PHP API, hooks, custom specification types, REST endpoints and WP-CLI commands for developers.
+- Change: Tables are now specification sets, each with its own groups. Radio and Select are one Single select type.
+- Removal: The old admin screens, the shared group taxonomy, and settings and templates that are no longer read.
 
 = 0.8.11 - 2026-11-15 =
 - Maintenance: Warn on the plugin update row that version 2.0.0 changes how specifications are stored.
@@ -100,26 +109,4 @@ Yes, use `[specs-table]`, or `[specs-table post_id="123"]` for another product. 
 - Maintenance: Add wp-env configuration to plugin's VCS.
 - Maintenance: Test and bump compatibility versions with latest WooCommerce and WordPress versions.
 
-= 0.8.9 - 2026-05-12 =
-- Fix: issue in php scoper.
-
-= 0.8.8 - 2026-05-12 =
-- Test and bump compatibility versions with latest WooCommerce and WordPress versions.
-
-= 0.8.7 - 2024-11-12 =
-- Add compatibility with HPOS order storage.
-
-= 0.8.6 - 2024-11-06 =
-- Fix: Group names are displayed as encoded strings.
-- Fix: PHP notice.
-- Maintenance: Ensure compatibility with latest WordPress and WooCommerce versions.
-
-= 0.8.5 - 2024-11-05 =
-- Fix possible fatal error in import/export tool.
-- Fix issue with multiline textarea field.
-- Maintenance: Add Github issue and Pull request templates.
-
-= 0.8.4 - 2024-09-24 =
-- Fix broken "select" and "radio" field types.
-
-[See changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/main/changelog.txt).
+[See the changelog for all versions](https://raw.githubusercontent.com/dornaweb/product-specifications/develop/changelog.txt).

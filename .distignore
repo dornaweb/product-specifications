@@ -1,29 +1,36 @@
-.git*
+# Hidden files and folders: Git, GitHub, editor, wp-env and agent settings
 .*
 .*/
-*.lock
-*.md
-*.zip
-/bin/
-/types/
+
+# Sources and build configuration
 /client/
+/types/
+/config/
 /build/
 /node_modules/
-/tests/
-package-lock.json
+/src/**/*.ts
+/src/**/*.tsx
+/src/**/*.scss
+/src/**/block.json
 package.json
-phpcs.xml*
-phpunit.xml*
-README.md
-psalm.xml*
-phpsalm-baseline.xml
-/docs/
-/config/
-/openspec/
-/e2e-artifacts/
+package-lock.json
 composer.json
-eslint.config.mjs
-jest.config.js
+*.lock
 webpack.config.js
 tsconfig.json
+eslint.config.mjs
+jest.config.js
+
+# Tests and quality tools
+/tests/
+/e2e-artifacts/
+phpcs.xml*
+phpunit.xml*
 phpstan.neon*
+
+# Documentation and planning
+/docs/
+/openspec/
+*.md
+
+*.zip

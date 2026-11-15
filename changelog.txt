@@ -1,3 +1,62 @@
+= 2.0.0 - 2026-11-16 =
+Version 2.0.0 is a rewrite of the plugin. Specifications, tables and product values are stored in a new format and converted by a migration you start after updating. Your tables are hidden from the storefront until the migration has run, so take a backup and read the upgrade steps first.
+
+Requirements
+- Requirement: PHP 8.1 or newer, WordPress 7.0 or newer and WooCommerce 9.2 or newer. A site on older PHP sees an admin notice instead of an error.
+
+Specifications
+- New: A Specifications screen for the whole library: search, filter by type, and see how many sets use each specification.
+- New: One form to create and edit a specification, and a fast-entry flow to add many in a row from the keyboard.
+- New: A specification can be reused in any number of sets. It no longer belongs to one group.
+- New: Each specification has a readable key, such as "screen-size", filled in from the name and editable until the first save. A key that is already taken is refused with a one-click alternative. After the first save the key never changes.
+- New: A specification's default value is entered with the same control its products use.
+- New: Values are checked against the specification's settings. A rejected value stops the product save and shows why under the field.
+- New: Deleting a specification shows the sets that use it and how many products hold a value, then removes it from those sets and its value from every product. Large catalogs finish in the background with progress on the Specifications screen.
+
+Specification types
+- New: Number. A number or a range, plain or with a unit from 17 kinds such as length, weight, data size and voltage, or units you define. Optional minimum, maximum, decimal places and thousands separators.
+- New: WooCommerce product data. Shows a value the product already has: weight, dimensions, SKU, GTIN, categories, tags, brands or a product attribute. It is read when the table is shown, so it is never typed twice and never goes stale.
+- New: Document. Attach datasheets, manuals or certificates from the media library, each with an optional label. The storefront shows a download link with the file type and size.
+- New: Link. A web address, an email address or a phone number with an optional label. Links open in a new tab.
+- New: Date. A day, a month or a year, entered with a picker and shown in the site's language and date format.
+- New: Text specifications can suggest values while typing, from a list you define and from values already used on products.
+- New: A Text specification can hold several values per product, entered as tags and shown separated by commas.
+- Change: Radio and Select are one type, Single select. Existing radio specifications become single select.
+
+Specification sets
+- Change: Tables are now specification sets, and each set owns its groups. Existing tables and groups are converted by the migration.
+- New: A set editor with drag and drop: build groups, add specifications from the library or create them inline, and set options per item. Unsaved changes are kept safe.
+- New: Actions on the set list for managing many sets.
+
+Products and storefront
+- New: A Product specifications panel on the product screen: pick a set, enter each value with the input its type needs, start from the defaults, and save with the product's Update button.
+- New: A Product Specifications block for the block editor.
+- Change: The product tab, the block and the [specs-table] shortcode render the same table. Its CSS classes start with "ps-product-specifications".
+
+Import and export
+- New: Export specifications, sets and, optionally, product values as one file, and import it on another store with a preview of what will change, a background run and a report. Products are matched by SKU or slug.
+
+Upgrading from 0.x
+- New: A guided migration screen that converts specifications, tables and product values, runs in the background, survives a closed tab, and reports what it did.
+- New: Until the migration finishes, the admin shows a warning, the product panel explains why it is locked, and the storefront never shows a broken or empty table.
+- New: A user guide, a migration guide and developer documentation in the GitHub repository.
+
+Developers
+- New: A public PHP API to read a product's specifications and to assign a set and save its values: specificationsTable(), hasSpecifications(), specificationValue(), renderSpecificationsTable() and saveSpecifications().
+- New: Custom specification types, registered with the product_specifications_register_types action and the product_specifications.types JavaScript filter.
+- New: Documented hooks for saved values, the table and its loading.
+- New: Specifications and specification sets are readable and writable over the REST API.
+- New: WP-CLI commands to run the migration, import and export, and finish removing a deleted specification's values.
+- Change: Only users with the intended capabilities can read or change specification data, in the admin and over REST.
+
+Settings
+- Change: The settings screen shows only the settings this version uses.
+
+Removed
+- Removal: The old admin screens for specifications, groups and tables.
+- Removal: The shared group taxonomy. Groups live inside each set.
+- Removal: Settings and templates that are no longer read, including the overridable table template and the dw_specs_table_shortcode_output filter.
+
 = 0.8.11 - 2026-11-15 =
 - Maintenance: Warn on the plugin update row that version 2.0.0 changes how specifications are stored.
 - Maintenance: Test and bump compatibility versions with latest WooCommerce and WordPress versions.
