@@ -6,6 +6,8 @@ jobs:
   build-release:
     name: 🎉 New Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: 🚚 Get latest code
@@ -15,7 +17,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
-          tools: composer, php-scoper, phpcbf, wp-cli
+          tools: composer, php-scoper, phpcbf
 
       - name: Install Composer dependencies in build
         run: composer install --no-dev --no-interaction
@@ -32,33 +34,19 @@ jobs:
       - name: Format Scoped codes
         run: phpcbf build -q -n --standard="PSR12,PSR1" || true
 
-      # Temporary workaround:
-      # setup-php currently installs a WP-CLI stable PHAR whose package-install Composer stack
-      # rejects GitHub Actions' newer GITHUB_TOKEN format.
-      # Nightly contains the updated Composer/package-manager path.
-      # Remove once the next stable WP-CLI release includes the fix.
-      - name: Update WP-CLI to nightly
-        run: sudo wp cli update --nightly --yes
-
-      - name: Install WP-CLI dist-archive
-        run: wp package install wp-cli/dist-archive-command:"v3.1.0"
-
-      - name: Create ZIP file
-        run: wp dist-archive . ./${{ github.event.release.name }}.zip --plugin-dirname=product-specifications
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: "./${{ github.event.release.name }}.zip"
-          asset_name: ${{ github.event.release.name }}.zip
-          asset_content_type: application/zip
-
       - name: 🚀 Deploy plugin to wordpress.org
         id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@develop
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
         env:
+          SLUG: product-specifications
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+
+      - name: Upload Release Asset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp "${{ steps.deploy.outputs.zip-path }}" "./${{ github.event.release.name }}.zip"
+          gh release upload "${{ github.event.release.tag_name }}" "./${{ github.event.release.name }}.zip" --clobber
