@@ -33,7 +33,9 @@ Whether the plugin's stylesheet loads. Defaults to the store's setting.
 Bulk writes, such as an import or a data upgrade, do not fire it per product; they fire
 `rebuild` once at the end. Anything derived from values listens to both.
 
-Deleting a specification does not touch products. Its values stay in each product's
-stored map until that product is next saved. The storefront, the functions in the
-[PHP API](./php-api) and exports never show them. Anything derived from values ignores a
-key that has no specification.
+Deleting a specification removes its key from every product's stored map, inside the
+deletion for small counts and in the background above that. That removal is a storage
+operation, not a save: it fires neither `values_saved` per product nor `rebuild`, because
+no other specification's values change. Anything that holds data for a specification
+removes it on WordPress's `delete_term` action for the `spec-attr` taxonomy. Anything
+derived from values still ignores a key that has no specification.

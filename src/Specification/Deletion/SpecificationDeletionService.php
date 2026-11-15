@@ -11,14 +11,23 @@ use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 use RuntimeException;
 
 /**
- * Products keep a deleted specification's values until each is next saved. The storefront
- * never shows a value whose specification is gone, so products are not rewritten here.
+ * Deleting a specification removes it from every set and its value from every product,
+ * so a later specification given the same key finds nothing to adopt. Up to SYNC_LIMIT
+ * products are rewritten inside the deletion; the rest, and anything a failed write
+ * leaves behind, are queued for the background, and the key counts as taken until the
+ * queue has finished with it. Only a set that cannot be saved stops the deletion, and
+ * that happens before any product is touched.
  */
 final class SpecificationDeletionService
 {
+    public const SYNC_LIMIT = 200;
+
     public function __construct(
         private readonly SpecificationDefinitionRepository $definitions,
-        private readonly SpecificationSetRepository $sets
+        private readonly SpecificationSetRepository $sets,
+        private readonly ValuePurge $purge,
+        private readonly PurgeQueue $queue,
+        private readonly BackgroundPurge $background
     ) {
     }
 
@@ -33,15 +42,36 @@ final class SpecificationDeletionService
             return;
         }
 
-        if ($this->definitions->find((int) $termId) === null) {
+        $definition = $this->definitions->find((int) $termId);
+
+        if ($definition === null) {
             return;
         }
 
+        $this->cleanSets((int) $termId);
+
+        $progress = $this->purge->purge($definition->key(), 0, self::SYNC_LIMIT);
+
+        if ($progress->isFinished()) {
+            return;
+        }
+
+        $this->queue->add($definition->key(), $progress->cursor());
+
+        if ($progress->failure() !== null) {
+            $this->queue->recordFailure($definition->key(), $progress->failure());
+        }
+
+        $this->background->schedule();
+    }
+
+    private function cleanSets(int $termId): void
+    {
         $cleanedSets = [];
 
         foreach ($this->sets->all() as $set) {
             $structure = $set->structure();
-            $cleaned = $structure->withoutItemEverywhere((int) $termId);
+            $cleaned = $structure->withoutItemEverywhere($termId);
 
             if ($cleaned->groups() === $structure->groups()) {
                 continue;

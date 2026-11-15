@@ -6,6 +6,7 @@ namespace Amiut\ProductSpecs\Tests\Unit\ImportExport;
 
 use Amiut\ProductSpecs\ImportExport\EntryOutcome;
 use Amiut\ProductSpecs\ImportExport\ImportPlan;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeQueue;
 use Amiut\ProductSpecs\Tests\Unit\Support\FakeWpdb;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +18,7 @@ final class SpecificationsSectionTest extends TestCase
         $GLOBALS['wp_test_term_meta'] = [];
         $GLOBALS['wp_test_posts'] = [];
         $GLOBALS['wp_test_post_meta'] = [];
+        $GLOBALS['wp_test_options'] = [];
 
         Sections::storedSpecification(10, 'weight', 'Weight', 'text');
         Sections::storedSpecification(11, 'colour', 'Colour', 'select', ['Red', 'Blue', 'Green']);
@@ -102,5 +104,31 @@ final class SpecificationsSectionTest extends TestCase
     protected function tearDown(): void
     {
         FakeWpdb::uninstall();
+    }
+    public function testAWholeNumberSlugFailsValidation(): void
+    {
+        $errors = Sections::specifications()->validate([['slug' => '2024', 'name' => 'Year', 'type' => 'text']]);
+
+        self::assertSame(['[0].slug: must not be a whole number'], $errors[0]);
+    }
+
+    public function testASlugNotInItsStoredFormFailsValidation(): void
+    {
+        $errors = Sections::specifications()->validate([['slug' => '50%', 'name' => 'Half', 'type' => 'text']]);
+
+        self::assertSame(['[0].slug: is not a key as the plugin stores it'], $errors[0]);
+    }
+
+    public function testAKeyStillBeingPurgedIsSkippedUntilThePurgeHasFinished(): void
+    {
+        (new PurgeQueue())->add('battery', 100);
+
+        $outcome = Sections::specifications()->planEntry(
+            ['slug' => 'battery', 'name' => 'Battery', 'type' => 'text'],
+            new ImportPlan()
+        );
+
+        self::assertSame(EntryOutcome::SKIP, $outcome->status());
+        self::assertStringContainsString('still being removed', $outcome->notes()[0]);
     }
 }

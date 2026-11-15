@@ -9,16 +9,32 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
 import { safeDecodeURIComponent } from '@wordpress/url';
-import { Field, FieldGrid, InlineForm, Shortcut } from '../../shared/ui';
+import type { ReactNode } from 'react';
+import {
+	Field,
+	FieldGrid,
+	InlineForm,
+	Shortcut,
+	type FieldHelpTone,
+} from '../../shared/ui';
 import {
 	specificationType,
 	specificationTypes,
 	type Suggestion,
 } from '../../shared/specificationTypes';
 import type { SpecificationItem } from '../mapRecord';
+import {
+	draftWithKey,
+	draftWithName,
+	isWholeNumber,
+	type SlugConflict,
+} from '../key';
+import { useKeyAvailability } from '../hooks/useKeyAvailability';
 
 export interface SpecificationDraft {
 	name: string;
+	slug: string;
+	slugEdited: boolean;
 	description: string;
 	type: string;
 	options: Record< string, unknown >;
@@ -29,6 +45,8 @@ export interface SpecificationDraft {
 export function emptyDraft( type = '' ): SpecificationDraft {
 	return {
 		name: '',
+		slug: '',
+		slugEdited: false,
 		description: '',
 		type,
 		options: {},
@@ -40,6 +58,8 @@ export function emptyDraft( type = '' ): SpecificationDraft {
 export function draftFrom( item: SpecificationItem ): SpecificationDraft {
 	return {
 		name: item.name,
+		slug: item.slug,
+		slugEdited: true,
 		description: item.description,
 		type: item.type,
 		options: item.options,
@@ -62,6 +82,7 @@ interface Props {
 	onOpenDuplicate?: ( item: SpecificationItem ) => void;
 	typeCarried?: boolean;
 	error?: string;
+	slugConflict?: SlugConflict | null;
 }
 
 const SpecificationForm = ( {
@@ -78,6 +99,7 @@ const SpecificationForm = ( {
 	onOpenDuplicate,
 	typeCarried,
 	error,
+	slugConflict,
 }: Props ) => {
 	const typeFieldRef = useRef< HTMLDivElement | null >( null );
 	const nameFieldRef = useRef< HTMLDivElement | null >( null );
@@ -103,6 +125,68 @@ const SpecificationForm = ( {
 	// decides which fields there are. A name carried in from a failed search is
 	// the same commitment, and hiding it would lose the word already typed.
 	const isStarted = Boolean( draft.type ) || Boolean( draft.name.trim() );
+
+	// The key is chosen before the first save and frozen afterward. A taken key is
+	// refused by the server, so the form asks first and offers the next free one.
+	const isCreating = ! slug;
+	const keyIsWholeNumber = isCreating && isWholeNumber( draft.slug );
+	const availability = useKeyAvailability(
+		draft.slug,
+		isCreating && isStarted && ! keyIsWholeNumber
+	);
+	const keySuggestion = slugConflict
+		? slugConflict.suggestion
+		: availability.suggestion;
+	const keyBlocked =
+		isCreating &&
+		( keyIsWholeNumber ||
+			availability.takenBy !== null ||
+			Boolean( slugConflict ) );
+
+	let keyHelp: ReactNode = __(
+		'Used in exports, templates and integrations. Edit it until the first save; afterward it is permanent and never follows a rename.',
+		'product-specifications'
+	);
+	let keyTone: FieldHelpTone = 'neutral';
+
+	if ( keyIsWholeNumber ) {
+		keyHelp = __(
+			'A key cannot be a whole number.',
+			'product-specifications'
+		);
+		keyTone = 'error';
+	} else if ( slugConflict || availability.takenBy !== null ) {
+		keyHelp = (
+			<>
+				{ slugConflict
+					? slugConflict.message
+					: sprintf(
+							/* translators: 1: the key being typed, 2: the specification that already holds it. */
+							__(
+								'“%1$s” is already the key of “%2$s”.',
+								'product-specifications'
+							),
+							draft.slug,
+							availability.takenBy ?? ''
+					  ) }{ ' ' }
+				{ keySuggestion && (
+					<Button
+						variant="link"
+						onClick={ () =>
+							onChange( draftWithKey( draft, keySuggestion ) )
+						}
+					>
+						{ sprintf(
+							/* translators: %s: a free key offered instead of a taken one. */
+							__( 'Use “%s”', 'product-specifications' ),
+							keySuggestion
+						) }
+					</Button>
+				) }
+			</>
+		);
+		keyTone = slugConflict ? 'error' : 'warning';
+	}
 
 	const chooseType = ( next: string ) => {
 		// Values stored under the old type may not be readable by the new one,
@@ -143,7 +227,10 @@ const SpecificationForm = ( {
 	};
 
 	const isSavable =
-		Boolean( draft.type ) && Boolean( draft.name.trim() ) && ! isSaving;
+		Boolean( draft.type ) &&
+		Boolean( draft.name.trim() ) &&
+		! isSaving &&
+		! keyBlocked;
 
 	return (
 		<div
@@ -347,7 +434,7 @@ const SpecificationForm = ( {
 												{ sprintf(
 													/* translators: %s: the name of the existing specification. */
 													__(
-														'A specification called “%s” already exists. This is allowed — slugs cannot collide — but it is usually a mistake.',
+														'A specification called “%s” already exists. This is allowed, because the key is the identity, but it is usually a mistake.',
 														'product-specifications'
 													),
 													duplicateOf.name
@@ -390,20 +477,55 @@ const SpecificationForm = ( {
 												'product-specifications'
 											) }
 											onChange={ ( name ) =>
-												onChange( { ...draft, name } )
+												onChange(
+													isCreating
+														? draftWithName(
+																draft,
+																name
+														  )
+														: { ...draft, name }
+												)
 											}
 										/>
 									) }
 								</Field>
 							</div>
-							{ slug && (
+							{ isCreating ? (
 								<Field
 									label={ __(
-										'Slug',
+										'Key',
+										'product-specifications'
+									) }
+									help={ keyHelp }
+									helpTone={ keyTone }
+								>
+									{ ( controlProps ) => (
+										<TextControl
+											{ ...controlProps }
+											__nextHasNoMarginBottom
+											__next40pxDefaultSize
+											className="ps-key"
+											value={ draft.slug }
+											placeholder={ __(
+												'Follows the name',
+												'product-specifications'
+											) }
+											onChange={ ( key ) =>
+												onChange(
+													draftWithKey( draft, key )
+												)
+											}
+										/>
+									) }
+								</Field>
+							) : (
+								<Field
+									label={ __(
+										'Key',
 										'product-specifications'
 									) }
 									help={ __(
-										'Permanent. It is the identity used in exports and templates, and never follows a rename.',
+										'Permanent. It is the identity used in exports, templates and integrations, and never follows a rename.',
 										'product-specifications'
 									) }
 								>
@@ -415,7 +537,7 @@ const SpecificationForm = ( {
 											className="ps-slug"
 											readOnly
 											value={ safeDecodeURIComponent(
-												slug
+												slug ?? ''
 											) }
 											onChange={ () => undefined }
 										/>

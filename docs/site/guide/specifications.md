@@ -36,10 +36,17 @@ close** (<kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>S</kbd>) saves and closes the for
 
 ## The specification key
 
-Every specification gets a key when it is created, shown under its name in the list,
-such as `screen-size`. The key never changes, even when you rename the specification.
-Developers use it to read values, and imports use it to match specifications between
-stores.
+Every specification has a key, shown under its name in the list, such as `screen-size`.
+Developers use it to read and write values, and imports use it to match specifications
+between stores.
+
+The key is chosen when you create the specification. The form fills it in from the name
+and keeps following the name until you edit it. If another specification already has
+that key, the form says which one and offers the next free key, such as `screen-size-2`,
+with one click. A key cannot be a whole number.
+
+After the first save the key is permanent. Renaming the specification changes its label
+everywhere and leaves the key as it is.
 
 ## Changing a specification
 
@@ -53,6 +60,12 @@ product screen. Nothing is deleted, and changing the type back restores them.
 
 ## Deleting a specification
 
-Before you delete a specification, the plugin shows which sets use it. Deleting removes
-it from those sets. Its values are no longer shown anywhere, and they are removed from
-each product the next time that product is saved. Deleting cannot be undone.
+Before you delete a specification, the plugin shows which sets use it and how many
+products hold a value for it. Deleting removes it from those sets and removes its value
+from every product. Deleting cannot be undone.
+
+When more than a couple of hundred products hold a value, the removal continues in the
+background after the deletion, and the Specifications screen shows its progress. Until it
+has finished, the key cannot be given to a new specification. On a site whose scheduled
+tasks never run, `wp product-specifications purge run` finishes the removal from the
+command line.

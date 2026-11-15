@@ -41,7 +41,7 @@ function hasSpecifications(int|WC_Product $product): bool
  * One specification's value on a product.
  *
  * @param int|WC_Product $product The product or variation, by id or object.
- * @param string $specification The specification key, such as `weight-c3dd218b`.
+ * @param string $specification The specification key, such as `weight`.
  * @return mixed The value as the specification's type reads it, such as a boolean for a
  *               yes-or-no specification. Null when the product holds none, the product or
  *               specification does not exist, or the migration is not complete.
@@ -76,8 +76,9 @@ function renderSpecificationsTable(int|WC_Product $product): string
  * @throws RejectedValues When a specification's type rejects its value. `messages()` holds
  *                        each message, keyed by specification key.
  * @throws RuntimeException When the product is not a product or variation, the set does not
- *                          exist, the update carries values but leaves the product without a
- *                          set, the migration is not complete, or storage fails.
+ *                          exist, a key names no specification, the update carries values but
+ *                          leaves the product without a set, the migration is not complete, or
+ *                          storage fails.
  */
 function saveSpecifications(SpecificationsUpdate $update): array
 {

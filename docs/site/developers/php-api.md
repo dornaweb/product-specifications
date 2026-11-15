@@ -56,8 +56,12 @@ Values are validated as in the product editor. Nothing is written when the save 
 - `ProductValues\RejectedValues` when a type rejects a value. `messages()` holds each
   message, keyed by specification.
 - `RuntimeException` when the product is not a product or variation, the set does not
-  exist, the update carries values but leaves the product without a set, the migration
-  is not complete, or storage fails.
+  exist, a key names no specification, the update carries values but leaves the product
+  without a set, the migration is not complete, or storage fails.
+
+Keys are the specification keys shown in the admin, such as `weight`. A key that names
+no specification is refused by name rather than ignored, so a typo in an integration
+cannot silently drop a value.
 
 A save fires [`product_specifications_values_saved`](./hooks#product-values), as a save in
 the product editor does. The function checks no capability; the calling code decides who

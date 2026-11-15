@@ -74,13 +74,13 @@ final class SpecificationsUpdate
      * Sets the values the product ends with. Calls add up: a later call overrides a key given
      * by an earlier one and keeps the rest.
      *
-     * @param array<string, mixed> $values Each key is a specification key, such as
-     *                                     `weight-c3dd218b`. Each value is the input that
-     *                                     specification's type accepts, such as
-     *                                     `true` for a yes-or-no specification or one of a
-     *                                     select's choices. A key with no specification is
-     *                                     ignored. A value the type rejects makes the save throw
-     *                                     `RejectedValues`, naming the key.
+     * @param array<string, mixed> $values Each key is a specification key, such as `weight`.
+     *                                     Each value is the input that specification's type
+     *                                     accepts, such as `true` for a yes-or-no
+     *                                     specification or one of a select's choices. A key
+     *                                     that names no specification makes the save throw a
+     *                                     `RuntimeException`. A value the type rejects makes
+     *                                     it throw `RejectedValues`, naming the key.
      */
     public function withValues(array $values): self
     {

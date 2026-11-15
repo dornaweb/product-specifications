@@ -9,6 +9,7 @@ use Amiut\ProductSpecs\ImportExport\ImportPlan;
 use Amiut\ProductSpecs\ImportExport\Section;
 use Amiut\ProductSpecs\ImportExport\Shape;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeQueue;
 use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
@@ -25,7 +26,8 @@ final class SpecificationsSection implements Section
         private readonly SpecificationDefinitionRepository $definitions,
         private readonly SpecificationTypeRegistry $types,
         private readonly OptionsChecker $options,
-        private readonly ProductValueRepository $values
+        private readonly ProductValueRepository $values,
+        private readonly PurgeQueue $purging
     ) {
     }
 
@@ -53,7 +55,7 @@ final class SpecificationsSection implements Section
             }
 
             $entryErrors = [
-                ...Shape::identifier($entry, 'slug', $path, Shape::SLUG_PATTERN),
+                ...Shape::specificationKey($entry, 'slug', $path),
                 ...Shape::text($entry, 'name', $path, true),
                 ...Shape::text($entry, 'type', $path, true),
                 ...Shape::text($entry, 'description', $path, false),
@@ -108,6 +110,16 @@ final class SpecificationsSection implements Section
         }
 
         $existing = $this->definitions->findByKey($slug);
+
+        if ($existing === null && $this->purging->holds($slug)) {
+            return EntryOutcome::skip(
+                $slug,
+                __(
+                    'The values of a deleted specification with this key are still being removed. Import again once that has finished.',
+                    'product-specifications'
+                )
+            );
+        }
 
         if ($existing === null) {
             return EntryOutcome::create($slug);

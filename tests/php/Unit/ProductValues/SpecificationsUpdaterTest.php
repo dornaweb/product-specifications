@@ -88,6 +88,22 @@ final class SpecificationsUpdaterTest extends TestCase
         self::assertSame([], $this->repository()->read(self::PRODUCT)->values());
     }
 
+    public function testAKeyWithNoSpecificationIsRefusedByName(): void
+    {
+        $this->storeProduct('laptops', ['screen' => '13 inch']);
+
+        try {
+            $this->updater()->save(
+                SpecificationsUpdate::forProduct(self::PRODUCT)->withValues(['screen' => '15 inch', 'wieght' => 1.4])
+            );
+            self::fail('The update was saved.');
+        } catch (RuntimeException $exception) {
+            self::assertStringContainsString('wieght', $exception->getMessage());
+        }
+
+        self::assertSame(['screen' => '13 inch'], $this->repository()->read(self::PRODUCT)->values());
+    }
+
     private function assertRefused(SpecificationsUpdate $update): void
     {
         try {
@@ -126,6 +142,7 @@ final class SpecificationsUpdaterTest extends TestCase
         return new SpecificationsUpdater(
             $writer,
             $this->repository(),
+            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
             new MigrationState(new DataVersionRepository())
         );
     }

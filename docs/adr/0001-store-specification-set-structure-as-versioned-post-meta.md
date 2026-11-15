@@ -6,11 +6,11 @@ Approved, amended by ADR 0002.
 
 ## Amendment
 
-ADR 0002 makes the specification slug the only stored identity in the model, generated
-once and never editable. A set item therefore no longer carries `term_id`:
+ADR 0002 makes the specification slug the only stored identity in the model, chosen once
+and never editable afterward (ADR 0010). A set item therefore no longer carries `term_id`:
 
 ```json
-{ "slug": "screen-size-9f3a2b71", "visible": true }
+{ "slug": "screen-size", "visible": true }
 ```
 
 Term ids are resolved from slugs at runtime and are never stored. `schema_version`

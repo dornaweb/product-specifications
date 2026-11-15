@@ -13,6 +13,7 @@ import type {
 } from '../../shared/storeResolution';
 import type { NoticeState } from '../../shared/ui';
 import { deletionResultMessage } from './deletionResult';
+import { messageOf, slugConflictFrom, type SlugConflict } from '../key';
 
 const ENTITY = [ 'taxonomy', SPECIFICATION_TAXONOMY ] as const;
 
@@ -35,6 +36,9 @@ interface TaxonomyActions extends ResolutionActions {
 export function useSpecifications() {
 	const [ view, setViewState ] = useState< View >( defaultView );
 	const [ notice, setNotice ] = useState< NoticeState | null >( null );
+	const [ slugConflict, setSlugConflict ] = useState< SlugConflict | null >(
+		null
+	);
 	const [ justAdded, setJustAdded ] = useState< SpecificationItem[] >( [] );
 	const typeFilter = useMemo( () => {
 		const filter = view.filters?.find(
@@ -120,16 +124,20 @@ export function useSpecifications() {
 
 			return result;
 		} catch ( error ) {
-			setNotice( {
-				status: 'error',
-				message:
-					error instanceof Error
-						? error.message
-						: __(
-								'Something went wrong.',
-								'product-specifications'
-						  ),
-			} );
+			// A refused key is reported on the Key field, not as a notice.
+			const conflict = slugConflictFrom( error );
+
+			if ( conflict ) {
+				setSlugConflict( conflict );
+			} else {
+				setNotice( {
+					status: 'error',
+					message: messageOf(
+						error,
+						__( 'Something went wrong.', 'product-specifications' )
+					),
+				} );
+			}
 
 			return null;
 		}
@@ -150,9 +158,13 @@ export function useSpecifications() {
 		notice,
 		setNotice,
 		dismissNotice: () => setNotice( null ),
+		slugConflict,
+		clearSlugConflict: () => setSlugConflict( null ),
 		retry: refresh,
 		paginationInfo: { totalItems, totalPages },
 		create: async ( record: Record< string, unknown > ) => {
+			setSlugConflict( null );
+
 			const saved = await run(
 				() =>
 					saveEntityRecord( ...ENTITY, record, {

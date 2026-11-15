@@ -178,6 +178,16 @@ final class ProductValueWriterTest extends TestCase
             {
                 return [];
             }
+
+            public function countHolding(string $specificationKey): int
+            {
+                return 0;
+            }
+
+            public function postIdsMentioning(string $specificationKey, int $afterPostId, int $limit): array
+            {
+                return [];
+            }
         };
         $service = new ProductValueWriter(
             $repository,
@@ -371,6 +381,16 @@ final class ProductValueWriterTest extends TestCase
             }
 
             public function valueMapsWith(string $specificationKey): array
+            {
+                return [];
+            }
+
+            public function countHolding(string $specificationKey): int
+            {
+                return 0;
+            }
+
+            public function postIdsMentioning(string $specificationKey, int $afterPostId, int $limit): array
             {
                 return [];
             }

@@ -98,6 +98,12 @@ do_action( 'product_specifications_rebuild' );
 
 Fired once after a bulk path finishes, so a projection can rebuild in one pass.
 
+Deleting a specification removes its key from every product's map (ADR 0010). That purge
+is a storage operation, not a save: it fires neither `values_saved` per product nor
+`rebuild`, because no other specification's values change. A projection that holds data
+for the deleted specification removes it on WordPress's `delete_term` action for
+`spec-attr`, which is what the suggestion index does.
+
 **A type has no `save()` method.** A type that must act when a value is saved — writing a
 term for filtering, for example — subscribes to these actions the same way a third party
 would:

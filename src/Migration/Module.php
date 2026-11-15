@@ -14,6 +14,7 @@ use Amiut\ProductSpecs\Migration\Step\SpecificationDefinitionsStep;
 use Amiut\ProductSpecs\Migration\Step\SpecificationSetsStep;
 use Amiut\ProductSpecs\Migration\Step\WordPressSpecificationLookup;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
+use Amiut\ProductSpecs\Specification\SlugAvailability;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
@@ -35,8 +36,10 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(DataVersionRepository::class)
             ),
             MigrationRunRepository::class => static fn () => new MigrationRunRepository(),
-            SpecificationDefinitionsStep::class => static fn () => new SpecificationDefinitionsStep(
-                new SpecificationDefinitionNormalizer()
+            SpecificationDefinitionsStep::class => static fn (
+                ContainerInterface $container
+            ) => new SpecificationDefinitionsStep(
+                new SpecificationDefinitionNormalizer($container->get(SlugAvailability::class))
             ),
             SpecificationSetsStep::class => static fn (ContainerInterface $container) => new SpecificationSetsStep(
                 new SetStructureBuilder(),
@@ -44,7 +47,10 @@ final class Module implements ServiceModule, ExecutableModule
             ),
             ProductValuesStep::class => static fn (ContainerInterface $container) => new ProductValuesStep(
                 new SnapshotValueReader(
-                    new WordPressSpecificationLookup($container->get(SpecificationDefinitionRepository::class)),
+                    new WordPressSpecificationLookup(
+                        $container->get(SpecificationDefinitionRepository::class),
+                        $container->get(SlugAvailability::class)
+                    ),
                     $container->get(SpecificationTypeRegistry::class)
                 ),
                 $container->get(ProductValueRepository::class)

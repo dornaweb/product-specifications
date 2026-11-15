@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\ProductValues;
 
 use Amiut\ProductSpecs\Migration\MigrationState;
+use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use RuntimeException;
 
 final class SpecificationsUpdater
@@ -12,6 +13,7 @@ final class SpecificationsUpdater
     public function __construct(
         private readonly ProductValueWriter $writer,
         private readonly ProductValueRepository $repository,
+        private readonly SpecificationDefinitionRepository $definitions,
         private readonly MigrationState $migration
     ) {
     }
@@ -37,6 +39,34 @@ final class SpecificationsUpdater
             );
         }
 
+        $unknown = $this->unknownKeys($update);
+
+        if ($unknown !== []) {
+            throw new RuntimeException(
+                sprintf(
+                    /* translators: %s: comma-separated specification keys. */
+                    __('No specification has the key %s.', 'product-specifications'),
+                    implode(', ', $unknown)
+                )
+            );
+        }
+
         return $this->writer->replace($productId, $setSlug, $update->values());
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function unknownKeys(SpecificationsUpdate $update): array
+    {
+        $unknown = [];
+
+        foreach (array_keys($update->values()) as $key) {
+            if ($this->definitions->findByKey((string) $key) === null) {
+                $unknown[] = (string) $key;
+            }
+        }
+
+        return $unknown;
     }
 }

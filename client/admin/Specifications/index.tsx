@@ -23,6 +23,9 @@ import SpecificationForm, {
 	type SpecificationDraft,
 } from './components/SpecificationForm';
 import DeleteDialog from './components/DeleteDialog';
+import PurgeNotice from './components/PurgeNotice';
+import { usePurgeStatus } from './hooks/usePurgeStatus';
+import { keyFrom } from './key';
 import { payloadFrom } from './payload';
 
 import './styles.scss';
@@ -34,6 +37,7 @@ type FormState =
 
 const SpecificationsPage = () => {
 	const list = useSpecifications();
+	const purge = usePurgeStatus();
 	const [ form, setForm ] = useState< FormState >( { mode: 'closed' } );
 	const [ isSaving, setIsSaving ] = useState( false );
 	const [ pendingDelete, setPendingDelete ] = useState<
@@ -79,7 +83,7 @@ const SpecificationsPage = () => {
 	const openCreate = ( name = '' ) =>
 		setForm( {
 			mode: 'create',
-			draft: { ...emptyDraft(), name },
+			draft: { ...emptyDraft(), name, slug: keyFrom( name ) },
 			typeCarried: false,
 		} );
 
@@ -200,7 +204,13 @@ const SpecificationsPage = () => {
 					isSaving={ isSaving }
 					duplicateOf={ duplicateOf }
 					onOpenDuplicate={ openEdit }
-					onChange={ ( draft ) => setForm( { ...form, draft } ) }
+					slugConflict={
+						form.mode === 'create' ? list.slugConflict : null
+					}
+					onChange={ ( draft ) => {
+						list.clearSlugConflict();
+						setForm( { ...form, draft } );
+					} }
 					onSaveAndClose={ () => save( false ) }
 					onSaveAndAddAnother={
 						form.mode === 'create' ? () => save( true ) : undefined
@@ -353,17 +363,20 @@ const SpecificationsPage = () => {
 				/>
 			}
 			notices={
-				<Notice
-					notice={
-						// A failed save is reported on the form that failed,
-						// where the work still is.
-						form.mode !== 'closed' &&
-						list.notice?.status === 'error'
-							? null
-							: list.notice
-					}
-					onDismiss={ list.dismissNotice }
-				/>
+				<>
+					<PurgeNotice pending={ purge.pending } />
+					<Notice
+						notice={
+							// A failed save is reported on the form that failed,
+							// where the work still is.
+							form.mode !== 'closed' &&
+							list.notice?.status === 'error'
+								? null
+								: list.notice
+						}
+						onDismiss={ list.dismissNotice }
+					/>
+				</>
 			}
 		>
 			{ content }
@@ -377,6 +390,7 @@ const SpecificationsPage = () => {
 						await list.remove( pendingDelete );
 						setIsDeleting( false );
 						setPendingDelete( null );
+						void purge.refresh();
 					} }
 				/>
 			) }

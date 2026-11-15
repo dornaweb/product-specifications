@@ -54,6 +54,26 @@ final class WordPressProductValueRepositoryTest extends TestCase
         self::assertContains('%s:15:"\\%d8\\%b1\\_a1b2c3d4";%', $wpdb->preparedArguments);
     }
 
+    public function testProductsMentioningAKeyAreAskedForAfterACursorAndWithinALimit(): void
+    {
+        $wpdb = FakeWpdb::install(['10', '11', 'junk']);
+
+        self::assertSame([10, 11], $this->repository->postIdsMentioning('weight', 5, 100));
+        self::assertContains(5, $wpdb->preparedArguments);
+        self::assertContains(100, $wpdb->preparedArguments);
+        self::assertContains('%s:6:"weight";%', $wpdb->preparedArguments);
+    }
+
+    public function testOnlyProductsHoldingTheKeyAreCounted(): void
+    {
+        FakeWpdb::install([
+            self::stored(['weight' => 1]),
+            self::stored(['material' => 'weight']),
+        ]);
+
+        self::assertSame(1, $this->repository->countHolding('weight'));
+    }
+
     /**
      * @param array<string, mixed> $values
      */

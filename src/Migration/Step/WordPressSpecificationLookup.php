@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration\Step;
 
+use Amiut\ProductSpecs\Specification\SlugAvailability;
 use Amiut\ProductSpecs\Specification\SpecificationDefinition;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
@@ -15,8 +16,10 @@ final class WordPressSpecificationLookup implements SpecificationLookup
 {
     public const RECREATED_FROM_META = '_product_specifications_recreated_from';
 
-    public function __construct(private readonly SpecificationDefinitionRepository $definitions)
-    {
+    public function __construct(
+        private readonly SpecificationDefinitionRepository $definitions,
+        private readonly SlugAvailability $availability
+    ) {
     }
 
     public function find(int $id): ?SpecificationDefinition
@@ -72,14 +75,18 @@ final class WordPressSpecificationLookup implements SpecificationLookup
         return $id > 0 ? $this->definitions->find($id) : null;
     }
 
+    /**
+     * The slug the products still carry, in the form it is stored, when it is free, so
+     * templates written against it keep working; otherwise one derived from the name.
+     */
     private function freeSlug(string $slug, string $name): string
     {
-        $preserved = $slug === '' ? '' : SpecificationSlug::preserved($slug)->value();
+        $preserved = SpecificationSlug::fromInput($slug);
 
-        if ($preserved !== '' && $this->definitions->findByKey($preserved) === null) {
-            return $preserved;
+        if ($preserved !== null && !$this->availability->taken($preserved->value())) {
+            return $preserved->value();
         }
 
-        return SpecificationSlug::forName($name)->value();
+        return $this->availability->free(SpecificationSlug::fromName($name))->value();
     }
 }

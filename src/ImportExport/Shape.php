@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\ImportExport;
 
+use Amiut\ProductSpecs\Specification\SpecificationSlug;
+
 final class Shape
 {
     public const SLUG_PATTERN = '/^[a-z0-9_%-]+$/';
@@ -46,6 +48,36 @@ final class Shape
         }
 
         return $errors;
+    }
+
+    /**
+     * A specification key is a slug in the form the plugin stores, which is never a whole
+     * number because PHP would cast it to an integer array key.
+     *
+     * @param array<array-key, mixed> $entry
+     * @return list<string>
+     */
+    public static function specificationKey(array $entry, string $field, string $path): array
+    {
+        $errors = self::identifier($entry, $field, $path, self::SLUG_PATTERN);
+
+        if ($errors !== []) {
+            return $errors;
+        }
+
+        $value = self::string($entry, $field);
+
+        if (SpecificationSlug::isCanonicalIntegerString($value)) {
+            return [self::error("{$path}.{$field}", __('must not be a whole number', 'product-specifications'))];
+        }
+
+        if (SpecificationSlug::fromInput($value)?->value() !== $value) {
+            return [
+                self::error("{$path}.{$field}", __('is not a key as the plugin stores it', 'product-specifications')),
+            ];
+        }
+
+        return [];
     }
 
     /**

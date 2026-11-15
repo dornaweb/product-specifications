@@ -100,6 +100,53 @@ final class WordPressProductValueRepository implements ProductValueRepository
         return $maps;
     }
 
+    public function countHolding(string $specificationKey): int
+    {
+        return count($this->valueMapsWith($specificationKey));
+    }
+
+    public function postIdsMentioning(string $specificationKey, int $afterPostId, int $limit): array
+    {
+        /** @var wpdb $db */
+        $db = $GLOBALS['wpdb'];
+
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+        $ids = $db->get_col(
+            $db->prepare(
+                'SELECT meta.post_id
+                 FROM %i AS meta
+                 INNER JOIN %i AS posts ON posts.ID = meta.post_id
+                 WHERE meta.meta_key = %s
+                   AND meta.meta_value LIKE %s
+                   AND meta.post_id > %d
+                   AND posts.post_type IN (%s, %s)
+                 ORDER BY meta.post_id ASC
+                 LIMIT %d',
+                $db->postmeta,
+                $db->posts,
+                self::VALUES_META_KEY,
+                $this->mentionPattern($specificationKey),
+                $afterPostId,
+                'product',
+                'product_variation',
+                max(1, $limit)
+            )
+        );
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.NoCaching
+        // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
+
+        $postIds = [];
+
+        foreach ($ids as $id) {
+            if (is_numeric($id)) {
+                $postIds[] = (int) $id;
+            }
+        }
+
+        return $postIds;
+    }
+
     /**
      * @return list<string>
      */
@@ -107,7 +154,6 @@ final class WordPressProductValueRepository implements ProductValueRepository
     {
         /** @var wpdb $db */
         $db = $GLOBALS['wpdb'];
-        $serializedKey = sprintf('s:%d:"%s";', strlen($specificationKey), $specificationKey);
 
         // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
         // phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -123,7 +169,7 @@ final class WordPressProductValueRepository implements ProductValueRepository
                 $db->postmeta,
                 $db->posts,
                 self::VALUES_META_KEY,
-                '%' . $db->esc_like($serializedKey) . '%',
+                $this->mentionPattern($specificationKey),
                 'product',
                 'product_variation',
                 'trash',
@@ -134,5 +180,18 @@ final class WordPressProductValueRepository implements ProductValueRepository
         // phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery
 
         return array_values(array_filter($stored, 'is_string'));
+    }
+
+    /**
+     * The key as it appears inside the serialized map. A value equal to the key matches
+     * too, which is why readers confirm against the decoded document.
+     */
+    private function mentionPattern(string $specificationKey): string
+    {
+        /** @var wpdb $db */
+        $db = $GLOBALS['wpdb'];
+        $serializedKey = sprintf('s:%d:"%s";', strlen($specificationKey), $specificationKey);
+
+        return '%' . $db->esc_like($serializedKey) . '%';
     }
 }

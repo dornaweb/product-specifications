@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { SPECIFICATION_TAXONOMY } from '../../constants';
 import { mapRecord } from '../mapRecord';
 import type { SpecificationItem, SpecificationRecord } from '../mapRecord';
+import { messageOf, slugConflictFrom, type SlugConflict } from '../key';
 
 interface Actions {
 	saveEntityRecord: (
@@ -20,16 +21,22 @@ interface Actions {
 export function useCreateSpecification() {
 	const [ isSaving, setIsSaving ] = useState( false );
 	const [ error, setError ] = useState< string >();
+	const [ slugConflict, setSlugConflict ] = useState< SlugConflict | null >(
+		null
+	);
 	const { saveEntityRecord } = useDispatch( coreStore ) as unknown as Actions;
 
 	return {
 		isSaving,
 		error,
+		slugConflict,
+		clearSlugConflict: () => setSlugConflict( null ),
 		create: async (
 			record: Record< string, unknown >
 		): Promise< SpecificationItem | null > => {
 			setIsSaving( true );
 			setError( undefined );
+			setSlugConflict( null );
 
 			try {
 				const saved = await saveEntityRecord(
@@ -41,14 +48,21 @@ export function useCreateSpecification() {
 
 				return mapRecord( saved );
 			} catch ( failure ) {
-				setError(
-					failure instanceof Error
-						? failure.message
-						: __(
+				const conflict = slugConflictFrom( failure );
+
+				if ( conflict ) {
+					setSlugConflict( conflict );
+				} else {
+					setError(
+						messageOf(
+							failure,
+							__(
 								'Specification could not be created.',
 								'product-specifications'
-						  )
-				);
+							)
+						)
+					);
+				}
 
 				return null;
 			} finally {

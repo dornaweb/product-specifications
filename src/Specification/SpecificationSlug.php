@@ -6,31 +6,46 @@ namespace Amiut\ProductSpecs\Specification;
 
 final class SpecificationSlug
 {
-    private const SUFFIX_BYTES = 4;
     private const COLUMN_LENGTH = 200;
+    private const UNNAMED = 'specification';
 
     private function __construct(private readonly string $value)
     {
     }
 
-    public static function forName(string $name): self
+    /**
+     * Null when nothing usable remains after sanitizing, or when the result is a canonical
+     * integer string, which PHP would cast to an integer array key.
+     */
+    public static function fromInput(string $input): ?self
     {
-        $stem = self::stemFor($name);
+        $slug = self::fitted(sanitize_title($input), self::COLUMN_LENGTH);
 
-        if ($stem === '') {
-            $stem = 'specification';
+        if ($slug === '' || self::isCanonicalIntegerString($slug)) {
+            return null;
         }
 
-        return new self($stem . '-' . bin2hex(random_bytes(self::SUFFIX_BYTES)));
+        return new self($slug);
+    }
+
+    /**
+     * The key a name derives. It may still be a canonical integer string or taken.
+     */
+    public static function fromName(string $name): self
+    {
+        $slug = self::fitted(sanitize_title($name), self::COLUMN_LENGTH);
+
+        return new self($slug === '' ? self::UNNAMED : $slug);
     }
 
     public static function preserved(string $slug): self
     {
-        if (self::isCanonicalInteger($slug)) {
-            return new self($slug . '-' . bin2hex(random_bytes(self::SUFFIX_BYTES)));
-        }
-
         return new self($slug);
+    }
+
+    public static function isCanonicalIntegerString(string $value): bool
+    {
+        return (string) (int) $value === $value;
     }
 
     public function value(): string
@@ -38,25 +53,37 @@ final class SpecificationSlug
         return $this->value;
     }
 
-    // Non-Latin characters are stored percent-encoded, up to nine characters per
-    // character, so the name is shortened until its encoded form leaves room
-    // for the suffix inside the slug column.
-    private static function stemFor(string $name): string
+    public function isCanonicalInteger(): bool
     {
-        $limit = self::COLUMN_LENGTH - 1 - self::SUFFIX_BYTES * 2;
-        $name = mb_substr($name, 0, $limit);
-        $stem = sanitize_title($name);
-
-        while (strlen($stem) > $limit) {
-            $name = mb_substr($name, 0, -1);
-            $stem = sanitize_title($name);
-        }
-
-        return $stem;
+        return self::isCanonicalIntegerString($this->value);
     }
 
-    private static function isCanonicalInteger(string $slug): bool
+    public function withNumericSuffix(int $number): self
     {
-        return (string) (int) $slug === $slug;
+        $suffix = '-' . $number;
+
+        return new self(self::fitted($this->value, self::COLUMN_LENGTH - strlen($suffix)) . $suffix);
+    }
+
+    // Non-Latin characters are stored percent-encoded, one triplet per byte, so a cut
+    // backs off by whole triplets until what remains decodes to complete characters.
+    private static function fitted(string $slug, int $limit): string
+    {
+        if (strlen($slug) > $limit) {
+            $slug = substr($slug, 0, $limit);
+        }
+
+        while ($slug !== '' && !self::decodesCleanly($slug)) {
+            $percent = strrpos($slug, '%');
+            $slug = $percent === false ? '' : substr($slug, 0, $percent);
+        }
+
+        return rtrim($slug, '-');
+    }
+
+    private static function decodesCleanly(string $slug): bool
+    {
+        return preg_match('/%[0-9a-fA-F]?$/', $slug) !== 1
+            && mb_check_encoding(rawurldecode($slug), 'UTF-8');
     }
 }

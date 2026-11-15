@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Tests\Unit\Specification\Deletion;
 
+use Amiut\ProductSpecs\Specification\Deletion\BackgroundPurge;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeQueue;
 use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
+use Amiut\ProductSpecs\Specification\Deletion\ValuePurge;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
@@ -13,6 +16,7 @@ use Amiut\ProductSpecs\SpecificationSet\SpecificationSet;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetItem;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetStructure;
+use Amiut\ProductSpecs\Tests\Unit\Support\InMemoryProductValues;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use WP_Term;
@@ -20,7 +24,9 @@ use WP_Term;
 final class SpecificationDeletionServiceTest extends TestCase
 {
     private const TERM_ID = 10;
-    private const SLUG = 'screen-a1b2c3d4';
+    private const SLUG = 'screen';
+
+    private InMemoryProductValues $values;
 
     protected function setUp(): void
     {
@@ -36,6 +42,9 @@ final class SpecificationDeletionServiceTest extends TestCase
                 'attr_default' => '',
             ],
         ];
+        $GLOBALS['wp_test_options'] = [];
+        $GLOBALS['wp_test_scheduled'] = [];
+        $this->values = new InMemoryProductValues();
     }
 
     public function testStripsTheItemOnlyFromSetsThatHoldIt(): void
@@ -72,11 +81,73 @@ final class SpecificationDeletionServiceTest extends TestCase
         );
     }
 
+    public function testAFewProductsArePurgedInsideTheDeletion(): void
+    {
+        $this->values->maps = [1 => [self::SLUG => '13"', 'weight' => 1], 2 => [self::SLUG => '15"']];
+
+        $this->service($this->sets([]))->beforeDelete(self::TERM_ID, SpecificationTaxonomy::KEY);
+
+        self::assertSame([1 => ['weight' => 1]], $this->values->maps);
+        self::assertFalse((new PurgeQueue())->holds(self::SLUG));
+        self::assertSame([], $GLOBALS['wp_test_scheduled']);
+    }
+
+    public function testManyProductsContinueInTheBackgroundAndTheKeyStaysTaken(): void
+    {
+        for ($postId = 1; $postId <= SpecificationDeletionService::SYNC_LIMIT + 1; $postId++) {
+            $this->values->maps[$postId] = [self::SLUG => $postId];
+        }
+
+        $this->service($this->sets([]))->beforeDelete(self::TERM_ID, SpecificationTaxonomy::KEY);
+
+        $queue = new PurgeQueue();
+        self::assertCount(1, $this->values->maps);
+        self::assertTrue($queue->holds(self::SLUG));
+        self::assertSame(SpecificationDeletionService::SYNC_LIMIT, $queue->entries()[0]->cursor());
+        self::assertArrayHasKey(BackgroundPurge::HOOK, $GLOBALS['wp_test_scheduled']);
+    }
+
+    public function testAFailedPurgeQueuesTheRestAndLetsTheDeletionProceed(): void
+    {
+        $this->values->maps = [1 => [self::SLUG => '13"'], 2 => [self::SLUG => '15"']];
+        $this->values->failOnPostId = 2;
+        $sets = $this->sets([$this->setWithItem(1)]);
+
+        $this->service($sets)->beforeDelete(self::TERM_ID, SpecificationTaxonomy::KEY);
+
+        $queue = new PurgeQueue();
+        self::assertCount(1, $sets->saved);
+        self::assertSame([2 => [self::SLUG => '15"']], $this->values->maps);
+        self::assertTrue($queue->holds(self::SLUG));
+        self::assertSame(1, $queue->entries()[0]->cursor());
+        self::assertStringContainsString('product 2', (string) $queue->entries()[0]->failure());
+        // A failed key is retried from the command line, not by cron.
+        self::assertSame([], $GLOBALS['wp_test_scheduled']);
+    }
+
+    public function testExactlyTheLimitIsPurgedInsideTheDeletion(): void
+    {
+        for ($postId = 1; $postId <= SpecificationDeletionService::SYNC_LIMIT; $postId++) {
+            $this->values->maps[$postId] = [self::SLUG => $postId];
+        }
+
+        $this->service($this->sets([]))->beforeDelete(self::TERM_ID, SpecificationTaxonomy::KEY);
+
+        self::assertSame([], $this->values->maps);
+        self::assertFalse((new PurgeQueue())->holds(self::SLUG));
+    }
+
     private function service(SpecificationSetRepository $sets): SpecificationDeletionService
     {
+        $queue = new PurgeQueue();
+        $purge = new ValuePurge($this->values);
+
         return new SpecificationDeletionService(
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
-            $sets
+            $sets,
+            $purge,
+            $queue,
+            new BackgroundPurge($queue, $purge)
         );
     }
 

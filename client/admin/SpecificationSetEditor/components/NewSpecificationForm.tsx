@@ -18,7 +18,8 @@ interface Props {
 // intent.
 const NewSpecificationForm = ( { onCreated, onCancel }: Props ) => {
 	const [ draft, setDraft ] = useState< SpecificationDraft >( emptyDraft() );
-	const { create, isSaving, error } = useCreateSpecification();
+	const { create, isSaving, error, slugConflict, clearSlugConflict } =
+		useCreateSpecification();
 
 	return (
 		<SpecificationForm
@@ -26,7 +27,11 @@ const NewSpecificationForm = ( { onCreated, onCancel }: Props ) => {
 			label={ __( 'New specification', 'product-specifications' ) }
 			isSaving={ isSaving }
 			error={ error }
-			onChange={ setDraft }
+			slugConflict={ slugConflict }
+			onChange={ ( next ) => {
+				clearSlugConflict();
+				setDraft( next );
+			} }
 			onCancel={ onCancel }
 			saveLabel={ __( 'Create and add', 'product-specifications' ) }
 			onSaveAndClose={ async () => {

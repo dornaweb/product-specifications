@@ -8,6 +8,7 @@ use Amiut\ProductSpecs\ImportExport\Section\SetsSection;
 use Amiut\ProductSpecs\ImportExport\Section\SpecificationsSection;
 use Amiut\ProductSpecs\ImportExport\SectionRegistry;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeQueue;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
@@ -29,7 +30,8 @@ final class Sections
             self::definitions(),
             $types,
             new OptionsChecker($types),
-            new WordPressProductValueRepository()
+            new WordPressProductValueRepository(),
+            new PurgeQueue()
         );
     }
 

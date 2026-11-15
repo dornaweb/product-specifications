@@ -23,11 +23,19 @@ use Amiut\ProductSpecs\ProductValues\Module as ProductValuesModule;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
 use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
 use Amiut\ProductSpecs\ProductValues\WordPressProductValueRepository;
+use Amiut\ProductSpecs\Specification\Deletion\BackgroundPurge;
+use Amiut\ProductSpecs\Specification\Deletion\DeletionImpactRestController;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeCommand;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeQueue;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeRestController;
 use Amiut\ProductSpecs\Specification\Deletion\SpecificationDeletionService;
+use Amiut\ProductSpecs\Specification\Deletion\ValuePurge;
+use Amiut\ProductSpecs\Specification\SlugAvailability;
 use Amiut\ProductSpecs\Specification\Module as SpecificationModule;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionMapper;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\SpecificationTaxonomy;
+use Amiut\ProductSpecs\Specification\Rest\KeyAvailabilityRestController;
 use Amiut\ProductSpecs\Specification\Rest\SetUsageCounter;
 use Amiut\ProductSpecs\Specification\Rest\SlugGuard;
 use Amiut\ProductSpecs\Specification\Rest\SpecificationCollectionQuery;
@@ -100,6 +108,14 @@ final class ServiceWiringTest extends TestCase
             SpecificationDefinitionMapper::class => SpecificationDefinitionMapper::class,
             SpecificationDefinitionRepository::class => SpecificationDefinitionRepository::class,
             SpecificationDeletionService::class => SpecificationDeletionService::class,
+            PurgeQueue::class => PurgeQueue::class,
+            SlugAvailability::class => SlugAvailability::class,
+            ValuePurge::class => ValuePurge::class,
+            BackgroundPurge::class => BackgroundPurge::class,
+            PurgeRestController::class => PurgeRestController::class,
+            DeletionImpactRestController::class => DeletionImpactRestController::class,
+            PurgeCommand::class => PurgeCommand::class,
+            KeyAvailabilityRestController::class => KeyAvailabilityRestController::class,
             DataVersionRepository::class => DataVersionRepository::class,
             LegacyDataProbe::class => LegacyDataProbe::class,
             Installer::class => Installer::class,

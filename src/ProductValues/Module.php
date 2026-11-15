@@ -36,6 +36,7 @@ final class Module implements ServiceModule, ExecutableModule
             ) => new SpecificationsUpdater(
                 $container->get(ProductValueWriter::class),
                 $container->get(ProductValueRepository::class),
+                $container->get(SpecificationDefinitionRepository::class),
                 $container->get(MigrationState::class)
             ),
             ProductValuesRestController::class => static fn (

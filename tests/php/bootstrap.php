@@ -417,7 +417,7 @@ if (!class_exists('WP_REST_Request')) {
 if (!function_exists('sanitize_title')) {
     function sanitize_title(string $title): string
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $title) ?? ''));
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9%]+/', '-', $title) ?? ''));
 
         return trim($slug, '-');
     }

@@ -28,4 +28,18 @@ interface ProductValueRepository
      * @return list<array<string, mixed>>
      */
     public function valueMapsWith(string $specificationKey): array;
+
+    /**
+     * How many products and variations outside the trash hold a value for the specification.
+     */
+    public function countHolding(string $specificationKey): int;
+
+    /**
+     * The products and variations whose stored map mentions the key, trashed ones
+     * included, in id order after the given id. A map can mention a key as a value rather
+     * than hold it, so a reader confirms against the decoded document.
+     *
+     * @return list<int>
+     */
+    public function postIdsMentioning(string $specificationKey, int $afterPostId, int $limit): array;
 }

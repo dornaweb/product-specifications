@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Migration\Step;
 
+use Amiut\ProductSpecs\Specification\SlugAvailability;
 use Amiut\ProductSpecs\Specification\SpecificationOptions;
 use Amiut\ProductSpecs\Specification\SpecificationSlug;
 use Amiut\ProductSpecs\Specification\Type\SelectType;
@@ -15,6 +16,10 @@ use Amiut\ProductSpecs\Specification\Type\SelectType;
 final class SpecificationDefinitionNormalizer
 {
     private const MERGED_INTO_SELECT = 'radio';
+
+    public function __construct(private readonly SlugAvailability $availability)
+    {
+    }
 
     public function typeId(string $stored): string
     {
@@ -63,12 +68,15 @@ final class SpecificationDefinitionNormalizer
     /**
      * A stored slug can hold characters sanitize_title() strips, such as the zero-width
      * non-joiner. It takes its sanitized form, so lookups and other stores agree on it.
+     * A slug that is a canonical integer string gains a numeric suffix, because PHP casts
+     * such strings to integer array keys.
      */
     public function slug(string $stored): string
     {
         $current = sanitize_title($stored);
+        $slug = SpecificationSlug::preserved($current !== '' ? $current : $stored);
 
-        return SpecificationSlug::preserved($current !== '' ? $current : $stored)->value();
+        return $slug->isCanonicalInteger() ? $this->availability->nextFree($slug)->value() : $slug->value();
     }
 
     /**

@@ -15,6 +15,7 @@ use Amiut\ProductSpecs\ImportExport\Section\SpecificationsSection;
 use Amiut\ProductSpecs\ImportExport\Section\ValuesSection;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
 use Amiut\ProductSpecs\ProductValues\ProductValueWriter;
+use Amiut\ProductSpecs\Specification\Deletion\PurgeQueue;
 use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\Specification\Type\OptionsChecker;
 use Amiut\ProductSpecs\Specification\Type\SpecificationTypeRegistry;
@@ -40,7 +41,8 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(SpecificationDefinitionRepository::class),
                 $container->get(SpecificationTypeRegistry::class),
                 $container->get(OptionsChecker::class),
-                $container->get(ProductValueRepository::class)
+                $container->get(ProductValueRepository::class),
+                $container->get(PurgeQueue::class)
             ),
             SetsSection::class => static fn (ContainerInterface $container) => new SetsSection(
                 $container->get(SpecificationSetRepository::class),
