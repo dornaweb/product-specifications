@@ -1,8 +1,10 @@
-= 2.0.0 - 2026-11-16 =
+= 2.0.0 - 2026-11-15 =
 Version 2.0.0 is a rewrite of the plugin. Specifications, tables and product values are stored in a new format and converted by a migration you start after updating. Your tables are hidden from the storefront until the migration has run, so take a backup and read the upgrade steps first.
 
 Requirements
-- Requirement: PHP 8.1 or newer, WordPress 7.0 or newer and WooCommerce 9.2 or newer. A site on older PHP sees an admin notice instead of an error.
+- BREAKING: Requires PHP 8.1 or newer (was 7.4). A site on older PHP sees an admin notice instead of an error.
+- BREAKING: Requires WordPress 7.0 or newer (was 5.9).
+- BREAKING: Requires WooCommerce 9.2 or newer (was 8.0).
 
 Specifications
 - New: A Specifications screen for the whole library: search, filter by type, and see how many sets use each specification.

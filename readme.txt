@@ -84,10 +84,12 @@ Yes, use `[specs-table]`, or `[specs-table post_id="123"]` for another product. 
 
 == Changelog ==
 
-= 2.0.0 - 2026-11-16 =
+= 2.0.0 - 2026-11-15 =
 Version 2.0.0 is a rewrite. Existing data is converted by a migration you start after updating. See "Upgrading from 0.x" above.
 
-- Requirement: PHP 8.1, WordPress 7.0 and WooCommerce 9.2 or newer.
+- BREAKING: Requires PHP 8.1 or newer (was 7.4).
+- BREAKING: Requires WordPress 7.0 or newer (was 5.9).
+- BREAKING: Requires WooCommerce 9.2 or newer (was 8.0).
 - New: A reusable library of specifications, each usable in any number of sets, with a readable key.
 - New: Specification types Number, Document, Link, Date and WooCommerce product data. Text specifications can suggest values and hold several values.
 - New: A drag-and-drop editor for specification sets and their groups.
