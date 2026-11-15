@@ -59,7 +59,7 @@ Yes, You can use `[specs-table]` shortcode.
 
 == Changelog ==
 
-= 0.8.11 - 2026-11-12 =
+= 0.8.11 - 2026-11-15 =
 - **Important: The next major version, 2.0.0, is a breaking change. It changes how specifications are stored, and after updating, specification tables disappear from your store until you run its migration. Take a backup before you update to 2.0.0.**
 - Maintenance: Warn on the plugin update row that version 2.0.0 changes how specifications are stored.
 - Maintenance: Test and bump compatibility versions with latest WooCommerce and WordPress versions.
