@@ -7,14 +7,16 @@ namespace Amiut\ProductSpecs\Block;
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
 use Amiut\ProductSpecs\Storefront\ProductSpecifications;
+use Amiut\ProductSpecs\Settings\SettingsProviders;
 use Inpsyde\Modularity\Module\ExecutableModule;
+use Inpsyde\Modularity\Module\ExtendingModule;
 use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Inpsyde\Modularity\Module\ServiceModule;
 use Inpsyde\Modularity\Package;
 use Inpsyde\Modularity\Properties\PluginProperties;
 use Psr\Container\ContainerInterface;
 
-final class Module implements ServiceModule, ExecutableModule
+final class Module implements ServiceModule, ExtendingModule, ExecutableModule
 {
     use ModuleClassNameIdTrait;
 
@@ -33,6 +35,13 @@ final class Module implements ServiceModule, ExecutableModule
             ProductSpecificationsBlock::class => static fn (ContainerInterface $container) => new ProductSpecificationsBlock(
                 $container->get(ProductSpecifications::class)
             ),
+        ];
+    }
+
+    public function extensions(): array
+    {
+        return [
+            SettingsProviders::class => SettingsProviders::adding(new StylesheetSettings()),
         ];
     }
 

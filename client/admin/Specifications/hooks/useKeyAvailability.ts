@@ -4,7 +4,8 @@ import { addQueryArgs } from '@wordpress/url';
 
 export interface KeyAvailability {
 	checking: boolean;
-	takenBy: string | null;
+	taken: boolean;
+	heldBy: string | null;
 	suggestion: string | null;
 }
 
@@ -17,7 +18,8 @@ interface AvailabilityResponse {
 
 const FREE: KeyAvailability = {
 	checking: false,
-	takenBy: null,
+	taken: false,
+	heldBy: null,
 	suggestion: null,
 };
 const DEBOUNCE = 300;
@@ -51,9 +53,8 @@ export function useKeyAvailability(
 					if ( ! cancelled ) {
 						setState( {
 							checking: false,
-							takenBy: response.taken
-								? response.holder ?? ''
-								: null,
+							taken: response.taken,
+							heldBy: response.holder,
 							suggestion: response.suggestion,
 						} );
 					}

@@ -17,7 +17,10 @@ final class Module implements ServiceModule, ExecutableModule
     public function services(): array
     {
         return [
-            SettingsSchema::class => static fn () => new SettingsSchema(),
+            SettingsProviders::class => static fn () => new SettingsProviders(),
+            SettingsSchema::class => static fn (ContainerInterface $container) => new SettingsSchema(
+                $container->get(SettingsProviders::class)
+            ),
             SettingsRepository::class => static fn (ContainerInterface $container) => new SettingsRepository(
                 $container->get(SettingsSchema::class)
             ),

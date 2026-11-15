@@ -11,6 +11,9 @@ use RuntimeException;
  */
 final class AssetHelper
 {
+    private const TEXT_DOMAIN = 'product-specifications';
+    private const CHUNKS = 'chunks';
+
     private string $assetsDirectoryPath;
     private string $assetsDirectoryUrl;
 
@@ -28,16 +31,12 @@ final class AssetHelper
      */
     public function registerScript(string $handle, string $relativePath, array $args = []): void
     {
-        $this->registerAsset(
-            $handle,
-            $relativePath,
-            array_merge(
-                $args,
-                [
-                    'in_footer' => true, // Put scripts in footer by default
-                ]
-            )
-        );
+        $this->registerAsset($handle, $relativePath, array_merge(['in_footer' => true], $args));
+        wp_set_script_translations($handle, self::TEXT_DOMAIN);
+
+        if ($this->loadsChunks($relativePath)) {
+            $this->addChunkTranslations($handle);
+        }
     }
 
     /**
@@ -54,6 +53,36 @@ final class AssetHelper
             ['dependencies' => $dependencies],
             Asset::TYPE_STYLE
         );
+    }
+
+    /**
+     * Webpack writes the chunk directory into the loader of every entry that imports
+     * code lazily.
+     */
+    private function loadsChunks(string $relativePath): bool
+    {
+        $source = file_get_contents($this->assetsDirectoryPath . '/' . ltrim($relativePath, '/'));
+
+        return is_string($source) && str_contains($source, '"' . self::CHUNKS . '/"');
+    }
+
+    /**
+     * WordPress loads translations only for registered scripts, and webpack chunks load
+     * later in the browser, so each chunk's translations are added before the entry runs.
+     */
+    private function addChunkTranslations(string $entryHandle): void
+    {
+        foreach (glob($this->assetsDirectoryPath . '/' . self::CHUNKS . '/*.js') ?: [] as $chunkPath) {
+            $chunkFile = self::CHUNKS . '/' . basename($chunkPath);
+            $chunkHandle = $entryHandle . '-chunk-' . basename($chunkPath, '.js');
+            wp_register_script($chunkHandle, $this->assetsDirectoryUrl . '/' . $chunkFile);
+            wp_set_script_translations($chunkHandle, self::TEXT_DOMAIN);
+            $translations = wp_scripts()->print_translations($chunkHandle, false);
+
+            if (is_string($translations)) {
+                wp_add_inline_script($entryHandle, $translations, 'before');
+            }
+        }
     }
 
     /**

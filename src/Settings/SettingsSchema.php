@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Amiut\ProductSpecs\Settings;
 
 use LogicException;
-use ReflectionClass;
 
 final class SettingsSchema
 {
     /** @var list<SettingField>|null */
     private ?array $fields = null;
+
+    public function __construct(private readonly SettingsProviders $providers)
+    {
+    }
 
     /**
      * @param array<string, mixed> $stored
@@ -124,6 +127,8 @@ final class SettingsSchema
     }
 
     /**
+     * Built on first use, so the labels are translated in the locale of the request.
+     *
      * @return list<SettingField>
      */
     private function fields(): array
@@ -132,19 +137,14 @@ final class SettingsSchema
             return $this->fields;
         }
 
-        $constructor = (new ReflectionClass(Settings::class))->getConstructor();
-        if ($constructor === null) {
-            throw new LogicException('The settings object must have a constructor.');
-        }
+        $fields = $this->providers->fields();
+        $keys = array_map(static fn (SettingField $field): string => $field->key, $fields);
+        $duplicates = array_unique(array_diff_assoc($keys, array_unique($keys)));
 
-        $fields = [];
-        foreach ($constructor->getParameters() as $parameter) {
-            $attributes = $parameter->getAttributes(SettingField::class);
-            if (count($attributes) !== 1) {
-                throw new LogicException('Every settings constructor parameter must declare one setting field.');
-            }
-
-            $fields[] = $attributes[0]->newInstance();
+        if ($duplicates !== []) {
+            throw new LogicException(
+                sprintf('Settings are declared more than once: %s.', implode(', ', $duplicates))
+            );
         }
 
         $this->fields = $fields;
@@ -157,9 +157,9 @@ final class SettingsSchema
      */
     private function hydrate(array $values): Settings
     {
-        $tabTitle = $values['tab_title'] ?? null;
-        $defaultSpecifications = $values['wc_default_specs'] ?? null;
-        $loadDefaultStyles = $values['load_default_styles'] ?? null;
+        $tabTitle = $values[Settings::TAB_TITLE] ?? null;
+        $defaultSpecifications = $values[Settings::WOOCOMMERCE_DEFAULT_SPECIFICATIONS] ?? null;
+        $loadDefaultStyles = $values[Settings::LOAD_DEFAULT_STYLES] ?? null;
 
         if (!is_string($tabTitle) || !is_string($defaultSpecifications) || !is_bool($loadDefaultStyles)) {
             throw new LogicException('The settings schema does not match the settings object.');

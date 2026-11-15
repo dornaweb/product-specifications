@@ -13,6 +13,12 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
+      - name: Install Node dependencies
+        uses: ./.github/actions/node-dependencies
+
+      - name: Build assets
+        run: npm run build
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:

@@ -102,6 +102,7 @@ final class SpecificationDeletionService
     {
         throw new RuntimeException(
             sprintf(
+                /* translators: %s: why the deletion stopped, such as "its specification sets could not be updated". */
                 __('The specification was not deleted because %s.', 'product-specifications'),
                 $reason
             )

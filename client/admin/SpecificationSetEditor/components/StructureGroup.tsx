@@ -101,7 +101,7 @@ const StructureGroup = ( {
 					{ group.items.length === 0
 						? __( 'Empty group', 'product-specifications' )
 						: sprintf(
-								/* translators: %d: number of specifications in the group. */
+								/* translators: %d: number of specifications. */
 								_n(
 									'%d specification',
 									'%d specifications',

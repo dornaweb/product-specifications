@@ -17,5 +17,13 @@ phpunit.xml*
 README.md
 psalm.xml*
 phpsalm-baseline.xml
-config/scoper.php
 /docs/
+/config/
+/openspec/
+/e2e-artifacts/
+composer.json
+eslint.config.mjs
+jest.config.js
+webpack.config.js
+tsconfig.json
+phpstan.neon*

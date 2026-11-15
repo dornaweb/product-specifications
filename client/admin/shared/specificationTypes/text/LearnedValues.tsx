@@ -52,7 +52,7 @@ const LearnedValues = ( { learned, onPromote }: Props ) => {
 								</span>
 								<span className="ps-learned-values__count">
 									{ sprintf(
-										/* translators: %d: how many products carry the value. */
+										/* translators: %d: number of products. */
 										_n(
 											'%d product',
 											'%d products',

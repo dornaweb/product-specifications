@@ -38,7 +38,7 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 	const isSingle = items.length === 1;
 	const title = isSingle
 		? sprintf(
-				/* translators: %s: the specification being deleted. */
+				/* translators: %s: the name of the item being deleted. */
 				__( 'Delete “%s”?', 'product-specifications' ),
 				items[ 0 ]?.name ?? ''
 		  )
@@ -211,7 +211,7 @@ const CombinedImpact = ( {
 					<td>
 						<b>
 							{ sprintf(
-								/* translators: %d: number of distinct sets across the selection. */
+								/* translators: %d: number of sets. */
 								_n(
 									'%d set',
 									'%d sets',

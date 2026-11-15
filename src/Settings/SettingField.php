@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Settings;
 
-use Attribute;
-
-#[Attribute(Attribute::TARGET_PARAMETER)]
 final class SettingField
 {
     /**
@@ -50,25 +47,16 @@ final class SettingField
     {
         $options = [];
         foreach ($this->options as $value => $label) {
-            $options[] = [
-                'value' => $value,
-                // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-                'label' => translate($label, 'product-specifications'),
-            ];
+            $options[] = ['value' => $value, 'label' => $label];
         }
 
         return [
             'key' => $this->key,
             'type' => $this->type->value,
             'section' => $this->section->value,
-            // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-            'label' => translate($this->label, 'product-specifications'),
-            // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-            'description' => translate($this->description, 'product-specifications'),
-            // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-            'controlLabel' => $this->controlLabel !== ''
-                ? translate($this->controlLabel, 'product-specifications')
-                : '',
+            'label' => $this->label,
+            'description' => $this->description,
+            'controlLabel' => $this->controlLabel,
             'default' => $this->default,
             'options' => $options,
             'developerOnly' => $this->developerOnly,

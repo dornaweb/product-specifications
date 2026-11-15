@@ -67,7 +67,7 @@ export const fields: Field< SpecificationSetItem >[] = [
 		enableSorting: false,
 		render: ( { item }: { item: SpecificationSetItem } ) =>
 			sprintf(
-				/* translators: %d: number of products the set is assigned to. */
+				/* translators: %d: number of products. */
 				_n(
 					'%d product',
 					'%d products',

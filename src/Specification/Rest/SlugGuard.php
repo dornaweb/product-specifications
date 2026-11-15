@@ -100,7 +100,10 @@ final class SlugGuard
             self::TAKEN,
             sprintf(
                 /* translators: %s: a specification key. */
-                __('"%s" is already the key of another specification.', 'product-specifications'),
+                __(
+                    '"%s" is the key of another specification, or stays reserved until a deleted specification’s values are removed.',
+                    'product-specifications'
+                ),
                 $slug->value()
             ),
             ['status' => 409, 'suggestion' => $this->availability->nextFree($slug)->value()]

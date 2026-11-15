@@ -20,7 +20,7 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 	const title =
 		items.length === 1
 			? sprintf(
-					/* translators: %s: the set being deleted. */
+					/* translators: %s: the name of the item being deleted. */
 					__( 'Delete “%s”?', 'product-specifications' ),
 					items[ 0 ]?.title ?? ''
 			  )

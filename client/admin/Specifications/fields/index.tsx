@@ -60,7 +60,7 @@ export function fields(): Field< SpecificationItem >[] {
 				) : (
 					<span>
 						{ sprintf(
-							/* translators: %d: number of sets using this specification. */
+							/* translators: %d: number of sets. */
 							_n(
 								'%d set',
 								'%d sets',

@@ -139,9 +139,7 @@ const SpecificationForm = ( {
 		: availability.suggestion;
 	const keyBlocked =
 		isCreating &&
-		( keyIsWholeNumber ||
-			availability.takenBy !== null ||
-			Boolean( slugConflict ) );
+		( keyIsWholeNumber || availability.taken || Boolean( slugConflict ) );
 
 	let keyHelp: ReactNode = __(
 		'Used in exports, templates and integrations. Edit it until the first save; afterward it is permanent and never follows a rename.',
@@ -155,19 +153,14 @@ const SpecificationForm = ( {
 			'product-specifications'
 		);
 		keyTone = 'error';
-	} else if ( slugConflict || availability.takenBy !== null ) {
+	} else if ( slugConflict || availability.taken ) {
 		keyHelp = (
 			<>
 				{ slugConflict
 					? slugConflict.message
-					: sprintf(
-							/* translators: 1: the key being typed, 2: the specification that already holds it. */
-							__(
-								'“%1$s” is already the key of “%2$s”.',
-								'product-specifications'
-							),
+					: takenKeyMessage(
 							draft.slug,
-							availability.takenBy ?? ''
+							availability.heldBy
 					  ) }{ ' ' }
 				{ keySuggestion && (
 					<Button
@@ -606,3 +599,23 @@ const SpecificationForm = ( {
 };
 
 export default SpecificationForm;
+
+function takenKeyMessage( key: string, heldBy: string | null ): string {
+	if ( heldBy === null ) {
+		return sprintf(
+			/* translators: %s: the key being typed. */
+			__(
+				'“%s” stays reserved until the values of a deleted specification have been removed from products.',
+				'product-specifications'
+			),
+			key
+		);
+	}
+
+	return sprintf(
+		/* translators: 1: the key being typed, 2: the specification that already holds it. */
+		__( '“%1$s” is already the key of “%2$s”.', 'product-specifications' ),
+		key,
+		heldBy
+	);
+}

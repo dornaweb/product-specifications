@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Product Specifications for WooCommerce 0.8.11\n"
+"Project-Id-Version: Product Specifications for WooCommerce 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/dornaweb/product-specifications\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-15T18:29:18+00:00\n"
+"POT-Creation-Date: 2026-11-15T21:41:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-specifications\n"
@@ -42,11 +42,10 @@ msgstr ""
 #: src/Admin/AdminScreens.php:40
 #: assets/chunks/import-export.js:5
 #: assets/chunks/migration.js:10
-#: assets/chunks/not-built-yet.js:2
 #: assets/chunks/settings.js:5
-#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specification-set-editor.js:27
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:30
+#: assets/chunks/specifications.js:31
 msgid "Product Specifications"
 msgstr ""
 
@@ -57,7 +56,7 @@ msgstr ""
 #: assets/chunks/settings.js:5
 #: assets/chunks/specification-set-editor.js:13
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Specification sets"
 msgstr ""
 
@@ -69,7 +68,7 @@ msgid "Specification set"
 msgstr ""
 
 #: src/Admin/AdminScreens.php:49
-#: src/Settings/Settings.php:51
+#: src/Settings/Settings.php:22
 #: assets/chunks/import-export.js:1
 #: assets/chunks/import-export.js:5
 #: assets/chunks/migration.js:10
@@ -77,7 +76,7 @@ msgstr ""
 #: assets/chunks/specification-set-editor.js:13
 #: assets/chunks/specification-sets.js:1
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Specifications"
 msgstr ""
 
@@ -86,7 +85,7 @@ msgstr ""
 #: assets/chunks/migration.js:10
 #: assets/chunks/settings.js:5
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Import / Export"
 msgstr ""
 
@@ -95,7 +94,7 @@ msgstr ""
 #: assets/chunks/migration.js:10
 #: assets/chunks/settings.js:5
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Settings"
 msgstr ""
 
@@ -105,8 +104,20 @@ msgstr ""
 #: assets/chunks/migration.js:10
 #: assets/chunks/settings.js:5
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Migration"
+msgstr ""
+
+#: src/Block/StylesheetSettings.php:22
+msgid "Plugin stylesheet"
+msgstr ""
+
+#: src/Block/StylesheetSettings.php:23
+msgid "The plugin ships styles for the specification table. Turn this off if your theme styles the table itself."
+msgstr ""
+
+#: src/Block/StylesheetSettings.php:28
+msgid "Load the plugin’s stylesheet"
 msgstr ""
 
 #: src/ImportExport/ExportDownload.php:60
@@ -357,6 +368,34 @@ msgstr ""
 msgid "is a duplicate"
 msgstr ""
 
+#: src/Integration/WooCommerce/ProductTabSettings.php:22
+msgid "Specifications tab title"
+msgstr ""
+
+#: src/Integration/WooCommerce/ProductTabSettings.php:23
+msgid "The heading of the specifications tab on a product page. Leave it empty to use “Specifications”."
+msgstr ""
+
+#: src/Integration/WooCommerce/ProductTabSettings.php:33
+msgid "WooCommerce’s own “Additional information” tab"
+msgstr ""
+
+#: src/Integration/WooCommerce/ProductTabSettings.php:34
+msgid "WooCommerce shows weight, dimensions and attributes in its own tab. Choose whether it stays alongside yours."
+msgstr ""
+
+#: src/Integration/WooCommerce/ProductTabSettings.php:40
+msgid "Remove it when this product has specifications"
+msgstr ""
+
+#: src/Integration/WooCommerce/ProductTabSettings.php:44
+msgid "Always remove it"
+msgstr ""
+
+#: src/Integration/WooCommerce/ProductTabSettings.php:45
+msgid "Always keep it"
+msgstr ""
+
 #: src/Integration/WooCommerce/WooCommerceNotInstalledNoticeHandler.php:31
 msgid "This plugin needs \"WooCommerce\" to run, please install \"WooCommerce\" first."
 msgstr ""
@@ -495,25 +534,25 @@ msgid "No specification has the key %s."
 msgstr ""
 
 #. translators: %s: setting label.
-#: src/Settings/SettingField.php:105
+#: src/Settings/SettingField.php:93
 #, php-format
 msgid "Choose an available value for %s."
 msgstr ""
 
 #. translators: %s: setting label.
-#: src/Settings/SettingField.php:131
+#: src/Settings/SettingField.php:119
 #, php-format
 msgid "Choose only available values for %s."
 msgstr ""
 
 #. translators: %s: setting label.
-#: src/Settings/SettingField.php:156
+#: src/Settings/SettingField.php:144
 #, php-format
 msgid "Enter a valid hexadecimal color for %s."
 msgstr ""
 
 #. translators: %s: setting label.
-#: src/Settings/SettingField.php:176
+#: src/Settings/SettingField.php:164
 #, php-format
 msgid "The value for %s has the wrong type."
 msgstr ""
@@ -526,21 +565,21 @@ msgstr ""
 msgid "Every setting must have a string key."
 msgstr ""
 
-#: src/Settings/SettingsSchema.php:75
+#: src/Settings/SettingsSchema.php:78
 msgid "This stored value is no longer available."
 msgstr ""
 
-#: src/Settings/SettingsSchema.php:95
+#: src/Settings/SettingsSchema.php:98
 msgid "The request contains unknown settings."
 msgstr ""
 
 #. translators: %s: setting label.
-#: src/Settings/SettingsSchema.php:103
+#: src/Settings/SettingsSchema.php:106
 #, php-format
 msgid "A value is required for %s."
 msgstr ""
 
-#: src/Settings/SettingsSchema.php:112
+#: src/Settings/SettingsSchema.php:115
 msgid "This value is invalid."
 msgstr ""
 
@@ -610,7 +649,8 @@ msgstr ""
 msgid "its specification sets could not be updated"
 msgstr ""
 
-#: src/Specification/Deletion/SpecificationDeletionService.php:105
+#. translators: %s: why the deletion stopped, such as "its specification sets could not be updated".
+#: src/Specification/Deletion/SpecificationDeletionService.php:106
 #, php-format
 msgid "The specification was not deleted because %s."
 msgstr ""
@@ -628,7 +668,7 @@ msgstr ""
 #. translators: %s: a specification key.
 #: src/Specification/Rest/SlugGuard.php:103
 #, php-format
-msgid "\"%s\" is already the key of another specification."
+msgid "\"%s\" is the key of another specification, or stays reserved until a deleted specification’s values are removed."
 msgstr ""
 
 #: src/Specification/Rest/SpecificationCollectionQuery.php:26
@@ -650,7 +690,7 @@ msgid "Specification"
 msgstr ""
 
 #: src/Specification/SpecificationTaxonomy.php:71
-#: assets/chunks/specifications.js:20
+#: assets/chunks/specifications.js:21
 msgid "Search specifications"
 msgstr ""
 
@@ -681,7 +721,7 @@ msgstr ""
 #: src/Specification/SpecificationTaxonomy.php:78
 #: assets/chunks/specification-set-editor.js:5
 #: assets/chunks/specification-set-editor.js:10
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "New specification"
 msgstr ""
 
@@ -703,22 +743,22 @@ msgid "Enter a date."
 msgstr ""
 
 #: src/Specification/Type/Date/DateType.php:22
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "Date"
 msgstr ""
 
 #: src/Specification/Type/Document/DocumentType.php:37
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:7
 msgid "Document"
 msgstr ""
 
 #: src/Specification/Type/Link/LinkType.php:23
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "Link"
 msgstr ""
@@ -762,15 +802,15 @@ msgid "The first number cannot be larger than the second."
 msgstr ""
 
 #: src/Specification/Type/Number/NumberType.php:26
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Number"
 msgstr ""
 
 #: src/Specification/Type/SelectType.php:21
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Single select"
 msgstr ""
@@ -780,29 +820,29 @@ msgid "Choose one of the options."
 msgstr ""
 
 #: src/Specification/Type/TextAreaType.php:21
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Paragraph"
 msgstr ""
 
 #: src/Specification/Type/TextType.php:23
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Text"
 msgstr ""
 
 #: src/Specification/Type/TrueFalseType.php:21
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Yes or no"
 msgstr ""
 
 #: src/Specification/Type/WooCommerce/ProductDataSources.php:70
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Weight"
 msgstr ""
@@ -812,8 +852,8 @@ msgid "Dimensions (L × W × H)"
 msgstr ""
 
 #: src/Specification/Type/WooCommerce/ProductDataSources.php:80
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Length"
 msgstr ""
@@ -835,24 +875,24 @@ msgid "GTIN, UPC, EAN or ISBN"
 msgstr ""
 
 #: src/Specification/Type/WooCommerce/WooCommerceType.php:26
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "WooCommerce product data"
 msgstr ""
 
 #: src/Specification/Type/YesNoDisplay.php:77
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Yes"
 msgstr ""
 
 #: src/Specification/Type/YesNoDisplay.php:78
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "No"
 msgstr ""
@@ -1098,21 +1138,19 @@ msgstr ""
 
 #: assets/chunks/import-export.js:5
 #: assets/chunks/migration.js:10
-#: assets/chunks/not-built-yet.js:2
 #: assets/chunks/settings.js:5
-#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specification-set-editor.js:27
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:30
+#: assets/chunks/specifications.js:31
 msgid "Areas"
 msgstr ""
 
 #: assets/chunks/import-export.js:5
 #: assets/chunks/migration.js:10
-#: assets/chunks/not-built-yet.js:2
 #: assets/chunks/settings.js:5
-#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specification-set-editor.js:27
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:30
+#: assets/chunks/specifications.js:31
 msgid "Action required"
 msgstr ""
 
@@ -1281,24 +1319,6 @@ msgstr ""
 msgid "This summary is shown once. After you continue, the Migration tab is removed."
 msgstr ""
 
-#: assets/chunks/not-built-yet.js:1
-msgid "Not built yet"
-msgstr ""
-
-#: assets/chunks/not-built-yet.js:1
-msgid "This area has not been built yet."
-msgstr ""
-
-#. translators: %s: the name of the admin area.
-#: assets/chunks/not-built-yet.js:2
-#, js-format
-msgid "%s is not built yet"
-msgstr ""
-
-#: assets/chunks/not-built-yet.js:2
-msgid "This page exists so the navigation can be reviewed before the screen behind it is built. It will be replaced by the real screen."
-msgstr ""
-
 #: assets/chunks/settings.js:1
 msgid "On"
 msgstr ""
@@ -1394,8 +1414,8 @@ msgid "Machine-readable identifier using lowercase letters, numbers, underscores
 msgstr ""
 
 #: assets/chunks/specification-set-editor.js:1
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Description"
 msgstr ""
 
@@ -1439,9 +1459,9 @@ msgid "Find a specification"
 msgstr ""
 
 #: assets/chunks/specification-set-editor.js:3
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
-#: assets/chunks/specifications.js:19
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
+#: assets/chunks/specifications.js:20
 msgid "Type"
 msgstr ""
 
@@ -1489,15 +1509,15 @@ msgid "Move %s"
 msgstr ""
 
 #: assets/chunks/specification-set-editor.js:6
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Options"
 msgstr ""
 
 #: assets/chunks/specification-set-editor.js:6
-#: assets/chunks/specification-set-editor.js:20
-#: assets/chunks/specifications.js:24
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
 #: assets/product-values.js:8
 msgid "Remove"
 msgstr ""
@@ -1548,7 +1568,6 @@ msgstr ""
 msgid "Empty group"
 msgstr ""
 
-#. translators: %d: number of specifications in the group.
 #. translators: %d: number of specifications.
 #: assets/chunks/specification-set-editor.js:7
 #: assets/chunks/specification-set-editor.js:10
@@ -1565,7 +1584,7 @@ msgstr ""
 
 #: assets/chunks/specification-set-editor.js:7
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "Edit"
 msgstr ""
 
@@ -1580,8 +1599,8 @@ msgstr ""
 #: assets/chunks/specification-set-editor.js:7
 #: assets/chunks/specification-sets.js:6
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:15
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:16
+#: assets/chunks/specifications.js:19
 msgid "Delete"
 msgstr ""
 
@@ -1608,10 +1627,10 @@ msgstr ""
 #: assets/chunks/specification-set-editor.js:7
 #: assets/chunks/specification-set-editor.js:10
 #: assets/chunks/specification-set-editor.js:13
-#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specification-set-editor.js:17
 #: assets/chunks/specification-sets.js:6
-#: assets/chunks/specifications.js:4
-#: assets/chunks/specifications.js:15
+#: assets/chunks/specifications.js:5
+#: assets/chunks/specifications.js:16
 #: assets/product-values.js:11
 #: assets/product-values.js:13
 msgid "Cancel"
@@ -1622,8 +1641,8 @@ msgid "Create group"
 msgstr ""
 
 #: assets/chunks/specification-set-editor.js:7
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 msgid "Save"
 msgstr ""
 
@@ -1791,598 +1810,604 @@ msgstr ""
 msgid "A key cannot be a whole number."
 msgstr ""
 
-#. translators: 1: the key being typed, 2: the specification that already holds it.
+#. translators: %s: the key being typed.
 #: assets/chunks/specification-set-editor.js:14
 #: assets/chunks/specifications.js:2
+#, js-format
+msgid "“%s” stays reserved until the values of a deleted specification have been removed from products."
+msgstr ""
+
+#. translators: 1: the key being typed, 2: the specification that already holds it.
+#: assets/chunks/specification-set-editor.js:15
+#: assets/chunks/specifications.js:3
 #, js-format
 msgid "“%1$s” is already the key of “%2$s”."
 msgstr ""
 
 #. translators: %s: a free key offered instead of a taken one.
-#: assets/chunks/specification-set-editor.js:15
-#: assets/chunks/specifications.js:3
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
 #, js-format
 msgid "Use “%s”"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:15
-#: assets/chunks/specifications.js:3
+#: assets/chunks/specification-set-editor.js:16
+#: assets/chunks/specifications.js:4
 msgid "Change type"
 msgstr ""
 
 #. translators: %s: the label of the type the specification is saved with.
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 #, js-format
 msgid "Keep %s"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 msgid "Save and add another"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 msgid "Save and close"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 msgid "Carried over from the last one you added."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 msgid "What kind of answer this records. It decides the input on the product screen and how the value renders."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:16
-#: assets/chunks/specifications.js:4
+#: assets/chunks/specification-set-editor.js:17
+#: assets/chunks/specifications.js:5
 msgid "Choose a type…"
 msgstr ""
 
 #. translators: 1: the type the specification is saved with. 2: the type it would change to.
-#: assets/chunks/specification-set-editor.js:17
-#: assets/chunks/specifications.js:5
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
 #, js-format
 msgid "Changing the type may make existing values unreadable. This is a %1$s today, and values that %2$s cannot read stay stored and appear as unreadable on the product screen. Nothing is deleted, and changing the type back restores them."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:17
-#: assets/chunks/specifications.js:5
+#: assets/chunks/specification-set-editor.js:18
+#: assets/chunks/specifications.js:6
 msgid "Name"
 msgstr ""
 
 #. translators: %s: the name of the existing specification.
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 #, js-format
 msgid "A specification called “%s” already exists. This is allowed, because the key is the identity, but it is usually a mistake."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Open the existing one"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Renaming later changes the label everywhere and touches no stored data."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Ready to type"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Key"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Follows the name"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Permanent. It is the identity used in exports, templates and integrations, and never follows a rename."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:18
-#: assets/chunks/specifications.js:6
+#: assets/chunks/specification-set-editor.js:19
+#: assets/chunks/specifications.js:7
 msgid "Optional"
 msgstr ""
 
 #. translators: %s: a stored value no longer present in the choices.
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:2
 #, js-format
 msgid "%s — no longer an option"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "One per line."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Show on the store as"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Check and cross icons"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Wording"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "The words for yes and no, separated by |. Leave empty to use the translated Yes and No."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Yes|No"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "A short free-form answer, optionally with suggestions or several values."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Several lines of free-form text."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "One answer from a fixed list you define."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Add at least one option, one per line."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "A single yes or no."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "A number or a range, with an optional unit such as mm, kg or GB."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:4
 msgid "Read from the product, such as its weight, SKU or brand. Nothing is entered by hand."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:7
 msgid "Files from the media library, such as datasheets, manuals or certificates."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "A web address, email address or phone number, with an optional label."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "A day, a month or a year, such as a release date."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:2
 #: assets/product-values.js:8
 msgid "Year"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:2
 #: assets/product-values.js:8
 msgid "Month"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "Precision"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "Choose a month or a year when the day is not known, such as a release in March 2026."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:8
 msgid "Day"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:2
 #: assets/product-values.js:4
 #: assets/product-values.js:8
 msgid "Default"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:2
 msgid "Offered as a suggestion when a product has no value yet. Never stored until the product is saved, and never shown on your storefront on its own."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "None"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:19
-#: assets/chunks/specifications.js:23
+#: assets/chunks/specification-set-editor.js:20
+#: assets/chunks/specifications.js:24
 #: assets/product-values.js:7
 msgid "No longer in the media library"
 msgstr ""
 
 #. translators: %s: the specification name.
-#: assets/chunks/specification-set-editor.js:20
-#: assets/chunks/specifications.js:24
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
 #: assets/product-values.js:8
 #, js-format
 msgid "Label shown for this file in %s"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:20
-#: assets/chunks/specifications.js:24
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
 #: assets/product-values.js:8
 msgid "Label"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:20
-#: assets/chunks/specifications.js:24
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
 #: assets/product-values.js:8
 msgid "Add files"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:20
-#: assets/chunks/specifications.js:24
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
 #: assets/product-values.js:8
 msgid "Add documents"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:20
-#: assets/chunks/specifications.js:24
+#: assets/chunks/specification-set-editor.js:21
+#: assets/chunks/specifications.js:25
 #: assets/product-values.js:8
 msgid "Add"
 msgstr ""
 
 #. translators: %s: the unregistered specification type id.
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:9
 #, js-format
 msgid "Unregistered type: %s"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:8
 msgid "https://…, mailto:… or tel:…"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:8
 msgid "Link label"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:8
 msgid "Label (optional)"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Optional. Applies to the number, whatever unit is chosen."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Optional."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Up to (optional)"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 #: assets/product-values.js:4
 msgid "Unit"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "No unit, a plain number"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Something else"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Default unit"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Decimal places"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "0 for whole numbers, up to 4."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Range"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Allow a range, such as 100–240 V"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Thousands"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Turn off for years and codes, such as 2026."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Separate thousands"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Minimum"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Maximum"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "The units a product can be given. Values are shown as entered, never converted."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "One per line, as it should appear after the number."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Units"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Volume"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Area"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Temperature"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Data size"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Data rate"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Frequency"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Power"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Voltage"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Current"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Battery"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Energy"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Duration"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgctxt "unit symbol"
 msgid "days"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgctxt "unit symbol"
 msgid "months"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgctxt "unit symbol"
 msgid "years"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Speed"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Light"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Sound"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "Choose at least one unit."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:4
 msgid "The minimum cannot be larger than the maximum."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Learned values"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Typed on products and suggested while any product carries them. Promote a value to keep suggesting it."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:21
-#: assets/chunks/specifications.js:25
+#: assets/chunks/specification-set-editor.js:22
+#: assets/chunks/specifications.js:26
 #: assets/product-values.js:2
 msgid "Search learned values"
 msgstr ""
 
-#. translators: %d: how many products carry the value.
-#. translators: %d: number of products the set is assigned to.
-#: assets/chunks/specification-set-editor.js:22
+#. translators: %d: number of products.
+#: assets/chunks/specification-set-editor.js:23
 #: assets/chunks/specification-sets.js:2
-#: assets/chunks/specifications.js:26
+#: assets/chunks/specifications.js:27
 #: assets/product-values.js:3
 #, js-format
 msgid "%d product"
@@ -2391,189 +2416,189 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: a learned value.
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 #, js-format
 msgid "Promote “%s” to a suggestion"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Promote"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Suggestions"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Suggest values while typing"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "The most used values come first. Any other value can still be typed."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Suggested values"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Learn new values"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Also suggest values typed on products"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Several values"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Allow several values per product"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Entered as tags and shown on your storefront separated by commas."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Add at least one suggestion, or let new values be learned."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "No value"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:2
 msgid "Shipping"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:2
 msgid "Identifiers"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:2
 msgid "Categories, tags and other taxonomies"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:2
 msgid "Attributes"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Read from the product on every page view. Nothing is entered on the product screen."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "This product data is not available on this site, so the row stays empty. It returns when the plugin that provides it is active again."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Product data"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:23
-#: assets/chunks/specifications.js:27
+#: assets/chunks/specification-set-editor.js:24
+#: assets/chunks/specifications.js:28
 #: assets/product-values.js:4
 msgid "Choose product data"
 msgstr ""
 
 #. translators: %s: the taxonomy or source id that is no longer available.
-#: assets/chunks/specification-set-editor.js:24
-#: assets/chunks/specifications.js:28
+#: assets/chunks/specification-set-editor.js:25
+#: assets/chunks/specifications.js:29
 #: assets/product-values.js:5
 #, js-format
 msgid "Unavailable: %s"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:24
-#: assets/chunks/specifications.js:28
+#: assets/chunks/specification-set-editor.js:25
+#: assets/chunks/specifications.js:29
 #: assets/product-values.js:5
 msgid "Custom attribute…"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:24
-#: assets/chunks/specifications.js:28
+#: assets/chunks/specification-set-editor.js:25
+#: assets/chunks/specifications.js:29
 #: assets/product-values.js:5
 msgid "Attribute name"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:24
-#: assets/chunks/specifications.js:28
+#: assets/chunks/specification-set-editor.js:25
+#: assets/chunks/specifications.js:29
 #: assets/product-values.js:5
 msgid "As it is named on the product."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:24
-#: assets/chunks/specifications.js:28
+#: assets/chunks/specification-set-editor.js:25
+#: assets/chunks/specifications.js:29
 #: assets/product-values.js:6
 msgid "The product data this specification reads is no longer available on this site."
 msgstr ""
 
 #. translators: %s: the product data a specification reads, such as Weight or Brands.
-#: assets/chunks/specification-set-editor.js:25
-#: assets/chunks/specifications.js:29
+#: assets/chunks/specification-set-editor.js:26
+#: assets/chunks/specifications.js:30
 #: assets/product-values.js:7
 #, js-format
 msgid "Read from the product’s %s."
 msgstr ""
 
 #. translators: %s: the name of a custom product attribute.
-#: assets/chunks/specification-set-editor.js:26
-#: assets/chunks/specifications.js:30
+#: assets/chunks/specification-set-editor.js:27
+#: assets/chunks/specifications.js:31
 #: assets/product-values.js:6
 #, js-format
 msgid "%s attribute"
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:26
-#: assets/chunks/specifications.js:30
+#: assets/chunks/specification-set-editor.js:27
+#: assets/chunks/specifications.js:31
 #: assets/product-values.js:5
 msgid "Choose which product data to show."
 msgstr ""
 
-#: assets/chunks/specification-set-editor.js:26
-#: assets/chunks/specifications.js:30
+#: assets/chunks/specification-set-editor.js:27
+#: assets/chunks/specifications.js:31
 #: assets/product-values.js:5
 msgid "Enter the name of the custom attribute."
 msgstr ""
@@ -2591,14 +2616,13 @@ msgid "Groups"
 msgstr ""
 
 #: assets/chunks/specification-sets.js:1
-#: assets/chunks/specifications.js:11
+#: assets/chunks/specifications.js:12
 msgid "Products"
 msgstr ""
 
-#. translators: %s: the set being deleted.
-#. translators: %s: the specification being deleted.
+#. translators: %s: the name of the item being deleted.
 #: assets/chunks/specification-sets.js:3
-#: assets/chunks/specifications.js:14
+#: assets/chunks/specifications.js:15
 #, js-format
 msgid "Delete “%s”?"
 msgstr ""
@@ -2686,7 +2710,7 @@ msgid "Define your first specification"
 msgstr ""
 
 #: assets/chunks/specification-sets.js:8
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "Something went wrong."
 msgstr ""
 
@@ -2737,7 +2761,7 @@ msgid "Your sets are still intact. Check the connection and try again."
 msgstr ""
 
 #: assets/chunks/specification-sets.js:9
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Retry"
 msgstr ""
 
@@ -2746,69 +2770,68 @@ msgid "Group the specifications that belong to each kind of product."
 msgstr ""
 
 #. translators: %s: specifications that could not be deleted.
-#: assets/chunks/specifications.js:7
+#: assets/chunks/specifications.js:8
 #, js-format
 msgid "Nothing was deleted. Not deleted: %s."
 msgstr ""
 
 #. translators: 1: deleted specifications. 2: specifications that could not be deleted.
-#: assets/chunks/specifications.js:8
+#: assets/chunks/specifications.js:9
 #, js-format
 msgid "Deleted: %1$s. Not deleted: %2$s."
 msgstr ""
 
 #. translators: %d: number of products holding a value.
-#: assets/chunks/specifications.js:9
+#: assets/chunks/specifications.js:10
 #, js-format
 msgid "Deleting removes its value from all %d products. That many are removed in the background, and the key stays reserved until it has finished. Deleting cannot be undone."
 msgstr ""
 
-#: assets/chunks/specifications.js:9
+#: assets/chunks/specifications.js:10
 msgid "Deleting removes its value from every product that has one. Deleting cannot be undone."
 msgstr ""
 
-#: assets/chunks/specifications.js:9
+#: assets/chunks/specifications.js:10
 msgid "No set uses this specification."
 msgstr ""
 
 #. translators: %d: number of sets that use the specification.
-#: assets/chunks/specifications.js:10
+#: assets/chunks/specifications.js:11
 #, js-format
 msgid "%d set uses this specification."
 msgid_plural "%d sets use this specification."
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/chunks/specifications.js:10
+#: assets/chunks/specifications.js:11
 msgid "No product holds a value for it."
 msgstr ""
 
 #. translators: %d: number of products holding a value.
-#: assets/chunks/specifications.js:11
+#: assets/chunks/specifications.js:12
 #, js-format
 msgid "%d product holds a value for it."
 msgid_plural "%d products hold a value for it."
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/chunks/specifications.js:11
-#: assets/chunks/specifications.js:19
+#: assets/chunks/specifications.js:12
+#: assets/chunks/specifications.js:20
 msgid "Specification"
 msgstr ""
 
-#: assets/chunks/specifications.js:11
-#: assets/chunks/specifications.js:19
+#: assets/chunks/specifications.js:12
+#: assets/chunks/specifications.js:20
 msgid "Sets"
 msgstr ""
 
-#: assets/chunks/specifications.js:11
+#: assets/chunks/specifications.js:12
 msgid "Total"
 msgstr ""
 
-#. translators: %d: number of distinct sets across the selection.
-#. translators: %d: number of sets using this specification.
-#: assets/chunks/specifications.js:12
-#: assets/chunks/specifications.js:20
+#. translators: %d: number of sets.
+#: assets/chunks/specifications.js:13
+#: assets/chunks/specifications.js:21
 #, js-format
 msgid "%d set"
 msgid_plural "%d sets"
@@ -2816,7 +2839,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of product values across the selection.
-#: assets/chunks/specifications.js:13
+#: assets/chunks/specifications.js:14
 #, js-format
 msgid "%d value"
 msgid_plural "%d values"
@@ -2824,27 +2847,27 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of specifications being deleted.
-#: assets/chunks/specifications.js:15
+#: assets/chunks/specifications.js:16
 #, js-format
 msgid "Delete %d specifications?"
 msgstr ""
 
-#: assets/chunks/specifications.js:15
+#: assets/chunks/specifications.js:16
 msgid "Checking affected sets and products…"
 msgstr ""
 
-#: assets/chunks/specifications.js:15
+#: assets/chunks/specifications.js:16
 msgid "The affected sets and products could not be loaded. Deletion is unavailable until the impact can be checked."
 msgstr ""
 
 #. translators: %d: number of specifications being deleted.
-#: assets/chunks/specifications.js:16
+#: assets/chunks/specifications.js:17
 #, js-format
 msgid "Delete %d"
 msgstr ""
 
 #. translators: %d: number of deleted specifications whose values are still being removed.
-#: assets/chunks/specifications.js:17
+#: assets/chunks/specifications.js:18
 #, js-format
 msgid "Removing the values of %d deleted specification from products…"
 msgid_plural "Removing the values of %d deleted specifications from products…"
@@ -2852,86 +2875,86 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: a specification key, 2: why its values could not be removed.
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 #, js-format
 msgid "The values of “%1$s” could not be removed from every product: %2$s Run “wp product-specifications purge run” to retry."
 msgstr ""
 
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "Specification created."
 msgstr ""
 
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "Specification saved."
 msgstr ""
 
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "Specifications deleted."
 msgstr ""
 
-#: assets/chunks/specifications.js:18
+#: assets/chunks/specifications.js:19
 msgid "Add specification"
 msgstr ""
 
 #. translators: %d: how many specifications were added in this sitting.
-#: assets/chunks/specifications.js:19
+#: assets/chunks/specifications.js:20
 #, js-format
 msgid "New specification · %d added"
 msgstr ""
 
-#: assets/chunks/specifications.js:19
+#: assets/chunks/specifications.js:20
 msgid "just added"
 msgstr ""
 
-#: assets/chunks/specifications.js:19
+#: assets/chunks/specifications.js:20
 msgid "Not used in any set"
 msgstr ""
 
 #. translators: %s: the search term that matched nothing.
-#: assets/chunks/specifications.js:21
+#: assets/chunks/specifications.js:22
 #, js-format
 msgid "Nothing matches “%s”"
 msgstr ""
 
-#: assets/chunks/specifications.js:21
+#: assets/chunks/specifications.js:22
 msgid "Nothing matches these filters"
 msgstr ""
 
-#: assets/chunks/specifications.js:21
+#: assets/chunks/specifications.js:22
 msgid "No specification has that name or slug. A search that finds nothing is usually the name of the thing you are about to add."
 msgstr ""
 
-#: assets/chunks/specifications.js:21
+#: assets/chunks/specifications.js:22
 msgid "No specification of this type exists yet."
 msgstr ""
 
 #. translators: %s: the search term that matched nothing.
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 #, js-format
 msgid "Create “%s”"
 msgstr ""
 
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Clear search"
 msgstr ""
 
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "No specifications yet"
 msgstr ""
 
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "A specification is one row of a product table — a screen size, a weight, a material. Define it once and use it in any set."
 msgstr ""
 
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Specifications could not be loaded"
 msgstr ""
 
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Your specifications are still intact. Check the connection and try again."
 msgstr ""
 
-#: assets/chunks/specifications.js:22
+#: assets/chunks/specifications.js:23
 msgid "Define each specification once, then use it in any set."
 msgstr ""
 
