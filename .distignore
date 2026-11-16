@@ -20,6 +20,7 @@ webpack.config.js
 tsconfig.json
 eslint.config.mjs
 jest.config.js
+playwright.config.ts
 
 # Tests and quality tools
 /tests/

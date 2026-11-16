@@ -43,3 +43,8 @@ Thumbs.db
 # Documentation site
 /docs/site/.vitepress/cache/
 /docs/site/.vitepress/dist/
+
+# E2E
+/tests/e2e/.auth/
+/tests/e2e/.results/
+/tests/e2e/.report/

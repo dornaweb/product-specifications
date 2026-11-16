@@ -29,6 +29,7 @@
 		"@woocommerce/dependency-extraction-webpack-plugin": "^5.1.0",
 		"@wordpress/base-styles": "^6.16.1",
 		"@wordpress/browserslist-config": "^6.54.0",
+		"@wordpress/e2e-test-utils-playwright": "^3.2.0",
 		"@wordpress/eslint-plugin": "^25.10.0",
 		"@wordpress/prettier-config": "^4.54.0",
 		"@wordpress/scripts": "^34.2.0",
@@ -54,7 +55,8 @@
 		"format": "wp-scripts format",
 		"packages-update": "wp-scripts packages-update",
 		"docs:dev": "npm --prefix docs/site run dev",
-		"docs:build": "npm --prefix docs/site run build"
+		"docs:build": "npm --prefix docs/site run build",
+		"test:e2e": "playwright test"
 	},
 	"dependencies": {
 		"@woocommerce/navigation": "^9.0.0",
