@@ -9,7 +9,11 @@
 With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
 Product Specifications is very light-weight and easy to customize.
 
-Plugin is available at [Wordpress Repository](https://wordpress.org/plugins/product-specifications/) , There's also a live demo, you can [check it out](https://tastewp.com/plugins/product-specifications/)
+Plugin is available at [Wordpress Repository](https://wordpress.org/plugins/product-specifications/).
+
+[![Try it in WordPress Playground](https://img.shields.io/badge/Try%20it%20in-WordPress%20Playground-3858e9?logo=wordpress)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/dornaweb/product-specifications/develop/.wordpress-org/blueprints/blueprint.json)
+
+The demo opens a WooCommerce store with sample products, three specification sets and filled-in specification tables, logged in as admin.
 
 ### Translation
 

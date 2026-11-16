@@ -1,0 +1,73 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Product Specifications demo",
+    "description": "A WooCommerce store on Storefront with sample products, specification sets and filled-in specification tables.",
+    "author": "dornaweb"
+  },
+  "landingPage": "/product/hoodie-with-zipper/",
+  "preferredVersions": {
+    "php": "8.1",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "login": true,
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://downloads.wordpress.org/plugin/product-specifications.2.0.0.zip"
+      }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "wordpress.org/themes",
+        "slug": "storefront"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "Product Specifications demo",
+        "woocommerce_onboarding_profile": {
+          "skipped": true
+        },
+        "woocommerce_coming_soon": "no",
+        "woocommerce_currency": "EUR"
+      }
+    },
+    {
+      "step": "importWxr",
+      "file": {
+        "resource": "vfs",
+        "path": "/wordpress/wp-content/plugins/woocommerce/sample-data/sample_products.xml"
+      }
+    },
+    {
+      "step": "writeFile",
+      "path": "/tmp/demo-specifications.json",
+      "data": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/dornaweb/product-specifications/develop/.wordpress-org/blueprints/demo-specifications.json"
+      }
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp product-specifications import /tmp/demo-specifications.json"
+    }
+  ]
+}
