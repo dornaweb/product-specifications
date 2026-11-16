@@ -61,6 +61,11 @@ jobs:
 
       - run: npx playwright install --with-deps chromium
 
+      - name: Make the mapped uploads folder writable by WordPress
+        run: |
+          mkdir -p .wp-env/uploads .wp-env/mu-plugins
+          chmod -R 777 .wp-env/uploads
+
       - run: npx --yes @wordpress/env start
 
       - name: Skip the WooCommerce onboarding
