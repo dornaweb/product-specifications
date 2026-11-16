@@ -1,4 +1,4 @@
-=== Product Specifications for Woocommerce ===
+=== Product Specifications for WooCommerce ===
 
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: specifications, product specifications,specs,specifications table,product attributes
@@ -69,20 +69,27 @@ Yes, use `[specs-table]`, or `[specs-table post_id="123"]` for another product. 
 
 == Screenshots ==
 
-1. Product specs table on product single page
-2. Add new product page, where you fill information about the product
-3. Add new product page, where you fill information about the product
-4. Table attribute groups page
-5. Product specs with tabs on the left
-6. Right-to-left languages support
-
+1. The specifications table on a product page, with text, number, yes or no, date and SKU values.
+2. The Product specifications panel on the product screen. The SKU is read from the product.
+3. The Specifications screen: every specification, its type and the sets that use it.
+4. A WooCommerce product data specification shows a value the product already has, such as its SKU.
+5. A Number specification with units, decimal places and bounds.
+6. The set editor: drag specifications from the library into groups.
+7. The Specification sets screen.
+8. The Settings screen.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Updating from 0.x? 2.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
 
 = 2.0.0 =
 2.0.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
 
 == Changelog ==
+
+= 2.0.1 - Unreleased =
+- Translators: The 0.x strings are gone, and about 560 of the 574 strings are new. "Attribute" is now "specification" and "table" is now "specification set". "Attribute" remains only for WooCommerce product attributes.
 
 = 2.0.0 - 2026-11-15 =
 Version 2.0.0 is a rewrite. Existing data is converted by a migration you start after updating. See "Upgrading from 0.x" above.

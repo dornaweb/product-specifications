@@ -18,7 +18,7 @@ Click **Add set**. The **General** tab holds:
 | Field | What it does |
 | --- | --- |
 | **Title** | The set's name in the admin. |
-| **Key / slug** | A permanent identifier, used by imports to match sets between stores. |
+| **Key** | A permanent identifier, used by imports to match sets between stores. |
 | **Description** | Optional, for your own reference. |
 | **Status** | *Publish* to show the set's table on your storefront. A *Draft* set can be assigned and filled in, but its table stays hidden until it is published. |
 
@@ -32,14 +32,18 @@ Open the **Specifications** tab.
   filter by type, and hide the ones already in the set.
 - Drag a specification into a group, or use its menu to move it. Drop it below the last
   group to create a new group, or click **Add group**.
-- Click a group's name to rename it, and drag groups and specifications to reorder them.
+- Rename a group with **Edit** in its **⋮** menu, and drag groups and specifications to
+  reorder them. Click a group's name to collapse it.
 - **New specification** creates a specification without leaving the editor.
 - A specification can be in a set once.
 
 Click **Save set** when you are done. If you leave with unsaved changes, the editor
 warns you first.
 
-## Item options
+## Hiding groups and specifications
+
+A group's **⋮** menu has **Hide on the storefront**. A hidden group stays in the set and
+on the product screen, but its rows are left out of the table.
 
 Each specification in a set has **Options**:
 
