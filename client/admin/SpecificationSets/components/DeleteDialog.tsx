@@ -35,21 +35,14 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 			{ products > 0 ? (
 				<p>
 					{ sprintf(
-						/* translators: %s: how many products the selection is assigned to. */
-						__(
-							'%s assigned to it, and will show no specifications table until another set is assigned.',
+						/* translators: %d: number of products the selection is assigned to. */
+						_n(
+							'%d product is assigned to it, and will show no specification table until another set is assigned.',
+							'%d products are assigned to it, and will show no specification table until another set is assigned.',
+							products,
 							'product-specifications'
 						),
-						sprintf(
-							/* translators: %d: number of products. */
-							_n(
-								'%d product is',
-								'%d products are',
-								products,
-								'product-specifications'
-							),
-							products
-						)
+						products
 					) }
 				</p>
 			) : (

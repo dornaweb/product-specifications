@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Product Specifications for WooCommerce
  * Plugin URI: https://github.com/dornaweb/product-specifications/
- * Description: This plugin adds a product specifications table to your woocommerce products.
+ * Description: Reusable specifications, arranged into sets, shown as a specification table on WooCommerce products.
  * Version: 2.0.0
  * Author: Amin Abdolrezapoor
  * Author URI: https://amin.nz

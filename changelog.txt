@@ -1,3 +1,10 @@
+= 2.0.1 - Unreleased =
+Translators
+- Change: The 0.x strings are gone. About 560 of the 574 strings are new, and 13 carry over unchanged.
+- Change: "Attribute" is now "specification", and "table" is now "specification set". "Attribute" remains only for WooCommerce product attributes, and "specification table" only for the table shown on the storefront.
+- Fix: Two error messages on the Settings screen can now be translated.
+- Fix: The warning shown when deleting a set that products use is one sentence, so it translates correctly in every language.
+
 = 2.0.0 - 2026-11-15 =
 Version 2.0.0 is a rewrite of the plugin. Specifications, tables and product values are stored in a new format and converted by a migration you start after updating. Your tables are hidden from the storefront until the migration has run, so take a backup and read the upgrade steps first.
 
