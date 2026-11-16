@@ -1,0 +1,1512 @@
+{
+  "format": "product-specifications",
+  "schema_version": 1,
+  "plugin_version": "2.0.0",
+  "sections": {
+    "specifications": [
+      {
+        "slug": "material",
+        "name": "Material",
+        "description": "",
+        "type": "text",
+        "options": {
+          "suggest": true,
+          "learn": true,
+          "values": [
+            "100% cotton",
+            "100% organic cotton",
+            "80% cotton, 20% polyester",
+            "Full-grain leather",
+            "Acrylic knit"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "fabric-weight",
+        "name": "Fabric weight",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "custom",
+          "units": [
+            {
+              "id": "gsm",
+              "symbol": "g/m²"
+            }
+          ],
+          "default_unit": "gsm",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "organic",
+        "name": "Organic cotton",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "icons"
+        },
+        "default": null
+      },
+      {
+        "slug": "stretch",
+        "name": "Stretch fabric",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "icons"
+        },
+        "default": null
+      },
+      {
+        "slug": "fit",
+        "name": "Fit",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "Slim",
+            "Regular",
+            "Relaxed",
+            "Oversized"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "neckline",
+        "name": "Neckline",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "Crew neck",
+            "V-neck",
+            "Polo collar",
+            "Hooded"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "sleeve-length",
+        "name": "Sleeve length",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "Short",
+            "Long",
+            "Sleeveless"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "closure",
+        "name": "Closure",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "Pullover",
+            "Full zip",
+            "Button placket",
+            "Buckle",
+            "Snapback strap"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "hood",
+        "name": "Hood",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "icons"
+        },
+        "default": null
+      },
+      {
+        "slug": "pockets",
+        "name": "Pockets",
+        "description": "",
+        "type": "text",
+        "options": {},
+        "default": null
+      },
+      {
+        "slug": "sizes",
+        "name": "Available sizes",
+        "description": "",
+        "type": "text",
+        "options": {
+          "multiple": true,
+          "suggest": true,
+          "values": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL",
+            "One size"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "colors",
+        "name": "Colors",
+        "description": "",
+        "type": "text",
+        "options": {
+          "multiple": true,
+          "suggest": true,
+          "learn": true,
+          "values": [
+            "Black",
+            "White",
+            "Gray",
+            "Blue",
+            "Red",
+            "Green",
+            "Yellow",
+            "Brown"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "wash-temperature",
+        "name": "Max. wash temperature",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "temperature",
+          "units": [
+            {
+              "id": "celsius",
+              "symbol": "°C"
+            },
+            {
+              "id": "fahrenheit",
+              "symbol": "°F"
+            }
+          ],
+          "default_unit": "celsius",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "tumble-dry",
+        "name": "Tumble dry",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "text",
+          "labels": "Allowed|Not allowed"
+        },
+        "default": null
+      },
+      {
+        "slug": "ironing",
+        "name": "Ironing",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "Do not iron",
+            "Low heat",
+            "Medium heat",
+            "High heat"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "care-notes",
+        "name": "Care notes",
+        "description": "",
+        "type": "textarea",
+        "options": {},
+        "default": null
+      },
+      {
+        "slug": "country-of-origin",
+        "name": "Made in",
+        "description": "",
+        "type": "text",
+        "options": {
+          "suggest": true,
+          "values": [
+            "Portugal",
+            "Turkey",
+            "India",
+            "Italy",
+            "Germany"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "certification",
+        "name": "Certification",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "GOTS",
+            "OEKO-TEX Standard 100",
+            "Fair Wear",
+            "None"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "collection-date",
+        "name": "Collection",
+        "description": "",
+        "type": "date",
+        "options": {
+          "precision": "month"
+        },
+        "default": null
+      },
+      {
+        "slug": "sku",
+        "name": "SKU",
+        "description": "",
+        "type": "woocommerce",
+        "options": {
+          "source": "sku"
+        },
+        "default": null
+      },
+      {
+        "slug": "length",
+        "name": "Length",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "length",
+          "units": [
+            {
+              "id": "cm",
+              "symbol": "cm"
+            },
+            {
+              "id": "in",
+              "symbol": "in"
+            }
+          ],
+          "default_unit": "cm",
+          "decimals": 0,
+          "range": true
+        },
+        "default": null
+      },
+      {
+        "slug": "head-circumference",
+        "name": "Head circumference",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "length",
+          "units": [
+            {
+              "id": "cm",
+              "symbol": "cm"
+            },
+            {
+              "id": "in",
+              "symbol": "in"
+            }
+          ],
+          "default_unit": "cm",
+          "decimals": 0,
+          "range": true
+        },
+        "default": null
+      },
+      {
+        "slug": "adjustable",
+        "name": "Adjustable",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "icons"
+        },
+        "default": null
+      },
+      {
+        "slug": "lens-width",
+        "name": "Lens width",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "length",
+          "units": [
+            {
+              "id": "mm",
+              "symbol": "mm"
+            }
+          ],
+          "default_unit": "mm",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "uv-protection",
+        "name": "UV protection",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "UV400",
+            "UV380",
+            "None"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "polarized",
+        "name": "Polarized lenses",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "icons"
+        },
+        "default": null
+      },
+      {
+        "slug": "warranty",
+        "name": "Warranty",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "duration",
+          "units": [
+            {
+              "id": "months",
+              "symbol": "months"
+            },
+            {
+              "id": "years",
+              "symbol": "years"
+            }
+          ],
+          "default_unit": "months",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "artist",
+        "name": "Artist",
+        "description": "",
+        "type": "text",
+        "options": {},
+        "default": null
+      },
+      {
+        "slug": "record-label",
+        "name": "Label",
+        "description": "",
+        "type": "text",
+        "options": {},
+        "default": null
+      },
+      {
+        "slug": "release-date",
+        "name": "Release date",
+        "description": "",
+        "type": "date",
+        "options": {
+          "precision": "day"
+        },
+        "default": null
+      },
+      {
+        "slug": "genre",
+        "name": "Genre",
+        "description": "",
+        "type": "text",
+        "options": {
+          "multiple": true,
+          "suggest": true,
+          "values": [
+            "Electronic",
+            "Indie pop",
+            "Synthwave",
+            "Ambient"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "format",
+        "name": "Format",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "Digital download",
+            "CD",
+            "Vinyl"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "tracks",
+        "name": "Tracks",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "custom",
+          "units": [
+            {
+              "id": "tracks",
+              "symbol": "tracks"
+            }
+          ],
+          "default_unit": "tracks",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "running-time",
+        "name": "Running time",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "duration",
+          "units": [
+            {
+              "id": "min",
+              "symbol": "min"
+            },
+            {
+              "id": "s",
+              "symbol": "s"
+            }
+          ],
+          "default_unit": "min",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "audio-format",
+        "name": "Audio format",
+        "description": "",
+        "type": "select",
+        "options": {
+          "values": [
+            "MP3",
+            "FLAC",
+            "WAV"
+          ]
+        },
+        "default": null
+      },
+      {
+        "slug": "bitrate",
+        "name": "Bitrate",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "data_rate",
+          "units": [
+            {
+              "id": "kbit/s",
+              "symbol": "kbit/s"
+            }
+          ],
+          "default_unit": "kbit/s",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "file-size",
+        "name": "File size",
+        "description": "",
+        "type": "unit",
+        "options": {
+          "kind": "data_size",
+          "units": [
+            {
+              "id": "MB",
+              "symbol": "MB"
+            },
+            {
+              "id": "GB",
+              "symbol": "GB"
+            }
+          ],
+          "default_unit": "MB",
+          "decimals": 0,
+          "range": false
+        },
+        "default": null
+      },
+      {
+        "slug": "explicit",
+        "name": "Explicit lyrics",
+        "description": "",
+        "type": "true_false",
+        "options": {
+          "display": "icons"
+        },
+        "default": null
+      },
+      {
+        "slug": "preview",
+        "name": "Listen",
+        "description": "",
+        "type": "link",
+        "options": {},
+        "default": null
+      }
+    ],
+    "sets": [
+      {
+        "slug": "apparel",
+        "title": "Apparel",
+        "description": "",
+        "status": "publish",
+        "groups": [
+          {
+            "key": "fabric",
+            "label": "Fabric",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "material",
+                "visible": true
+              },
+              {
+                "specification": "fabric-weight",
+                "visible": true
+              },
+              {
+                "specification": "organic",
+                "visible": true
+              },
+              {
+                "specification": "stretch",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "fit-and-style",
+            "label": "Fit and style",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "fit",
+                "visible": true
+              },
+              {
+                "specification": "neckline",
+                "visible": true
+              },
+              {
+                "specification": "sleeve-length",
+                "visible": true
+              },
+              {
+                "specification": "closure",
+                "visible": true
+              },
+              {
+                "specification": "hood",
+                "visible": true
+              },
+              {
+                "specification": "pockets",
+                "visible": true
+              },
+              {
+                "specification": "sizes",
+                "visible": true
+              },
+              {
+                "specification": "colors",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "care",
+            "label": "Care",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "wash-temperature",
+                "visible": true
+              },
+              {
+                "specification": "tumble-dry",
+                "visible": true
+              },
+              {
+                "specification": "ironing",
+                "visible": true
+              },
+              {
+                "specification": "care-notes",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "origin",
+            "label": "Origin",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "country-of-origin",
+                "visible": true
+              },
+              {
+                "specification": "certification",
+                "visible": true
+              },
+              {
+                "specification": "collection-date",
+                "visible": true
+              },
+              {
+                "specification": "sku",
+                "visible": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "accessories",
+        "title": "Accessories",
+        "description": "",
+        "status": "publish",
+        "groups": [
+          {
+            "key": "details",
+            "label": "Details",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "material",
+                "visible": true
+              },
+              {
+                "specification": "colors",
+                "visible": true
+              },
+              {
+                "specification": "length",
+                "visible": true
+              },
+              {
+                "specification": "head-circumference",
+                "visible": true
+              },
+              {
+                "specification": "adjustable",
+                "visible": true
+              },
+              {
+                "specification": "closure",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "lenses",
+            "label": "Lenses",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "lens-width",
+                "visible": true
+              },
+              {
+                "specification": "uv-protection",
+                "visible": true
+              },
+              {
+                "specification": "polarized",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "care",
+            "label": "Care",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "care-notes",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "origin",
+            "label": "Origin and warranty",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "country-of-origin",
+                "visible": true
+              },
+              {
+                "specification": "warranty",
+                "visible": true
+              },
+              {
+                "specification": "sku",
+                "visible": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "music",
+        "title": "Music",
+        "description": "",
+        "status": "publish",
+        "groups": [
+          {
+            "key": "release",
+            "label": "Release",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "artist",
+                "visible": true
+              },
+              {
+                "specification": "record-label",
+                "visible": true
+              },
+              {
+                "specification": "release-date",
+                "visible": true
+              },
+              {
+                "specification": "genre",
+                "visible": true
+              },
+              {
+                "specification": "format",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "audio",
+            "label": "Audio",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "tracks",
+                "visible": true
+              },
+              {
+                "specification": "running-time",
+                "visible": true
+              },
+              {
+                "specification": "audio-format",
+                "visible": true
+              },
+              {
+                "specification": "bitrate",
+                "visible": true
+              },
+              {
+                "specification": "file-size",
+                "visible": true
+              }
+            ]
+          },
+          {
+            "key": "extras",
+            "label": "Extras",
+            "description": "",
+            "visible": true,
+            "items": [
+              {
+                "specification": "explicit",
+                "visible": true
+              },
+              {
+                "specification": "preview",
+                "visible": true
+              },
+              {
+                "specification": "sku",
+                "visible": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "values": [
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-vneck-tee",
+          "slug": "v-neck-t-shirt"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "100% organic cotton",
+          "fabric-weight": {
+            "value": 160,
+            "unit": "gsm"
+          },
+          "organic": true,
+          "stretch": false,
+          "fit": "Slim",
+          "neckline": "V-neck",
+          "sleeve-length": "Short",
+          "closure": "Pullover",
+          "hood": false,
+          "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Blue",
+            "Green",
+            "Red"
+          ],
+          "wash-temperature": {
+            "value": 40,
+            "unit": "celsius"
+          },
+          "tumble-dry": false,
+          "ironing": "Medium heat",
+          "care-notes": "Wash inside out with similar colors. Do not bleach. Dry flat to keep the print sharp.",
+          "country-of-origin": "Portugal",
+          "certification": "GOTS",
+          "collection-date": "2025-04"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-tshirt",
+          "slug": "t-shirt"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "100% cotton",
+          "fabric-weight": {
+            "value": 180,
+            "unit": "gsm"
+          },
+          "organic": false,
+          "stretch": false,
+          "fit": "Regular",
+          "neckline": "Crew neck",
+          "sleeve-length": "Short",
+          "closure": "Pullover",
+          "hood": false,
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Gray"
+          ],
+          "wash-temperature": {
+            "value": 40,
+            "unit": "celsius"
+          },
+          "tumble-dry": true,
+          "ironing": "Medium heat",
+          "care-notes": "Wash inside out with similar colors. Do not bleach. Dry flat to keep the print sharp.",
+          "country-of-origin": "Turkey",
+          "certification": "OEKO-TEX Standard 100",
+          "collection-date": "2025-03"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "Woo-tshirt-logo",
+          "slug": "t-shirt-with-logo"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "100% organic cotton",
+          "fabric-weight": {
+            "value": 180,
+            "unit": "gsm"
+          },
+          "organic": true,
+          "stretch": false,
+          "fit": "Regular",
+          "neckline": "Crew neck",
+          "sleeve-length": "Short",
+          "closure": "Pullover",
+          "hood": false,
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Gray"
+          ],
+          "wash-temperature": {
+            "value": 30,
+            "unit": "celsius"
+          },
+          "tumble-dry": false,
+          "ironing": "Low heat",
+          "care-notes": "Wash inside out with similar colors. Do not bleach. Dry flat to keep the print sharp.",
+          "country-of-origin": "Portugal",
+          "certification": "GOTS",
+          "collection-date": "2025-06"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-long-sleeve-tee",
+          "slug": "long-sleeve-tee"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "100% cotton",
+          "fabric-weight": {
+            "value": 200,
+            "unit": "gsm"
+          },
+          "organic": false,
+          "stretch": false,
+          "fit": "Relaxed",
+          "neckline": "Crew neck",
+          "sleeve-length": "Long",
+          "closure": "Pullover",
+          "hood": false,
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Green"
+          ],
+          "wash-temperature": {
+            "value": 40,
+            "unit": "celsius"
+          },
+          "tumble-dry": true,
+          "ironing": "Medium heat",
+          "care-notes": "Wash inside out with similar colors. Do not bleach. Dry flat to keep the print sharp.",
+          "country-of-origin": "India",
+          "certification": "Fair Wear",
+          "collection-date": "2024-10"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-polo",
+          "slug": "polo"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "95% cotton, 5% elastane",
+          "fabric-weight": {
+            "value": 220,
+            "unit": "gsm"
+          },
+          "organic": false,
+          "stretch": true,
+          "fit": "Slim",
+          "neckline": "Polo collar",
+          "sleeve-length": "Short",
+          "closure": "Button placket",
+          "hood": false,
+          "pockets": "None",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Blue"
+          ],
+          "wash-temperature": {
+            "value": 30,
+            "unit": "celsius"
+          },
+          "tumble-dry": false,
+          "ironing": "Low heat",
+          "care-notes": "Button the placket before washing. Reshape the collar while damp.",
+          "country-of-origin": "Portugal",
+          "certification": "OEKO-TEX Standard 100",
+          "collection-date": "2025-05"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-hoodie",
+          "slug": "hoodie"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "80% cotton, 20% polyester",
+          "fabric-weight": {
+            "value": 320,
+            "unit": "gsm"
+          },
+          "organic": false,
+          "stretch": false,
+          "fit": "Relaxed",
+          "neckline": "Hooded",
+          "sleeve-length": "Long",
+          "closure": "Pullover",
+          "hood": true,
+          "pockets": "Kangaroo pocket",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Blue",
+            "Green",
+            "Red"
+          ],
+          "wash-temperature": {
+            "value": 30,
+            "unit": "celsius"
+          },
+          "tumble-dry": false,
+          "ironing": "Do not iron",
+          "care-notes": "Wash inside out. Close the zipper before washing. Do not use fabric softener on the fleece.",
+          "country-of-origin": "Turkey",
+          "certification": "OEKO-TEX Standard 100",
+          "collection-date": "2024-09"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-hoodie-with-logo",
+          "slug": "hoodie-with-logo"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "80% cotton, 20% polyester",
+          "fabric-weight": {
+            "value": 320,
+            "unit": "gsm"
+          },
+          "organic": false,
+          "stretch": false,
+          "fit": "Regular",
+          "neckline": "Hooded",
+          "sleeve-length": "Long",
+          "closure": "Pullover",
+          "hood": true,
+          "pockets": "Kangaroo pocket",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Blue"
+          ],
+          "wash-temperature": {
+            "value": 30,
+            "unit": "celsius"
+          },
+          "tumble-dry": false,
+          "ironing": "Do not iron",
+          "care-notes": "Wash inside out. Close the zipper before washing. Do not use fabric softener on the fleece.",
+          "country-of-origin": "Turkey",
+          "certification": "OEKO-TEX Standard 100",
+          "collection-date": "2024-11"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-hoodie-with-pocket",
+          "slug": "hoodie-with-pocket"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "100% organic cotton",
+          "fabric-weight": {
+            "value": 340,
+            "unit": "gsm"
+          },
+          "organic": true,
+          "stretch": false,
+          "fit": "Oversized",
+          "neckline": "Hooded",
+          "sleeve-length": "Long",
+          "closure": "Pullover",
+          "hood": true,
+          "pockets": "Kangaroo pocket, hidden phone pocket",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Gray"
+          ],
+          "wash-temperature": {
+            "value": 30,
+            "unit": "celsius"
+          },
+          "tumble-dry": false,
+          "ironing": "Do not iron",
+          "care-notes": "Wash inside out. Close the zipper before washing. Do not use fabric softener on the fleece.",
+          "country-of-origin": "Portugal",
+          "certification": "GOTS",
+          "collection-date": "2025-01"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-hoodie-with-zipper",
+          "slug": "hoodie-with-zipper"
+        },
+        "set": "apparel",
+        "values": {
+          "material": "80% cotton, 20% polyester",
+          "fabric-weight": {
+            "value": 300,
+            "unit": "gsm"
+          },
+          "organic": false,
+          "stretch": false,
+          "fit": "Regular",
+          "neckline": "Hooded",
+          "sleeve-length": "Long",
+          "closure": "Full zip",
+          "hood": true,
+          "pockets": "Two side pockets",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "colors": [
+            "Black"
+          ],
+          "wash-temperature": {
+            "value": 30,
+            "unit": "celsius"
+          },
+          "tumble-dry": true,
+          "ironing": "Do not iron",
+          "care-notes": "Wash inside out. Close the zipper before washing. Do not use fabric softener on the fleece.",
+          "country-of-origin": "India",
+          "certification": "Fair Wear",
+          "collection-date": "2024-12"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-beanie",
+          "slug": "beanie"
+        },
+        "set": "accessories",
+        "values": {
+          "material": "Acrylic knit",
+          "colors": [
+            "Red"
+          ],
+          "head-circumference": {
+            "min": 54,
+            "max": 60,
+            "unit": "cm"
+          },
+          "adjustable": false,
+          "care-notes": "Hand wash cold. Dry flat.",
+          "country-of-origin": "Italy",
+          "warranty": {
+            "value": 12,
+            "unit": "months"
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "Woo-beanie-logo",
+          "slug": "beanie-with-logo"
+        },
+        "set": "accessories",
+        "values": {
+          "material": "50% merino wool, 50% acrylic",
+          "colors": [
+            "Red"
+          ],
+          "head-circumference": {
+            "min": 54,
+            "max": 60,
+            "unit": "cm"
+          },
+          "adjustable": false,
+          "care-notes": "Hand wash cold with wool detergent. Dry flat.",
+          "country-of-origin": "Italy",
+          "warranty": {
+            "value": 12,
+            "unit": "months"
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-belt",
+          "slug": "belt"
+        },
+        "set": "accessories",
+        "values": {
+          "material": "Full-grain leather",
+          "colors": [
+            "Brown"
+          ],
+          "length": {
+            "min": 85,
+            "max": 115,
+            "unit": "cm"
+          },
+          "adjustable": true,
+          "closure": "Buckle",
+          "care-notes": "Wipe with a damp cloth. Condition the leather twice a year.",
+          "country-of-origin": "Italy",
+          "warranty": {
+            "value": 2,
+            "unit": "years"
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-cap",
+          "slug": "cap"
+        },
+        "set": "accessories",
+        "values": {
+          "material": "100% cotton",
+          "colors": [
+            "Yellow",
+            "Black"
+          ],
+          "head-circumference": {
+            "min": 55,
+            "max": 61,
+            "unit": "cm"
+          },
+          "adjustable": true,
+          "closure": "Snapback strap",
+          "care-notes": "Spot clean only.",
+          "country-of-origin": "Portugal",
+          "warranty": {
+            "value": 12,
+            "unit": "months"
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-sunglasses",
+          "slug": "sunglasses"
+        },
+        "set": "accessories",
+        "values": {
+          "material": "Acetate frame, polycarbonate lenses",
+          "colors": [
+            "Black"
+          ],
+          "lens-width": {
+            "value": 52,
+            "unit": "mm"
+          },
+          "uv-protection": "UV400",
+          "polarized": true,
+          "care-notes": "Clean the lenses with the microfiber cloth included. Store in the hard case.",
+          "country-of-origin": "Italy",
+          "warranty": {
+            "value": 2,
+            "unit": "years"
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "wp-pennant",
+          "slug": "wordpress-pennant"
+        },
+        "set": "accessories",
+        "values": {
+          "material": "100% cotton felt",
+          "colors": [
+            "Blue",
+            "White"
+          ],
+          "length": {
+            "min": 60,
+            "max": 60,
+            "unit": "cm"
+          },
+          "care-notes": "Spot clean only. Keep out of direct sunlight.",
+          "country-of-origin": "Germany"
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-album",
+          "slug": "album"
+        },
+        "set": "music",
+        "values": {
+          "artist": "The Logo Collective",
+          "record-label": "Woo Records",
+          "release-date": "2024-09-20",
+          "genre": [
+            "Indie pop",
+            "Electronic"
+          ],
+          "format": "Digital download",
+          "tracks": {
+            "value": 11,
+            "unit": "tracks"
+          },
+          "running-time": {
+            "value": 46,
+            "unit": "min"
+          },
+          "audio-format": "FLAC",
+          "bitrate": {
+            "value": 1411,
+            "unit": "kbit/s"
+          },
+          "file-size": {
+            "value": 480,
+            "unit": "MB"
+          },
+          "explicit": false,
+          "preview": {
+            "url": "https://wordpress.org/plugins/product-specifications/",
+            "label": "Listen to a sample"
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "product",
+          "sku": "woo-single",
+          "slug": "single"
+        },
+        "set": "music",
+        "values": {
+          "artist": "The Logo Collective",
+          "record-label": "Woo Records",
+          "release-date": "2024-06-14",
+          "genre": [
+            "Synthwave"
+          ],
+          "format": "Digital download",
+          "tracks": {
+            "value": 2,
+            "unit": "tracks"
+          },
+          "running-time": {
+            "value": 8,
+            "unit": "min"
+          },
+          "audio-format": "MP3",
+          "bitrate": {
+            "value": 320,
+            "unit": "kbit/s"
+          },
+          "file-size": {
+            "value": 19,
+            "unit": "MB"
+          },
+          "explicit": false,
+          "preview": {
+            "url": "https://wordpress.org/plugins/product-specifications/",
+            "label": "Listen to a sample"
+          }
+        }
+      }
+    ]
+  }
+}
