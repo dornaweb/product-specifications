@@ -4,9 +4,9 @@
     "multisite": true,
     "testsEnvironment": false,
     "plugins": [
-        ".",
+        "https://downloads.wordpress.org/plugin/woocommerce.zip",
         "https://downloads.wordpress.org/plugin/query-monitor.zip",
-        "https://downloads.wordpress.org/plugin/woocommerce.zip"
+        "."
     ],
     "config": {
         "WP_DEBUG": true,
