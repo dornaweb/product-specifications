@@ -83,9 +83,9 @@ A test does not earn its place when it only restates the code:
 Coverage is not a goal. A suite of low-value tests costs more to maintain than
 it ever catches, and it hides the tests that matter.
 
-**Unit tests only.** There is no integration harness yet (PS-011). Do not add a test that
-needs a booted WordPress. Verify anything else by hand and write it down in the ticket's
-test plan.
+PHP tests are unit tests only; there is no PHP integration harness. Behavior that needs a
+booted WordPress is covered by the Playwright suite in `tests/e2e/`, run against wp-env with
+`npm run test:e2e`. Verify anything else by hand and write it down in the ticket's test plan.
 
 ## Code
 

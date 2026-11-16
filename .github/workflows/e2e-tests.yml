@@ -1,0 +1,82 @@
+name: 🎭 E2E tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - "src/**"
+      - "inc/**"
+      - "types/**"
+      - "tests/e2e/**"
+      - "product-specifications.php"
+      - "package.json"
+      - "package-lock.json"
+      - "composer.json"
+      - "composer.lock"
+      - "webpack.config.js"
+      - "playwright.config.ts"
+      - ".wp-env.json"
+      - ".github/actions/**"
+      - ".github/workflows/e2e-tests.yml"
+  pull_request:
+    paths:
+      - "client/**"
+      - "src/**"
+      - "inc/**"
+      - "types/**"
+      - "tests/e2e/**"
+      - "product-specifications.php"
+      - "package.json"
+      - "package-lock.json"
+      - "composer.json"
+      - "composer.lock"
+      - "webpack.config.js"
+      - "playwright.config.ts"
+      - ".wp-env.json"
+      - ".github/actions/**"
+      - ".github/workflows/e2e-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  playwright:
+    name: Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/php-dependencies
+
+      - uses: ./.github/actions/node-dependencies
+
+      - run: npm run build
+
+      - run: npx playwright install --with-deps chromium
+
+      - run: npx --yes @wordpress/env start
+
+      - name: Skip the WooCommerce onboarding
+        run: |
+          npx @wordpress/env run cli wp transient delete _wc_activation_redirect
+          npx @wordpress/env run cli wp option update woocommerce_onboarding_profile '{"skipped":true}' --format=json
+
+      - run: npm run test:e2e
+        env:
+          WP_BASE_URL: http://localhost:8888
+
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            tests/e2e/.report
+            tests/e2e/.results
+          retention-days: 7

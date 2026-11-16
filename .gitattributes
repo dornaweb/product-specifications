@@ -21,6 +21,7 @@
 /tsconfig.json      export-ignore
 /eslint.config.mjs  export-ignore
 /jest.config.js     export-ignore
+/playwright.config.ts export-ignore
 /phpcs.xml.dist     export-ignore
 /phpunit.xml.dist   export-ignore
 /phpstan.neon.dist  export-ignore
