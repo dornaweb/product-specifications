@@ -51,16 +51,6 @@ Version 2.0.0 stores specifications differently. Your tables are hidden from the
 
 The full [migration guide](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/guide/upgrading.md) explains what changes and how to update custom code.
 
-= Features =
-
-* A reusable library of specifications, each usable in any number of sets.
-* Specification types: text, number with units and ranges, single select, document, link, date, and data WooCommerce already holds, such as weight, dimensions, SKU, categories or attributes.
-* A drag-and-drop set editor with groups.
-* A product panel that enters each value with the control its type needs.
-* The table in a product tab, in a block, or anywhere with the `[specs-table]` shortcode.
-* Import and export of specifications, sets and product values between stores, also from WP-CLI.
-* A PHP API, hooks and custom specification types for developers.
-
 = Documentation =
 The [user guide](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/README.md) covers every screen and specification type. The [developer documentation](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/developers/index.md) covers the PHP API, hooks and custom types.
 
