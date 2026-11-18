@@ -29,7 +29,9 @@ const EditorTabs = ( { editor }: EditorTabsProps ) => (
 			<TabPanel
 				className="product-specifications-specs-set-editor__tabs"
 				tabs={ TABS }
-				initialTabName="specifications"
+				initialTabName={
+					editor.mode === 'create' ? 'general' : 'specifications'
+				}
 			>
 				{ ( tab ) => {
 					const tabName = tab.name as EditorTabName;

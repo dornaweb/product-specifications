@@ -285,6 +285,17 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 			return;
 		}
 
+		if ( general.title.trim() === '' ) {
+			failSave( {
+				status: 'error',
+				message: __(
+					'Enter a title for this specification set on the General tab.',
+					'product-specifications'
+				),
+			} );
+			return;
+		}
+
 		startSaving();
 
 		try {
