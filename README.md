@@ -1,56 +1,67 @@
-# Product Specifications for Woocommerce
+# Product Specifications for WooCommerce
 
 > [!IMPORTANT]
-> **Upgrading from 0.x to 2.0.0?** Version 2.0.0 stores specifications in a new format.
+> **Upgrading from 0.x?** Version 2 stores specifications in a new format.
 > Your specification tables are hidden from the storefront until you run the migration
 > under **WooCommerce → Product Specifications → Migration**. Back up your database first
 > and read the [migration guide](docs/site/guide/upgrading.md) before you update.
 
-With Product Specifications plugin you can easily create spec. tables for your products. you can create multiple tables so you can use them for different types of products.
-Product Specifications is very light-weight and easy to customize.
+Add a grouped specifications table to your WooCommerce products. Define each specification
+once, arrange specifications into a set for each kind of product, and fill in the values on
+the product screen. The table shows in a product tab, a block and the `[specs-table]`
+shortcode.
 
-Plugin is available at [Wordpress Repository](https://wordpress.org/plugins/product-specifications/).
+The plugin is available on [WordPress.org](https://wordpress.org/plugins/product-specifications/).
 
 [![Try it in WordPress Playground](https://img.shields.io/badge/Try%20it%20in-WordPress%20Playground-3858e9?logo=wordpress)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/dornaweb/product-specifications/develop/.wordpress-org/blueprints/blueprint.json)
 
 The demo opens a WooCommerce store with sample products, three specification sets and filled-in specification tables, logged in as admin.
 
-### Translation
+![The specifications table on a product page](docs/site/guide/images/storefront-table.png)
 
-To contribute in translating this plugin please visit: [Wordpress Translation Repository](https://translate.wordpress.org/projects/wp-plugins/product-specifications/)
+## Features
 
-## Usage
+- A reusable library of specifications, each usable in any number of sets.
+- Specification types: text, paragraph, single select, yes or no, number with units and
+  ranges, document, link, date, and WooCommerce product data such as weight, dimensions,
+  SKU, brand or attributes.
+- A drag-and-drop set editor with groups.
+- A product panel that enters each value with the control its type needs.
+- The table in a product tab, a block, or anywhere with the `[specs-table]` shortcode.
+- Import and export of specifications, sets and product values, also from WP-CLI.
+- A PHP API, hooks and custom specification types for developers.
 
-### Basic uasge
+## Documentation
 
-- Install and activate the plugin
-- Go to specification tables -> groups and define some Groups
-- Go to specification tables -> attributes and define some attributes associated with groups defined in previous step
-- Go to specification tables -> add new to add a new table for a specific type of product ( eg. for mobile phones )
-- Go to "Products -> add new" under the specifications tables section you see a dropdown which you can select which table should load.
-- Select the table and fill product data in it. That's it.
+- [User guide](docs/site/README.md): getting started, specifications, sets, products and the storefront.
+- [Developer documentation](docs/site/developers/index.md): the PHP API, hooks and custom types.
+- [Upgrading from 0.x](docs/site/guide/upgrading.md)
 
-### CSS Customizations
+## Translation
 
-By default, The plugin adds its own styles to the tables, you can however disable plugin's stylesheets in the settings section and style the tables on your own.
-The specification table is under a div with `.dwspecs-product-table` CSS class and you can customize it in your CSS files.
+Help translate the plugin on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/product-specifications/).
 
-### Shortcode
+## Development
 
-You can use `[specs-table]` shortcode to display specs table.
+Requires PHP 8.1, Composer, Node.js and Docker.
 
-### How to fully customize the HTML markup of the table
-
-Copy the file `/src/views/shortcode-table-view.php` file somewhere in your theme and add the below code to your functions.php file
-
+```bash
+composer install
+npm ci
+npx @wordpress/env start     # http://localhost:8888, WooCommerce installed
+npm run start                # watch the admin and block assets
 ```
-add_filter('dw_specs_table_shortcode_output', 'my_custom_spec_table_markup', 10, 2 );
-function my_custom_spec_table_markup( $output, $args ){
-	ob_start();
-	extract( $args );
-	include( 'PATH_TO_COPIED_FILE');
-	return ob_get_clean();
-}
+
+Checks:
+
+```bash
+composer phpstan
+vendor/bin/phpcs
+vendor/bin/phpunit
+npm run lint:js
+npm run typecheck
+npm run test:js
+npm run test:e2e
 ```
 
 ## Donation
@@ -63,4 +74,5 @@ Donations are happily appreciated, if you find this work useful, you can donate 
 <a href="https://www.buymeacoffee.com/amiut" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## Changelog
+
 [See changelog for all versions](changelog.txt).

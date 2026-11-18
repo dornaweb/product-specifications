@@ -41,8 +41,9 @@ npx @wordpress/env start     # http://localhost:8888, multisite, WooCommerce ins
 npm run start                # watch the admin and block assets
 ```
 
-Translations come from the community on translate.wordpress.org. Regenerate the template
-after changing strings:
+Translations come from the community on translate.wordpress.org, which extracts the strings
+from each release itself. The template is not committed. To audit strings after changing
+them, generate it locally:
 
 ```bash
 npx @wordpress/env run cli --env-cwd=wp-content/plugins/product-specifications -- \

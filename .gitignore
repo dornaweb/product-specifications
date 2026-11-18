@@ -48,3 +48,5 @@ Thumbs.db
 /tests/e2e/.auth/
 /tests/e2e/.results/
 /tests/e2e/.report/
+
+languages/product-specifications.pot

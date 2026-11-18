@@ -1,4 +1,4 @@
-= 2.0.1 - Unreleased =
+= 2.0.1 - 2026-11-18 =
 Translators
 - Change: The 0.x strings are gone. About 560 of the 574 strings are new, and 13 carry over unchanged.
 - Change: "Attribute" is now "specification", and "table" is now "specification set". "Attribute" remains only for WooCommerce product attributes, and "specification table" only for the table shown on the storefront.
