@@ -1,4 +1,4 @@
-import { __, _x } from '@wordpress/i18n';
+import { _x } from '@wordpress/i18n';
 
 export interface Unit {
 	id: string;
@@ -19,17 +19,17 @@ const same = ( ...ids: string[] ): Unit[] =>
 export const unitKinds = (): UnitKind[] => [
 	{
 		id: 'length',
-		label: __( 'Length', 'product-specifications' ),
+		label: _x( 'Length', 'kind of measurement', 'product-specifications' ),
 		units: same( 'mm', 'cm', 'm', 'km', 'in', 'ft', 'yd', 'mi' ),
 	},
 	{
 		id: 'weight',
-		label: __( 'Weight', 'product-specifications' ),
+		label: _x( 'Weight', 'kind of measurement', 'product-specifications' ),
 		units: same( 'mg', 'g', 'kg', 't', 'oz', 'lb' ),
 	},
 	{
 		id: 'volume',
-		label: __( 'Volume', 'product-specifications' ),
+		label: _x( 'Volume', 'kind of measurement', 'product-specifications' ),
 		units: [
 			...same( 'ml', 'cl', 'l' ),
 			{ id: 'm3', symbol: 'm³' },
@@ -39,7 +39,7 @@ export const unitKinds = (): UnitKind[] => [
 	},
 	{
 		id: 'area',
-		label: __( 'Area', 'product-specifications' ),
+		label: _x( 'Area', 'kind of measurement', 'product-specifications' ),
 		units: [
 			{ id: 'mm2', symbol: 'mm²' },
 			{ id: 'cm2', symbol: 'cm²' },
@@ -50,7 +50,11 @@ export const unitKinds = (): UnitKind[] => [
 	},
 	{
 		id: 'temperature',
-		label: __( 'Temperature', 'product-specifications' ),
+		label: _x(
+			'Temperature',
+			'kind of measurement',
+			'product-specifications'
+		),
 		units: [
 			{ id: 'celsius', symbol: '°C' },
 			{ id: 'fahrenheit', symbol: '°F' },
@@ -59,47 +63,63 @@ export const unitKinds = (): UnitKind[] => [
 	},
 	{
 		id: 'data_size',
-		label: __( 'Data size', 'product-specifications' ),
+		label: _x(
+			'Data size',
+			'kind of measurement',
+			'product-specifications'
+		),
 		units: same( 'B', 'kB', 'MB', 'GB', 'TB', 'PB' ),
 	},
 	{
 		id: 'data_rate',
-		label: __( 'Data rate', 'product-specifications' ),
+		label: _x(
+			'Data rate',
+			'kind of measurement',
+			'product-specifications'
+		),
 		units: same( 'kbit/s', 'Mbit/s', 'Gbit/s' ),
 	},
 	{
 		id: 'frequency',
-		label: __( 'Frequency', 'product-specifications' ),
+		label: _x(
+			'Frequency',
+			'kind of measurement',
+			'product-specifications'
+		),
 		units: same( 'Hz', 'kHz', 'MHz', 'GHz' ),
 	},
 	{
 		id: 'power',
-		label: __( 'Power', 'product-specifications' ),
+		label: _x( 'Power', 'kind of measurement', 'product-specifications' ),
 		units: same( 'W', 'kW', 'hp' ),
 	},
 	{
 		id: 'voltage',
-		label: __( 'Voltage', 'product-specifications' ),
+		label: _x( 'Voltage', 'kind of measurement', 'product-specifications' ),
 		units: same( 'V', 'kV' ),
 	},
 	{
 		id: 'current',
-		label: __( 'Current', 'product-specifications' ),
+		label: _x( 'Current', 'kind of measurement', 'product-specifications' ),
 		units: same( 'mA', 'A' ),
 	},
 	{
 		id: 'battery',
-		label: __( 'Battery', 'product-specifications' ),
+		label: _x( 'Battery', 'kind of measurement', 'product-specifications' ),
 		units: same( 'mAh', 'Ah' ),
 	},
 	{
 		id: 'energy',
-		label: __( 'Energy', 'product-specifications' ),
+		label: _x( 'Energy', 'kind of measurement', 'product-specifications' ),
 		units: same( 'Wh', 'kWh' ),
 	},
 	{
 		id: 'duration',
-		label: __( 'Duration', 'product-specifications' ),
+		label: _x(
+			'Duration',
+			'kind of measurement',
+			'product-specifications'
+		),
 		units: [
 			...same( 's', 'min', 'h' ),
 			{
@@ -118,12 +138,12 @@ export const unitKinds = (): UnitKind[] => [
 	},
 	{
 		id: 'speed',
-		label: __( 'Speed', 'product-specifications' ),
+		label: _x( 'Speed', 'kind of measurement', 'product-specifications' ),
 		units: same( 'km/h', 'mph', 'm/s' ),
 	},
 	{
 		id: 'light',
-		label: __( 'Light', 'product-specifications' ),
+		label: _x( 'Light', 'kind of measurement', 'product-specifications' ),
 		units: [
 			{ id: 'lm', symbol: 'lm' },
 			{ id: 'cd_m2', symbol: 'cd/m²' },
@@ -131,7 +151,7 @@ export const unitKinds = (): UnitKind[] => [
 	},
 	{
 		id: 'sound',
-		label: __( 'Sound', 'product-specifications' ),
+		label: _x( 'Sound', 'kind of measurement', 'product-specifications' ),
 		units: same( 'dB' ),
 	},
 ];

@@ -4,7 +4,7 @@
 	"name": "product-specifications/product-specifications",
 	"title": "Product Specifications",
 	"category": "woocommerce",
-	"description": "The specifications table of a product.",
+	"description": "The specification table of a product.",
 	"textdomain": "product-specifications",
 	"attributes": {
 		"productId": {

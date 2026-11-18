@@ -35,34 +35,27 @@ const DeleteDialog = ( { items, isDeleting, onConfirm, onCancel }: Props ) => {
 			{ products > 0 ? (
 				<p>
 					{ sprintf(
-						/* translators: %s: how many products the selection is assigned to. */
-						__(
-							'%s assigned to it, and will show no specifications table until another set is assigned.',
+						/* translators: %d: number of products using the sets being deleted. */
+						_n(
+							'%d product will show no specification table until another set is assigned to it.',
+							'%d products will show no specification table until another set is assigned to them.',
+							products,
 							'product-specifications'
 						),
-						sprintf(
-							/* translators: %d: number of products. */
-							_n(
-								'%d product is',
-								'%d products are',
-								products,
-								'product-specifications'
-							),
-							products
-						)
+						products
 					) }
 				</p>
 			) : (
 				<p>
 					{ __(
-						'No product is assigned to it.',
+						'No product will lose its specification table.',
 						'product-specifications'
 					) }
 				</p>
 			) }
 			<p>
 				{ __(
-					'The values stored on those products are kept. They belong to the specifications themselves, not to this set, so assigning another set shows them again.',
+					'The values stored on those products are kept. They belong to the specifications themselves, not to a set, so assigning another set shows them again.',
 					'product-specifications'
 				) }
 			</p>

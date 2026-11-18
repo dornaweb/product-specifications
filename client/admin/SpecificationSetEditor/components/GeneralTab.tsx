@@ -39,7 +39,7 @@ const GeneralTab = ( {
 		<TextControl
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
-			label={ __( 'Key / Slug', 'product-specifications' ) }
+			label={ __( 'Key', 'product-specifications' ) }
 			help={ __(
 				'Machine-readable identifier using lowercase letters, numbers, underscores, or hyphens.',
 				'product-specifications'

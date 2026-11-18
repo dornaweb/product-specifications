@@ -6,7 +6,6 @@ namespace Amiut\ProductSpecs\Integration;
 
 use Amiut\ProductSpecs\Integration\WooCommerce\FeaturesCompatibilityDeclarations;
 use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
-use Amiut\ProductSpecs\Integration\WooCommerce\WooCommerceNotInstalledNoticeHandler;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 use Amiut\ProductSpecs\Migration\MigrationState;
@@ -27,8 +26,6 @@ final class Module implements ServiceModule, ExtendingModule, ExecutableModule
     public function services(): array
     {
         return [
-            WooCommerceNotInstalledNoticeHandler::class => static fn () =>
-                new WooCommerceNotInstalledNoticeHandler(),
             ProductTabs::class => static fn (ContainerInterface $container) => new ProductTabs(
                 $container->get(ProductSpecificationsBlock::class),
                 $container->get(SettingsRepository::class),
@@ -62,11 +59,6 @@ final class Module implements ServiceModule, ExtendingModule, ExecutableModule
         add_filter(
             'woocommerce_product_tabs',
             [$container->get(ProductTabs::class), 'addProductSpecificationsTab']
-        );
-
-        add_action(
-            'admin_init',
-            $container->get(WooCommerceNotInstalledNoticeHandler::class)
         );
 
         return true;

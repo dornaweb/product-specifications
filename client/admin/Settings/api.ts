@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import type {
 	SettingsRequestFailure,
 	SettingsResponse,
@@ -27,7 +28,10 @@ async function request(
 	const endpoint = window.productSpecificationsAdmin?.settingsEndpoint;
 	if ( ! endpoint ) {
 		throw new SettingsApiError( {
-			message: 'The settings endpoint is not available.',
+			message: __(
+				'The settings endpoint is not available.',
+				'product-specifications'
+			),
 			fields: {},
 		} );
 	}
@@ -48,7 +52,9 @@ async function request(
 	if ( ! response.ok ) {
 		const failure = payload as WordPressErrorResponse;
 		throw new SettingsApiError( {
-			message: failure.message ?? 'The settings request failed.',
+			message:
+				failure.message ??
+				__( 'The settings request failed.', 'product-specifications' ),
 			fields: failure.data?.fields ?? {},
 		} );
 	}

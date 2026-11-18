@@ -58,6 +58,8 @@ A number, or a range such as *100–240 V*.
 
 ## WooCommerce product data
 
+![A WooCommerce product data specification reading the SKU](./images/admin-specification-woocommerce.png)
+
 Shows something the product already has, so nothing is typed twice and the table never
 goes stale. Choose the product data:
 

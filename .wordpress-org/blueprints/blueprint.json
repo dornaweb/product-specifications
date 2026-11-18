@@ -25,8 +25,8 @@
     {
       "step": "installPlugin",
       "pluginData": {
-        "resource": "url",
-        "url": "https://downloads.wordpress.org/plugin/product-specifications.2.0.0.zip"
+        "resource": "wordpress.org/plugins",
+        "slug": "product-specifications"
       }
     },
     {

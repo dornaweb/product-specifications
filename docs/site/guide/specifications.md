@@ -15,7 +15,7 @@ filter by type.
 
 Click **Add specification**, or press <kbd>N</kbd>.
 
-![Adding a Number specification](./images/admin-specification-form.png)
+![A Number specification](./images/admin-specification-form.png)
 
 | Field | What it does |
 | --- | --- |
@@ -50,7 +50,7 @@ everywhere and leaves the key as it is.
 
 ## Changing a specification
 
-Click **Edit** on a specification. A new name or default applies everywhere at once. A
+Open a specification's **⋮** menu and click **Edit**. A new name or default applies everywhere at once. A
 value a product already has is kept when you change options such as the minimum of a
 Number: the new rules apply the next time that value is changed.
 
