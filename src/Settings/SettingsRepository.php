@@ -48,6 +48,19 @@ final class SettingsRepository
     }
 
     /**
+     * Changes one setting and keeps every other stored value as it is.
+     */
+    public function update(string $key, mixed $value): SettingsSnapshot
+    {
+        $stored = [...$this->storedValues(), $key => $this->schema->sanitizeValue($key, $value)];
+        update_option(self::OPTION_NAME, $stored, true);
+        $this->snapshot = $this->schema->snapshot($stored);
+        $this->settings = $this->snapshot->settings;
+
+        return $this->snapshot;
+    }
+
+    /**
      * @return array<string, mixed>
      */
     private function storedValues(): array

@@ -8,6 +8,8 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
+import PageControl from './PageControl';
 import type {
 	SettingFieldDefinition,
 	SettingOption,
@@ -43,6 +45,10 @@ const valueLabel = (
 
 	if ( value === '' ) {
 		return __( 'empty', 'product-specifications' );
+	}
+
+	if ( field.type === 'page' && ! value ) {
+		return __( 'none', 'product-specifications' );
 	}
 
 	return field.options.length > 0
@@ -180,6 +186,14 @@ const EditableControl = ( {
 				</div>
 			);
 		}
+		case 'page':
+			return (
+				<PageControl
+					label={ hiddenLabel }
+					pageId={ Number( value ) }
+					onChange={ onChange }
+				/>
+			);
 		case 'color':
 			return (
 				<input
@@ -206,7 +220,11 @@ const SettingControl = ( {
 		<div className="ps-setting">
 			<div className="ps-setting__label">
 				<strong>{ field.label }</strong>
-				<p>{ field.description }</p>
+				<p>
+					{ createInterpolateElement( field.description, {
+						code: <code />,
+					} ) }
+				</p>
 			</div>
 			<div className="ps-setting__control">
 				{ readOnly ? (
@@ -229,28 +247,11 @@ const SettingControl = ( {
 						) }
 					</p>
 				) }
-				{ ! error && ! readOnly && (
-					<div className="ps-setting__default">
-						<span>
-							{ atDefault
-								? sprintf(
-										/* translators: %s: default setting value. */
-										__(
-											'Default: %s',
-											'product-specifications'
-										),
-										valueLabel( field, field.default )
-								  )
-								: sprintf(
-										/* translators: %s: default setting value. */
-										__(
-											'Changed from the default (%s)',
-											'product-specifications'
-										),
-										valueLabel( field, field.default )
-								  ) }
-						</span>
-						{ ! atDefault && (
+				{ ! error &&
+					! readOnly &&
+					! atDefault &&
+					field.type !== 'page' && (
+						<div className="ps-setting__default">
 							<Button
 								variant="tertiary"
 								size="compact"
@@ -261,9 +262,8 @@ const SettingControl = ( {
 									'product-specifications'
 								) }
 							</Button>
-						) }
-					</div>
-				) }
+						</div>
+					) }
 			</div>
 		</div>
 	);

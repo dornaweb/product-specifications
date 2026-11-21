@@ -8,7 +8,7 @@ final class SettingField
 {
     /**
      * @param string|bool|int|float|list<string> $default
-     * @param array<string, string> $options
+     * @param array<array-key, string> $options
      */
     public function __construct(
         public readonly string $key,
@@ -36,7 +36,7 @@ final class SettingField
             SettingType::SELECT, SettingType::RADIO => $this->sanitizeChoice($value),
             SettingType::STRING_LIST => $this->sanitizeStringList($value),
             SettingType::COLOR => $this->sanitizeColor($value),
-            SettingType::MEDIA => $this->sanitizeMedia($value),
+            SettingType::MEDIA, SettingType::PAGE => $this->sanitizeObjectId($value),
         };
     }
 
@@ -47,7 +47,7 @@ final class SettingField
     {
         $options = [];
         foreach ($this->options as $value => $label) {
-            $options[] = ['value' => $value, 'label' => $label];
+            $options[] = ['value' => (string) $value, 'label' => $label];
         }
 
         return [
@@ -147,7 +147,7 @@ final class SettingField
             );
     }
 
-    private function sanitizeMedia(mixed $value): SettingValueResult
+    private function sanitizeObjectId(mixed $value): SettingValueResult
     {
         if (!is_int($value) || $value < 0) {
             return $this->wrongType();
