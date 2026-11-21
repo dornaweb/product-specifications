@@ -59,6 +59,7 @@ final class WordPressSpecificationSetRepository implements SpecificationSetRepos
             StructureMetaDefinition::KEY,
             $this->mapper->structureToArray($set->structure())
         );
+        update_post_meta($postId, PresentationMetaDefinition::KEY, $set->presentation()->toArray());
 
         return $postId;
     }

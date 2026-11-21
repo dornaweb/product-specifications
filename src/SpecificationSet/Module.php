@@ -31,6 +31,13 @@ final class Module implements ServiceModule, ExecutableModule
                 $container->get(StructureSanitizer::class),
                 $container->get(Capabilities::class)
             ),
+            PresentationMetaDefinition::class => static fn () => new PresentationMetaDefinition(),
+            PresentationMetaRegistrar::class => static fn (
+                ContainerInterface $container
+            ) => new PresentationMetaRegistrar(
+                $container->get(PresentationMetaDefinition::class),
+                $container->get(Capabilities::class)
+            ),
             SpecificationSetMapper::class => static fn () => new SpecificationSetMapper(),
             SpecificationSetRepository::class => static fn (ContainerInterface $container) => new WordPressSpecificationSetRepository(
                 $container->get(SpecificationSetMapper::class)
@@ -55,6 +62,7 @@ final class Module implements ServiceModule, ExecutableModule
         );
 
         $container->get(StructureMetaRegistrar::class)->init();
+        $container->get(PresentationMetaRegistrar::class)->init();
 
         add_filter('wp_insert_post_data', [$container->get(DraftSlug::class), 'assign'], 10, 2);
 

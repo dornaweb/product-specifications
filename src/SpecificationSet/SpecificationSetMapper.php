@@ -16,7 +16,8 @@ final class SpecificationSetMapper
             $post->post_status,
             $this->structureFromArray(get_post_meta($post->ID, StructureMetaDefinition::KEY, true)),
             $post->post_name,
-            $post->post_content
+            $post->post_content,
+            SpecificationSetPresentation::fromStored(get_post_meta($post->ID, PresentationMetaDefinition::KEY, true))
         );
     }
 

@@ -55,6 +55,7 @@ changes to the importer.
         "title": "Phones",
         "description": "",
         "status": "publish",
+        "comparison": true,
         "groups": [
           {
             "key": "general",

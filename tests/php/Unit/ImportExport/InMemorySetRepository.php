@@ -10,6 +10,11 @@ use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 final class InMemorySetRepository implements SpecificationSetRepository
 {
     /**
+     * @var list<SpecificationSet>
+     */
+    public array $saved = [];
+
+    /**
      * @param array<string, SpecificationSet> $bySlug
      */
     public function __construct(private readonly array $bySlug = [])
@@ -33,6 +38,8 @@ final class InMemorySetRepository implements SpecificationSetRepository
 
     public function save(SpecificationSet $set): int
     {
+        $this->saved[] = $set;
+
         return 1;
     }
 

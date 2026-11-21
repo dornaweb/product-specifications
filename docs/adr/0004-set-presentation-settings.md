@@ -53,7 +53,8 @@ specification_set_presentation
 {
   "schema_version": 1,
   "empty_rows": "hide",
-  "empty_groups": "hide"
+  "empty_groups": "hide",
+  "comparison": false
 }
 ```
 
@@ -67,6 +68,16 @@ specification_set_presentation
 A set migrated from v1 renders exactly as it did before, without the migration having
 to inspect anything. The migration writes this document with its defaults and nothing
 else.
+
+### Comparison is offered per set
+
+`comparison` decides whether the set's products can be compared on the storefront: whether
+they get a compare button, appear on the compare page and show up in its product search.
+
+A set with no stored document reads as every default, so `comparison` reads as `false`.
+Sets that existed before the member did therefore stay out of comparison, with no
+migration. Every path that creates a set writes `comparison: true`: the set editor, the
+import and `SpecificationSet::create()`.
 
 ### Rows and groups are separate members
 
@@ -161,6 +172,6 @@ implements the two behaviors separately.
 specification_set_presentation   versioned document, beside the structure
 ```
 
-Members default to the v1 behavior, so a migrated set is unchanged. Rows and groups
-have independent emptiness settings. The v1 global settings are a separate category
-and are untouched.
+Members default to the v1 behavior, so a migrated set is unchanged. A stored set without the
+document does not offer comparison; a new set does. Rows and groups have independent
+emptiness settings. The v1 global settings are a separate category and are untouched.

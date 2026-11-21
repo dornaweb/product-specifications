@@ -70,10 +70,65 @@ final class SetsSectionTest extends TestCase
         self::assertSame(EntryOutcome::UPDATE, $section->planEntry($regrouped, $plan)->status());
     }
 
+    public function testComparisonTravelsWithTheSetAndAnEntryWithoutItKeepsTheCurrentValue(): void
+    {
+        $repository = $this->phonesRepository();
+        $section = new SetsSection(
+            $repository,
+            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper())
+        );
+        $plan = new ImportPlan();
+        $entry = [...$section->export()][0];
+
+        self::assertFalse($entry['comparison']);
+
+        $turnedOn = ['comparison' => true] + $entry;
+        self::assertSame(EntryOutcome::UPDATE, $section->planEntry($turnedOn, $plan)->status());
+
+        $section->importEntry($turnedOn, $plan);
+        unset($entry['comparison']);
+        $section->importEntry($entry, $plan);
+
+        self::assertTrue($repository->saved[0]->offersComparison());
+        self::assertFalse($repository->saved[1]->offersComparison());
+    }
+
+    public function testASetTheImportCreatesOffersComparisonUnlessTheEntrySaysOtherwise(): void
+    {
+        $repository = new InMemorySetRepository();
+        $section = new SetsSection(
+            $repository,
+            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper())
+        );
+        $entry = ['slug' => 'tablets', 'title' => 'Tablets', 'groups' => []];
+
+        $section->importEntry($entry, new ImportPlan());
+        $section->importEntry(['comparison' => false] + $entry, new ImportPlan());
+
+        self::assertTrue($repository->saved[0]->offersComparison());
+        self::assertFalse($repository->saved[1]->offersComparison());
+    }
+
+    public function testComparisonMustBeABoolean(): void
+    {
+        $errors = $this->phonesSection()->validate([
+            ['slug' => 'phones', 'groups' => [], 'comparison' => 'yes'],
+        ]);
+
+        self::assertSame(['[0].comparison: must be true or false'], $errors[0]);
+    }
+
     private function phonesSection(): SetsSection
     {
         return new SetsSection(
-            new InMemorySetRepository([
+            $this->phonesRepository(),
+            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper())
+        );
+    }
+
+    private function phonesRepository(): InMemorySetRepository
+    {
+        return new InMemorySetRepository([
                 'phones' => SpecificationSet::fromStorage(
                     1,
                     'Phones',
@@ -84,8 +139,6 @@ final class SetsSectionTest extends TestCase
                     'phones',
                     'Mobile phones'
                 ),
-            ]),
-            new SpecificationDefinitionRepository(new SpecificationDefinitionMapper())
-        );
+            ]);
     }
 }
