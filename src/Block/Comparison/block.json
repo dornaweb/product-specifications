@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "product-specifications/comparison",
+	"title": "Product Comparison",
+	"category": "woocommerce",
+	"description": "Compares the products in the page's link side by side, by their specifications.",
+	"textdomain": "product-specifications",
+	"attributes": {},
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false,
+		"interactivity": true
+	},
+	"editorScript": "file:./index.tsx",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.ts",
+	"render": "file:./render.php"
+}

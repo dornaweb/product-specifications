@@ -1,4 +1,4 @@
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const defaultConfigs = require( '@wordpress/scripts/config/webpack.config' );
 const { getWebpackEntryPoints } = require( '@wordpress/scripts/utils' );
 const path = require( 'path' );
 const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
@@ -8,6 +8,13 @@ const WpDependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extr
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isHot = process.argv.includes( '--hot' );
 const isProduction = NODE_ENV === 'production';
+const outputPath = path.resolve( process.cwd(), 'assets' );
+
+// With --experimental-modules, wp-scripts builds scripts and script modules as
+// two separate configurations.
+const [ defaultConfig, defaultModuleConfig ] = Array.isArray( defaultConfigs )
+	? defaultConfigs
+	: [ defaultConfigs ];
 
 /** @type {typeof defaultConfig} */
 const webpackConfig = {
@@ -42,7 +49,7 @@ const webpackConfig = {
 	],
 	output: {
 		filename: '[name].js',
-		path: path.resolve( process.cwd(), 'assets' ),
+		path: outputPath,
 		chunkFilename: `chunks/[name].js?ver=[contenthash]`,
 	},
 	optimization: {
@@ -79,4 +86,12 @@ if ( ! isProduction ) {
 	}
 }
 
-module.exports = webpackConfig;
+module.exports = defaultModuleConfig
+	? [
+			webpackConfig,
+			{
+				...defaultModuleConfig,
+				output: { ...defaultModuleConfig.output, path: outputPath },
+			},
+	  ]
+	: webpackConfig;

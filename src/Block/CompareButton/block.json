@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "product-specifications/compare-button",
+	"title": "Compare Button",
+	"category": "woocommerce",
+	"description": "Opens the comparison with this product. Shows only for products whose specification set offers comparison.",
+	"textdomain": "product-specifications",
+	"attributes": {
+		"productId": {
+			"type": "number"
+		}
+	},
+	"usesContext": [ "postId", "postType" ],
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.tsx",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,244 @@
+@use "../styles/variables" as *;
+
+.ps-comparison {
+	container-type: inline-size;
+	margin: token("block-margin");
+}
+
+.ps-comparison .ps-comparison__limit,
+.ps-comparison .ps-comparison__add {
+	margin: 0 0 1em;
+}
+
+.ps-comparison .ps-comparison__picker {
+	max-width: 24em;
+}
+
+.ps-comparison .ps-comparison__add-button {
+	display: inline-flex;
+	gap: 0.5em;
+	align-items: center;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0.5em 1em;
+	border: 2px dashed color-mix(in srgb, currentcolor 30%, transparent);
+	border-radius: 4px;
+	background: none;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.ps-comparison .ps-comparison__add-button:hover,
+.ps-comparison .ps-comparison__add-button:focus-visible {
+	border-color: currentcolor;
+}
+
+.ps-comparison .ps-comparison__add-button[hidden] {
+	display: none;
+}
+
+.ps-comparison .ps-comparison__add-icon {
+	font-size: 1.25em;
+	line-height: 1;
+}
+
+.ps-comparison .ps-comparison__input {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 2.75em;
+	margin: 0;
+	padding: 0.5em 0.75em;
+	border: 1px solid color-mix(in srgb, currentcolor 50%, transparent);
+	border-radius: 4px;
+	background: none;
+	color: inherit;
+	font: inherit;
+	line-height: 1.5;
+}
+
+.ps-comparison .ps-comparison__results {
+	max-height: 16em;
+	margin: 0.25em 0 0;
+	padding: 0;
+	overflow-y: auto;
+	border: 1px solid token("table-border-color");
+	border-radius: 4px;
+	list-style: none;
+}
+
+.ps-comparison .ps-comparison__option {
+	display: flex;
+	gap: 0.75em;
+	align-items: center;
+	padding: 0.5em 0.75em;
+	text-align: start;
+	cursor: pointer;
+}
+
+.ps-comparison .ps-comparison__option.is-active,
+.ps-comparison .ps-comparison__option:hover {
+	background: token("table-heading-background");
+}
+
+.ps-comparison .ps-comparison__option-image {
+	flex: none;
+	border-radius: 2px;
+	object-fit: cover;
+}
+
+.ps-comparison .ps-comparison__status {
+	margin: 0.25em 0 0;
+	font-size: 0.875em;
+}
+
+.ps-comparison .ps-comparison__status:empty {
+	display: none;
+}
+
+.ps-comparison .ps-comparison__scroll {
+	overflow-x: auto;
+}
+
+.ps-comparison .ps-comparison__table {
+	width: 100%;
+	min-width: calc(var(--ps-columns, 1) * 160px * 4 / 3);
+	margin: 0;
+	border: 0;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.ps-comparison .ps-comparison__table .ps-comparison__corner {
+	width: 25%;
+}
+
+.ps-comparison .ps-comparison__table th,
+.ps-comparison .ps-comparison__table td {
+	padding: token("table-cell-padding");
+	border: 0;
+	border-block-end: 1px solid token("table-border-color");
+	background: none;
+	font-weight: inherit;
+	text-align: start;
+	vertical-align: top;
+}
+
+.ps-comparison .ps-comparison__table .ps-comparison__product {
+	position: relative;
+	min-width: 160px;
+	text-align: center;
+}
+
+.ps-comparison .ps-comparison__remove {
+	position: absolute;
+	inset-block-start: 0.25em;
+	inset-inline-end: 0.5em;
+	text-decoration: none;
+	font-size: 1.25em;
+	line-height: 1;
+}
+
+.ps-comparison .ps-comparison__image,
+.ps-comparison .ps-comparison__title,
+.ps-comparison .ps-comparison__price {
+	display: block;
+}
+
+.ps-comparison .ps-comparison__image img {
+	display: block;
+	width: 100%;
+	max-width: 8em;
+	height: auto;
+	margin: 0 auto 0.5em;
+}
+
+.ps-comparison .ps-comparison__title {
+	font-weight: token("table-heading-font-weight");
+}
+
+.ps-comparison .ps-comparison__product .stock {
+	margin: 0.25em 0 0;
+	font-size: 0.875em;
+}
+
+.ps-comparison .ps-comparison__table .ps-comparison__heading th {
+	background: token("table-heading-background");
+	color: token("table-heading-color");
+	font-weight: token("table-heading-font-weight");
+}
+
+.ps-comparison .ps-comparison__name {
+	color: token("table-name-color");
+}
+
+.ps-comparison .ps-comparison__table .ps-comparison__value {
+	color: token("table-value-color");
+	text-align: center;
+}
+
+.ps-comparison .screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+// Each specification name takes its own line above the values, so the products share
+// the full width. The explicit ARIA roles in the markup keep this a table for screen
+// readers once the rows stop being table rows.
+@container (max-width: 600px) {
+	.ps-comparison .ps-comparison__table,
+	.ps-comparison .ps-comparison__table thead,
+	.ps-comparison .ps-comparison__table tbody {
+		display: block;
+	}
+
+	.ps-comparison .ps-comparison__table {
+		min-width: 0;
+	}
+
+	.ps-comparison .ps-comparison__table thead {
+		position: relative;
+	}
+
+	.ps-comparison .ps-comparison__table tr {
+		display: grid;
+		grid-template-columns: repeat(var(--ps-columns, 2), minmax(4.5em, 1fr));
+	}
+
+	.ps-comparison .ps-comparison__table th,
+	.ps-comparison .ps-comparison__table td {
+		padding: 0.5em;
+	}
+
+	// Positioned out of the grid rather than hidden, so screen readers still count it
+	// and each value stays under its product's column header.
+	.ps-comparison .ps-comparison__table .ps-comparison__corner {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+	}
+
+	.ps-comparison .ps-comparison__table .ps-comparison__product {
+		min-width: 0;
+		padding-block-start: 1.75em;
+	}
+
+	.ps-comparison .ps-comparison__table .ps-comparison__heading th,
+	.ps-comparison .ps-comparison__table .ps-comparison__name {
+		grid-column: 1 / -1;
+	}
+
+	.ps-comparison .ps-comparison__table .ps-comparison__name {
+		padding-block-end: 0;
+		border-block-end: 0;
+		font-size: 0.875em;
+		font-weight: token("table-heading-font-weight");
+	}
+}
