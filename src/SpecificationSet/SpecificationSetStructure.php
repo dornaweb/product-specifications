@@ -37,6 +37,28 @@ final class SpecificationSetStructure
         return $this->groups;
     }
 
+    /**
+     * @return list<string>
+     */
+    public function visibleKeys(): array
+    {
+        $keys = [];
+
+        foreach ($this->groups as $group) {
+            if (!$group->visible()) {
+                continue;
+            }
+
+            foreach ($group->items() as $item) {
+                if ($item->visible()) {
+                    $keys[] = $item->slug();
+                }
+            }
+        }
+
+        return array_values(array_unique($keys));
+    }
+
     public function hasGroup(string $key): bool
     {
         return $this->positionOf($key) !== null;

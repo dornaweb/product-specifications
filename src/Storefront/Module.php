@@ -32,9 +32,12 @@ final class Module implements ServiceModule
                     $container->get(ProductValueRepository::class),
                     $container->get(SpecificationSetRepository::class),
                     $container->get(SpecificationDefinitionRepository::class),
-                    $container->get(SpecificationTypeRegistry::class),
+                    $container->get(ValueRenderer::class),
                     $container->get(MigrationState::class)
                 ),
+            ValueRenderer::class => static fn (ContainerInterface $container) => new ValueRenderer(
+                $container->get(SpecificationTypeRegistry::class)
+            ),
         ];
     }
 }
