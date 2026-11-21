@@ -8,6 +8,7 @@ import type {
 } from '../../shared/storeResolution';
 import type {
 	SpecificationSetGeneralState,
+	SpecificationSetPresentation,
 	SpecificationSetStructure,
 } from '../state';
 import {
@@ -40,6 +41,7 @@ interface SaveSpecificationSetArgs {
 	postId: number | null;
 	general: SpecificationSetGeneralState;
 	structure: SpecificationSetStructure;
+	presentation: SpecificationSetPresentation;
 }
 
 export interface SpecificationSetEntityData {
@@ -111,11 +113,17 @@ export function useSpecificationSetEntity(
 		postId: savedPostId,
 		general,
 		structure,
+		presentation,
 	}: SaveSpecificationSetArgs ): Promise< SpecificationSetEntityRecord > => {
 		const savedRecord = await saveEntityRecord(
 			'postType',
 			SPECIFICATION_SET_POST_TYPE,
-			createSpecificationSetPostRecord( savedPostId, general, structure ),
+			createSpecificationSetPostRecord(
+				savedPostId,
+				general,
+				structure,
+				presentation
+			),
 			{ throwOnError: true }
 		);
 

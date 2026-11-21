@@ -1,6 +1,7 @@
 import { cleanForSlug, safeDecodeURIComponent } from '@wordpress/url';
 import type {
 	SpecificationSetGeneralState,
+	SpecificationSetPresentation,
 	SpecificationSetStatus,
 	SpecificationSetStructure,
 } from '../state';
@@ -8,6 +9,10 @@ import {
 	readStructure,
 	STRUCTURE_META_KEY,
 } from '../../shared/contracts/structure';
+import {
+	PRESENTATION_META_KEY,
+	readPresentation,
+} from '../../shared/contracts/presentation';
 
 export interface SpecificationSetPostRecord {
 	id?: number;
@@ -40,7 +45,8 @@ export interface SpecificationSetEntityRecord {
 export function createSpecificationSetPostRecord(
 	postId: number | null,
 	general: SpecificationSetGeneralState,
-	structure: SpecificationSetStructure
+	structure: SpecificationSetStructure,
+	presentation: SpecificationSetPresentation
 ): SpecificationSetPostRecord {
 	const slug = general.slug.trim();
 	const generatedSlug = cleanForSlug( general.title );
@@ -51,7 +57,10 @@ export function createSpecificationSetPostRecord(
 		title: general.title,
 		content: general.description,
 		status: general.status,
-		meta: { [ STRUCTURE_META_KEY ]: structure },
+		meta: {
+			[ STRUCTURE_META_KEY ]: structure,
+			[ PRESENTATION_META_KEY ]: presentation,
+		},
 	};
 }
 
@@ -59,6 +68,12 @@ export function createSpecificationSetStructureFromPostRecord(
 	record: SpecificationSetEntityRecord
 ): SpecificationSetStructure {
 	return readStructure( record.meta?.[ STRUCTURE_META_KEY ] );
+}
+
+export function createSpecificationSetPresentationFromPostRecord(
+	record: SpecificationSetEntityRecord
+): SpecificationSetPresentation {
+	return readPresentation( record.meta?.[ PRESENTATION_META_KEY ] );
 }
 
 export function createEmptySpecificationSetGeneralState(): SpecificationSetGeneralState {

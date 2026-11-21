@@ -4,6 +4,7 @@ import type {
 	StructureGroup,
 	StructureItem,
 } from '../../shared/contracts/structure';
+import type { SpecificationSetPresentation } from '../../shared/contracts/presentation';
 
 export type { NoticeState };
 
@@ -19,6 +20,7 @@ export interface SpecificationSetGeneralState {
 export interface SpecificationSetEditorFormState {
 	general: SpecificationSetGeneralState;
 	structure: SpecificationSetStructure;
+	presentation: SpecificationSetPresentation;
 }
 
 export type GroupProperty = 'label' | 'description' | 'visible';
@@ -45,6 +47,12 @@ export interface InitializeEditorAction {
 	postId: number | null;
 	general: SpecificationSetGeneralState;
 	structure: SpecificationSetStructure;
+	presentation: SpecificationSetPresentation;
+}
+
+export interface UpdateComparisonAction {
+	type: 'UPDATE_COMPARISON';
+	comparison: boolean;
 }
 
 export interface AddGroupAction {
@@ -117,6 +125,7 @@ export interface FinishSaveAction {
 	postId: number;
 	general: SpecificationSetGeneralState;
 	structure: SpecificationSetStructure;
+	presentation: SpecificationSetPresentation;
 	notice: NoticeState;
 }
 
@@ -132,6 +141,7 @@ export interface DismissNoticeAction {
 export type SpecificationSetEditorAction =
 	| InitializeEditorAction
 	| UpdateGeneralFieldAction
+	| UpdateComparisonAction
 	| AddGroupAction
 	| AddItemAction
 	| UpdateGroupAction
@@ -146,4 +156,9 @@ export type SpecificationSetEditorAction =
 	| FailSaveAction
 	| DismissNoticeAction;
 
-export type { SpecificationSetStructure, StructureGroup, StructureItem };
+export type {
+	SpecificationSetPresentation,
+	SpecificationSetStructure,
+	StructureGroup,
+	StructureItem,
+};

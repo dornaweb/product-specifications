@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Card, CardBody, TabPanel } from '@wordpress/components';
 import type { SpecificationSetEditorData } from '../hooks/useSpecificationSetEditor';
+import ComparisonTab from './ComparisonTab';
 import GeneralTab from './GeneralTab';
 import StructureTab from './StructureTab';
 import type { EditorTab, EditorTabName } from './types';
@@ -15,6 +16,11 @@ const TABS: EditorTab[] = [
 	{
 		name: 'specifications',
 		title: __( 'Specifications', 'product-specifications' ),
+		className: 'product-specifications-specs-set-editor__tab',
+	},
+	{
+		name: 'comparison',
+		title: __( 'Comparison', 'product-specifications' ),
 		className: 'product-specifications-specs-set-editor__tab',
 	},
 ];
@@ -47,6 +53,14 @@ const EditorTabs = ( { editor }: EditorTabsProps ) => (
 							) }
 							{ tabName === 'specifications' && (
 								<StructureTab editor={ editor } />
+							) }
+							{ tabName === 'comparison' && (
+								<ComparisonTab
+									comparison={
+										editor.presentation.comparison
+									}
+									updateComparison={ editor.updateComparison }
+								/>
 							) }
 						</div>
 					);

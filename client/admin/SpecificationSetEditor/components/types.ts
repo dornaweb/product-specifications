@@ -1,4 +1,4 @@
-export type EditorTabName = 'general' | 'specifications';
+export type EditorTabName = 'general' | 'specifications' | 'comparison';
 
 export interface EditorTab {
 	name: EditorTabName;

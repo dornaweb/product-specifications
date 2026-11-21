@@ -1,4 +1,5 @@
 import { emptyStructure } from '../../shared/contracts/structure';
+import { presentationForNewSet } from '../../shared/contracts/presentation';
 import type {
 	SpecificationSetEditorFormState,
 	SpecificationSetEditorState,
@@ -12,6 +13,7 @@ const DEFAULT_FORM: SpecificationSetEditorFormState = {
 		status: 'draft',
 	},
 	structure: emptyStructure(),
+	presentation: presentationForNewSet(),
 };
 
 export const DEFAULT_STATE: SpecificationSetEditorState = {
