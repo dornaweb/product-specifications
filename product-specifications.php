@@ -97,6 +97,7 @@ function bootstrap(): void
             ->addModule(new Settings\Module())
             ->addModule(new Integration\Module())
             ->addModule(new Storefront\Module())
+            ->addModule(new Comparison\Module())
             ->addModule(new Block\Module())
             ->addModule(new ImportExport\Module())
             ->addModule(new Shortcode\Module())
