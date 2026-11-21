@@ -30,6 +30,7 @@ export default defineConfig( {
 						{ text: 'Specification sets', link: '/guide/sets' },
 						{ text: 'Product values', link: '/guide/products' },
 						{ text: 'On your storefront', link: '/guide/storefront' },
+						{ text: 'Product comparison', link: '/guide/comparison' },
 						{ text: 'Import and export', link: '/guide/import-export' },
 						{ text: 'FAQ', link: '/guide/faq' },
 					],

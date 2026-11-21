@@ -14,6 +14,7 @@ Each function takes a product id or a `WC_Product`.
 | `hasSpecifications($product)` | Whether that table has anything in it |
 | `specificationValue($product, $key)` | One specification's value as its type reads it, or `null` |
 | `renderSpecificationsTable($product)` | The table's HTML |
+| `renderCompareButton($product)` | The compare button's HTML, or an empty string when the product can't be compared |
 
 `SpecificationsTable` holds `TableGroup`s, each holding `TableRow`s. Groups and rows
 carry a `key()` that does not change when a merchant renames them; `label()` and

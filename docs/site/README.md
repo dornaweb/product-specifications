@@ -1,7 +1,7 @@
 # Product Specifications documentation
 
-Define each specification once, group specifications into sets, and show a consistent
-table on every WooCommerce product page.
+Define each specification once, group specifications into sets, show a consistent table
+on every WooCommerce product page, and let shoppers compare products side by side.
 
 ## Guide
 
@@ -12,6 +12,7 @@ table on every WooCommerce product page.
 - [Specification sets](./guide/sets.md)
 - [Product values](./guide/products.md)
 - [On your storefront](./guide/storefront.md)
+- [Product comparison](./guide/comparison.md)
 - [Import and export](./guide/import-export.md)
 - [FAQ](./guide/faq.md)
 
