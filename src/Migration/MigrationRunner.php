@@ -59,13 +59,30 @@ final class MigrationRunner
             return;
         }
 
-        foreach ($this->steps as $step) {
-            if ($step->total() > 0) {
-                return;
-            }
+        try {
+            $totals = $this->totals();
+        } catch (Throwable) {
+            return;
+        }
+
+        if (array_sum($totals) > 0) {
+            return;
         }
 
         $this->versions->store(DataVersion::migrated());
+    }
+
+    public function reopen(): void
+    {
+        $run = $this->runs->stored();
+
+        if ($run->isRunning() || $run->isFailed() || !$this->versions->stored()->isMigrated()) {
+            return;
+        }
+
+        if (array_sum($this->totals()) > 0) {
+            $this->versions->store(DataVersion::legacyInstall());
+        }
     }
 
     public function runChunk(): MigrationRun
@@ -156,12 +173,14 @@ final class MigrationRunner
 
     private function total(): int
     {
-        $total = 0;
+        return array_sum($this->totals());
+    }
 
-        foreach ($this->steps as $step) {
-            $total += $step->total();
-        }
-
-        return $total;
+    /**
+     * @return list<int>
+     */
+    private function totals(): array
+    {
+        return array_map(static fn (MigrationStep $step): int => $step->total(), $this->steps);
     }
 }

@@ -114,6 +114,52 @@ final class MigrationRunnerTest extends TestCase
         self::assertSame(1, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
     }
 
+    public function testACountTheDatabaseCouldNotAnswerKeepsTheSiteWaiting(): void
+    {
+        $values = $this->step('values', []);
+        $values->throwOnTotal = true;
+
+        $this->runner([$values])->completeIfNothingToMigrate();
+
+        self::assertSame(1, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+    }
+
+    public function testAMigratedSiteWithItemsLeftWaitsForANewRun(): void
+    {
+        $GLOBALS['wp_test_options'] = [DataVersionRepository::OPTION => 2];
+        (new MigrationRunRepository())->store(MigrationRun::started('values', 5, 1)->completed());
+
+        $values = $this->step('values', [10, 11, 12]);
+        $runner = $this->runner([$this->step('specifications', []), $values]);
+        $runner->reopen();
+
+        self::assertSame(1, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+
+        $runner->start();
+
+        while ($runner->run()->isRunning()) {
+            $runner->runChunk();
+        }
+
+        self::assertSame([0, 11], $values->cursors);
+        self::assertSame(2, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+    }
+
+    public function testReopeningLeavesAFinishedSiteAndAnActiveRunAlone(): void
+    {
+        $GLOBALS['wp_test_options'] = [DataVersionRepository::OPTION => 2];
+        (new MigrationRunRepository())->store(MigrationRun::started('values', 5, 1)->completed());
+
+        $this->runner([$this->step('values', [])])->reopen();
+
+        self::assertSame(2, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+
+        (new MigrationRunRepository())->store(MigrationRun::started('values', 5, 1));
+        $this->runner([$this->step('values', [10])])->reopen();
+
+        self::assertSame(2, $GLOBALS['wp_test_options'][DataVersionRepository::OPTION]);
+    }
+
     /**
      * @param list<MigrationStep> $steps
      */

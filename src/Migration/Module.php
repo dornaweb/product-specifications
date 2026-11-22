@@ -12,6 +12,7 @@ use Amiut\ProductSpecs\Migration\Step\SnapshotValueReader;
 use Amiut\ProductSpecs\Migration\Step\SpecificationDefinitionNormalizer;
 use Amiut\ProductSpecs\Migration\Step\SpecificationDefinitionsStep;
 use Amiut\ProductSpecs\Migration\Step\SpecificationSetsStep;
+use Amiut\ProductSpecs\Migration\Step\WordPressLegacyProducts;
 use Amiut\ProductSpecs\Migration\Step\WordPressSpecificationLookup;
 use Amiut\ProductSpecs\ProductValues\ProductValueRepository;
 use Amiut\ProductSpecs\Specification\SlugAvailability;
@@ -53,7 +54,8 @@ final class Module implements ServiceModule, ExecutableModule
                     ),
                     $container->get(SpecificationTypeRegistry::class)
                 ),
-                $container->get(ProductValueRepository::class)
+                $container->get(ProductValueRepository::class),
+                new WordPressLegacyProducts()
             ),
             MigrationRunner::class => static fn (ContainerInterface $container) => new MigrationRunner(
                 $container->get(MigrationRunRepository::class),
@@ -66,6 +68,9 @@ final class Module implements ServiceModule, ExecutableModule
                 ]
             ),
             BackgroundMigration::class => static fn (ContainerInterface $container) => new BackgroundMigration(
+                $container->get(MigrationRunner::class)
+            ),
+            UnfinishedRunCheck::class => static fn (ContainerInterface $container) => new UnfinishedRunCheck(
                 $container->get(MigrationRunner::class)
             ),
             MigrationScreen::class => static fn () => new MigrationScreen(),
@@ -125,6 +130,7 @@ final class Module implements ServiceModule, ExecutableModule
             static function () use ($container): void {
                 if (!wp_doing_ajax()) {
                     $container->get(MigrationRunner::class)->completeIfNothingToMigrate();
+                    $container->get(UnfinishedRunCheck::class)->perform();
                 }
             }
         );

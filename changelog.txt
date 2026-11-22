@@ -1,3 +1,7 @@
+= 2.1.1 - 2026-11-24 =
+- Fix: On large catalogs the migration could stop part-way and still report it had finished, leaving the remaining products without their specifications. Sites this happened to are asked to run the migration again after updating. It migrates only the products left behind.
+- Fix: A database error now stops the migration so it can be resumed, instead of ending it.
+
 = 2.1.0 - 2026-11-22 =
 Product comparison
 - New: Shoppers compare products of the same specification set side by side. A Compare button on the product page opens the compare page, and the comparison is a link they can share.

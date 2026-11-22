@@ -13,6 +13,7 @@ final class FakeStep implements MigrationStep
     /** @var list<int> */
     public array $cursors = [];
     public bool $throwOnNextRun = false;
+    public bool $throwOnTotal = false;
     public ?\Closure $onRun = null;
 
     /**
@@ -35,6 +36,10 @@ final class FakeStep implements MigrationStep
 
     public function total(): int
     {
+        if ($this->throwOnTotal) {
+            throw new RuntimeException('database went away');
+        }
+
         return count($this->ids);
     }
 

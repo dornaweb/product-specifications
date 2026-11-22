@@ -4,7 +4,7 @@
  * Plugin Name: Product Specifications & Comparison for WooCommerce
  * Plugin URI: https://github.com/dornaweb/product-specifications/
  * Description: Specification tables for WooCommerce products, built from reusable specification sets, and a side-by-side product comparison.
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Amin Abdolrezapoor
  * Author URI: https://amin.nz
  * License: GPL-2.0+

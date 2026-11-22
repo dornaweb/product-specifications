@@ -349,7 +349,7 @@ if (!function_exists('get_page_by_path')) {
 }
 
 if (!class_exists('WP_Error')) {
-    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:disable PSR1.Classes.ClassDeclaration, PSR1.Methods.CamelCapsMethodName.NotCamelCaps, Squiz.Classes.ValidClassName.NotCamelCaps
     // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
     class WP_Error
     {
@@ -399,7 +399,7 @@ if (!function_exists('number_format_i18n')) {
 }
 
 if (!class_exists('WP_REST_Request')) {
-    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:disable PSR1.Classes.ClassDeclaration, PSR1.Methods.CamelCapsMethodName.NotCamelCaps, Squiz.Classes.ValidClassName.NotCamelCaps
     // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress owns this name.
     class WP_REST_Request
     {
@@ -463,7 +463,7 @@ if (!function_exists('esc_attr')) {
 }
 
 if (!class_exists('WC_Product')) {
-    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:disable PSR1.Classes.ClassDeclaration, PSR1.Methods.CamelCapsMethodName.NotCamelCaps, Squiz.Classes.ValidClassName.NotCamelCaps
     // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WooCommerce owns this name.
     class WC_Product
     {
@@ -480,7 +480,7 @@ if (!class_exists('WC_Product')) {
 }
 
 if (!class_exists('WC_Product_Variation')) {
-    // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses, PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+    // phpcs:disable PSR1.Classes.ClassDeclaration, PSR1.Methods.CamelCapsMethodName.NotCamelCaps, Squiz.Classes.ValidClassName.NotCamelCaps
     // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace, Squiz.Classes.ValidClassName.NotCamelCaps -- WooCommerce owns this name.
     class WC_Product_Variation extends WC_Product
     {
@@ -684,4 +684,33 @@ if (!function_exists('add_query_arg')) {
     {
         return $url . (str_contains($url, '?') ? '&' : '?') . "{$key}={$value}";
     }
+}
+
+if (!class_exists('wpdb')) {
+    // phpcs:disable PSR1.Classes.ClassDeclaration, PSR1.Methods.CamelCapsMethodName.NotCamelCaps, Squiz.Classes.ValidClassName.NotCamelCaps
+    final class wpdb
+    {
+        public string $posts = 'wp_posts';
+        public string $postmeta = 'wp_postmeta';
+        public string $last_error = '';
+
+        public function prepare(string $query, mixed ...$args): string
+        {
+            return $query;
+        }
+
+        /**
+         * @return list<string>
+         */
+        public function get_col(string $query): array
+        {
+            return [];
+        }
+
+        public function get_var(string $query): ?string
+        {
+            return null;
+        }
+    }
+    // phpcs:enable
 }
