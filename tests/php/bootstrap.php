@@ -664,3 +664,24 @@ if (!function_exists('wp_parse_url')) {
         return parse_url($url, $component);
     }
 }
+
+if (!function_exists('get_post_status')) {
+    function get_post_status(int $postId): string|false
+    {
+        return $GLOBALS['wp_test_post_statuses'][$postId] ?? false;
+    }
+}
+
+if (!function_exists('get_permalink')) {
+    function get_permalink(int $postId): string
+    {
+        return "https://shop.test/?page_id={$postId}";
+    }
+}
+
+if (!function_exists('add_query_arg')) {
+    function add_query_arg(string $key, string $value, string $url): string
+    {
+        return $url . (str_contains($url, '?') ? '&' : '?') . "{$key}={$value}";
+    }
+}

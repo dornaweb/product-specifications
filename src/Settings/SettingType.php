@@ -15,4 +15,5 @@ enum SettingType: string
     case STRING_LIST = 'checkbox_group';
     case COLOR = 'color';
     case MEDIA = 'media';
+    case PAGE = 'page';
 }

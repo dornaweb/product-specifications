@@ -5,6 +5,7 @@ export type {
 	NoticeState,
 	SpecificationSetEditorFormState,
 	SpecificationSetGeneralState,
+	SpecificationSetPresentation,
 	SpecificationSetStatus,
 	SpecificationSetStructure,
 	StructureGroup,

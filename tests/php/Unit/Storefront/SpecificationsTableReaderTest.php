@@ -19,6 +19,7 @@ use Amiut\ProductSpecs\Storefront\SpecificationsTable;
 use Amiut\ProductSpecs\Storefront\SpecificationsTableReader;
 use Amiut\ProductSpecs\Storefront\TableGroup;
 use Amiut\ProductSpecs\Storefront\TableRow;
+use Amiut\ProductSpecs\Storefront\ValueRenderer;
 use Amiut\ProductSpecs\Upgrade\DataVersionRepository;
 use Amiut\ProductSpecs\Migration\MigrationState;
 use PHPUnit\Framework\TestCase;
@@ -211,7 +212,7 @@ final class SpecificationsTableReaderTest extends TestCase
             new WordPressProductValueRepository(),
             $sets,
             new SpecificationDefinitionRepository(new SpecificationDefinitionMapper()),
-            $types,
+            new ValueRenderer($types),
             new MigrationState(new DataVersionRepository())
         );
     }

@@ -45,6 +45,33 @@ final class SettingsSchema
     }
 
     /**
+     * @return string|bool|int|float|list<string>
+     * @throws SettingsValidationException When no setting has the key or the value is invalid.
+     */
+    public function sanitizeValue(string $key, mixed $value): string|bool|int|float|array
+    {
+        foreach ($this->fields() as $field) {
+            if ($field->key !== $key) {
+                continue;
+            }
+
+            $result = $field->sanitize($value);
+
+            if (!$result->valid || $result->value === null) {
+                throw new SettingsValidationException([
+                    $key => $result->error ?? __('This value is invalid.', 'product-specifications'),
+                ]);
+            }
+
+            return $result->value;
+        }
+
+        throw new SettingsValidationException([
+            'settings' => __('The request contains unknown settings.', 'product-specifications'),
+        ]);
+    }
+
+    /**
      * @param array<string, mixed> $stored
      * @return array{
      *     array<string, string|bool|int|float|list<string>>,
@@ -160,12 +187,32 @@ final class SettingsSchema
         $tabTitle = $values[Settings::TAB_TITLE] ?? null;
         $defaultSpecifications = $values[Settings::WOOCOMMERCE_DEFAULT_SPECIFICATIONS] ?? null;
         $loadDefaultStyles = $values[Settings::LOAD_DEFAULT_STYLES] ?? null;
+        $comparePage = $values[Settings::COMPARE_PAGE] ?? null;
+        $buttonPlacement = $values[Settings::COMPARE_BUTTON_PLACEMENT] ?? null;
+        $buttonLabel = $values[Settings::COMPARE_BUTTON_LABEL] ?? null;
+        $maximumProducts = $values[Settings::COMPARE_MAX_PRODUCTS] ?? null;
 
-        if (!is_string($tabTitle) || !is_string($defaultSpecifications) || !is_bool($loadDefaultStyles)) {
+        if (
+            !is_string($tabTitle)
+            || !is_string($defaultSpecifications)
+            || !is_bool($loadDefaultStyles)
+            || !is_int($comparePage)
+            || !is_string($buttonPlacement)
+            || !is_string($buttonLabel)
+            || !is_string($maximumProducts)
+        ) {
             throw new LogicException('The settings schema does not match the settings object.');
         }
 
-        return new Settings($tabTitle, $defaultSpecifications, $loadDefaultStyles);
+        return new Settings(
+            $tabTitle,
+            $defaultSpecifications,
+            $loadDefaultStyles,
+            $comparePage,
+            $buttonPlacement,
+            $buttonLabel,
+            (int) $maximumProducts
+        );
     }
 
     /**
@@ -184,6 +231,14 @@ final class SettingsSchema
                 'title' => __('Display', 'product-specifications'),
                 'description' => __(
                     'How specifications appear on the storefront and the product page.',
+                    'product-specifications'
+                ),
+            ],
+            SettingSection::COMPARISON->value => [
+                'key' => SettingSection::COMPARISON->value,
+                'title' => __('Comparison', 'product-specifications'),
+                'description' => __(
+                    'Where shoppers compare products and how they get there.',
                     'product-specifications'
                 ),
             ],

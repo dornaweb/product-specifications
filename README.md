@@ -1,4 +1,4 @@
-# Product Specifications for WooCommerce
+# Product Specifications & Comparison for WooCommerce
 
 > [!IMPORTANT]
 > **Upgrading from 0.x?** Version 2 stores specifications in a new format.
@@ -6,10 +6,11 @@
 > under **WooCommerce → Product Specifications → Migration**. Back up your database first
 > and read the [migration guide](docs/site/guide/upgrading.md) before you update.
 
-Add a grouped specifications table to your WooCommerce products. Define each specification
-once, arrange specifications into a set for each kind of product, and fill in the values on
-the product screen. The table shows in a product tab, a block and the `[specs-table]`
-shortcode.
+Show a clear specifications table on your WooCommerce products, and let shoppers compare
+products side by side. Define each specification once, group specifications into a set for
+each kind of product, and fill in the values on the product screen. The table shows in a
+product tab, a block and the `[specs-table]` shortcode. A Compare button on each product
+opens a comparison page where shoppers line up products of the same kind.
 
 The plugin is available on [WordPress.org](https://wordpress.org/plugins/product-specifications/).
 
@@ -28,12 +29,14 @@ The demo opens a WooCommerce store with sample products, three specification set
 - A drag-and-drop set editor with groups.
 - A product panel that enters each value with the control its type needs.
 - The table in a product tab, a block, or anywhere with the `[specs-table]` shortcode.
+- Product comparison: a Compare button, a comparison page that lines up products of the
+  same set, and a shareable link, with blocks and shortcodes to place both anywhere.
 - Import and export of specifications, sets and product values, also from WP-CLI.
 - A PHP API, hooks and custom specification types for developers.
 
 ## Documentation
 
-- [User guide](docs/site/README.md): getting started, specifications, sets, products and the storefront.
+- [User guide](docs/site/README.md): getting started, specifications, sets, products, the storefront and product comparison.
 - [Developer documentation](docs/site/developers/index.md): the PHP API, hooks and custom types.
 - [Upgrading from 0.x](docs/site/guide/upgrading.md)
 

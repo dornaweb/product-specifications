@@ -90,6 +90,20 @@ export const reducer = (
 				form: {
 					general: action.general,
 					structure: action.structure,
+					presentation: action.presentation,
+				},
+			};
+		case 'UPDATE_COMPARISON':
+			return {
+				...state,
+				hasUnsavedChanges: true,
+				notice: null,
+				form: {
+					...state.form,
+					presentation: {
+						...state.form.presentation,
+						comparison: action.comparison,
+					},
 				},
 			};
 		case 'UPDATE_GENERAL_FIELD':
@@ -231,6 +245,7 @@ export const reducer = (
 				form: {
 					general: action.general,
 					structure: action.structure,
+					presentation: action.presentation,
 				},
 			};
 		case 'FAIL_SAVE':

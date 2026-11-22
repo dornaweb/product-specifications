@@ -15,10 +15,12 @@ import type {
 	RemoveGroupAction,
 	RemoveItemAction,
 	SpecificationSetGeneralState,
+	SpecificationSetPresentation,
 	SpecificationSetStructure,
 	StartSavingAction,
 	StructureGroup,
 	StructureItem,
+	UpdateComparisonAction,
 	UpdateGeneralFieldAction,
 	UpdateGroupAction,
 	UpdateItemAction,
@@ -28,9 +30,19 @@ export const actions = {
 	initializeEditor(
 		postId: number | null,
 		general: SpecificationSetGeneralState,
-		structure: SpecificationSetStructure
+		structure: SpecificationSetStructure,
+		presentation: SpecificationSetPresentation
 	): InitializeEditorAction {
-		return { type: 'INITIALIZE_EDITOR', postId, general, structure };
+		return {
+			type: 'INITIALIZE_EDITOR',
+			postId,
+			general,
+			structure,
+			presentation,
+		};
+	},
+	updateComparison( comparison: boolean ): UpdateComparisonAction {
+		return { type: 'UPDATE_COMPARISON', comparison };
 	},
 	updateGeneralField(
 		field: GeneralField,
@@ -102,9 +114,17 @@ export const actions = {
 		postId: number,
 		general: SpecificationSetGeneralState,
 		structure: SpecificationSetStructure,
+		presentation: SpecificationSetPresentation,
 		notice: NoticeState
 	): FinishSaveAction {
-		return { type: 'FINISH_SAVE', postId, general, structure, notice };
+		return {
+			type: 'FINISH_SAVE',
+			postId,
+			general,
+			structure,
+			presentation,
+			notice,
+		};
 	},
 	failSave( notice: NoticeState ): FailSaveAction {
 		return { type: 'FAIL_SAVE', notice };

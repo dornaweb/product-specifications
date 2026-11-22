@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Block;
 
+use Amiut\ProductSpecs\Block\CompareButton\CompareButtonBlock;
+use Amiut\ProductSpecs\Block\Comparison\ComparisonBlock;
+use Amiut\ProductSpecs\Comparison\CompareButton;
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
+use Amiut\ProductSpecs\Comparison\ComparisonReader;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
 use Amiut\ProductSpecs\Storefront\ProductSpecifications;
 use Amiut\ProductSpecs\Settings\SettingsProviders;
@@ -34,6 +38,13 @@ final class Module implements ServiceModule, ExtendingModule, ExecutableModule
             },
             ProductSpecificationsBlock::class => static fn (ContainerInterface $container) => new ProductSpecificationsBlock(
                 $container->get(ProductSpecifications::class)
+            ),
+            CompareButtonBlock::class => static fn (ContainerInterface $container) => new CompareButtonBlock(
+                $container->get(CompareButton::class)
+            ),
+            ComparisonBlock::class => static fn (ContainerInterface $container) => new ComparisonBlock(
+                $container->get(ComparisonReader::class),
+                $container->get(SettingsRepository::class)
             ),
         ];
     }

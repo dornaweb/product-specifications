@@ -3,6 +3,7 @@ import type {
 	NoticeState,
 	SpecificationSetEditorState,
 	SpecificationSetGeneralState,
+	SpecificationSetPresentation,
 	SpecificationSetStructure,
 } from './types';
 
@@ -24,6 +25,11 @@ export const selectors = {
 		state: SpecificationSetEditorState
 	): SpecificationSetStructure {
 		return state.form.structure;
+	},
+	getPresentation(
+		state: SpecificationSetEditorState
+	): SpecificationSetPresentation {
+		return state.form.presentation;
 	},
 	hasUnsavedChanges( state: SpecificationSetEditorState ): boolean {
 		return state.hasUnsavedChanges;

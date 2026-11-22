@@ -48,6 +48,8 @@ use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataChoicesScript;
 use Amiut\ProductSpecs\Specification\Type\WooCommerce\ProductDataSources;
 use Amiut\ProductSpecs\SpecificationSet\DraftSlug;
 use Amiut\ProductSpecs\SpecificationSet\Module as SpecificationSetModule;
+use Amiut\ProductSpecs\SpecificationSet\PresentationMetaDefinition;
+use Amiut\ProductSpecs\SpecificationSet\PresentationMetaRegistrar;
 use Amiut\ProductSpecs\SpecificationSet\Rest\ProductUsageCounter;
 use Amiut\ProductSpecs\SpecificationSet\Rest\SpecificationSetRestField;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetMapper;
@@ -90,6 +92,8 @@ final class ServiceWiringTest extends TestCase
             StructureMetaDefinition::class => StructureMetaDefinition::class,
             StructureSanitizer::class => StructureSanitizer::class,
             StructureMetaRegistrar::class => StructureMetaRegistrar::class,
+            PresentationMetaDefinition::class => PresentationMetaDefinition::class,
+            PresentationMetaRegistrar::class => PresentationMetaRegistrar::class,
             SpecificationSetMapper::class => SpecificationSetMapper::class,
             SpecificationSetRepository::class => WordPressSpecificationSetRepository::class,
             ProductUsageCounter::class => ProductUsageCounter::class,

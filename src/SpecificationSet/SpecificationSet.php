@@ -12,7 +12,8 @@ final class SpecificationSet
         private readonly string $status,
         private readonly SpecificationSetStructure $structure,
         private readonly string $slug,
-        private readonly string $description
+        private readonly string $description,
+        private readonly SpecificationSetPresentation $presentation
     ) {
     }
 
@@ -21,9 +22,18 @@ final class SpecificationSet
         string $status,
         SpecificationSetStructure $structure,
         string $slug = '',
-        string $description = ''
+        string $description = '',
+        ?SpecificationSetPresentation $presentation = null
     ): self {
-        return new self(null, $title, $status, $structure, $slug, $description);
+        return new self(
+            null,
+            $title,
+            $status,
+            $structure,
+            $slug,
+            $description,
+            $presentation ?? SpecificationSetPresentation::forNewSet()
+        );
     }
 
     public static function fromStorage(
@@ -32,9 +42,18 @@ final class SpecificationSet
         string $status,
         SpecificationSetStructure $structure,
         string $slug = '',
-        string $description = ''
+        string $description = '',
+        ?SpecificationSetPresentation $presentation = null
     ): self {
-        return new self($id, $title, $status, $structure, $slug, $description);
+        return new self(
+            $id,
+            $title,
+            $status,
+            $structure,
+            $slug,
+            $description,
+            $presentation ?? SpecificationSetPresentation::fromStored(null)
+        );
     }
 
     public function id(): ?int
@@ -72,8 +91,26 @@ final class SpecificationSet
         return $this->structure;
     }
 
+    public function presentation(): SpecificationSetPresentation
+    {
+        return $this->presentation;
+    }
+
+    public function offersComparison(): bool
+    {
+        return $this->presentation->offersComparison();
+    }
+
     public function withStructure(SpecificationSetStructure $structure): self
     {
-        return new self($this->id, $this->title, $this->status, $structure, $this->slug, $this->description);
+        return new self(
+            $this->id,
+            $this->title,
+            $this->status,
+            $structure,
+            $this->slug,
+            $this->description,
+            $this->presentation
+        );
     }
 }

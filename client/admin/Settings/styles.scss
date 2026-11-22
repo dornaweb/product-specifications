@@ -71,13 +71,7 @@
 }
 
 .ps-setting__default {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--ps-space);
 	margin-top: var(--ps-space);
-	color: var(--ps-gray-700);
-	font-size: var(--ps-size-small);
 }
 
 .ps-setting__error {
@@ -114,10 +108,5 @@
 	.ps-setting {
 		grid-template-columns: 1fr;
 		gap: var(--ps-space-2);
-	}
-
-	.ps-setting__default {
-		align-items: flex-start;
-		flex-direction: column;
 	}
 }

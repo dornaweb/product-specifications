@@ -56,3 +56,6 @@ The table is wrapped in `.ps-product-specifications`. Its parts:
 
 Developers can change what the table holds before it renders. See
 [Hooks](../developers/hooks.md).
+
+Shoppers can also compare products side by side. See
+[Product comparison](./comparison.md).

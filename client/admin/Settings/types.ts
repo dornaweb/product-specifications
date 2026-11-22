@@ -9,7 +9,8 @@ export type SettingFieldType =
 	| 'radio'
 	| 'checkbox_group'
 	| 'color'
-	| 'media';
+	| 'media'
+	| 'page';
 
 export interface SettingOption {
 	value: string;

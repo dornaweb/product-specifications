@@ -16,6 +16,7 @@ use Amiut\ProductSpecs\SpecificationSet\WordPressSpecificationSetRepository;
 use Amiut\ProductSpecs\Storefront\ProductSpecifications;
 use Amiut\ProductSpecs\Storefront\SpecificationsTable;
 use Amiut\ProductSpecs\Storefront\SpecificationsTableReader;
+use Amiut\ProductSpecs\Storefront\ValueRenderer;
 use Amiut\ProductSpecs\Storefront\TableGroup;
 use Amiut\ProductSpecs\Storefront\TableRow;
 use Amiut\ProductSpecs\Upgrade\DataVersion;
@@ -104,7 +105,7 @@ final class ProductSpecificationsTest extends TestCase
                 $values,
                 new WordPressSpecificationSetRepository(new SpecificationSetMapper()),
                 $definitions,
-                $types,
+                new ValueRenderer($types),
                 $migration
             ),
             $values,

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Integration;
 
+use Amiut\ProductSpecs\Block\CompareButton\CompareButtonBlock;
+use Amiut\ProductSpecs\Integration\WooCommerce\CompareButtonPlacement;
 use Amiut\ProductSpecs\Integration\WooCommerce\FeaturesCompatibilityDeclarations;
 use Amiut\ProductSpecs\Integration\WooCommerce\ProductTabs;
 use Amiut\ProductSpecs\Settings\SettingsRepository;
@@ -31,6 +33,10 @@ final class Module implements ServiceModule, ExtendingModule, ExecutableModule
                 $container->get(SettingsRepository::class),
                 $container->get(MigrationState::class)
             ),
+            CompareButtonPlacement::class => static fn (ContainerInterface $container) => new CompareButtonPlacement(
+                $container->get(CompareButtonBlock::class),
+                $container->get(SettingsRepository::class)
+            ),
             FeaturesCompatibilityDeclarations::class => static function (
                 ContainerInterface $container
             ): FeaturesCompatibilityDeclarations {
@@ -54,6 +60,13 @@ final class Module implements ServiceModule, ExtendingModule, ExecutableModule
         add_action(
             'before_woocommerce_init',
             $container->get(FeaturesCompatibilityDeclarations::class)
+        );
+
+        add_action(
+            'init',
+            static function () use ($container): void {
+                $container->get(CompareButtonPlacement::class)->register();
+            }
         );
 
         add_filter(

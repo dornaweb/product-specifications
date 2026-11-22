@@ -1,7 +1,7 @@
-=== Product Specifications for WooCommerce ===
+=== Product Specifications & Comparison for WooCommerce ===
 
 Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
-Tags: woocommerce, specifications, product attributes, product tabs, product data
+Tags: woocommerce, product specifications, product comparison, compare products, specifications table
 Requires at least: 7.0
 Tested up to: 7.1
 Stable tag: 2.0.1
@@ -10,38 +10,19 @@ License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 Donate link: https://www.paypal.com/donate/?hosted_button_id=W7GUT6CFS5PVA
 
-Add a product specifications table to WooCommerce: technical specs with units, groups and reusable sets, in a product tab, block or shortcode.
+Group product specifications into sets for each kind of product, show them in a table, and let customers compare products side by side.
 
 == Description ==
 
-**Product Specifications for WooCommerce** adds a clear, grouped specifications table to your product pages. Shoppers compare technical specs at a glance, and you enter each value once, with the right input for its type.
+When shoppers choose between similar products, they look at the details: screen size, weight, battery life, warranty. **Product Specifications & Comparison for WooCommerce** puts those details in a clear specifications table on every product page, and lets shoppers compare products side by side.
 
-Define a specification once, such as *Screen size*, *Weight* or *Warranty*, and reuse it across products. Arrange specifications into a specification set for each kind of product, such as laptops, shoes or furniture, with groups like *Display*, *Dimensions* or *Materials*. On the product screen, pick the set and fill in the values. The table appears in a Specifications tab on the product page.
+You define each specification once, group specifications into a set for each kind of product, such as laptops, sofas or running shoes, and fill in the values on the product screen. The table and the comparison read the same values, so there is nothing to keep in sync.
 
-Built for stores whose shoppers decide on details: electronics, hardware and tools, auto parts, appliances, furniture, fashion, cosmetics, books and music.
+[Try the live demo](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/dornaweb/product-specifications/develop/.wordpress-org/blueprints/blueprint.json). It opens a sample store with products and specifications right in your browser, using WordPress Playground. Nothing to install or sign up for.
 
-= Why use specifications instead of product attributes? =
+= Upgrading from 0.x? Read this first =
 
-WooCommerce attributes are built for variations and filters. They hold plain text, sit in one flat list, and every value is a term. A specification has a type: a number with a unit such as 15.6 in or 2.1 kg, a range such as 100–240 V, a date, a datasheet download, a link or a yes or no. Specifications are grouped, ordered per set, and checked when the product is saved. Values WooCommerce already has, such as SKU, weight, dimensions, brand and attributes, can be shown in the same table without typing them twice.
-
-= Features =
-
-* **Reusable specification library.** Define a specification once and use it in any number of sets. Search, filter by type, and see which sets use each one.
-* **Specification types.** Text, paragraph, single select, yes or no, number, document, link, date and WooCommerce product data.
-* **Numbers with units.** 17 unit kinds, such as length, weight, data size, voltage and power, or units you define. Ranges, decimal places, thousands separators, minimum and maximum.
-* **WooCommerce product data.** Show weight, dimensions, SKU, GTIN, categories, tags, brands or any product attribute, read from the product each time, so it never goes stale.
-* **Documents.** Attach datasheets, manuals, safety sheets and certificates from the media library. Shoppers see a download link with the file type and size.
-* **Drag-and-drop set editor.** Build groups by dragging specifications from the library, create new ones inline, and hide items per set.
-* **Fast product entry.** Each value gets the control its type needs, text suggests values already used on your products, and defaults are offered as a starting value.
-* **Display anywhere.** A product tab, a Product Specifications block for block themes, and the `[specs-table]` shortcode for page builders and classic themes.
-* **Replace the Additional information tab.** Hide WooCommerce's own tab when a product has specifications, or always.
-* **Theme friendly.** Lightweight markup with clear CSS classes, or turn off the plugin stylesheet and style the table in your theme.
-* **Import and export.** Move specifications, sets and product values between stores as one file, with a preview before anything changes. Products are matched by SKU or slug. WP-CLI commands included.
-* **For developers.** A documented PHP API to read and write values, hooks to change the table, and custom specification types.
-* **Compatible with** WooCommerce High-Performance Order Storage (HPOS) and translation-ready.
-
-= Upgrading from 0.x =
-Version 2.0.0 stores specifications differently. Your tables are hidden from the storefront until you run the migration.
+**Version 2 stores specifications in a new format. Your specification tables stay hidden from the storefront until you run the migration.** Plan the update before you click it:
 
 1. Check that your site runs WordPress 7.0, WooCommerce 9.2 and PHP 8.1 or newer.
 2. Take a backup of your database. The migration changes data in place.
@@ -49,16 +30,48 @@ Version 2.0.0 stores specifications differently. Your tables are hidden from the
 4. Go to WooCommerce > Product Specifications > Migration and click Start migration.
 5. The migration runs in the background. You can leave the screen and come back later to see what it converted.
 
-The full [migration guide](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/guide/upgrading.md) explains what changes and how to update custom code.
+The [migration guide](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/guide/upgrading.md) explains what changes and how to update custom code.
+
+= Product specifications =
+
+A specification here is more than a line of text. A number keeps its unit, such as 15.6 in or 2.1 kg, and can be a range such as 100–240 V. A datasheet becomes a download link, and a yes or no shows as a check mark. Details WooCommerce already knows, like SKU, weight, dimensions and brand, can sit in the same table without being typed twice.
+
+The table shows in a Specifications tab on the product page. You can also place it with the Product Specifications block or the `[specs-table]` shortcode.
+
+It suits stores whose shoppers decide on details: electronics, hardware and tools, auto parts, appliances, furniture, fashion, cosmetics, books and music.
+
+= Product comparison =
+
+A shopper clicks Compare on a product page and lands on a comparison table with that product. From there they add other products of the same kind, and every row lines up: the same specifications, in the same groups and order. A phone and a sofa never end up in the same table.
+
+The whole comparison lives in the link, so shoppers can bookmark it or send it to someone. No account is needed. On a phone, each specification's name moves above its values, so three products still fit side by side.
+
+You choose which kinds of products can be compared, where the Compare button goes, and how many products fit in one comparison. The Product Comparison and Compare Button blocks, and their shortcodes, let you put both anywhere.
+
+= Why use specifications instead of product attributes? =
+
+WooCommerce attributes are built for variations and filters. They hold plain text, sit in one flat list, and every value is a term. A specification has a type: a number with a unit, a range, a date, a datasheet download, a link or a yes or no. Specifications are grouped, ordered per set, and checked when the product is saved. And you can still show attribute values in the table when you need them.
+
+= Features =
+
+* **Specification library.** Define a specification once and use it in any number of sets. Search it, filter by type, and see which sets use it.
+* **Specification types.** Text, paragraph, single select, yes or no, number, date, link, document and WooCommerce product data.
+* **Numbers with units.** 17 unit kinds, such as length, weight, data size, voltage and power, or units you define. Ranges, decimal places, thousands separators, minimum and maximum.
+* **WooCommerce product data.** Show weight, dimensions, SKU, GTIN, categories, tags, brands or any product attribute. They are read from the product each time, so they never go stale.
+* **Documents.** Attach datasheets, manuals and certificates from the media library. Shoppers get a download link with the file type and size.
+* **Set editor.** Drag specifications into groups, and create new ones without leaving the editor.
+* **Quick product entry.** Every value gets the right input, with suggestions from your other products.
+* **Product comparison.** A Compare button, a comparison page and a shareable link, turned on per set.
+* **Display anywhere.** A product tab, blocks for block themes, and shortcodes for page builders and classic themes.
+* **Replace the Additional information tab.** Hide WooCommerce's own tab when a product has specifications, or always.
+* **Theme friendly.** Light markup with clear CSS classes. Turn off the plugin stylesheet and style it all in your theme.
+* **Import and export.** Move specifications, sets and product values between stores as one file, with a preview before anything changes. Products are matched by SKU or slug, and WP-CLI commands are included.
+* **Translation ready.** Every screen can be translated on translate.wordpress.org.
+* **For developers.** A documented PHP API to read and write values, hooks to change the table and the comparison, and custom specification types.
 
 = Documentation =
+
 The [user guide](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/README.md) covers every screen and specification type. The [developer documentation](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/developers/index.md) covers the PHP API, hooks and custom types.
-
-= Translation =
-Help translate Product Specifications into your language on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/product-specifications/).
-
-= Development =
-Development happens on [GitHub](https://github.com/dornaweb/product-specifications/). Bug reports and pull requests are welcome.
 
 == Installation ==
 
@@ -67,7 +80,7 @@ Development happens on [GitHub](https://github.com/dornaweb/product-specificatio
 3. Go to Specification sets, add a set, and drag specifications into groups. Publish the set.
 4. Edit a product, choose the set in the Product specifications panel, fill in the values and update the product.
 
-The table now shows in the Specifications tab of the product page.
+The table now shows in the Specifications tab of the product page. New sets offer comparison, the plugin creates a Compare page for you, and the Compare button appears on product pages. Change any of that under Settings.
 
 == Frequently Asked Questions ==
 
@@ -79,6 +92,18 @@ Attributes are plain text terms meant for variations and filtering. Specificatio
 
 = Can I show the table somewhere other than the product tab? =
 Yes. Add the Product Specifications block in the block editor, or use the `[specs-table]` shortcode in any page builder or classic theme. `[specs-table post_id="123"]` shows another product's table.
+
+= Can shoppers compare products? =
+Yes. A Compare button on the product page opens the compare page, where shoppers add more products of the same kind and see them side by side. Turn comparison on or off for each set on its Comparison tab, and choose the compare page, the button's place and its label under Settings.
+
+= Can shoppers compare products from different categories? =
+They can compare any products that use the same specification set, whatever their category. Products from different sets can't share a comparison, because their rows would not line up.
+
+= Does the comparison work on phones? =
+Yes. On a narrow screen each specification's name moves above its values, so up to three products fit side by side without scrolling sideways.
+
+= Can I put the Compare button on product cards or somewhere else? =
+Yes. Add the Compare Button block anywhere, including product loops in block themes, or use the `[specs-compare-button]` shortcode. To stop the automatic button on product pages, choose "Don't add" under Settings.
 
 = Does it work with my theme and page builder? =
 The product tab works with any theme that shows WooCommerce product tabs. Block themes can place the block in the single product template, and page builders such as Elementor can use the shortcode.
@@ -104,14 +129,8 @@ Check that the product has a set assigned, that the set is published, and that a
 = Can I move specifications to another store? =
 Yes. Under Import / Export, export specifications, sets and optionally product values as one file and import it on the other store. You see a preview before anything changes, and products are matched by SKU or slug. WP-CLI commands do the same from the command line.
 
-= How do I change the look of the table? =
-Turn off the plugin stylesheet under Settings and style the table in your theme. Its CSS classes start with `ps-product-specifications`.
-
-= Who can manage specifications? =
-Users who can manage WooCommerce, such as administrators and shop managers.
-
-= Is it compatible with HPOS? =
-Yes. The plugin declares compatibility with WooCommerce High-Performance Order Storage.
+= How do I change the look of the table and the comparison? =
+Turn off the plugin stylesheet under Settings and style them in your theme. The table's CSS classes start with `ps-product-specifications`, and the comparison's with `ps-comparison`.
 
 = I updated from 0.x and my tables are gone. =
 Run the migration under WooCommerce > Product Specifications. Tables are hidden until it finishes. See the [migration guide](https://github.com/dornaweb/product-specifications/blob/develop/docs/site/guide/upgrading.md).
@@ -141,7 +160,6 @@ Updating from 0.x? 2.0 changes how specifications are stored. Tables are hidden 
 == Changelog ==
 
 = 2.0.1 - 2026-11-18 =
-- Translators: The 0.x strings are gone, and about 560 of the 574 strings are new. "Attribute" is now "specification" and "table" is now "specification set". "Attribute" remains only for WooCommerce product attributes.
 - Fix: Two error messages on the Settings screen can now be translated.
 - Fix: The warning shown when deleting a set that products use translates correctly in every language.
 - Change: A rewritten plugin description, FAQ and screenshots.

@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: Product Specifications
-  text: Specification tables for WooCommerce
-  tagline: Define each specification once, group them into sets, and show a clean, consistent table on every product page.
+  text: Specification tables and product comparison for WooCommerce
+  tagline: Define each specification once, group them into sets, show a consistent table on every product page, and let shoppers compare products side by side.
   actions:
     - theme: brand
       text: Get started
@@ -25,4 +25,6 @@ features:
     details: Numbers with units, single selects, dates, links, documents, and values read straight from WooCommerce.
   - title: Shown the way your store looks
     details: A product tab, a block and a shortcode, all rendering the same table.
+  - title: Side-by-side comparison
+    details: A Compare button on each product opens a comparison of products of the same kind, in a link shoppers can share.
 ---

@@ -12,6 +12,7 @@ use Amiut\ProductSpecs\Specification\SpecificationDefinitionRepository;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationGroup;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSet;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetItem;
+use Amiut\ProductSpecs\SpecificationSet\SpecificationSetPresentation;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetRepository;
 use Amiut\ProductSpecs\SpecificationSet\SpecificationSetStructure;
 use Amiut\ProductSpecs\SpecificationSet\StructureMetaDefinition;
@@ -56,6 +57,7 @@ final class SetsSection implements Section
                 ...Shape::text($entry, 'title', $path, false),
                 ...Shape::text($entry, 'description', $path, false),
                 ...Shape::list($entry, 'groups', $path, true),
+                ...Shape::boolean($entry, 'comparison', $path),
             ];
 
             if (array_key_exists('status', $entry) && !in_array($entry['status'], self::STATUSES, true)) {
@@ -103,6 +105,7 @@ final class SetsSection implements Section
                 'title' => $set->title(),
                 'description' => $set->description(),
                 'status' => $set->status(),
+                'comparison' => $set->offersComparison(),
                 'groups' => array_map(
                     static fn (SpecificationGroup $group): array => [
                         'key' => $group->key(),
@@ -162,14 +165,22 @@ final class SetsSection implements Section
         $existing = $this->sets->bySlug($slug);
 
         $set = $existing === null
-            ? SpecificationSet::create($title, $status, $incoming, $slug, $description)
+            ? SpecificationSet::create(
+                $title,
+                $status,
+                $incoming,
+                $slug,
+                $description,
+                $this->presentation(SpecificationSetPresentation::forNewSet(), $entry)
+            )
             : SpecificationSet::fromStorage(
                 (int) $existing->id(),
                 $title,
                 $status,
                 $existing->structure()->mergedWith($incoming),
                 $existing->slug(),
-                $description
+                $description,
+                $this->presentation($existing->presentation(), $entry)
             );
 
         if ($this->sets->save($set) < 1) {
@@ -180,6 +191,16 @@ final class SetsSection implements Section
         }
 
         return $existing === null ? EntryOutcome::create($slug) : EntryOutcome::update($slug);
+    }
+
+    /**
+     * @param array<string, mixed> $entry
+     */
+    private function presentation(SpecificationSetPresentation $current, array $entry): SpecificationSetPresentation
+    {
+        $comparison = $entry['comparison'] ?? null;
+
+        return is_bool($comparison) ? $current->withComparison($comparison) : $current;
     }
 
     /**
@@ -201,6 +222,7 @@ final class SetsSection implements Section
         return $existing->title() !== Shape::string($entry, 'title')
             || $existing->status() !== $status
             || $existing->description() !== $description
+            || $existing->presentation() != $this->presentation($existing->presentation(), $entry)
             || $existing->structure()->mergedWith($this->structure($entry, $plan)) != $existing->structure();
     }
 

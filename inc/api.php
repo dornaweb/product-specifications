@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs;
 
+use Amiut\ProductSpecs\Block\CompareButton\CompareButtonBlock;
 use Amiut\ProductSpecs\Block\ProductSpecifications\ProductSpecificationsBlock;
 use Amiut\ProductSpecs\ProductValues\RejectedValues;
 use Amiut\ProductSpecs\ProductValues\SpecificationsUpdate;
@@ -61,6 +62,20 @@ function specificationValue(int|WC_Product $product, string $specification): mix
 function renderSpecificationsTable(int|WC_Product $product): string
 {
     return plugin()->container()->get(ProductSpecificationsBlock::class)->renderFor($product);
+}
+
+/**
+ * The compare button for the product, a link that opens the compare page with this product.
+ * The `[specs-compare-button]` shortcode and the Compare Button block render the same.
+ *
+ * @param int|WC_Product $product The product, by id or object.
+ * @return string Output-ready HTML. Empty when the product does not exist or is a variation,
+ *                its specification set is not published or does not offer comparison, or
+ *                no published compare page is selected in the settings.
+ */
+function renderCompareButton(int|WC_Product $product): string
+{
+    return plugin()->container()->get(CompareButtonBlock::class)->renderFor($product);
 }
 
 /**

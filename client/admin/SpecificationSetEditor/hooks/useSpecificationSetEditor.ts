@@ -17,14 +17,17 @@ import {
 	type StructureGroup,
 	type StructureItem,
 	type SpecificationSetGeneralState,
+	type SpecificationSetPresentation,
 	type SpecificationSetStatus,
 } from '../state';
 import {
 	createEmptySpecificationSetGeneralState,
 	createSpecificationSetGeneralStateFromPostRecord,
+	createSpecificationSetPresentationFromPostRecord,
 	createSpecificationSetStructureFromPostRecord,
 } from '../mapping/specificationSetRecord';
 import { emptyStructure } from '../../shared/contracts/structure';
+import { presentationForNewSet } from '../../shared/contracts/presentation';
 import { groupKeyFrom } from '../mapping/specificationSetStructure';
 import { useSpecificationSetEntity } from './useSpecificationSetEntity';
 import { EDIT_SPECIFICATION_SET_PATH } from '../../shared/paths';
@@ -42,6 +45,7 @@ interface StoreSelectors {
 	getPostId: () => number | null;
 	getGeneral: () => SpecificationSetGeneralState;
 	getStructure: () => SpecificationSetStructure;
+	getPresentation: () => SpecificationSetPresentation;
 	hasUnsavedChanges: () => boolean;
 	isSaving: () => boolean;
 	getNotice: () => NoticeState | null;
@@ -51,8 +55,10 @@ interface StoreActions {
 	initializeEditor: (
 		postId: number | null,
 		general: SpecificationSetGeneralState,
-		structure: SpecificationSetStructure
+		structure: SpecificationSetStructure,
+		presentation: SpecificationSetPresentation
 	) => void;
+	updateComparison: ( comparison: boolean ) => void;
 	addGroup: ( group: StructureGroup, position?: number | null ) => void;
 	addItem: (
 		groupKey: string,
@@ -89,6 +95,7 @@ interface StoreActions {
 		postId: number,
 		general: SpecificationSetGeneralState,
 		structure: SpecificationSetStructure,
+		presentation: SpecificationSetPresentation,
 		notice: NoticeState
 	) => void;
 	failSave: ( notice: NoticeState ) => void;
@@ -100,6 +107,7 @@ export interface SpecificationSetEditorData {
 	postId: number | null;
 	general: SpecificationSetGeneralState;
 	structure: SpecificationSetStructure;
+	presentation: SpecificationSetPresentation;
 	hasUnsavedChanges: boolean;
 	isSaving: boolean;
 	isLoading: boolean;
@@ -109,6 +117,7 @@ export interface SpecificationSetEditorData {
 		field: keyof Omit< SpecificationSetGeneralState, 'status' >
 	) => ( value: string | undefined ) => void;
 	updateStatus: ( status: SpecificationSetStatus | undefined ) => void;
+	updateComparison: ( comparison: boolean ) => void;
 	addGroup: ( label: string, options?: NewGroupOptions ) => void;
 	addItem: (
 		groupKey: string,
@@ -187,22 +196,31 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 	const mode: SpecificationSetEditorMode =
 		currentPath() === EDIT_SPECIFICATION_SET_PATH ? 'edit' : 'create';
 	const requestedPostId = mode === 'edit' ? parsePostId( query.id ) : null;
-	const { postId, general, structure, hasUnsavedChanges, isSaving, notice } =
-		useSelect( ( select ) => {
-			const selectors = select( editorStore ) as StoreSelectors;
+	const {
+		postId,
+		general,
+		structure,
+		presentation,
+		hasUnsavedChanges,
+		isSaving,
+		notice,
+	} = useSelect( ( select ) => {
+		const selectors = select( editorStore ) as StoreSelectors;
 
-			return {
-				postId: selectors.getPostId(),
-				general: selectors.getGeneral(),
-				structure: selectors.getStructure(),
-				hasUnsavedChanges: selectors.hasUnsavedChanges(),
-				isSaving: selectors.isSaving(),
-				notice: selectors.getNotice(),
-			};
-		}, [] );
+		return {
+			postId: selectors.getPostId(),
+			general: selectors.getGeneral(),
+			structure: selectors.getStructure(),
+			presentation: selectors.getPresentation(),
+			hasUnsavedChanges: selectors.hasUnsavedChanges(),
+			isSaving: selectors.isSaving(),
+			notice: selectors.getNotice(),
+		};
+	}, [] );
 	const {
 		initializeEditor,
 		updateGeneralField,
+		updateComparison,
 		addGroup,
 		addItem,
 		updateGroup,
@@ -243,7 +261,8 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 		initializeEditor(
 			null,
 			createEmptySpecificationSetGeneralState(),
-			emptyStructure()
+			emptyStructure(),
+			presentationForNewSet()
 		);
 	}, [ initializeEditor, mode ] );
 
@@ -266,7 +285,8 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 		initializeEditor(
 			requestedPostId,
 			createSpecificationSetGeneralStateFromPostRecord( record ),
-			createSpecificationSetStructureFromPostRecord( record )
+			createSpecificationSetStructureFromPostRecord( record ),
+			createSpecificationSetPresentationFromPostRecord( record )
 		);
 	}, [ initializeEditor, mode, postId, record, requestedPostId ] );
 
@@ -303,12 +323,14 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 				postId,
 				general,
 				structure,
+				presentation,
 			} );
 
 			finishSave(
 				savedRecord.id,
 				createSpecificationSetGeneralStateFromPostRecord( savedRecord ),
 				createSpecificationSetStructureFromPostRecord( savedRecord ),
+				createSpecificationSetPresentationFromPostRecord( savedRecord ),
 				{
 					status: 'success',
 					message: __(
@@ -385,6 +407,7 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 		postId,
 		general,
 		structure,
+		presentation,
 		hasUnsavedChanges,
 		isSaving,
 		isLoading:
@@ -395,6 +418,7 @@ export function useSpecificationSetEditor(): SpecificationSetEditorData {
 		notice,
 		updateTextField,
 		updateStatus,
+		updateComparison,
 		addGroup: ( label: string, options: NewGroupOptions = {} ) =>
 			addGroup(
 				{

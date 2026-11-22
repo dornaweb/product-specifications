@@ -29,6 +29,12 @@ export interface ProductSeed {
 	sku?: string;
 	set?: CreatedSpecificationSet;
 	values?: Record< string, unknown >;
+	stockStatus?: 'instock' | 'outofstock';
+	catalogVisibility?: 'visible' | 'catalog' | 'search' | 'hidden';
+}
+
+export interface SetOptions {
+	comparison?: boolean;
 }
 
 export interface StoredStructure {
@@ -70,7 +76,8 @@ export class Catalog {
 
 	async specificationSet(
 		title: string,
-		groups: GroupSeed[]
+		groups: GroupSeed[],
+		{ comparison }: SetOptions = {}
 	): Promise< CreatedSpecificationSet > {
 		const uniqueTitle = this.unique( title );
 		const record = await this.requestUtils.rest< {
@@ -83,6 +90,16 @@ export class Catalog {
 				title: uniqueTitle,
 				status: 'publish',
 				meta: {
+					...( comparison === undefined
+						? {}
+						: {
+								specification_set_presentation: {
+									schema_version: 1,
+									empty_rows: 'hide',
+									empty_groups: 'hide',
+									comparison,
+								},
+						  } ),
 					specification_set_structure: {
 						schema_version: 1,
 						groups: groups.map( ( group, index ) => ( {
@@ -107,7 +124,13 @@ export class Catalog {
 
 	async product(
 		name: string,
-		{ sku, set, values = {} }: ProductSeed = {}
+		{
+			sku,
+			set,
+			values = {},
+			stockStatus = 'instock',
+			catalogVisibility = 'visible',
+		}: ProductSeed = {}
 	): Promise< CreatedProduct > {
 		const record = await this.requestUtils.rest< CreatedProduct >( {
 			method: 'POST',
@@ -117,6 +140,8 @@ export class Catalog {
 				type: 'simple',
 				status: 'publish',
 				regular_price: '10',
+				stock_status: stockStatus,
+				catalog_visibility: catalogVisibility,
 				...( sku ? { sku } : {} ),
 				meta_data: set
 					? [
@@ -202,6 +227,39 @@ export class Catalog {
 				data: { settings },
 			} )
 		);
+	}
+
+	async changeSettings(
+		changes: Record< string, unknown >
+	): Promise< void > {
+		await this.keepSettings();
+
+		const { settings } = await this.requestUtils.rest< {
+			settings: Record< string, unknown >;
+		} >( { path: SETTINGS_PATH } );
+
+		await this.requestUtils.rest( {
+			method: 'POST',
+			path: SETTINGS_PATH,
+			data: { settings: { ...settings, ...changes } },
+		} );
+	}
+
+	async pageRecord(
+		content: string
+	): Promise< { id: number; link: string } > {
+		const record = await this.requestUtils.rest< {
+			id: number;
+			link: string;
+		} >( {
+			method: 'POST',
+			path: '/wp/v2/pages',
+			data: { title: this.unique( 'Page' ), content, status: 'publish' },
+		} );
+
+		this.track( `/wp/v2/pages/${ record.id }` );
+
+		return record;
 	}
 
 	adopt( path: string ): void {
