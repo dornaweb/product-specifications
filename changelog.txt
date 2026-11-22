@@ -1,3 +1,19 @@
+= 2.1.0 - 2026-11-22 =
+Product comparison
+- New: Shoppers compare products of the same specification set side by side. A Compare button on the product page opens the compare page, and the comparison is a link they can share.
+- New: A Comparison tab on each specification set. New sets offer comparison. Sets created before 2.1.0 don't until you turn it on.
+- New: A Compare page is created on update and kept out of search engines.
+- New: Settings for the compare page, the button's place and label, and the maximum number of products.
+- New: Product Comparison and Compare Button blocks, and the [specs-comparison] and [specs-compare-button] shortcodes.
+
+Developers
+- New: renderCompareButton() in the PHP API.
+- New: The product_specifications_comparison_product_header action and the product_specifications_comparison_noindex filter.
+- New: Import and export files carry each set's comparison flag.
+
+Other
+- Change: The plugin is now called Product Specifications & Comparison for WooCommerce.
+
 = 2.0.1 - 2026-11-18 =
 Translators
 - Change: The 0.x strings are gone. About 560 of the 574 strings are new, and 13 carry over unchanged.

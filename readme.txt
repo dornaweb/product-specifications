@@ -4,7 +4,7 @@ Contributors: dornaweb, pelentak, desperadohouse, mehdiraized
 Tags: woocommerce, product specifications, product comparison, compare products, specifications table
 Requires at least: 7.0
 Tested up to: 7.1
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 Requires PHP: 8.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -151,13 +151,22 @@ Yes. The plugin has a documented PHP API, hooks to change the table before it re
 
 == Upgrade Notice ==
 
+= 2.1.0 =
+Updating from 0.x? 2.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
+
 = 2.0.1 =
 Updating from 0.x? 2.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
 
 = 2.0.0 =
-2.0.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
+Updating from 0.x? 2.0 changes how specifications are stored. Tables are hidden until you run the migration under WooCommerce > Product Specifications. Take a backup and read the migration guide in the plugin description first.
 
 == Changelog ==
+
+= 2.1.0 - 2026-11-22 =
+- New: Product comparison. A Compare button on the product page opens a compare page, where shoppers compare products of the same set side by side.
+- New: A Comparison tab on each specification set. Existing sets don't offer comparison until you turn it on.
+- New: Product Comparison and Compare Button blocks and shortcodes.
+- Change: The plugin is now called Product Specifications & Comparison for WooCommerce.
 
 = 2.0.1 - 2026-11-18 =
 - Fix: Two error messages on the Settings screen can now be translated.
