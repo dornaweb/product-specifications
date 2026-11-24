@@ -17,13 +17,14 @@ final class ProductValuesStep implements MigrationStep
 {
     public const KEY = 'values';
 
-    private const SNAPSHOT_META = '_dwps_specification_table';
-    private const TABLE_META = '_dwps_table';
-    private const MIGRATED_META = '_product_specifications_migrated';
+    public const SNAPSHOT_META = '_dwps_specification_table';
+    public const TABLE_META = '_dwps_table';
+    public const MIGRATED_META = '_product_specifications_migrated';
 
     public function __construct(
         private readonly SnapshotValueReader $reader,
-        private readonly ProductValueRepository $values
+        private readonly ProductValueRepository $values,
+        private readonly LegacyProducts $products
     ) {
     }
 
@@ -34,17 +35,12 @@ final class ProductValuesStep implements MigrationStep
 
     public function total(): int
     {
-        return count($this->productIds([
-            'relation' => 'AND',
-            ['key' => self::MIGRATED_META, 'compare' => 'NOT EXISTS'],
-            ['key' => WordPressProductValueRepository::VALUES_META_KEY, 'compare' => 'NOT EXISTS'],
-            ['key' => WordPressProductValueRepository::SET_META_KEY, 'compare' => 'NOT EXISTS'],
-        ]));
+        return $this->products->pending();
     }
 
     public function run(int $cursor, int $limit): ChunkResult
     {
-        $batch = IdBatch::after($this->productIds(), $cursor, $limit);
+        $batch = IdBatch::after($this->products->idsAfter($cursor, $limit + 1), $cursor, $limit);
         $processed = 0;
         $skipped = [];
         $errors = [];
@@ -129,39 +125,5 @@ final class ProductValuesStep implements MigrationStep
             : $table->post_name;
 
         return is_string($slug) && $slug !== '' ? $slug : null;
-    }
-
-    /**
-     * @param array<array-key, mixed> $pendingOnly
-     * @return list<int>
-     */
-    private function productIds(array $pendingOnly = []): array
-    {
-        $holdingLegacyData = [
-            'relation' => 'OR',
-            ['key' => self::SNAPSHOT_META, 'compare' => 'EXISTS'],
-            ['key' => self::TABLE_META, 'compare' => 'EXISTS'],
-        ];
-
-        $ids = get_posts([
-            'post_type' => 'product',
-            'post_status' => array_values(get_post_stati()),
-            'posts_per_page' => -1,
-            'fields' => 'ids',
-            'no_found_rows' => true,
-            'meta_query' => $pendingOnly === []
-                ? $holdingLegacyData
-                : array_merge($pendingOnly, [$holdingLegacyData]),
-        ]);
-
-        $productIds = [];
-
-        foreach (is_array($ids) ? $ids : [] as $id) {
-            if (is_numeric($id) && (int) $id > 0) {
-                $productIds[] = (int) $id;
-            }
-        }
-
-        return $productIds;
     }
 }

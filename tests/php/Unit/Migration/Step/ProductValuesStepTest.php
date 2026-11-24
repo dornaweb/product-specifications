@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amiut\ProductSpecs\Tests\Unit\Migration\Step;
 
+use Amiut\ProductSpecs\Migration\Step\LegacyProducts;
 use Amiut\ProductSpecs\Migration\Step\ProductValuesStep;
 use Amiut\ProductSpecs\Migration\Step\SnapshotValueReader;
 use Amiut\ProductSpecs\Migration\Step\SpecificationLookup;
@@ -18,7 +19,6 @@ final class ProductValuesStepTest extends TestCase
 {
     protected function setUp(): void
     {
-        $GLOBALS['wp_test_posts'] = [10, 11];
         $GLOBALS['wp_test_post_meta'] = [
             10 => ['_dwps_specification_table' => $this->snapshot('2 years')],
             11 => ['_dwps_specification_table' => $this->snapshot('3 years')],
@@ -94,9 +94,24 @@ final class ProductValuesStepTest extends TestCase
             }
         };
 
+        $products = new class implements LegacyProducts {
+            public function idsAfter(int $cursor, int $limit): array
+            {
+                $remaining = array_filter([10, 11], static fn (int $id): bool => $id > $cursor);
+
+                return array_slice(array_values($remaining), 0, $limit);
+            }
+
+            public function pending(): int
+            {
+                return 2;
+            }
+        };
+
         return new ProductValuesStep(
             new SnapshotValueReader($lookup, new SpecificationTypeRegistry(new TextType())),
-            new WordPressProductValueRepository()
+            new WordPressProductValueRepository(),
+            $products
         );
     }
 }
