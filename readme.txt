@@ -165,7 +165,7 @@ Updating from 0.x? 2.0 changes how specifications are stored. Tables are hidden 
 
 == Changelog ==
 
-= 2.1.1 - 2026-11-24 =
+= 2.1.1 - 2026-11-25 =
 - Fix: On large catalogs the migration could stop part-way and still report it had finished. Sites it happened to are asked to run the migration again, which migrates only the products left behind.
 
 = 2.1.0 - 2026-11-22 =

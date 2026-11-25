@@ -1,4 +1,4 @@
-= 2.1.1 - 2026-11-24 =
+= 2.1.1 - 2026-11-25 =
 - Fix: On large catalogs the migration could stop part-way and still report it had finished, leaving the remaining products without their specifications. Sites this happened to are asked to run the migration again after updating. It migrates only the products left behind.
 - Fix: A database error now stops the migration so it can be resumed, instead of ending it.
 
