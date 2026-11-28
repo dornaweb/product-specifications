@@ -1,4 +1,4 @@
-# Product Specifications & Comparison for WooCommerce
+# Product Specifications & Compare for WooCommerce
 
 > [!IMPORTANT]
 > **Upgrading from 0.x?** Version 2 stores specifications in a new format.

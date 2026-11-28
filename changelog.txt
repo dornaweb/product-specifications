@@ -1,3 +1,7 @@
+= 2.1.2 - 2026-11-28 =
+- Fix: A specification set with many specifications whose names are in a non-Latin script, such as Persian or Arabic, failed to load on the product screen and in the set editor, and every specification showed as missing.
+- Maintenance: Tested with WordPress 7.1.5 and WooCommerce 11.3.1.
+
 = 2.1.1 - 2026-11-25 =
 - Fix: On large catalogs the migration could stop part-way and still report it had finished, leaving the remaining products without their specifications. Sites this happened to are asked to run the migration again after updating. It migrates only the products left behind.
 - Fix: A database error now stops the migration so it can be resumed, instead of ending it.

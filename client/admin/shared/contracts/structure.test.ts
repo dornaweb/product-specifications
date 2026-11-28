@@ -1,4 +1,4 @@
-import { inBatches, readStructure, structureSlugs } from './structure';
+import { readStructure, slugBatches, structureSlugs } from './structure';
 
 describe( 'readStructure', () => {
 	it( 'keeps an item by its slug and leaves a stored term id behind', () => {
@@ -49,15 +49,43 @@ describe( 'structureSlugs', () => {
 	} );
 } );
 
-describe( 'inBatches', () => {
+describe( 'slugBatches', () => {
 	it( 'splits into requests the REST endpoint accepts', () => {
 		const slugs = Array.from( { length: 205 }, ( _, i ) => `s${ i }` );
-		const batches = inBatches( slugs );
+		const batches = slugBatches( slugs );
 
 		expect( batches.map( ( batch ) => batch.length ) ).toEqual( [
 			100, 100, 5,
 		] );
 		expect( batches.flat() ).toEqual( slugs );
-		expect( inBatches( [] ) ).toEqual( [] );
+		expect( slugBatches( [] ) ).toEqual( [] );
+	} );
+
+	it( 'keeps the query string of a batch of percent-encoded slugs short enough for the server', () => {
+		const persian =
+			'%d8%b3%db%8c%d8%b3%d8%aa%d9%85-%d8%b5%d9%88%d8%aa%db%8c';
+		const slugs = Array.from(
+			{ length: 66 },
+			( _, i ) => `${ persian }-${ i }`
+		);
+		const batches = slugBatches( slugs );
+
+		expect( batches.length ).toBeGreaterThan( 1 );
+		expect( batches.flat() ).toEqual( slugs );
+		batches.forEach( ( batch ) =>
+			expect(
+				batch.map( encodeURIComponent ).join( '' ).length
+			).toBeLessThanOrEqual( 2000 )
+		);
+	} );
+
+	it( 'gives a slug longer than the budget a batch of its own', () => {
+		const long = '%d8%a8'.repeat( 400 );
+
+		expect( slugBatches( [ 'a', long, 'b' ] ) ).toEqual( [
+			[ 'a' ],
+			[ long ],
+			[ 'b' ],
+		] );
 	} );
 } );

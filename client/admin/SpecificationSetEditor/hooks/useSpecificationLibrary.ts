@@ -8,7 +8,7 @@ import type {
 	SpecificationRecord,
 } from '../../Specifications/mapRecord';
 import type { ResolutionSelectors } from '../../shared/storeResolution';
-import { inBatches } from '../../shared/contracts/structure';
+import { slugBatches } from '../../shared/contracts/structure';
 
 const PER_PAGE = 100;
 
@@ -62,7 +62,7 @@ export function useSpecificationLibrary(
 	// set keeps the canvas readable whatever the column is showing.
 	const heldQueries = useMemo(
 		() =>
-			inBatches( Array.from( new Set( usedSlugs ) ).sort() ).map(
+			slugBatches( Array.from( new Set( usedSlugs ) ).sort() ).map(
 				( slug ) => ( { ...BASE_QUERY, slug } )
 			),
 		[ usedSlugs ]

@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Plugin Name: Product Specifications & Comparison for WooCommerce
+ * Plugin Name: Product Specifications & Compare for WooCommerce
  * Plugin URI: https://github.com/dornaweb/product-specifications/
  * Description: Specification tables for WooCommerce products, built from reusable specification sets, and a side-by-side product comparison.
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: Amin Abdolrezapoor
  * Author URI: https://amin.nz
  * License: GPL-2.0+
  * Requires Plugins: woocommerce
  * Requires PHP: 8.1
  * Requires at least: 7.0
- * WC tested up to: 11.3.0
+ * WC tested up to: 11.3.1
  * WC requires at least: 9.2.0
  */
 

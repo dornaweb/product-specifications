@@ -2,7 +2,12 @@ export const STRUCTURE_META_KEY = 'specification_set_structure';
 export const STRUCTURE_SCHEMA_VERSION = 1;
 
 // The REST terms endpoint answers at most this many records per request.
-export const REST_PAGE_LIMIT = 100;
+const REST_PAGE_LIMIT = 100;
+
+// Slugs travel in the query string, and many servers refuse a URL past 8 KB. A
+// non-Latin slug is stored percent-encoded and encoded again in the URL, so it
+// costs about ten characters per letter.
+const SLUG_QUERY_BUDGET = 2000;
 
 export interface StructureItem {
 	slug: string;
@@ -59,11 +64,29 @@ export function structureSlugs(
 	);
 }
 
-export function inBatches< T >( entries: T[], size = REST_PAGE_LIMIT ): T[][] {
-	const batches: T[][] = [];
+export function slugBatches( slugs: string[] ): string[][] {
+	const batches: string[][] = [];
+	let batch: string[] = [];
+	let queryLength = 0;
 
-	for ( let start = 0; start < entries.length; start += size ) {
-		batches.push( entries.slice( start, start + size ) );
+	for ( const slug of slugs ) {
+		const slugLength = encodeURIComponent( slug ).length;
+		const isFull =
+			batch.length === REST_PAGE_LIMIT ||
+			queryLength + slugLength > SLUG_QUERY_BUDGET;
+
+		if ( batch.length > 0 && isFull ) {
+			batches.push( batch );
+			batch = [];
+			queryLength = 0;
+		}
+
+		batch.push( slug );
+		queryLength += slugLength;
+	}
+
+	if ( batch.length > 0 ) {
+		batches.push( batch );
 	}
 
 	return batches;

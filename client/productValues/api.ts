@@ -1,6 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
-import { inBatches } from '../admin/shared/contracts/structure';
+import { slugBatches } from '../admin/shared/contracts/structure';
 import type {
 	ProductValuesResponse,
 	SetRecord,
@@ -28,11 +28,11 @@ export const readSets = () =>
 		path: '/wp/v2/specification-sets?context=edit&per_page=100&_fields=id,title,slug,meta',
 	} );
 
-// A set references its specifications by slug, and the terms endpoint answers at
-// most a page of them at a time, so a large set is fetched in batches.
+// A set references its specifications by slug, and one request can carry only so
+// many of them, so a large set is fetched in batches.
 export const readSpecifications = ( slugs: string[] ) =>
 	Promise.all(
-		inBatches( slugs ).map( ( batch ) =>
+		slugBatches( slugs ).map( ( batch ) =>
 			apiFetch< SpecificationRecord[] >( {
 				path: addQueryArgs( '/wp/v2/specifications', {
 					context: 'edit',
